@@ -169,34 +169,69 @@ $_SERVER['REQUEST_METHOD']
 		.header h3 {
 			color:  #D13525;  /* apple red */
 		}
+
+
+		/* chatbox */
+
+		.chatbox {
+			background: #fff;
+			padding: 0.5em;
+			border-radius: 0.2em;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		}
 		.top-bar {
-  background: #666;
-  position: relative;
-  overflow: hidden; 
-}
-.top-bar::before {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: 0;
-  right: 0;
-  bottom: -100%;
-  opacity: 0.25;
-  background: radial-gradient(white, black);
-}
+			background: #666;
+			position: relative;
+			color: #fff;
+			border-radius: 0.2em;
+			overflow: hidden; 
+		}
+		.top-bar::before {
+			content: "";
+			position: absolute;
+			top: -100%;
+			left: 0;
+			right: 0;
+			bottom: -100%;
+			opacity: 0.25;
+			background: radial-gradient(white, black);
+		}
+		.top-bar > * {
+			position: relative;
+		}
+		.top-bar::before {
+			animation: pulse 1s ease alternate infinite;
+		}
+		@keyframes pulse {
+			from { opacity: 0; }
+			to { opacity: 0.5; }
+		}
+		#conversation {
+			list-style-type: none;
+			padding: 0.5em;
+		}
 
-.top-bar > * {
-  position: relative;
-}
+		.message {
+			padding: 0.5em;
+			border-radius: 0.2em;
+			margin-bottom: 0.3em;
+			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+		}
+		.me {
+			background: #4C3F54; /* fig */
+			color: #fff; /* #fff */
 
-.top-bar::before {
-  animation: pulse 1s ease alternate infinite;
-}
-@keyframes pulse {
-  from { opacity: 0; }
-  to { opacity: 0.5; }
-}
+		}
+		.you {
+			background: linear-gradient(to left top, #D5C3AA, #EAE2D6); /* Linen, Oyster */
+		}
 
+		#send {
+			background: #D13525; /* apple red */
+			color: #fff;
+		}
 
 	</style>
 </head>
@@ -271,18 +306,30 @@ $_SERVER['REQUEST_METHOD']
 						<h3 class="emphasized">Let's chat...</h3> <hr>
 						<div class="chatbox">
 							<div class="top-bar">
-								<h1>Hangouts</h1>
+								<h3>Bot Overflow</h3>
 								<!-- likely some spans and stuff -->
 							</div>
-							<ol class="conversation">
-								<li>
-									<img class="avatar" />
-									<div class="message">
-										<p>Talkie talk talk.</p>
+							<ol id="conversation">
+								<li id="bot">
+									<div class="message you">
+										<p>Bot: Talkie talk talk.</p>
 									</div>
-								<li>
+								</li>
+								<li id="user">
+									<div class="message me">
+										<p>User: Talk that talk</p>
+									</div>
+								</li>
 							</ol>
-						</div>
+							<form id="form" autocomplete="off" method="post">
+								<div class="form-group">
+									<input type="text" name="message" class="form-control" placeholder="Start conversation..."> <hr>
+								</div>
+								<div class="form-group">
+									<button type="submit" id="send" class="btn btn-default">Send <i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+								</div>
+							</form>
+						</div> <!-- chatbox -->
 					</div> <!-- col-md-6 -->
 				</div> <!-- row -->
 
@@ -304,7 +351,7 @@ $_SERVER['REQUEST_METHOD']
 		</div>
 	</footer>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 	<script type="text/javascript">
@@ -321,50 +368,64 @@ $_SERVER['REQUEST_METHOD']
 
 
 $(document).ready(function() {
-
-	var form = $('#form');
-	//prevent default behavior
-	form.submit(function(e) {
-		e.preventDefault();
-	})
-
-	//create a new message 
-	function newMessage() {
-		//get value from form input
-		console.log("I have been called");
+	function ajaxCall(question) {
+		$.ajax({
+			url: 'emelon.php',
+			dataType: 'json',
+			type: 'post',
+			data: { question : question},
+			processData: false,
+			success: function( response ){
+				console.log(data);
+			},
+			error: function( error ){
+				console.log( error );
+			}
+		});
 	}
 
-	//add event handler for when a user clicks on submit
-	$('.btn').click(function() {
-		newMessage();
-		serverCall();
-	});
+	function newMessage() {
+		$( "#form" ).submit(function(event) {
 
-	//I assume this is fired when a user presses return
-	$(window).on('keydown', function(e) {
-	  if (e.which == 13) {
-		newMessage();
-		ajaxCall();
-		return false;
-	  }
-	});
+			//Capture data from form
+			var message = $("input:first").val(); 
 
-	//send an ajax request to the server with the form's content
-	function serverCall() {
-		var question = $("#message").val();
+			//prevent form from submitting
+			event.preventDefault();
 
-		//check if question is an empty string
-		if($.trim(question) == '') {
-			return false;
-		}
+			//send ajax request
+			ajaxCall();
+		});
+	}
 
-		//send an ajax request
-		$.ajax({
-			url : "profiles/emelon.php",
-			type : "post",
-			data : {question : question},
-			dataType : "json",
-			success : function(res) {
+	function appendMessage(message) {
+		//Grab ordered list (check)
+		//Add corrosponding classes(check)
+		//Append message (check)
+		//Clear input (check)
+		//Disable autocomplete (check)
+		//Add scroll functionality
+		$(`<li class="message me"> <p>${message}</p> </li>`).appendTo($('#conversation'));
+
+		//Reset form inputs
+		$("input:first").val('');
+
+		//Add scroll functionality
+		//$(".chatbox").animate({ scrollTop: $(document).height() }, "fast");
+	}
+
+	newMessage();
+
+	//Executing two functions, one after another
+	//I'd like to display my content and then send a request to the server in the background
+
+
+
+});
+
+
+/*
+
 
 				//create a div and attach class bubble to it to indicate it's a message
 				//append div
@@ -390,34 +451,6 @@ $(document).ready(function() {
 				//your next step would be creating the chat bubbles
 				*/
 
-			}, 
-			error : function(err) {
-				console.log(err);
-			}
-		});
-	}
-});
-
-
-/*
-
-git status: check status of project. Which files are being tracked.
-git add . (dot): add all files to git
-git commit -m 'write message here': commits changes to git
-git pull origin master: refreshes and keeps your files up to date with the online version
-git push -u origin master: uploads the files into github
-
-
-So, there are two copies of the project
-
-
-An offline copy known as master 
-An online copy known as origin master 
-
-You write code offline then push it online
-Always make sure you git pull origin master so the files stay up to date
-
-*/
 
 	</script>
 </body>
