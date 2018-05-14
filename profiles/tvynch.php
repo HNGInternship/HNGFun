@@ -368,27 +368,31 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-font-awesome.min.css">
   </head>
   <style media="screen">
-      .page-header {
+    .page-header {
       padding-bottom: 9px;
       margin: 40px 0 20px;
       border-bottom: 1px solid #eee;
-      }
-      .small{
+    }
+    .small{
           font-size: 0.35em;
           border-top: 1px solid #eee;
-      }
-      .header{
+    }
+    .header{
         font-weight: bold;
         font-stretch: expanded;
-      }
+    }
 
-      li{
+    a{
+      text-decoration: none;
+    }
+
+   li{
         list-style: none;
-      }
+    }
 
-      section{
-        margin-top: 50px;
-      }
+    section{
+      margin-top: 50px;
+    }
 
     html {
       box-sizing: border-box;
@@ -601,16 +605,16 @@ try {
       margin-top: 15px;
       padding-top: 25px;
       border-top: 1px solid grey;
-  }
-  .footer li{
+    }
+    .footer li{
 
-  }
+    }
   </style>
   <body>
     <div class="container">
       <div class="row">
           <header class="col-md-12">
-            <h1 class="page-header"> <?php echo $user->username;?>'s Profile <span class="small"> George Jacob T.</span></h1>
+            <h1 class="page-header"> tvynch's Profile <span class="small"> George Jacob T.</span></h1>
 
             <div class="text-center header">
               <h3>Major >> Web Developer</h3>
