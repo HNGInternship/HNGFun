@@ -9,9 +9,7 @@
         throw $e;
     }  
 ?>
-
-<?php
-  
+ 
 <?php
     try {
         $sql = 'SELECT * FROM secret_word';
