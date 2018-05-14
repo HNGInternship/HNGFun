@@ -35,26 +35,26 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		.container{
-			height: 500px;
-			width: 500px;
+			height: 300px;
+			width: 300px;
 			background-color: #A394CD;
 		}
-		img  {width: 200px;
-			height: 200px;
+		img  {width: 50px;
+			height: 50px;
 			border-radius: 40%;
-			margin-top: 60px;
-			margin-left:20px;
+			margin-top: 30px;
+			margin-left:10px;
 		}
 		.aboutme{
-			width: 1150px;
-			height: 300px;
+			width: 250px;
+			height: 150px;
 			background-color: #D1CBCF;
 			align-self: center;
-			margin-top: 40px;
+			margin-top: 10px;
 
 		}
 		.email{
-			width: 250px;
+			width: 150px;
 			height: 50px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
@@ -63,7 +63,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			border-bottom: 2px;
 		}
 		.phone {
-			width: 250px;
+			width: 150px;
 			height: 50px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
