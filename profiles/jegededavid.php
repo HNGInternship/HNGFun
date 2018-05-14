@@ -84,7 +84,7 @@
         </div>
         <br>
         
-         <body  style="text-align:center;">         <textarea readonly="true" id="botChat" style="text-align:left; position:left; display:block; top:3vh; border:1px solid black; width:92.5vw; margin-left:1%; margin-right:2.25%; height:50vh; resize:none; font-family:Courier; overflow-y:auto; user-select:none; font-size:3vw;"></textarea>        <p style="position:absolute; border:1px solid black; below:78vh; left:12.25vw; width:75vw;">        <input type="text" placeholder="Ask a question" onKeypress="enterButton(event, document.getElementsByTagName('input')[0].value);" style="color:red; background-color:black; width:79%;">         <button onClick="answer(document.getElementsByTagName('input')[0].value)">Talk To Me</button></p>        <script>
+         <body  style="text-align:center;">         <textarea readonly="true" id="botChat" style="text-align:left; position:center; display:block; top:3vh; border:1px solid black; width:70.5vw; margin-left:20%; margin-right:20.25%; height:50vh; resize:none; font-family:Courier; overflow-y:auto; user-select:none; font-size:3vw;"></textarea>        <p style="position:absolute; border:1px solid black; below:78vh; left:12.25vw; width:75vw;">        <input type="text" placeholder="Ask a question" onKeypress="enterButton(event, document.getElementsByTagName('input')[0].value);" style="color:red; background-color:black; width:79%;">         <button onClick="answer(document.getElementsByTagName('input')[0].value)">Talk To Me</button></p>        <script>
     
 var you = "Me";
 botSays("Thanks for checking out my Simple chatBot \n\nType !name x where x = yourName to change your name.\n\nType !Train to check several commands .\nTo chat, click Talk to me or press Enter(pc) or Go(android)\nType help for a hint\n\n\n***")
@@ -258,5 +258,7 @@ function answer(x) {
     
     
 </html>
+
+
 
 
