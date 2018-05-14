@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-  require '../db.php';
+//error_reporting(E_ALL);
+  //require '../db.php';
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
