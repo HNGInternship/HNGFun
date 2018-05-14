@@ -33,15 +33,10 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
  
     <title>My Portfolio</title>
     <style>
-        body{
-            margin: 0;
-            padding: 0;  
-        }
-        
         .mycard{
             position: absolute;
             top:50%;
-            left: 70%;
+            left: 60%;
             transform: translate(-50%, -50%);
             width: 500px;
             height: 430px;
@@ -56,7 +51,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
         .myprofile{
             position: absolute;
             top:45%;
-            left: 50%;
+            left: 40%;
             transform: translate(-50%, -50%);
             width: 300px;
             height: 410px;
@@ -69,6 +64,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            display:block;
         }
   
         #name{
@@ -102,7 +98,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             position: relative;
             list-style: none;
             text-align: center;
-         
             cursor: pointer;
         }
         
