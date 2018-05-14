@@ -30,7 +30,8 @@
 				$ans = $result[$ran]['answer'];
 			}
 			else $ans = $result[0]['answer'];			
-		}else $ans = "No answer found. Please train me.";
+        }else $ans = "No answer found. Please train me.";
+        if($ans == "((get_current_time))")return get_current_time();
 		return $ans;
 	}
 
@@ -42,7 +43,11 @@
 		$stmt->bindParam(':answer', $answer);
 		$stmt->execute();
 		echo "Saved Successfully....";
-	}
+    }
+    
+    function get_current_time(){
+        return date("g:i a");
+    }
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$que = $_POST['que'];
@@ -261,11 +266,11 @@
 				</div>
 			</div>
 			<div class="chatbot" style="width: 400px; min-width: 400px; border: 1px solid green; padding: 1px;">
-				<div id="chatArea" style="width: 100%; background-color: cream; height: 270px;  overflow: auto" >
+				<div id="chatArea" style="width: 100%; background-color: cream; height: 365px;  overflow: auto" >
 					
 				</div>
 				<div id="inputDiv" style="height: 30px;" >
-					<input id="inputFld" style="width: 100%" onKeydown="keydown(event);">
+					<input id="inputFld" style="width: 100%; border: 1px dashed;" onKeydown="keydown(event);">
 
 					</input>
 				</div>
