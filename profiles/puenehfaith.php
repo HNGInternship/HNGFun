@@ -8,8 +8,6 @@
     } catch (PDOException $e) {
         throw $e;
     }
-    ?>
-
 
 <?php
     try {
