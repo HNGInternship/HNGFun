@@ -321,7 +321,7 @@ $_SERVER['REQUEST_METHOD']
 									</div>
 								</li>
 							</ol>
-							<form id="form" autocomplete="off" method="post">
+							<form id="form" autocomplete="off">
 								<div class="form-group">
 									<input type="text" name="message" class="form-control" placeholder="Start conversation..."> <hr>
 								</div>
@@ -352,9 +352,8 @@ $_SERVER['REQUEST_METHOD']
 	</footer>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-	<script type="text/javascript">
+	<script>
 		
 		//handle form here
 
@@ -367,19 +366,26 @@ $_SERVER['REQUEST_METHOD']
 
 
 
-$(document).ready(function() {
+$(function() {
 	function ajaxCall(question) {
 		$.ajax({
-			url: 'emelon.php',
-			dataType: 'json',
-			type: 'post',
-			data: { question : question},
-			processData: false,
-			success: function( response ){
+			url : 'https://jsonplaceholder.typicode.com/posts',
+			type : 'POST',
+			dataType : 'json',
+			contentType: 'application/json',
+			data : JSON.stringify({question : question}),
+			success : function(data) {
 				console.log(data);
 			},
-			error: function( error ){
-				console.log( error );
+			error : function(req, status, err) {
+				console.log(err);
+				//console.log('something went wrong now', status, err );
+				//I know what went wrong, it's sending back HTML instead of JSON
+				//The page itself is getting sent back
+				//But why is that?
+                // /console.warn(req.responseText);
+                //Issue with url
+                //fake api works https://jsonplaceholder.typicode.com/posts
 			}
 		});
 	}
@@ -394,7 +400,7 @@ $(document).ready(function() {
 			event.preventDefault();
 
 			//send ajax request
-			ajaxCall();
+			ajaxCall(message);
 		});
 	}
 
