@@ -1,19 +1,6 @@
 
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hng_fun";
 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-// Check connection
-if($conn->connect_error){
-    die("Connection failed: " . $conn->connect_error);
-}
 $secret_word = "";
 $secret_query = "SELECT * FROM secret_word WHERE id = 1";
 $data = "SELECT * FROM interns_data WHERE intern_id = 15";
