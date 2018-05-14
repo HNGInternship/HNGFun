@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Samuel's Profile</title>
+	<title>Samuel Profile</title>
 	<?php 
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
+ if(!defined('DB_USER')){
+     require "../../config.php";
+     try {
+         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+     } catch (PDOException $pe) {
+         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+     }
+   }
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+$question;
 
   global $pass;
 	$pass = "password";
@@ -20,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>' . $message . '</p>';
 			return $botAnswer;
@@ -332,7 +335,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 					<span class="text" >wekesamuel@yahoo.com <i class="fa fa-envelope-open " ></i></span>
 			   </div>
 				<div class="bottom">
-					<a href="https://web.facebook.com/segun.weke"><i class="fa fa-facebook" ></i></a>
+					<a href="https://web.facebook.com/segun.weke">..<i class="fa fa-facebook" ></i></a>
 					<a href="https://twitter.com/samuelweke"><i class="fa fa-twitter" style="padding-left: 10px" ></i></a>
 					<a href="#"><i class="fa fa-instagram" style="padding-left: 10px" ></i></a>
 				</div>
@@ -346,21 +349,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<div class="chat hide" id="chat">
 			<div class="chatlogs" id="chatlogs">
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>Welcome.</p>
 						<span class="chat-time"> </span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>I am here to help you.</p>
 						<span class="chat-time"></span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
 						<span class="chat-time"></span>
@@ -424,7 +427,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					
 					<div class="chat-message-content clearfix">
 						<p>` + chats + `</p>
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
