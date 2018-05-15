@@ -1,5 +1,28 @@
 <?php
 
+require_once '../config.php';
+
+
+try {
+   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+
+try{
+  $sql = 'SELECT * FROM secret_word';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word= $data['secret_word'];
+} catch (PDOException $e){
+      throw $e;
+  }
+
+
+$result2 = $conn->query("Select * from interns_data where username = 'chidinma'");
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
 
 
