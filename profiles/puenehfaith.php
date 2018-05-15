@@ -7,10 +7,9 @@
         $my_data = $q2->fetch();
     } catch (PDOException $e) {
         throw $e;
-    }
-    ?>
-
-
+    }  
+?>
+ 
 <?php
     try {
         $sql = 'SELECT * FROM secret_word';
