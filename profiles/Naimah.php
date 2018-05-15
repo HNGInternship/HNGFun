@@ -43,7 +43,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "Naimahbot v1.0";
+            $reply = "I am Naimahbot v1.0, I am a bot that returns data from the database.<br> I can be trained you know,<br>Training Format: train:question#answer#password";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
@@ -214,7 +214,7 @@ h1 {
   text-align: center;
 }
 #chatbot{ 
-    float: right;
+    float: left;
     width: 320px;
     max-height: 320px;
     background-color: #fff;
@@ -228,19 +228,19 @@ h1 {
 }
 #chat, #displayHidden{
   height: 60px;
-    background-color:  #5563DE;
+    background-color:  #00000f;
     width: 100%;
     padding-top: 10px;
-    color: #e5e5e5;
+    color: #5563DE;
     font-size: 20px;
     font-weight:bold;
 }
 #displayHidden:hover{
     color: #7a8690;
-    background-color: #fff;
+    background-color: #00000f;
 }#button:hover{
     color: #7a8690;
-    background-color: #fff;
+    background-color: #00000f;
 }
 #chatMessages{ 
     width: 100%;
@@ -257,7 +257,7 @@ button{
     text-align: center;
 }
 #messageReceived{
-    background-color: #dedede;
+    background-color: grey;
     width: 50%;
     float: left;
     border-top-left-radius: 50px;
@@ -265,7 +265,7 @@ button{
     border-bottom-left-radius: 50px;
     border: #fff 2px solid;
 }#messageSent{
-    background-color: #fff;
+    background-color: #00000f;
     float: right;
     width: 50%;
     border: #dedede 2px solid;
@@ -324,7 +324,7 @@ button{
           
           
             <!--chatbot-->
-   <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;">Let's Chat</div>
+   <div class="oj-panel oj-panel-shadow-md" id="displayHidden" style="width:120px;height:50px;text-align:center;position:relative;margin:10px 20px;float:right;"> Chat Me</div>
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
                     <span>Welcome, Meet Naimahbot</span>
@@ -333,7 +333,7 @@ button{
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#dedede;">Hi I am Naimahbot</div>
+                        <div id="message" style="background-color:#00000f; color:white;">Hi, I am Naimahbot. Feel free to talk to me and <br>I'll try to respond to the best of my ability! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
 
                     </div>
                 </div>
@@ -341,7 +341,7 @@ button{
 
                 <form action="" id="pearlbot_form" method="post">
                      <div class="input-group">
-                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Start Typing...">
+                       <input class="form-control chat_input" id="chat_message" name="entered_message" placeholder="Type your message here">
                         
                      </div>
                </form>

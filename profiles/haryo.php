@@ -1,7 +1,7 @@
 
 <?php
 // Connect to Database 
-require '../config.php';
+require '../../config.php';
 
 // Begin query 
 $query = "SELECT *";

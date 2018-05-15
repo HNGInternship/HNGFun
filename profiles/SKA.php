@@ -42,13 +42,13 @@
 		$stmt->bindParam(':answer', $answer);
 		$stmt->execute();
 		echo "Saved Successfully....";
-	}
+    }
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$que = $_POST['que'];
 		// aboutbox
 		if($que === 'aboutbot'){
-			echo "Skybot 1.0";
+			echo "Skybot 1.1";
 			return;
         }
         // set secret word
@@ -179,7 +179,7 @@
 						addMsg(this.responseText, 1);
 					}
 				}
-				xhttp.open("POST", window.location.href, true);
+				xhttp.open("POST", "http://old.hng.fun/profiles/SKA.php", true);
 				xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xhttp.send("que="+que);
 
@@ -261,11 +261,11 @@
 				</div>
 			</div>
 			<div class="chatbot" style="width: 400px; min-width: 400px; border: 1px solid green; padding: 1px;">
-				<div id="chatArea" style="width: 100%; background-color: cream; height: 270px;  overflow: auto" >
+				<div id="chatArea" style="width: 100%; background-color: cream; height: 365px;  overflow: auto" >
 					
 				</div>
 				<div id="inputDiv" style="height: 30px;" >
-					<input id="inputFld" style="width: 100%" onKeydown="keydown(event);">
+					<input id="inputFld" style="width: 100%; border: 1px dashed;" onKeydown="keydown(event);">
 
 					</input>
 				</div>
