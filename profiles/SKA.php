@@ -8,6 +8,15 @@
 			 die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 		}
     }
+
+    function get_location($ip_address){
+		$arr = array();
+        $arr = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip_address));
+		if(is_array($arr)){
+			if($arr['geoplugin_status']  == 404)return Null;
+			return ($arr['geoplugin_city'] . " " . $arr['geoplugin_countryName']);
+		}else return Null;
+    }
     
     function askQuestion($que){
 		// include "config.php";
@@ -48,7 +57,7 @@
 		$que = $_POST['que'];
 		// aboutbox
 		if($que === 'aboutbot'){
-			echo "Skybot 1.1";
+			echo "Skybot 1.2";
 			return;
         }
         // set secret word
@@ -102,7 +111,24 @@
 		if(array_search($que, $myname)){
 			echo "My name is Skybot.<br/><br/>What is yours?";
 			return;
-		}
+        }
+        
+        // find visitor location
+        if($que == "where am i"){
+			$location = get_location($_SERVER['REMOTE_ADDR']);
+            if(!is_null($location))echo "You are in ". $location;
+            else echo "Sorry, I couldn't get that...";
+            return; 
+        }
+
+		// find location of ip
+		if(stristr($que, "where is")){
+			$ip = trim(str_replace("where is", "", $que));			
+			$location = get_location($ip);
+			if(!is_null($location))echo $location;
+            else echo "Sorry, I couldn't get that...";
+			return;
+        }
 		
 		// check from db
 		echo askQuestion($que);
@@ -150,14 +176,12 @@
         <title>STAGE 1</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" </script> -->
+        
 		<style type="text/css">
             html{height: 95%}
             body { height: 100%; display: flex; flex-flow: column nowrap;   }
             #header, #footer{ height: 110px; flex:0 0 auto; padding-top: 60px;  display: flex; flex-flow: row nowrap; justify-content: center; }
-            #middle{ width: 400px; height: auto; margin-right: auto; margin-left: auto; display: flex;
-				flex-flow: row nowrap; justify-content: center;
-			}
+            #middle{ width: 100%;}
             #image{ width: 300px; height: 250px; flex:1 1 auto; }
 			.flex{display: flex; flex-flow: row nowrap; justify-content: space-between; width: 100%}
 			.label{width: 40%;}
@@ -165,7 +189,18 @@
 			.msgDiv{display: flex; flex-flow: row nowrap; margin-bottom: 2px;}
 			.msgText{float: left; width:350px; margin-right: 10px}
 			.msgTime{float: right; min-width: 100px; max-width: 100px; font-style: italic; text-align: right;}
-		</style>
+            #profile{
+				width: 300px; margin: auto;
+			}
+			#chatbot{
+				width: 400px; margin: auto;
+			}
+			@media only screen and (min-width : 700px){
+				#middle{ 
+					width: 400px; height: auto; margin-right: auto; margin-left: auto; display: flex;
+				flex-flow: row nowrap; justify-content: center; }				
+			}
+        </style>
 		<script type="text/javascript">
 			
 			var inputFld;
@@ -245,10 +280,10 @@
             <h3 style="">HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
-			<div class="profile" style="width: 300px; padding-right: 20px;">
+			<div class="profile" >
 				<div id="image"  style="background-image: url(<?php echo $imageUrl ?>); background-size: cover; background-repeat:   no-repeat;
 						 background-position: center center; -webkit-background-size: cover; -moz-background-size: cover;
-						 -o-background-size: cover; width: 250; margin-right: auto; margin-left: auto;"  >           
+						 -o-background-size: cover; width: 250px; margin-right: auto; margin-left: auto;"  >           
 				</div>
 				<br/>
 				<div class="flex">
@@ -260,7 +295,7 @@
 					<div class="value"><?php echo $username; ?></div>
 				</div>
 			</div>
-			<div class="chatbot" style="width: 400px; min-width: 400px; border: 1px solid green; padding: 1px;">
+			<div class="chatbot" style="border: 1px solid green; padding: 1px;">
 				<div id="chatArea" style="width: 100%; background-color: cream; height: 365px;  overflow: auto" >
 					
 				</div>
@@ -278,8 +313,9 @@
 		<script type="text/javascript">
 			inputFld = document.getElementById("inputFld");
 			chatArea  = document.getElementById("chatArea");
-			welcome = "Welcome, my name is Skybot.<br/><br/>Ask me any question and I will do my best to provide"+
-			" an answer.<br/><br/>Train me using train:question#answer#password"
+			welcome = "Welcome, my name is Skybot.<br/>Ask me any question and I will do my best to provide"+
+			" an answer.<br/>Type \"where am i\" and i will try and locate you.<br/> Type where is {ip_address} and I will try "+
+            " to find the location of the IP Address provided.<br/>Train me using <span style=\"color: blue\">train:question#answer#password</span>";
 			addMsg(welcome, 1);
 		</script>
     </body>
