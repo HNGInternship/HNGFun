@@ -181,9 +181,7 @@
             html{height: 95%}
             body { height: 100%; display: flex; flex-flow: column nowrap;   }
             #header, #footer{ height: 110px; flex:0 0 auto; padding-top: 60px;  display: flex; flex-flow: row nowrap; justify-content: center; }
-            #middle{ width: 400px; height: auto; margin-right: auto; margin-left: auto; display: flex;
-				flex-flow: row nowrap; justify-content: center;
-			}
+            #middle{ width: 100%;}
             #image{ width: 300px; height: 250px; flex:1 1 auto; }
 			.flex{display: flex; flex-flow: row nowrap; justify-content: space-between; width: 100%}
 			.label{width: 40%;}
