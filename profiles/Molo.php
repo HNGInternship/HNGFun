@@ -45,9 +45,9 @@
                 margin-top: 3em;
             }
             .first {
-                margin-top: 1em;
+                margin-top: 1.5em;
             }
-            p {
+            .p {
                 font-weight: bold;
                 font-size: 20px;
                 margin: 0;
@@ -90,8 +90,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="container contains">
-                    <p>Aspiring Lagos-based Dev</p>
-                    <p>Lover of everything art</p>                    
+                    <p class="p">Aspiring Lagos-based Dev</p>
+                    <p class="p">Lover of everything art</p>                    
                     <hr width="30%" style="border:1px solid #4f4f4f;">
                     <span class="link"><a href="https://www.codepen.io/AyoIX" target="_blank" style="color: black;"><i class="fa fa-codepen fa-2x"></i></a></span>
                     <span class="link"><a href="https://www.github.com/Arafly" target="_blank" style="color: black;"><i class="fa fa-github fa-2x"></i></a></span>
