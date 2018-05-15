@@ -109,7 +109,7 @@ function test_input($data) {
     
         }
         else{
-            $error = "I don't seem to understand you <br> You can train me on that.";
+            $error = "I don't seem to understand you <br> You can train me on that.<br>Training Format: train:question#answer#password";
             $response = array('status'=>2, 'answer'=> $error);
             echo json_encode($response); 
         }
@@ -232,14 +232,14 @@ h1 {
     width: 100%;
     padding-top: 10px;
     color: #74ABE2;
-    font-size: 30px;
+    font-size: 24px;
     font-weight:bold;
 }
 #displayHidden:hover{
-    color: #7a8690;
+    color: white;
     background-color: #5563DE;
 }#button:hover{
-    color: Navy;
+    color: blue;
     background-color: #EAEAEA;
 }
 #chatMessages{ 
@@ -248,7 +248,7 @@ h1 {
     max-height: 250px;
 }
 button{
-    font-size: 20px;
+    font-size: 18px;
     font-weight:bold;
 }
 #messageReceived, #messageSent, #message{
