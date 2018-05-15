@@ -1,6 +1,7 @@
 <?php
 //error_reporting(E_ALL);
   //require '../db.php';
+//header('Content-Type: text/plain; charset=UTF-8;');
   if(!defined('DB_USER')){
     require "../../config.php";
   }
@@ -367,7 +368,8 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: '/profiles/Damilola.php',
+                        url: 'profile.php?id=Damilola',
+                        dataType: "text",
                         type: 'POST',
                         cache: 'false',
                         data: {
@@ -377,7 +379,13 @@ h5{
                             bot_chat(data);
                             reset;
                         }
-                    });
+                    }) .done(function(data,textStatus,jqXHR){
+                        alert("response with: " + data);
+                        })
+                        .fail(function(data,textStatus,errorThrown){ alert("Request failed!"); })
+                        .always(function(data,textStatus,errorThrown){});
+
+
 
 
                     return false;
