@@ -36,8 +36,9 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<style> 
 		
 		.container{
-			width: 100px;
+			width: 1000px;
 			background-color: #A394CD;
+		
 		}
 		img  {width: 100px;
 			height: 100px;
