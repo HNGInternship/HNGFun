@@ -18,7 +18,7 @@
     
     // readfile('profiles/' . $profile_name. '.php');
 
-    require('profiles/' . $profile_name. '.php');
+    require('profiles/' .$profile_name. '.php');
 
 
   try {
