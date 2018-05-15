@@ -36,7 +36,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<style> 
 		
 		
-		}
+		
 		img  {width: 100px;
 			height: 100px;
 			border-radius: 40%;
