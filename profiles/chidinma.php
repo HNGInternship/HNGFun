@@ -1,5 +1,6 @@
 <?php
 
+
 require_once '../config.php';
 
 
@@ -25,7 +26,6 @@ $result2 = $conn->query("Select * from interns_data where username = 'chidinma'"
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,8 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		.container{
 			width: 1000px;
 			background-color: #A394CD;
-		
+			max-height: 500px;
+
 		}
 		img  {width: 100px;
 			height: 100px;
@@ -55,25 +56,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			margin-bottom: -20px;
 
 		}
-		.email{
-			width: 350px;
-			height: 40px;
-			background-color: #F2F2F2;
-			border-radius: 20px;
-			margin-left: 20px;
-			border-bottom: 2px;
-			margin-top: 10px;
-		}
-		.phone {
-			width: 350px;
-			height: 40px;
-			background-color: #F2F2F2;
-			border-radius: 20px;
-			margin-left: 20px;
-			margin-top: 2px;
 		
-
-		}
 		h4 {font-style: italic;
 			color: #052638;
 			text-align: left;
@@ -81,8 +64,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			margin-left:20px;
 			}
 		h3 {
-			font-style: italic;
-			margin-top: 50px;
+			margin-top: 10px;
 			margin-left:20px;
 		}
 		h2{
@@ -112,13 +94,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			</p>
 			<p><h4>Tech enthusiast, Intern @HNGInternship, <br/> web development student. </h4> <p>
 			<div class = "aboutme">
-				<div class = "email"> <p> email: <u>chypearlnel@gmail.com</u></p>
-				</div>
-				<div class = "phone"> <p> Phone no: 09022181787 </p>
-				</div>
-				<div class= "twitter"> Twitter
-					<a href="https://twitter.com/Pearlynma"> <i class="fab fa-twitter-square" ></i> </a>
-				</div>
+				 <p> <h3> email: <u>chypearlnel@gmail.com</u></h3></p>
+				 <p><h3> Phone no: 09022181787 </h3></p>
+				
+				<p> <h3>Twitter
+					<a href="https://twitter.com/Pearlynma"> <i class="fab fa-twitter-square" ></i> </a></h3>
+				</p>
 			</div>
 		</div>
 	</body>
