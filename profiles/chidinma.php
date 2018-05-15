@@ -1,6 +1,5 @@
 <?php
 
-
 require_once '../config.php';
 
 
@@ -26,6 +25,7 @@ $result2 = $conn->query("Select * from interns_data where username = 'chidinma'"
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +35,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		
+		
 		img  {width: 100px;
 			height: 100px;
 			border-radius: 40%;
@@ -42,7 +43,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			margin-left:10px;
 		}
 		.aboutme{
-			width: 500px;
+			width: 1000px;
 			height: 150px;
 			background-color: #D1CBCF;
 			align-self: center;
@@ -51,13 +52,13 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 		}
 		.email{
+			width: 250px;
 			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
-			padding-top: 5px;
 			margin-left: 20px;
 			border-bottom: 2px;
-			margin-top: 20px;
+			margin-top: 10px;
 		}
 		.phone {
 			width: 250px;
@@ -66,7 +67,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			border-radius: 20px;
 			margin-left: 20px;
 			margin-top: 2px;
-			padding-top: 1px;
+		
 
 		}
 		h4 {font-style: italic;

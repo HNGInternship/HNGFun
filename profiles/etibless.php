@@ -3,8 +3,10 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         //die('Hi');
-        $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-        
+        require('../db.php');
+        // $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+
+        //$conn = new mysqli('localhost', 'root', 'root', 'hng_fun');        
         if(!$conn){
             die('Unable to connect');
         }
@@ -253,7 +255,7 @@ input{
             
             }
         };
-        xhttp.open("POST", "etibless.php", true);
+        xhttp.open("POST", "/profile.php?id=etibless", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
