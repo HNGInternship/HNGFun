@@ -1,264 +1,1102 @@
-<<<<<<< HEAD
+<?php
+
+if (!defined('DB_USER')) {
+
+include_once("../answers.php");
+
+require '../../config.php';
+
+try {
+
+$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+
+} catch (PDOException $pe) {
+
+die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+
+}
+
+}
+
+$query = "SELECT * FROM secret_word";
+
+$secret_word = $conn->query($query);
+
+$result = $secret_word->fetch();
+
+$secret_word = $result['secret_word'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+chat($_POST['message']);
+
+return;
+
+}
+
+/**
+
+* first function call whenever someone types a message in the chatbot
+
+* @return void
+
+*/
+
+function chat($message) {
+
+$message = trim($message);
+
+if (empty($message)) {
+
+echo 'please type something';
+
+return;
+
+}
+
+$warning = badWord($message);
+
+if (!is_null($warning)) {
+
+echo $warning;
+
+return;
+
+}
+
+getFunction($message);
+
+}
+
+function badWord($message) {
+
+require_once('../classes/class.badwords.php');
+
+$BadWords = new badWords();
+
+$badWords = $BadWords::getBadWords();
+
+$message = strtolower($message);
+
+$words = explode(' ', $message);
+
+foreach ($words as $word) {
+
+if (in_array($word, $badWords)) {
+
+$replies = [
+
+'Hey! Watch your mouth!',
+
+'The way you talk, yo mama would be ashamed. I\'m sure she taught you better',
+
+'Yuck! So dirty.',
+
+"I'll reply I didn't see that"
+
+];
+
+return $replies[array_rand($replies)];
+
+}
+
+}
+
+return null;
+
+}
+
+function getFunction($message, $delimiter = '#') {
+
+if ($message == 'about' || $message == 'aboutbot' || $message == 'about_bot') {
+
+return about();
+
+}
+
+$function = trim(substr($message, 0, strpos($message, ':')));
+
+$functions = array(
+
+'train',
+
+'teach',
+
+'coach'
+
+);
+
+$hasDelimiter = strpos($message, $delimiter);
+
+// no delimiter means chatbot is not being trained
+
+if ($hasDelimiter === false) {
+
+getBotResponse($message);
+
+return;
+
+}
+
+if ($function && in_array($function, $functions)) {
+
+$message = substr($message, strpos($message, ':')+1);
+
+$data = explode($delimiter, $message);
+
+if (isset($data[2])) {
+
+$password = trim($data[2]);
+
+} else {
+
+echo 'you need to enter a password. contact my owner (email: olasupoabdulhakeem2002@gmail.com or slack: @digital4us) if you do not know my password';
+
+return;
+
+}
+
+if ($password != 'password') {
+
+echo 'password is incorrect. contact my owner (email: olasupoabdulhakeem2002@gmail.com or slack: @digital4us) if you do not know my password';
+
+return;
+
+}
+
+$question = $answer = null;
+
+if (isset($data[0])) {
+
+$question = trim($data[0]);
+
+}
+
+if (isset($data[1])) {
+
+$answer = trim($data[1]);
+
+}
+
+if (in_array($function, $functions)) {
+
+$function($question, $answer);
+
+return;
+
+}
+
+}
+
+echo 'no valid function detected. to train me, use the following structure without brackets (train:the question#the answer#my valid training password)';
+
+return;
+
+}
+
+/**
+
+* Train the chat bot so it knows how to respond to certain questions
+
+* @return void
+
+*/
+
+function train($question, $answer) {
+
+$trainingResponses = [
+
+'Great! I have learnt something new.',
+
+'Watch out, I may become the smartest and perfect chatbot in the world!',
+
+'TIL something',
+
+'Interesting! I will try to remember this.',
+
+'Noted'
+
+];
+
+if (botKnowsIt($question, $answer)) {
+
+echo 'Thanks, but I knew that already';
+
+return;
+
+}
+
+try {
+
+$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+
+$query = $conn->prepare("INSERT INTO chatbot (question, answer) values (:question, :answer)");
+
+$query->bindParam(':question', $question);
+
+$query->bindParam(':answer', $answer);
+
+$query->execute();
+
+echo $trainingResponses[array_rand($trainingResponses)];
+
+return;
+
+} catch (PDOException $e) {
+
+return "Error: " . $e->getMessage();
+
+}
+
+}
+
+function botKnowsIt($question, $answer) {
+
+try {
+
+$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+
+$sql = 'SELECT count(*) FROM chatbot WHERE question = "' . $question . '" AND answer = "' . $answer . '" LIMIT 1';
+
+$query = $conn->query($sql);
+
+$result = $query->fetch();
+
+$count = $result["count(*)"];
+
+return (bool)$count;
+
+} catch (PDOException $e) {
+
+return "Error: " . $e->getMessage();
+
+}
+
+}
+
+function teach($question, $answer)
+
+{
+
+return train($question, $answer);
+
+}
+
+function coach($question, $answer)
+
+{
+
+return train($question, $answer);
+
+}
+
+function about() {
+
+echo 'Version 1.0';
+
+}
+
+/**
+
+* Train the chatbot so it knows how to respond to certain questions
+
+* @return void
+
+*/
+
+function getBotResponse($question) {
+
+$lastChar = substr($question, -1);
+
+$q = '"' . $question . '"';
+
+if ($lastChar != '?') {
+
+$q = '"' . $question . '" OR question = "' . $question . '?"';
+
+}
+
+$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+
+$query = $conn->query('SELECT answer FROM chatbot WHERE question = ' . $q . ' ORDER BY RAND() LIMIT 1');
+
+$result = $query->fetch();
+
+if ($result) {
+
+// if result has a special function, call that function and append the result
+
+$answer = $result['answer'];
+
+if (strstr($answer, '((')) {
+
+// you will see: ((getQuote))
+
+$start = strpos($answer, '((');
+
+$end = strpos($answer, '))');
+
+$extraFunction = substr($answer, $start + 2, (strlen($answer) - ($start + 4)));
+
+$quoteData = $extraFunction();
+
+$quote = json_decode($quoteData);
+
+echo '"' . $quote->quote . '" --' . $quote->author;
+
+return;
+
+}
+
+echo $answer;
+
+return;
+
+}
+
+$unknownResponses = [
+
+'I don\'t know.',
+
+'no idea!',
+
+'I guess I don\'t know everything.',
+
+'interesting question! am not sure.',
+
+'try reframing your question please.',
+
+'sorry, don\'t know that.'
+
+];
+
+echo $unknownResponses[array_rand($unknownResponses)] . ' ' . 'But you can train me so I know the answer next time.';
+
+return;
+
+}
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
-        <title>Abdulhakeem Adigun Olasupo| HNG4 Internship Profile</title>
-  <head>  
-  <!-- Required meta tags -->
-    <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <meta name="author" content="Abdulhakeem Adigun Olasupo">
 
-    <!-- FONT Styles -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html>
 
-   <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<head>
 
-    <style>
-           .container {
-        text-align:left;
-        padding:2%;
-    }
--    img {
-        width: 40%;
-        height:auto;
-    } 
-    a {
-        color: inherit;
-       text-decoration:none;
-    }
-   .links {
-        padding:1%;
-  }
-   .color {
-        color:blue;
-    }
-    .footer {
-        text-align: center;
-    }
-   .social {
-       font-size: 130%;
-   }
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    /* BOT UI STYLE */
-       }#bot {
-           text-align:center
-      }
+  <title>Olasupo Abdulhakeem Adigun</title>
 
-       .messenger-boxed .card{
-           width: 100%;
-        margin: 0 auto;
-        }
-       .messenger-boxed.col-xs-12 {
-            left: 10px;
-        }
+  <link rel="stylesheet" type="text/css" href="vendor/bootstrap/3.3.4/css/bootstrap.css">
 
-       .messenger-boxed>div>.panel {
-            border-radius: 5px 5px 0 0;
-        }
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-        .reacher {
-            padding: 2px 10px;
-        }
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 
-       .messenger-dez {
-           background: #17a2b8;
-           margin: 0 auto;
-            width: 100%;
-           padding: 0 10px 10px;
-           max-height: 350px;
-           overflow-x: hidden;
-        }
-        /* .messenger_dezs{
-            width:100%;
-       } */
-        .bot-head {
-           padding: 10px;
-          position: relative;
-            overflow: hidden;
-        }
+  <style>
 
-       .outbox-msg {
-            padding-left: 0;
-           margin-left: 0;
-           background: #00b2c5 !important;
-            color: #FFF;
-        }
+body, html {
 
-        .inbox-message {
-            padding-bottom: 20px !important;
-           margin-right: 0;
-            
-       }
+background: url('https://images.unsplash.com/photo-1461354360854-e33a1d6f7905?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fee6edcd0f9d69f8a32aef0e879d37d0&auto=format&fit=crop&w=2021&q=80') no-repeat center top;
 
-        .responses {
-            background: white;
-            padding: 10px;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-           max-width: 80%;
-        }
+background-position: center;
 
-        .responses>p {
-            font-size: 13px;
-            margin: 0 0 0.2rem 0;
-            overflow-wrap: break-word;
-       }
+background-repeat: no-repeat;
 
-        .responses>time {
-            font-size: 11px;
-           color: #ccc;
-        }
+background-size: cover;
 
-        .messenger-dezs {
-            padding: 10px;
-            overflow: hidden;
-            display: flex;
-        }
+font-family: 'Open Sans', sans-serif;
 
-       .response-got>.avatar:after {
-           content: "";
-            position: absolute;                top: 0;
-           right: 0;
-            width: 0;
-           height: 0;
-            border-left-color: rgba(0, 0, 0, 0);
-            border-bottom-color: rgba(0, 0, 0, 0);
-        }
+text-rendering: optimizeLegibility !important;
 
-        .response-sent {
-            justify-content: flex-end;
-            align-items: flex-end;
+-webkit-font-smoothing: antialiased !important;
 
-        }
+color: #777;
 
-        .response-sent>.avatar:after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-           height: 0;
-            border: 5px solid white;
-            border-right-color: transparent;
-            border-top-color: transparent;
-            box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close } .inbox_msg > time{
-            float: right;
-        }
+width: 100% !important;
 
-        .messenger-dez::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            background-color: #F5F5F5;
-        }
+height: 100% !important;
 
-        .messenger-dez::-webkit-scrollbar {
-            width: 12px;
-           background-color: #F5F5F5;
-       }
+}
 
-        .messenger-dez::-webkit-scrollbar-thumb {
-           -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-            background-color: #555;
-        }
+h2 {
 
-        .messengerbody{
+margin: 0 0 20px 0;
 
-           border-radius: 20px;
-            max-width: 90%;
-            margin: 0 auto;
-            margin-bottom: 50px;
+color: #555;
 
-        }
+text-transform: uppercase;
 
-        .iconn:hover{
-            color: #00AEFF !important;
-        }
-        .icon-container{
-            padding: 20px;
-        }
-        .connect{
+letter-spacing: 1px;
 
-            color:red !important;
-            padding: 10px 0;
-        }
+font-weight: 400;
 
-        #intro{
-            padding: 0 20px;
-        }
-    </style>
+font-size: 30px;
 
-           </head>
-      <!-- BODY SECTION -->
+}
 
-       <body class="bg-dark text-light">
-        <br /><br /><br />
-            <div class="row">
-        <div class="col-sm bg-dark text-light">
-            <br />
-                <img class="rounded-circle" style="width:60%" src="http://res.cloudinary.com/digital4us/image/upload/v1525988624/Webp.net-resizeimage_1.jpg" alt="My Picture">
-                <br /><br /><br />
-                         <p> Hello World! <br />
-           I'm ABDULHAKEEM OLASUPO|<br />
-            Tech Geek <i class="fa fa-user text-primary"></i>&nbsp & Web Developer <i class="fa fa-laptop text-primary"></i></p>
-           <br />
-           
-        </div> 
+h3, h4 {
 
-                <div class="col-sm bg-dark">
-                <br /><br />
-            <div class="social">
-            <br /><br /><br /><br /><br />
-            
-                   <a class="navbar-brand btn btn-outline-primary" href="#">Contact Me!</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-       </button>
-                   <br /> <br />
-                    
-                     <div class="text-light">
-                      <p><i class="fa fa-map-marker text-primary"></i> Osun, Nigeria</p>
-                     <p><i class="fa fa-phone text-primary"></i> +234 8141734905</p>
-                      <p><i class="fa fa-envelope text-primary"> </i> olasupoabdulhakeem2002@gmail.com</p>
-						<p><i class="fa fa-map-marker text-primary"></i> digitalforus.wordpress.com</p>
-						<p><i class="fa fa-map-marker text-primary"></i> digitalus.intelaedu.com</p>                      
-                <a href="https://github.com/prodigy" style="text-decoration:none"
-                class="fa fa-github social text-light"></a>&nbsp
-                <a href="https://medium.com/@BolajiAyodeji" style="text-decoration:none"
--                class="fa fa-medium social text-light"></a>&nbsp
-                <a href="https://slack.com/hnginternship4" style="text-decoration:none"
-               class="fa fa-slack social text-light"></a>&nbsp
-                <a href="https://facebook.com/Hakeem Olasupo" style="text-decoration:none"
-               class="fa fa-facebook-official social text-light"></a>&nbsp
-                <a href="https://instagram.com/hakeemolasupo09" style="text-decoration:none"
-                class="fa fa-instagram social text-light"></a>&nbsp
-                <a href="https://twitter.com/hakeemolasupo09" style="text-decoration:none"
-                class="fa fa-twitter social text-light"></a>&nbsp                            <a href="https://linkedin.com/in/Olasupo Hakeem" style="text-decoration:none"
-                class="fa fa-linkedin social text-light"></a>&nbsp
-                <a href="https://whatsapp.com/08141734905" style="text-decoration:none"
-               class="fa fa-whatsapp social text-light"></a>&nbsp
-               <br /><br />
-                <a class="navbar-brand btn btn-danger" href="#bot">Lets Chat!<i class="fa fa-rocket"></i></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+color: #222;
 
-                <div="" id="bot">
-               <br /><br />                           
-                </div></div></div></div>
-                <br />
-                
-        <div class="row" align="center">                 
-        <div class="col-md bg-dark text-dark">
-           <br>
-		<div class="col-md-12 no-padding">
-	<div class="col-lg-4 col-sm|md|xs-10">
-        <div class="card">
-        <div class="bot-head bg-light text-muted">
-        <div class="col-md-8 col-xs-8">
-       <img src="http://res.cloudinary.com/digital4us/image/upload/v1525988624/Webp.net-resizeimage_1.jpg"> <h4> Digital4ua Bot </h4>
-       </div></div>
+font-size: 18px;
+
+font-weight: 300;
+
+letter-spacing: 1px;
+
+}
+
+h5 {
+
+text-transform: uppercase;
+
+font-weight: 700;
+
+line-height: 20px;
+
+}
+
+p.intro {
+
+font-size: 16px;
+
+margin: 12px 0 0;
+
+line-height: 24px;
+
+}
+
+a {
+
+color: #555;
+
+}
+
+a:hover, a:focus {
+
+text-decoration: none;
+
+color: #000;
+
+}
+
+ul, ol {
+
+list-style: none;
+
+}
+
+.clearfix:after {
+
+visibility: hidden;
+
+display: block;
+
+font-size: 0;
+
+content: " ";
+
+clear: both;
+
+height: 0;
+
+}
+
+.clearfix {
+
+display: inline-block;
+
+}
+
+* html .clearfix {
+
+height: 1%;
+
+}
+
+.clearfix {
+
+display: block;
+
+}
+
+ul, ol {
+
+padding: 0;
+
+webkit-padding: 0;
+
+moz-padding: 0;
+
+}
+
+hr {
+
+height: 1px;
+
+width: 70px;
+
+text-align: center;
+
+position: relative;
+
+background: #666;
+
+margin: 0 auto;
+
+margin-bottom: 30px;
+
+border: 0;
+
+}
+
+/* About Section */
+
+#about {
+
+padding: 120px 0;
+
+width: 80%;
+
+}
+
+#about .about-text {
+
+margin-left: 10px;
+
+text-align: center;
+
+width: 80%;
+
+}
+
+#about img {
+
+border-radius: 50%;
+
+width: 200px;
+
+height: 200px;
+
+display: inline-block;
+
+-webkit-filter: drop-shadow(16px 16px 10px rgba(0,0,0,0.9));
+
+filter: drop-shadow(16px 16px 10px rgba(0,0,0,0.9));
+
+}
+
+#about p {
+
+margin-top: 40px;
+
+margin-bottom: 30px;
+
+line-height: 22px;
+
+}
+
+.categories {
+
+padding-bottom: 30px;
+
+text-align: center;
+
+}
+
+ul.cat li {
+
+display: inline-block;
+
+}
+
+ol.type li {
+
+display: inline-block;
+
+margin-left: 20px;
+
+}
+
+ol.type li a {
+
+border: 1px solid #777;
+
+color: #555;
+
+padding: 8px 20px;
+
+}
+
+ol.type li a:hover {
+
+background: #222;
+
+border: 1px solid #222;
+
+color: #fff;
+
+}
+
+/* chatbot */
+
+.mytext{border:0;padding:10px;background:whitesmoke;}
+
+.text{width:75%;display:flex;flex-direction:column;}
+
+.text > p:first-of-type{width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;}
+
+.text > p:last-of-type{width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;}
+
+.text-l{float:left;padding-right:10px;}
+
+.text-r{float:right;padding-left:10px;}
+
+.avatar{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+width:25%;
+
+float:left;
+
+padding-right:10px;
+
+}
+
+.macro{margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;}
+
+.msj-rta{float:right;background:whitesmoke;}
+
+.msj{float:left;background:white;}
+
+.frame{
+
+background:#e0e0de;
+
+height:590px;
+
+position: fixed;
+
+bottom: 100px;
+
+right: 0;
+
+overflow:auto;
+
+}
+
+.frame > div:last-of-type{position:absolute;bottom:0;width:100%;display:flex;}
+
+body > div > div > div:nth-child(2) > span{background: whitesmoke;padding: 10px;font-size: 21px;border-radius: 50%;}
+
+body > div > div > div.msj-rta.macro{margin:auto;margin-left:1%;}
+
+.chats {
+
+width:100%;
+
+list-style-type: none;
+
+padding:18px;
+
+position:absolute;
+
+bottom:47px;
+
+display:flex;
+
+flex-direction: column;
+
+top:0;
+
+overflow-y:scroll;
+
+}
+
+.msj:before{
+
+width: 0;
+
+height: 0;
+
+content:"";
+
+top:-5px;
+
+left:-14px;
+
+position:relative;
+
+border-style: solid;
+
+border-width: 0 13px 13px 0;
+
+border-color: transparent #ffffff transparent transparent;
+
+}
+
+.msj-rta:after{
+
+width: 0;
+
+height: 0;
+
+content:"";
+
+top:-5px;
+
+left:14px;
+
+position:relative;
+
+border-style: solid;
+
+border-width: 13px 13px 0 0;
+
+border-color: whitesmoke transparent transparent transparent;
+
+}
+
+input:focus{outline: none;}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */color: #d4d4d4;}
+
+::-moz-placeholder { /* Firefox 19+ */color: #d4d4d4;}
+
+:-ms-input-placeholder { /* IE 10+ */color: #d4d4d4;}
+
+:-moz-placeholder { /* Firefox 18- */color: #d4d4d4;}
+
+footer {
+
+bottom: 0;
+
+height: 2em;
+
+position: relative;
+
+width:100%;
+
+}
+
+</style>
+
+
+  <script type="text/javascript">
+
+var user = {};
+
+var bot = {};
+
+var introText = "<p>Hello. You can ask me questions and I will try to answer them. You can also train me using the following format</p>" +
+
+"<code>train : question # answer # password</code>" +
+
+'<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>" or even "<i>teach how</i></p>' +
+
+'<p>To see this message at any time, type "intro"</p>' +
+
+'<p>To see my version number, type "<i>about</i>", "<i>aboutbot</i>" or "<i>about_bot</i>"</p>';
+
+bot.avatar = "https://cdn-images-1.medium.com/max/1200/1*0Cj-W6K2TP_xAh-rXxunBg.png";
+
+function formatAMPM(date) {
+
+var hours = date.getHours();
+
+var minutes = date.getMinutes();
+
+var ampm = hours >= 12 ? 'PM' : 'AM';
+
+hours = hours % 12;
+
+hours = hours ? hours : 12; // the hour '0' should be '12'
+
+minutes = minutes < 10 ? '0'+minutes : minutes;
+
+var strTime = hours + ':' + minutes + ' ' + ampm;
+
+return strTime;
+
+}
+
+//-- No use time. It is a javaScript effect.
+
+function insertChat(who, text, time) {
+
+if (time === undefined) {
+
+time = 0;
+
+}
+
+var control = "";
+
+var date = formatAMPM(new Date());
+
+if (who == "user") {
+
+control = '<li style="width:100%;">' +
+
+'<div class="msj-rta macro">' +
+
+'<div class="text text-r">' +
+
+'<p>'+text+'</p>' +
+
+'<p><small>'+date+'</small></p>' +
+
+'</div>' +
+
+'</li>';
+
+} else {
+
+control = '<li style="width:100%">' +
+
+'<div class="msj macro">' +
+
+'<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ bot.avatar +'" /></div>' +
+
+'<div class="text text-l">' +
+
+'<p>'+ text +'</p>' +
+
+'<p><small>'+date+'</small></p>' +
+
+'</div>' +
+
+'</div>' +
+
+'</li>';
+
+}
+
+setTimeout(
+
+function() {
+
+$("ul.chats").append(control).scrollTop($("ul.chats").prop('scrollHeight'));
+
+}, time
+
+);
+
+}
+
+function resetChat() {
+
+$("ul.chats").empty();
+
+}
+
+//-- Clear Chat
+
+resetChat();
+
+$(document).ready(function() {
+
+$(".mytext").on("keyup", function(e) {
+
+if ((e.keyCode || e.which) == 13) {
+
+var text = $(this).val();
+
+if (text !== "") {
+
+insertChat("user", text);
+
+$(this).val('');
+
+botResponse();
+
+}
+
+}
+
+function botResponse() {
+
+shouldScroll = $("ul.chats").scrollTop + $("ul.chats").clientHeight === $("ul.chats").scrollHeight;
+
+var date = formatAMPM(new Date());
+
+if (text.toUpperCase() === "INTRO") {
+
+insertChat("bot", introText, 200);
+
+} else {
+
+$.ajax({
+
+type: "POST",
+
+url: 'profiles/angela.php',
+
+data: {message: text},
+
+success: function(response) {
+
+reply = '<li style="width:100%">' +
+
+'<div class="msj macro">' +
+
+'<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ bot.avatar +'" /></div>' +
+
+'<div class="text text-l">' +
+
+'<p>'+ response +'</p>' +
+
+'<p><small>'+date+'</small></p>' +
+
+'</div>' +
+
+'</div>' +
+
+'</li>';
+
+setTimeout(
+
+function() {
+
+$("ul.chats").append(reply).scrollTop($("ul.chats").prop('scrollHeight'));
+
+}, 0
+
+);
+
+}
+
+});
+
+if (!shouldScroll) {
+
+scrollToBottom();
+
+}
+
+}
+
+}
+
+});
+
+});
+
+function scrollToBottom() {
+
+$("ul.chats").scrollTop = $("ul.chats").scrollHeight;
+
+}
+
+// $('body > div > div > div:nth-child(2) > span').click(function() {
+
+// $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
+
+// })
+
+insertChat("bot", introText, 350);
+
+scrollToBottom();
+
+</script>
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+
+  <!-- About Section -->
+
+  <div id="about">
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-12 text-center"><img src="http://res.cloudinary.com/digital4us/image/upload/v1525988624/Webp.net-resizeimage_1.jpg" class="img-responsive"></div>
+
+        <div class="col-md-8 col-md-offset-2">
+
+          <div class="about-text">
+
+            <p>My name is <b>Olasupo Abdulhakeem Adigun</b>. I am A Blogger, A Web developer, An Intern at HNG Internship 4.0, A Ui/UX designer, Chatbot Developer (certificate from IBM Watson Assistant) A Favcoder, and a digital enthusiats .Passionate about Learning | Unlearning | Relearning and keeping pace with everything technology. Currently learning Android development and Chatbot Development with Favcode54, certified by IBM Watson Assistant, Warm, energetic and a fast learner.</p>
+
+          </div>
+
+          <div class="section-title text-center center">
+
+            <h2>My Skills</h2>
+
+            <hr>
+
+          </div>
+
+          <div class="categories">
+
+            <ul class="cat">
+
+              <li>
+
+                <ol class="type">
+
+                  <li><a href="#" data-filter="*">CSS3</a></li>
+
+                  <li><a href="#" data-filter=>HTML5</a></li>
+
+                  <li><a href="#" data-filter=>PHP</a></li>
+
+                  <li><a href="#" data-filter=>SQL</a></li>
+
+                </ol>
+
+              </li>
+
+            </ul>
+
+            <div class="clearfix"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Chat bot -->
+
+  <div class="col-sm-3 col-sm-offset-4 frame">
+
+    <ul class="chats"></ul>
+
+    <div>
+
+        <div class="msj-rta macro">
+
+            <div class="text text-r" style="background:whitesmoke !important">
+
+                <input class="mytext" placeholder="Type here" autofocus/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+  </div>
+
+
 </body>
- </html>
+
+</html>
+
