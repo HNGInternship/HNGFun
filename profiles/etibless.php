@@ -1,9 +1,12 @@
+
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         //die('Hi');
-        $conn = new mysqli('localhost', 'root', 'root', 'hng_fun');
-        
+        require('../db.php');
+        // $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+
+        //$conn = new mysqli('localhost', 'root', 'root', 'hng_fun');        
         if(!$conn){
             die('Unable to connect');
         }
@@ -109,12 +112,33 @@
     background: cornflowerblue;
     width: 25rem;
     height: 30rem;
+    box-shadow: 1px  1px 4px black;
+
 
   }
   #user{
-      margin-left:20rem;
+      margin-left:13rem;
+      margin-right:1rem;
+      border-radius: 5%;
+      background-color:white;
+      text-align:center;
+      color:cornflowerblue;
 }
-.all{
+#bot{
+      margin-left:0.5rem;
+      margin-right:13rem;
+      border-radius: 5%;
+      background-color:black;
+      color:white;
+      text-align:center;
+}
+#msg{
+    background-color:black;
+    text-align:center;
+    background-color:black;
+    
+}
+ll{
   position:absolute;
   background-color: rgb(1, 1, 7)
 }
@@ -163,7 +187,7 @@ input{
          <hr>
       <br>  
       <p class="h4">My name is PRINCEWILL EDWARD</p>    
-      <p class="h4">This is my USERNAME: <i>etibless</i></p>
+      <p class="h4">My username is: <i>etibless</i></p>
       <p >Thank you for stoping by</p>
       <p class="h4"><b>I am an intermediate web Developer.
           <br>A 400 Level Computer Engineering Student
@@ -177,7 +201,7 @@ input{
 <div class="ChatBot">
    
     <h3 style="padding:5px; color:rgb(181, 247, 224);text-shadow:1px 2px 1px #080808;">Etibless Chat!</h3><hr><br>
-    <p>Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
+    <p id="msg">Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
     
 
             <div id='sh'>
@@ -231,7 +255,7 @@ input{
             
             }
         };
-        xhttp.open("POST", "etibless.php", true);
+        xhttp.open("POST", "/profile.php?id=etibless", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
@@ -239,6 +263,6 @@ input{
   
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
 </html>
