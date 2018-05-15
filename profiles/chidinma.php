@@ -1,5 +1,6 @@
 <?php
 
+
 require_once '../config.php';
 
 
@@ -25,8 +26,6 @@ $result2 = $conn->query("Select * from interns_data where username = 'chidinma'"
 $user = $result2->fetch(PDO::FETCH_OBJ);
 
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -36,54 +35,25 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		
-		.container{
-			height: 400px;
-			width: 1000px;
-			background-color: #A394CD;}
+		
 		
 		img  {width: 100px;
 			height: 100px;
 			border-radius: 40%;
-			margin-top: 100px;
+			margin-top: 80px;
 			margin-left:10px;
 		}
-		.aboutme{
-			width: 1000px;
-			height: 150px;
-			background-color: #D1CBCF;
-			align-self: center;
-			margin-top: 70px;
-			margin-bottom: -20px;
-
-		}
-		.email{
-			width: 250px;
-			height: 40px;
-			background-color: #F2F2F2;
-			border-radius: 20px;
-			padding-top: 5px;
-			margin-left: 20px;
-			margin-top: 50px;
-		}
-		.phone {
-			width: 250px;
-			height: 40px;
-			background-color: #F2F2F2;
-			border-radius: 20px;
-			margin-left: 20px;
-			margin-top: 2px;
-
-		}
+		
 		h4 {font-style: italic;
 			color: #052638;
 			text-align: left;
 			margin-top: -15px;
 			margin-left:20px;
 			}
-		h3 {
-			font-style: italic;
-			margin-top: 50px;
+		h5 {
+			margin-top: 1px;
 			margin-left:20px;
+			padding-top: 2px;
 		}
 		h2{
 			margin-left:20px;
@@ -91,10 +61,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 		.fab-fa-twitter-square{font-size:7px;}
 
-		.twitter{
-			margin-top: 10px;
-			margin-left: 15px;
-		}
 			
 		</style>
 		
@@ -106,20 +72,19 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<div class = "container">
 			<div>
 			<img src = "http://res.cloudinary.com/chidinma/image/upload/v1525710987/IMG_20161231_171852.jpg" alt="Chidinma's_pix" width=200 height=200>
-			</div>
+
 			<p>
 				<h2> ORJI CHIDINMA N. </h2>
 			</p>
 			<p><h4>Tech enthusiast, Intern @HNGInternship, <br/> web development student. </h4> <p>
-			<div class = "aboutme">
-				<div class = "email"> <p> email: <u>chypearlnel@gmail.com</u></p>
-				</div>
-				<div class = "phone"> <p> Phone no: 09022181787 </p>
-				</div>
-				<div class= "twitter"> Twitter
-					<a href="https://twitter.com/Pearlynma"> <i class="fab fa-twitter-square" ></i> </a>
-				</div>
 			</div>
+			
+				 <p> <h5> email: <u>chypearlnel@gmail.com</u></h5></p>
+				 <p><h5> Phone no: 09022181787 </h5></p>
+				
+				<p> <h5>Twitter
+					<a href="https://twitter.com/Pearlynma"> <i class="fab fa-twitter-square" ></i> </a></h5>
+				</p>
 		</div>
 	</body>
 </html>

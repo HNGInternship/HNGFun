@@ -255,7 +255,7 @@ input{
             
             }
         };
-        xhttp.open("POST", "etibless.php", true);
+        xhttp.open("POST", "/profile.php?id=etibless", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
