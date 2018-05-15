@@ -30,7 +30,7 @@
                 text-align: center; 
                 overflow-x: hidden; 
             }
-            .container {
+            .contains {
                 background: #F6D630;
                 padding: 1em;
                 border-top-right-radius: 10%;
@@ -79,7 +79,7 @@
     <body>
         <div class="row">
             <div class="col-md-12">
-                <div class="container first">
+                <div class="container contains first">
                     <span class="name">AYINDE</span>
                     <img class="clouds" src="http://res.cloudinary.com/molo/image/upload/v1526381592/profile.jpg">
                     <span class="name">AYOBAMI</span>                    
@@ -89,7 +89,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="container">
+                <div class="container contains">
                     <p>Aspiring Lagos-based Dev</p>
                     <p>Lover of everything art</p>                    
                     <hr width="30%" style="border:1px solid #4f4f4f;">
