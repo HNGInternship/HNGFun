@@ -38,14 +38,18 @@
 		}
 	</style>
 	<?php 
-		$con = mysqli_connect('localhost', 'root', '8eC1e1zwI5', 'hng_fun');
+		require 'db.php';
 		if(mysqli_connect_errno()){
 			echo 'Error connecting to the database'.mysqli_connect_error();
 		}
 		$queryUserInfo = 'SELECT * FROM interns_data';
 		$querySecretWord = 'SELECT * FROM secret_word';
-		$userInfo = mysqli_query($con, $queryUserInfo);
-		$secret_word = mysqli_query($con, $querySecretWord);
+		$userInfo = $conn->query($queryUserInfo);
+		$secret_word = $conn->query($querySecretWord);
+		$userInfo->setFetchMode(PDO::FETCH_ASSOC);
+		$secret_word->setFetchMode(PDO::FETCH_ASSOC);
+		//$userInfo = mysqli_query($conn, $queryUserInfo);
+		//$secret_word = mysqli_query($conn, $querySecretWord);
 	?>
 	<body>
 		<div id = "container" align="center">
@@ -53,13 +57,12 @@
 				
 			</div>
 			<div class= "userinfo">
-				<?php $row = mysqli_fetch_assoc($userInfo)?>
+				<?php $row = $userInfo->fetch();?>
 				<span>Username: <?php echo $row['username']; ?></span><br>
 				<span>Full Name: <?php echo $row['name']; ?></span>
 				<br>
 				
-				<?php $secretWordRow = mysqli_fetch_assoc($secret_word)?>
-				<div>Secret Word: <?php echo $secretWordRow['secret_word'] ?></div>
+				<?php $secretWordRow = $secret_word->fetch();?>
 			</div>
 		</div>
 	</body>
