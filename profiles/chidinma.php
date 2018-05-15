@@ -35,7 +35,10 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		<Title> Chidinma </Title>
 		<style> 
 		
-		
+		.container{
+			width: 100px;
+			background-color: #A394CD;
+		}
 		img  {width: 100px;
 			height: 100px;
 			border-radius: 40%;
@@ -52,7 +55,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 		}
 		.email{
-			width: 250px;
+			width: 350px;
 			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
@@ -61,7 +64,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 			margin-top: 10px;
 		}
 		.phone {
-			width: 250px;
+			width: 350px;
 			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
