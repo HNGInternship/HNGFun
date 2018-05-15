@@ -34,15 +34,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	<head>
 		<Title> Chidinma </Title>
 		<style> 
-		.container{
-			height: 400px;
-			width: 500px;
-			background-color: #A394CD;
-		}
+		
 		img  {width: 100px;
 			height: 100px;
 			border-radius: 40%;
-			margin-top: 30px;
+			margin-top: 100px;
 			margin-left:10px;
 		}
 		.aboutme{
@@ -55,7 +51,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 
 		}
 		.email{
-			width: 250px;
 			height: 40px;
 			background-color: #F2F2F2;
 			border-radius: 20px;
@@ -87,6 +82,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		}
 		h2{
 			margin-left:20px;
+			text-align: left;
 		}
 		.fab-fa-twitter-square{font-size:7px;}
 

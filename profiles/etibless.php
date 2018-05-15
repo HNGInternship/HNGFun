@@ -185,7 +185,7 @@ input{
          <hr>
       <br>  
       <p class="h4">My name is PRINCEWILL EDWARD</p>    
-      <p class="h4">This is my USERNAME: <i>etibless</i></p>
+      <p class="h4">My username is: <i>etibless</i></p>
       <p >Thank you for stoping by</p>
       <p class="h4"><b>I am an intermediate web Developer.
           <br>A 400 Level Computer Engineering Student
