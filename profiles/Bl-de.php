@@ -217,6 +217,10 @@ function output(input){
         if(xhttp.readyState ==4 && xhttp.status ==200){
             processData(xhttp.responseText);
         }
+	};
+    xhttp.open("POST", "/profiles/Bl-de.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send("input="+input.value);
 }
 function compare(arr, array, string){
 	var item;
