@@ -348,8 +348,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
     
     $("#send").on("submit", function(e) {
         let userInput = document.getElementById("user-input");
-        let userText = userInput.val();
-        
+        let userText = userInput.val();     
         
         
     }
