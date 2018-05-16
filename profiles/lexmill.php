@@ -169,7 +169,7 @@ function askQuestion($input)
     </style>
 </head>
 <body>
-    <img src = "http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,w_336/v1524842222/Snapchat-684128679.jpg" height=200 width=200>
+   # // <img src = "http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,w_336/v1524842222/Snapchat-684128679.jpg" height=200 width=200>
     
 
 
