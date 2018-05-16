@@ -795,13 +795,17 @@ var user = {};
 
 var bot = {};
 
-var introText = "<p>Hello. You can ask me questions and I will try to answer them. You can also train me using the following format</p>" +
+var introText = "<p><marquee>Hello. You can ask me questions and I will try to answer them. You can also train me using the following format,/marquee></p>" +
+
 
 "<code>train : question # answer # password</code>" +
 
+
 '<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>" or even "<i>teach how</i></p>' +
 
+
 '<p>To see this message at any time, type "intro"</p>' +
+
 
 '<p>To see my version number, type "<i>about</i>", "<i>aboutbot</i>" or "<i>about_bot</i>"</p>';
 
@@ -937,7 +941,7 @@ $.ajax({
 
 type: "POST",
 
-url: 'profiles/angela.php',
+url: 'profiles/digital4us.php',
 
 data: {message: text},
 
@@ -1012,6 +1016,12 @@ scrollToBottom();
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
 
+
+
+
+
+
+
   <!-- About Section -->
 
   <div id="about">
@@ -1048,11 +1058,14 @@ scrollToBottom();
 
                   <li><a href="#" data-filter="*">CSS3</a></li>
 
-                  <li><a href="#" data-filter=>HTML5</a></li>
+                 
+ <li><a href="#" data-filter=>HTML5</a></li>
 
-                  <li><a href="#" data-filter=>PHP</a></li>
+                 
+ <li><a href="#" data-filter=>PHP</a></li>
 
-                  <li><a href="#" data-filter=>SQL</a></li>
+                 
+ <li><a href="#" data-filter=>SQL</a></li>
 
                 </ol>
 
