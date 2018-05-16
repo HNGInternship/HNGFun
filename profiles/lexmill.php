@@ -178,9 +178,10 @@ function askQuestion($input)
    <b> HNG 2018 INTERNSHIP</b><br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
-        $currentDateTime = date('Y-m-d H:i:s');
+        $currentDateTime = date('Y-m-d H:i:s');<br>
         echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        ?></h1></div><p class="oj-align-content-center">NAME: <?= "Meet Leke"?><br /><br>
+    USERNAME: <?= "Lexmill is my username"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
