@@ -179,7 +179,7 @@ function askQuestion($input)
     <font color="blue"> HNG Internship 2018</font><br><br><br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
-        $currentDateTime = date('Y-m-d H:i:s');   &nbsp &nbsp &nbsp
+        $currentDateTime = date('                                Y-m-d H:i:s');   &nbsp &nbsp &nbsp
       <hr>  echo $currentDateTime;
         ?></h1></div><p class="oj-align-content-center">Name: <?= "Leke !"?><br />Username: <?= "Lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
