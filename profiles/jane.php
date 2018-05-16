@@ -1,7 +1,7 @@
 <?php
 	// Profile
 
-	require_once "../../config.php";
+	require "../../config.php";
 	try {
 
 
