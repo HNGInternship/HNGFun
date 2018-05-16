@@ -29,9 +29,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-        function chatMode($ques){
+        function chatMode($input){
             require '../../config.php';
-            $ques = test_input($input);
+            $input = test_input($input);
             $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([

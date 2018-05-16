@@ -1,14 +1,12 @@
 <?php
 
-if (!defined('DB_USER')) {
+if(!defined('DB_USER')){
 
-include_once("../answers.php");
-
-require '../../config.php';
+require "../../config.php"; 
 
 try {
 
-$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 
 } catch (PDOException $pe) {
 
@@ -18,219 +16,173 @@ die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage(
 
 }
 
-$query = "SELECT * FROM secret_word";
+global $conn;
 
-$secret_word = $conn->query($query);
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-$result = $secret_word->fetch();
+$result = $conn->query("select * from secret_word LIMIT 1");
 
-$secret_word = $result['secret_word'];
+$result = $result->fetch(PDO::FETCH_OBJ);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$secret_word = $result->secret_word;
 
-chat($_POST['message']);
+$result2 = $conn->query("Select * from interns_data where username = 'digital4us'");
 
-return;
-
-}
-
-/**
-
-* first function call whenever someone types a message in the chatbot
-
-* @return void
-
-*/
-
-function chat($message) {
-
-$message = trim($message);
-
-if (empty($message)) {
-
-echo 'please type something';
-
-return;
-
-}
-
-$warning = badWord($message);
-
-if (!is_null($warning)) {
-
-echo $warning;
-
-return;
-
-}
-
-getFunction($message);
-
-}
-
-function badWord($message) {
-
-require_once('../classes/class.badwords.php');
-
-$BadWords = new badWords();
-
-$badWords = $BadWords::getBadWords();
-
-$message = strtolower($message);
-
-$words = explode(' ', $message);
-
-foreach ($words as $word) {
-
-if (in_array($word, $badWords)) {
-
-$replies = [
-
-'Hey! Watch your mouth!',
-
-'The way you talk, yo mama would be ashamed. I\'m sure she taught you better',
-
-'Yuck! So dirty.',
-
-"I'll reply I didn't see that"
-
-];
-
-return $replies[array_rand($replies)];
-
-}
-
-}
-
-return null;
-
-}
-
-function getFunction($message, $delimiter = '#') {
-
-if ($message == 'about' || $message == 'aboutbot' || $message == 'about_bot') {
-
-return about();
-
-}
-
-$function = trim(substr($message, 0, strpos($message, ':')));
-
-$functions = array(
-
-'train',
-
-'teach',
-
-'coach'
-
-);
-
-$hasDelimiter = strpos($message, $delimiter);
-
-// no delimiter means chatbot is not being trained
-
-if ($hasDelimiter === false) {
-
-getBotResponse($message);
-
-return;
-
-}
-
-if ($function && in_array($function, $functions)) {
-
-$message = substr($message, strpos($message, ':')+1);
-
-$data = explode($delimiter, $message);
-
-if (isset($data[2])) {
-
-$password = trim($data[2]);
+$user = $result2->fetch(PDO::FETCH_OBJ);
 
 } else {
 
-echo 'you need to enter a password. contact my owner (email: olasupoabdulhakeem2002@gmail.com or slack: @digital4us) if you do not know my password';
+$message = trim(strtolower($_POST['message']));
 
-return;
+$botversion = 'drugAbuse2020 V2.1';
 
-}
+$intent = 'unrecognized';
 
-if ($password != 'password') {
+$unrecognizedAnswers = [
 
-echo 'password is incorrect. contact my owner (email: olasupoabdulhakeem2002@gmail.com or slack: @digital4us) if you do not know my password';
+'Please I Dont Know the answer can you Please help train me?. just type: <b>#train: Question | Answer | password.</b>',
 
-return;
-
-}
-
-$question = $answer = null;
-
-if (isset($data[0])) {
-
-$question = trim($data[0]);
-
-}
-
-if (isset($data[1])) {
-
-$answer = trim($data[1]);
-
-}
-
-if (in_array($function, $functions)) {
-
-$function($question, $answer);
-
-return;
-
-}
-
-}
-
-echo 'no valid function detected. to train me, use the following structure without brackets (train:the question#the answer#my valid training password)';
-
-return;
-
-}
-
-/**
-
-* Train the chat bot so it knows how to respond to certain questions
-
-* @return void
-
-*/
-
-function train($question, $answer) {
-
-$trainingResponses = [
-
-'Great! I have learnt something new.',
-
-'Watch out, I may become the smartest and perfect chatbot in the world!',
-
-'TIL something',
-
-'Interesting! I will try to remember this.',
-
-'Noted'
+'I don\'t understand that question. train me pleasee. Just type: <b>#train: Question | Answer | password.</b>',
 
 ];
 
-if (botKnowsIt($question, $answer)) {
+if (strpos($message, 'what is your name') !== false || strpos($message, 'what do you do') !== false || strpos($message, 'who are you') !== false) {
 
-echo 'Thanks, but I knew that already';
+$intent = 'myname';
+
+}
+
+if (strpos($message, 'what is drug abuse') !== false || strpos($message, 'define drug abuse') !== false || strpos($message, 'drug abuse') !== false) {
+
+$intent = 'drugabuseDEF';
+
+}
+
+if (strpos($message, 'dаngеr аѕѕосіаtеd wіth drugs') !== false || strpos($message, 'dаngеrs аѕѕосіаtеd wіth drugs') !== false || strpos($message, 'dangers of drug abuse') !== false || strpos($message, 'effect of drug abuse') !== false) {
+
+$intent = 'dаngеr';
+
+}
+
+if (strpos($message, 'effесtѕ оf drug abuse') !== false || strpos($message, 'what are the effесtѕ оf drug abuse') !== false || strpos($message, 'drug abuse effects') !== false || strpos($message, 'drug abuse effect') !== false) {
+
+$intent = 'Effесtѕ';
+
+}
+
+if (strpos($message, 'cаuѕеѕ of drug abuse') !== false || strpos($message, 'things that cаuѕе drug abuse') !== false || strpos($message, 'factors that leads to drug abuse') !== false || strpos($message, 'what can cause drug abuse') !== false) {
+
+$intent = 'Cаuѕеѕ';
+
+}
+
+if (strpos($message, 'solution to drug аbuѕе') !== false || strpos($message, 'Remedies to drug аbuѕе') !== false || strpos($message, 'what are the solutions to drug аbuѕе') !== false || strpos($message, 'what is the solution to drug аbuѕе') !== false) {
+
+$intent = 'solution';
+
+}
+
+if (strpos($message, 'hello') !== false || strpos($message, 'hi') !== false) {
+
+$intent = 'greeting';
+
+}
+
+if (strpos($message, 'aboutbot') !== false || strpos($message, 'about bot') !== false || strpos($message, 'bot version') !== false || strpos($message, 'what is your bot version') !== false) {
+
+$intent = 'version';
+
+}
+
+if (strpos($message, 'how are you') !== false 
+
+|| strpos($message, 'how are you doing') !== false
+
+|| strpos($message, 'how do you feel') !== false) {
+
+$intent = 'greeting_response';
+
+}
+
+if ((strpos($message, 'am ok') !== false 
+
+|| strpos($message, 'am cool') !== false) 
+
+&& $intent !== 'greeting_response') {
+
+$intent = 'casual';
+
+}
+
+if(strpos($message, "help") !== false) {
+
+echo json_encode([
+
+"
+
+- To know what drug abuse is just type (what is drug abuse) <br />
+
+- To know the dengers of drug abuse just type (dangers of drug abuse) <br />
+
+- To know the effесtѕ of drug abuse just type (effесtѕ оf drug abuse).
+
+- To know the cаuѕеѕ of drug abuse just type (cаuѕеѕ of drug abuse) <br />
+
+- To know the solution to drug abuse just type (solution to drug аbuѕе) <br />
+
+- To know about the bot just type (about bot) <br />
+
+",
+
+]);
 
 return;
 
 }
 
-try {
+//check for bot training
 
-$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+$trainingData = '';
 
-$query = $conn->prepare("INSERT INTO chatbot (question, answer) values (:question, :answer)");
+if (strpos($message, 'train:') !== false) {
+
+$intent = 'training';
+
+$parts = explode('train:', $message);
+
+if (count($parts) > 1) {
+
+$trainingData = $parts[1];
+
+}
+
+}
+
+if ($intent === 'training' && $trainingData === '') {
+
+$response = 'please you did not get the training format. Use this format >>> "#train: Question | Answer"';
+
+} else if ($trainingData !== '') {
+
+$intent = 'training';
+
+$parts = explode('|', $trainingData);
+
+if (count($parts) > 1) {
+
+$question = trim($parts[0]);
+
+$answer = trim($parts[1]);
+
+$password = trim($parts[2]);
+
+//save in db
+
+if ($password === 'password') {
+
+$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+
+$query = $conn->prepare($sql);
 
 $query->bindParam(':question', $question);
 
@@ -238,145 +190,167 @@ $query->bindParam(':answer', $answer);
 
 $query->execute();
 
-echo $trainingResponses[array_rand($trainingResponses)];
+$query->setFetchMode(PDO::FETCH_ASSOC);
 
-return;
+$response = 'Thank you!! you have succesfully updated my brain'; 
 
-} catch (PDOException $e) {
+}
 
-return "Error: " . $e->getMessage();
+else {
+
+$response = 'Ooops, please enter a correct password (HINT: Password is password';
+
+} 
+
+} else {
+
+$response = 'sorry. please enter question, answer and password using this format >>> "#train: Question | Answer | password"';
 
 }
 
 }
 
-function botKnowsIt($question, $answer) {
+if ($intent === 'unrecognized') {
 
-try {
+$answer = '';
 
-$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
 
-$sql = 'SELECT count(*) FROM chatbot WHERE question = "' . $question . '" AND answer = "' . $answer . '" LIMIT 1';
+$stmt->execute();
 
-$query = $conn->query($sql);
+if($stmt->rowCount() > 0) {
 
-$result = $query->fetch();
+$intent = 'db_question';
 
-$count = $result["count(*)"];
+while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-return (bool)$count;
-
-} catch (PDOException $e) {
-
-return "Error: " . $e->getMessage();
+$answer = $row["answer"];
 
 }
 
 }
 
-function teach($question, $answer)
-
-{
-
-return train($question, $answer);
-
 }
 
-function coach($question, $answer)
+switch($intent) {
 
-{
+case 'Cаuѕеѕ':
 
-return train($question, $answer);
+echo 'Thеrе are twо primary саuѕеѕ of drug аbuѕе аmоng the уоuthѕ. Thеѕе аrе
 
-}
+PEER PRESSURE: Yоuth аѕѕосіаtеѕ wіth dіffеrеnt tуреѕ оf реорlе otherwise known аѕ frіеndѕ. Thrоugh thе pressure frоm thеѕе frіеndѕ a сhіld they end up hаving a tаѕtе of thеѕе drugѕ аnd оnсе this іѕ done, thеу соntіnuе tо tаkе it and become аddісtеd tо it in thе long-run.
 
-function about() {
+DEPRESSION: Anоthеr рrіmаrу cause оf drug аbuѕе іѕ depression. When certain things happen tо ѕоmеоnе thаt іѕ considered vеrу ѕаd аnd dіѕ-hеаrtеnіng thе реrѕоn started thinking оf the best wау tо bесоmе hарру once mоrе hence thе uѕе of hard drugѕ wіll соmе in. This lаtеr оn turnѕ to a hаbіt, hence drug abuse.
 
-echo 'Version 1.0';
+Another mаjоr саuѕе оf drug аbuѕе іѕ ѕаіd to bе the rаtе оf unеmрlоуmеnt among youths. Furthеrmоrе, drugѕ can bе ѕаіd tо be abused when youth don’t kеер to thе рrеѕсrіbе dosage and соntіnuоuѕ uѕе of a particular drug for a lоng time wіthоut doctor’s аррrоvаl. Thіѕ kind of аbuѕе іѕ аѕѕосіаtеd wіth ѕоft drugѕ.';
 
-}
+break;
 
-/**
+case 'Effесtѕ':
 
-* Train the chatbot so it knows how to respond to certain questions
+echo 'he following effects соuld bе еxреrіеnсеd in the body:
 
-* @return void
+1. It deadens the nеrvоuѕ system.
 
-*/
+2. It іnсrеаѕеs thе heart-beat.
 
-function getBotResponse($question) {
+3. It causes thе blооd vеѕѕеlѕ tо dilate.
 
-$lastChar = substr($question, -1);
+4. It саuѕеѕ bad dіgеѕtіоn nоtаblу оf vіtаmіn B еѕресіаllу whеn taken on empty stomach.
 
-$q = '"' . $question . '"';
+5. It interferes wіth thе роwеr оf judgmеnt аnd роіѕоnѕ thе higher brаіn аnd nеrvе сеntrе еtс.Ovеr dоѕе of thе drugѕ produces blurrеd ѕреесh, ѕtаggеrіng, ѕluggіѕhnеѕѕ, rеасtіоn, erratic emotionality and untіmеlу ѕlеер. The stimulants іnсludе wеll knоwn сосаіnе, caffeine оr codeine, paracetamol еtс.';
 
-if ($lastChar != '?') {
+break;
 
-$q = '"' . $question . '" OR question = "' . $question . '?"';
+case 'solution':
 
-}
+echo '1] Aggrеѕѕіvе еxtіnсtіоn оf аll thе sources оf these hаrd drugѕ іnсludіng the fаrmѕ whеrе thеу аrе planted bу a jоіnt fоrce of authorities.
 
-$conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+2] Pаrеntѕ should mоnіtоr the kіnd of friends thеіr сhіldrеn interact with аnd guіdе аgаіnѕt bаd соmраnу.
 
-$query = $conn->query('SELECT answer FROM chatbot WHERE question = ' . $q . ' ORDER BY RAND() LIMIT 1');
+3] alcohol recovery programs for jesus followers of the аffесtеd persons.
 
-$result = $query->fetch();
+4] Tеасhіng thе еffесtѕ of drug аbuѕе іn schools.
 
-if ($result) {
+5] Cоntіnuоuѕ саmраіgn аgаіnѕt thе uѕе оf hard drugѕ аt thе fеdеrаl, state аnd lосаl levels.
 
-// if result has a special function, call that function and append the result
+6] Cоnѕеnt of a dосtоr ѕhоuld be ѕоught bеfоrе a рrоlоng intаkе оf a particular ѕоft drug.
 
-$answer = $result['answer'];
+7] Stіff penalty should be mеltеd аgаіnѕt anybody fоund dеаlіng in hard drugѕ.';
 
-if (strstr($answer, '((')) {
+break; 
 
-// you will see: ((getQuote))
+case 'dаngеr':
 
-$start = strpos($answer, '((');
+echo 'There аrе twо аѕресtѕ оf dаngеr аѕѕосіаtеd wіth drugs; the risk оf addiction and аdvеrѕе hеаlth and bеhаvіоurаl consequences.';
 
-$end = strpos($answer, '))');
+break;
 
-$extraFunction = substr($answer, $start + 2, (strlen($answer) - ($start + 4)));
+case 'greeting':
 
-$quoteData = $extraFunction();
+echo 'Hello. how are you doing today?';
 
-$quote = json_decode($quoteData);
+break; 
 
-echo '"' . $quote->quote . '" --' . $quote->author;
+case 'drugabuseDEF':
 
-return;
+echo 'Drug abuse іѕ a ѕіtuаtіоn whеn drug is tаkеn mоrе thаn іt is prescribed. Drug аbuѕе саn bе further dеfіnеd as thе dеlіbеrаtе uѕе оf chemical ѕubѕtаnсеѕ fоr reasons other thаn іntеndеd mеdісаl purposes and whісh rеѕultѕ іn рhуѕісаl, mental emotional оr ѕосіаl іmраіrmеnt of thе uѕеr.';
 
-}
+break;
+
+case 'greeting_response':
+
+echo 'am fine thank you';
+
+break;
+
+case 'db_question':
 
 echo $answer;
 
-return;
+break;
+
+case 'training':
+
+echo $response;
+
+break;
+
+case 'casual':
+
+echo 'Alright. nice to kmow';
+
+break;
+
+case 'myname':
+
+echo 'my name is Joel and am here to teach about drug abuse in nigeria';
+
+break;
+
+case 'version':
+
+echo $botversion;
+
+break;
+
+case 'unrecognized':
+
+default:
+
+echo $unrecognizedAnswers[rand(0, count($unrecognizedAnswers) - 1)];
+
+break;
 
 }
 
-$unknownResponses = [
-
-'I don\'t know.',
-
-'no idea!',
-
-'I guess I don\'t know everything.',
-
-'interesting question! am not sure.',
-
-'try reframing your question please.',
-
-'sorry, don\'t know that.'
-
-];
-
-echo $unknownResponses[array_rand($unknownResponses)] . ' ' . 'But you can train me so I know the answer next time.';
-
-return;
+exit;
 
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 
@@ -398,7 +372,7 @@ return;
 
 body, html {
 
-background: url('https://images.unsplash.com/photo-1461354360854-e33a1d6f7905?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fee6edcd0f9d69f8a32aef0e879d37d0&auto=format&fit=crop&w=2021&q=80') no-repeat center top;
+background: url('https://unsplash.com/photos/C8VWyZhcIIU') no-repeat center top;
 
 background-position: center;
 
