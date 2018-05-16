@@ -181,12 +181,12 @@ function askQuestion($input)
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
         echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        ?></h1></div><p class="oj-align-content-center">My name is : <?= "Leke!"?><br />My HNG username is : <?= "lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
 <label>
-    <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
+    <input name="input" type="text" class="tb5"  placeholder="Chat with Smart!">
 </label><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
         <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
