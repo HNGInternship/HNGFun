@@ -1,5 +1,7 @@
 <?php
 	// Profile
+
+	require "../../config.php";
 	try {
 
 
@@ -310,8 +312,8 @@
 				border: 1px solid #FFF1FD;
 				border-radius: 3px 10px 10px 3px;
 				float: left;
-				padding: 10px;
-				padding-bottom: 2px;
+				padding: 10px!important;
+				padding-bottom: 2px!important;
 				margin-bottom: 5px;
 			}
 
@@ -321,8 +323,8 @@
 				border: 1px solid #CEE7F1;
 				border-radius: 10px 3px 3px 10px;
 				float: right;
-				padding: 10px;
-				padding-bottom: 2px;
+				padding: 10px!important;
+				padding-bottom: 2px!important;
 				margin-top: 15px;
 				margin-bottom: 20px;
 			}
@@ -470,7 +472,7 @@
 
 					else{
 						$.ajax({
-							url: "../profiles/jane.php",
+							url: "./profiles/jane",
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
