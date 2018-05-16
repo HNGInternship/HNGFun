@@ -1,3 +1,40 @@
+<?php
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+ global $conn;
+
+    //fetch-store results
+
+    try {
+	            $sql = "SELECT * FROM secret_word";
+		            $secret_word_query = $conn->query($sql);
+		            $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
+			            $query_result = $secret_word_query->fetch();
+			            $sql_queryname = 'SELECT * FROM interns_data WHERE username="mustapha"';
+				            $query_my_intern_db = $conn->query($sql_queryname);
+				            $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
+					            $intern_db_result = $query_my_intern_db->fetch();
+					        }
+    catch (PDOException $exceptionError) {
+	            throw $exceptionError;
+		       }
+        $secret_word = $query_result['secret_word'];
+        $name = $intern_db_result['name'];
+	        $username = $intern_db_result['username'];
+	        $image_addr = $intern_db_result['image_filename'];
+?>
+
+
+
+
+
 
 <!DOCTYPE html>
 
@@ -270,34 +307,3 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 																																											</div><!-- .entry-content -->
 
 <footer class="entry-meta">
-
-/*
-<?php
-   include_once("header.php");
-
-      $profile_name = $_GET['id'];
-       $secret_word = "sample_secret_word";
-
-       require 'db.php';
-?>
-
-<?php
-
-
-           // readfile('profiles/' . $profile_name. '.php');
-       //
-       //     require('profiles/' .$profile_name. '.php');
-    //
-     
- try {
-  $sql = "SELECT * FROM secret_word";
-  $q = $conn->query($sql);
-  $q->setFetchMode(PDO::FETCH_ASSOC);
-  $data = $q->fetch();
-  $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-  throw $e;
-  }
-?>
-
-*/     
