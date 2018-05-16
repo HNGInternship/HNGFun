@@ -12,11 +12,11 @@
 //define('DB_PASSWORD', "");
 
     try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
- global $conn;
+   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+ } catch (PDOException $pe) {
+   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+ }
+  global $conn;
     
 
         $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -43,7 +43,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "I am Naimahbot v1.0, I am a bot that returns data from the database.<br> I can be trained you know,<br>Training Format: train:question#answer#password";
+            $reply = "I am Naimahbot v1.0, I am a bot that returns data from the database.<br> I can be trained you know,<br>Training Format: <br>train: question # answer # password <br>e.g train: wow # cool # password";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
@@ -84,12 +84,12 @@ function test_input($data) {
                     //saving to database ends here
                     
                 }else{
-                    $reply = "Follow the training format.<br> Training Format: train:question#answer#password";
+                    $reply = "Follow the training format.<br> Training Format:<br> train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
             }else{
-                    $reply = "follow the training format.<br> Training Format: train:question#answer#password";
+                    $reply = "follow the training format.<br> Training Format:<br> train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
@@ -109,7 +109,7 @@ function test_input($data) {
     
         }
         else{
-            $error = "I don't seem to understand you <br> You can train me on that.<br>Training Format: train:question#answer#password";
+            $error = "I don't seem to understand you <br> You can train me on that.";
             $response = array('status'=>2, 'answer'=> $error);
             echo json_encode($response); 
         }
@@ -227,7 +227,7 @@ h1 {
     display: none;
 }
 #chat, #displayHidden{
-  height: 64px;
+  height: 70px;
     background-color: Navy;
     width: 100%;
     padding-top: 10px;
@@ -329,7 +329,7 @@ button{
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
                     <span>Welcome, Meet Naimahbot</span>
-                    <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
+                    <button id="button" style="float:right; margin-right:10px;"><span>X</span></button>
                     <span><?php echo "" . date("h:i:a"); ?></span>
                 </div>
                 <div id="main_chat">
