@@ -205,15 +205,15 @@ h3{
 #chatborder {
   border-style: solid;
   background-color: #0000ff;
-  border-width: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border-width: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   margin-left: 10px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-right: 10px;
-  padding-left: 5px;
+  margin-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  padding-right: 15px;
+  padding-left: 10px;
   border-radius:15px;
 }
 
