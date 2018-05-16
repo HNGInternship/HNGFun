@@ -174,7 +174,7 @@ function askQuestion($input)
 <div>
     <h1>Stage 1</h1>
     <br>
-    <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_270,w_270/v1524842222/Snapchat-684128679.jpg">
+    <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_300,w_300/v1524842222/Snapchat-684128679.jpg">
     <hr>
     HNG Internship 4<br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
