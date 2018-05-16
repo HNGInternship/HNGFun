@@ -174,7 +174,7 @@ function askQuestion($input)
 <div>
     <p>Welcome to my Page!</p>
     <br>
-<img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/v1524842222/Snapchat-684128679.jpg" height="10">
+<img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,h_379,w_270/v1524842222/Snapchat-684128679.jpg">
     HNG Internship 2018<br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
