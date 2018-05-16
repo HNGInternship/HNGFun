@@ -368,7 +368,7 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: '/profiles/Damilola.php',
+                        url: 'http://old.hng.fun/profile.php?id=Damilola',
                         dataType: "text",
                         method: 'POST',
                         cache: 'false',
@@ -382,7 +382,7 @@ h5{
                     }) .done(function(data,textStatus,jqXHR){
                         alert("response with: " + data);
                         })
-                        .fail(function(data,textStatus,errorThrown){ alert("Request failed!"); })
+                        .fail(function(data,textStatus,errorThrown){ alert("Request failed!"); console.log('FAILURE: ' + textStatus); })
                         .always(function(data,textStatus,errorThrown){});
 
 
