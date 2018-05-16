@@ -169,28 +169,25 @@ function askQuestion($input)
     </style>
 </head>
 <body>
-    <img src = "http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,w_336/v1524842222/Snapchat-684128679.jpg" height=200 width=200>
-    
 
 
 <div>
-    <h1><i>Welcome to my page</i></h1><hr>
+    <h1>Stage 1</h1>
     <br>
 
-   <b> HNG 2018 INTERNSHIP</b><br>
+    HNG Internship 4<br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
-        $currentDateTime = date('Y-m-d H:i:s');<br>
+        $currentDateTime = date('Y-m-d H:i:s');
         echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "Meet Leke"?><br /><br>
-    USERNAME: <?= "Lexmill is my username"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
 <label>
-    <input name="input" type="text" class="tb5"  placeholder="Chat with me! Click Ping to send.">
-</label><br><label>
-    <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="PING"><label><br>
+    <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
+</label><label>
+    <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
         <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
     </label>
 </label>
