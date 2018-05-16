@@ -114,7 +114,7 @@
         }
         
         // find visitor location
-        if($que == "where am i"){
+        if(stristr($que, "where am i")){
 			$location = get_location($_SERVER['REMOTE_ADDR']);
             if(!is_null($location))echo "You are in ". $location;
             else echo "Sorry, I couldn't get that...";
@@ -123,6 +123,7 @@
 
 		// find location of ip
 		if(stristr($que, "where is")){
+            $que = strtolower($que);
 			$ip = trim(str_replace("where is", "", $que));			
 			$location = get_location($ip);
 			if(!is_null($location))echo $location;
