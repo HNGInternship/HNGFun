@@ -181,7 +181,7 @@ function askQuestion($input)
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
         echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LE"?><br />USERNAME: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        ?></h1></div><p class="oj-align-content-center">I am <?= "Leke !"?><br />USERNAME: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
