@@ -187,7 +187,7 @@ function askQuestion($input)
 </div><form method="post">
 <label>
     <input name="input" type="text" class="tb5"  placeholder="Chat with Smart!">
-</label><label>
+</label><br><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
         <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
     </label>
