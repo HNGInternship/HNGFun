@@ -373,7 +373,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             function sendMessage(message) {
                 $.ajax({
                     method: 'POST',
-                    url: 'profiles/melas.php',
+                    url: 'profiles/jegededavid.php',
                     data: {message: message},
                     success: function(response) {
                         $("#chats").append(`<p class="chat received">${response}</p>`);
