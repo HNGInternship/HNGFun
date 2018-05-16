@@ -102,7 +102,8 @@
     <head>
         <meta charset="utf-8">
         <title>pueneh</title>
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
 
        <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
@@ -204,15 +205,15 @@ h3{
 #chatborder {
   border-style: solid;
   background-color: #0000ff;
-  border-width: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  border-width: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   margin-left: 10px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-right: 10px;
-  padding-left: 5px;
+  margin-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 20px;
+  padding-right: 15px;
+  padding-left: 10px;
   border-radius:15px;
 }
 
@@ -324,7 +325,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
             <div class="chat" id="chat">
                 
                   
-                    <p class="san">Hi! am jayo.   </p>
+                    <p class="san">Hi! am Jayo.   </p>
                     <p class="san">To train me, use - "train:question#answer#password".</p>
                    <p class="san">The Password is: <b>password</b>. </p>
                     <p class="san">type in here.</p>
@@ -343,9 +344,22 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
    
 <script>
     var outputArea = $("#chat me up");
+    
+    
+    $("#send").on("submit", function(e) {
+        let userInput = document.getElementById("user-input");
+        let userText = userInput.val();     
+        
+        
+    }
+    
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
+        document.getElementById("P class=san").innerHTML = "Hi! am Jayo.";
+        document.getElementById("p class=san").innerHTML = "To train me, use= train:question#answer#password.";
+
         var message = $("#user-input").val();
+        
         outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=puenehfaith',

@@ -109,7 +109,7 @@ function test_input($data) {
     
         }
         else{
-            $error = "I don't seem to understand you <br> You can train me on that.";
+            $error = "I don't seem to understand you <br> You can train me on that.<br>Training Format: train:question#answer#password";
             $response = array('status'=>2, 'answer'=> $error);
             echo json_encode($response); 
         }
@@ -223,24 +223,24 @@ h1 {
     margin-left: 20px; 
     margin-bottom: 100px;
     margin-right: 20px;
-    position: absolute;
+    position: relative;
     display: none;
 }
 #chat, #displayHidden{
-  height: 60px;
-    background-color:  #00000f;
+  height: 64px;
+    background-color: Navy;
     width: 100%;
     padding-top: 10px;
-    color: #5563DE;
-    font-size: 20px;
+    color: #74ABE2;
+    font-size: 24px;
     font-weight:bold;
 }
 #displayHidden:hover{
-    color: #7a8690;
-    background-color: #00000f;
+    color: white;
+    background-color: #5563DE;
 }#button:hover{
-    color: #7a8690;
-    background-color: #00000f;
+    color: blue;
+    background-color: #EAEAEA;
 }
 #chatMessages{ 
     width: 100%;
@@ -248,7 +248,7 @@ h1 {
     max-height: 250px;
 }
 button{
-    font-size: 20px;
+    font-size: 18px;
     font-weight:bold;
 }
 #messageReceived, #messageSent, #message{
@@ -257,13 +257,14 @@ button{
     text-align: center;
 }
 #messageReceived{
-    background-color: grey;
+    background-color: Navy;
     width: 50%;
     float: left;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     border-bottom-left-radius: 50px;
     border: #fff 2px solid;
+	color: white;
 }#messageSent{
     background-color: #00000f;
     float: right;
@@ -333,7 +334,7 @@ button{
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#00000f; color:white;">Hi, I am Naimahbot. Feel free to talk to me and <br>I'll try to respond to the best of my ability! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div id="message" style="background-color: Navy; color:white;">Hi, I am Naimahbot. Feel free to talk to me and <br>I'll try to respond to the best of my ability! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
 
                     </div>
                 </div>
