@@ -344,6 +344,16 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
    
 <script>
     var outputArea = $("#chat me up");
+    
+    
+    $("#send").on("submit", function(e) {
+        let userInput = document.getElementById("user-input");
+        let userText = userInput.val();
+        
+        
+        
+    }
+    
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
         document.getElementById("P class=san").innerHTML = "Hi! am Jayo.";
