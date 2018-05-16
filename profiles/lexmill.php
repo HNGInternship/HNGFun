@@ -172,7 +172,7 @@ function askQuestion($input)
 
 
 <div>
-    <h1>Welcome to my Page!</h1>
+    <p>Welcome to my Page!</p>
     <br>
 
     HNG Internship 2018<br>
