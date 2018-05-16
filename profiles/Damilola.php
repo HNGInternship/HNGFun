@@ -367,11 +367,10 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'Damilola',
-                        dataType: "text",
-                        method: 'POST',
-                        cache: 'false',
-                        data:'msg=' + message,
+                       url: 'profile?id=Damilola', //This is the current doc
+                          type: "POST",
+                          //dataType:'json', // add json datatype to get json
+                          data: ({msg: message}),
                         success: function(data){
                             bot_chat(data);
                             reset;
