@@ -175,13 +175,13 @@ function askQuestion($input)
     <p>Welcome to my Page!</p>
     <br>
 <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,h_300,w_270/v1524842222/Snapchat-684128679.jpg">
-    <br><hr>
-    <font color="blue"> HNG Internship 2018</font><br>
+    <br><hr><br><br>
+    <font color="blue"> HNG Internship 2018</font><br><br><br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
         echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
