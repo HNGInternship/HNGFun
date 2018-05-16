@@ -172,10 +172,10 @@ function askQuestion($input)
 
 
 <div>
-    <h1>Stage 1</h1>
+    <h1>Welcome to my Page!</h1>
     <br>
 
-    HNG Internship 4<br>
+    HNG Internship 2018<br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
