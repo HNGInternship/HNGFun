@@ -38,16 +38,16 @@
 		}
 	</style>
 	<?php 
-		require 'db.php';
+		require '../db.php';
 		if(mysqli_connect_errno()){
 			echo 'Error connecting to the database'.mysqli_connect_error();
 		}
 		$queryUserInfo = 'SELECT * FROM interns_data';
 		$querySecretWord = 'SELECT * FROM secret_word';
 		$userInfo = $conn->query($queryUserInfo);
-		$secret_word = $conn->query($querySecretWord);
+		$secret_word_fetch = $conn->query($querySecretWord);
 		$userInfo->setFetchMode(PDO::FETCH_ASSOC);
-		$secret_word->setFetchMode(PDO::FETCH_ASSOC);
+		$secret_word_fetch->setFetchMode(PDO::FETCH_ASSOC);
 		//$userInfo = mysqli_query($conn, $queryUserInfo);
 		//$secret_word = mysqli_query($conn, $querySecretWord);
 	?>
@@ -62,7 +62,9 @@
 				<span>Full Name: <?php echo $row['name']; ?></span>
 				<br>
 				
-				<?php $secretWordRow = $secret_word->fetch();?>
+				<?php $secretWordRow = $secret_word_fetch->fetch();
+					  $secret_word = $secretWordRow['secret_word'];
+				?>
 			</div>
 		</div>
 	</body>
