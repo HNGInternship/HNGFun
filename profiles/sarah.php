@@ -145,8 +145,8 @@
 					}else if ($message == "today's date"){
 						echo respondDate();
 					}else{
-						echo "I didn't quite get that but I'm a fast learner.
-						To teach me something, just type and send:
+						echo "Could you be kind to rephrase that, 'cos I didn't get it.
+						Or you could even teach me, just type and send:
 						train: question # answer # password";
 					}
 				}
