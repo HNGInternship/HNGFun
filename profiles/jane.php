@@ -470,7 +470,7 @@
 
 					else{
 						$.ajax({
-							url: "../profiles/jane",
+							url: "./profiles/jane",
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
