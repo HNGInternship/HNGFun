@@ -205,7 +205,7 @@ h3{
 #chatborder {
   border-style: solid;
   background-color: #0000ff;
-  border-width: 3px;
+  border-width: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
