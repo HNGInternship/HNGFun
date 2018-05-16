@@ -40,7 +40,6 @@ try {
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="http://res.cloudinary.com/dncxuzgqh/image/upload/v1526439845/Image_uploaded_from_iOS.jpg">
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
