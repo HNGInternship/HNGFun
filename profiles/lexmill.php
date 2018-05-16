@@ -180,7 +180,7 @@ function askQuestion($input)
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');   &nbsp &nbsp &nbsp
-        echo $currentDateTime;
+      <hr>  echo $currentDateTime;
         ?></h1></div><p class="oj-align-content-center">Name: <?= "Leke !"?><br />Username: <?= "Lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
