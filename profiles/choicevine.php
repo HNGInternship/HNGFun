@@ -190,9 +190,10 @@ $(".btn-pref .btn").click(function () {
                 <div class="hidden-xs">Hobbies</div>
             </button>
         </div>
+        <br>
         <div class="btn-group" role="group">
             <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">Favorites</div>
+                <div class="hidden-xs">bot</div>
             </button>
         </div>
         <div class="btn-group" role="group">
