@@ -322,7 +322,7 @@ h5{
 
 
 
-<!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
 
 
@@ -367,13 +367,11 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'http://old.hng.fun/profile.php?id=Damilola',
+                        url: 'profile.php?id=Damilola',
                         dataType: "text",
                         method: 'POST',
                         cache: 'false',
-                        data: {
-                            msg: message
-                        },
+                        data:'msg=' + message,
                         success: function(data){
                             bot_chat(data);
                             reset;
