@@ -1,4 +1,122 @@
-<!DOCTYPE HTML>
+<?php
+if($_SERVER['REQUEST_METHOD'] === "GET"){
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'Bl-de'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
+}
+ ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer =test_input($questionAndAnswer); 
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+                return;
+            }else{ 
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+       
+        return;
+    }
+ <!DOCTYPE HTML>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -20,17 +138,21 @@ font-family: Montserrat;
 </section>
 <section id="ScarJobot" style="background-color:#2C3E50; color: #fff; border-radius: 5px">
 <h2 style="margin-left: 5px">SCARjOBOT</h2>
-<img src="https://res.cloudinary.com/bl-de/image/upload/v1525528851/ScarJo.png" style="float: left; height: 60%; width: 350px; border-radius: 16px; text-align: center; margin-left: 5px; margin-right: 20px">
-<div id="Chatbox" style="float: center; margin-top: 100px">
+<img src="https://res.cloudinary.com/bl-de/image/upload/v1525528851/ScarJo.png" style="float: left; height: 210px; width: 350px; border-radius: 16px; text-align: center; margin-left: 5px; margin-right: 20px">
+<div id="Chatbox" style="float: center; margin-top: 30px">
 <h3>Hi, I'm ScarJo</h3>
+<p>"I think you'd love a chat with me. 'You know something I don't?</br>
+Train me with the sequence-> train: question#answer#password<br/>
+<p>Don't be shy:)"</p>
 	<div>user: <span id="user"></span></div>
 	<div>ScarJo: <span id="chatbot"></span></div>
-	<div><input id="input" type="text" placeholder="Talk to me..." autocomplete="off" style="margin-bottom: 50px"/></div>
+	<div><input id="input" type="text" placeholder="Talk to me..." autocomplete="off" style="margin-bottom: 30px"/></div>
 </div>
 </section>
 
 <script type="text/javascript">
 var trigger = [
+	["aboutbot"],
 	["hi","hey","hello"], 
 	["how are you", "how is life", "how are things"],
 	["what are you doing", "what is going on"],
@@ -48,6 +170,7 @@ var trigger = [
 	["fuck you", "screw you", "bitch", "fuck", "shit", "crap"]
 ];
 var reply = [
+	["ScarJo Bot. Version: 1.0"],
 	["Hi","Hey","Hello"], 
 	["Fine", "Pretty well", "Fantastic"],
 	["Nothing much", "About to go to sleep", "Can you guess?", "I don't know actually"],
@@ -56,7 +179,7 @@ var reply = [
 	["I am just a bot", "I am a bot. What are you?"],
 	["Manny Ekanem", "Blade. With a katana", "My sensei Blade"],
 	["I am ScarJo", "Wouldn't you like to know?"],
-	["I love you too", "Me too"],
+	["I love you too", "Me too", "Haha"],
 	["Have you ever felt bad?", "Glad to hear it"],
 	["Why?", "Why? You shouldn't!", "Try watching my movies"],
 	["I will", "What about?"],
@@ -64,7 +187,7 @@ var reply = [
 	["Bye", "Goodbye", "See you later"],
 	["How old are you, seriously", "Your URL has been reported", "That's immature"]
 ];
-var alternative = ["Haha...", "Eh...", "Say again?"];
+
 document.querySelector("#input").addEventListener("keypress", function(e){
 	var key = e.which || e.keyCode;
 	if(key === 13){ //Enter button
@@ -82,12 +205,18 @@ function output(input){
 		if(compare(trigger, reply, text)){
 			var product = compare(trigger, reply, text);
 		} else {
-			var product = alternative[Math.floor(Math.random()*alternative.length)];
+			var product = processData (data);
 		}
 	}
 	document.getElementById("chatbot").innerHTML = product;
 	speak(product);
 	document.getElementById("input").value = ""; //clear input value
+	
+	var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(xhttp.readyState ==4 && xhttp.status ==200){
+            processData(xhttp.responseText);
+        }
 }
 function compare(arr, array, string){
 	var item;
@@ -101,6 +230,22 @@ function compare(arr, array, string){
 	}
 	return item;
 }
+function processData (data){
+    data = JSON.parse(data);
+    console.log(data);
+    var answer = data.response;
+	var trainee = ["Sorry I didn't get that. Train me with this sequence, train: question#answer#password"]
+    if(Array.isArray(answer)){
+        if(answer.length !=0){
+            var res = Math.floor(Math.random()*answer.length);
+            return(answer[res][0], "received");
+        }else{
+            return (trainee, "received");
+        }
+    }else{
+        return(answer,"received");
+    }
+    }
 function speak(string){
 	var utterance = new SpeechSynthesisUtterance();
 	utterance.voice = speechSynthesis.getVoices().filter(function(voice){return voice.name == "Agnes";})[0];
