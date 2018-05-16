@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$bot = botAnswer("Thanks for helping me be better.");
 
 		}elseif($rows !== 0){
-			$bot = botAnswer("I can answer that. You can ask me a new question, or teach me something else.");
+			$bot = botAnswer("I can answer that. Ask me a new question, or teach me something else.");
 		}
 		echo $bot;
 	}
@@ -268,6 +268,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			font-size: 18px;
 
 		}
+		#chat-box ::placeholder{
+			color:#707B7C;
+			opacity: 1;
+		}
 
 
 		header h4{
@@ -298,6 +302,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		.chat-message {
 			margin: 16px 0;
+			width: 215px;
 		}
 
 		.bot img {
@@ -333,6 +338,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		.user .chat-time {
 			float: right;
 			font-size: 10px;
+		}
+		.chat-time{
+			margin-top: -7px;
+			color: #707B7C;
 		}
 
 	</style>
@@ -373,14 +382,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				<div class="chat bot chat-message">
 					
 					<div class="chat-message-content clearfix">
-						<p>Welcome, I am a chatbot<br>To know my version enter "aboutbot".</p>
+						<p>Welcome, I am a chatbot. </p>
 						<span class="chat-time"> </span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
 					
 					<div class="chat-message-content clearfix">
-						<p>I was created by Samuel</p>
+						<p>To know my version enter<br> "aboutbot".</p>
 						<span class="chat-time"></span>
 					</div> 
 				</div>

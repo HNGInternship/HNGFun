@@ -3,7 +3,108 @@
   <head>
     <meta charset="utf-8">
     <title>Profile page</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <style media="screen">
+    .mytext{
+    border:0;padding:10px;background:whitesmoke;
+}
+.text{
+    width:75%;display:flex;flex-direction:column;
+}
+.text > p:first-of-type{
+    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+}
+.text > p:last-of-type{
+    width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
+}
+.text-l{
+    float:left;padding-right:10px;
+}        
+.text-r{
+    float:right;padding-left:10px;
+}
+.avatar{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:25%;
+    float:left;
+    padding-right:10px;
+}
+.macro{
+    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+}
+.msj-rta{
+    float:right;background:whitesmoke;
+}
+.msj{
+    float:left;background:white;
+}
+.frame{
+    background:#e0e0de;
+    height:450px;
+    overflow:hidden;
+    padding:0;
+}
+.frame > div:last-of-type{
+    position:absolute;bottom:0;width:100%;display:flex;
+}
+body > div > div > div:nth-child(2) > span{
+    background: whitesmoke;padding: 10px;font-size: 21px;border-radius: 50%;
+}
+body > div > div > div.msj-rta.macro{
+    margin:auto;margin-left:1%;
+}
+ul {
+    width:100%;
+    list-style-type: none;
+    padding:18px;
+    position:absolute;
+    bottom:47px;
+    display:flex;
+    flex-direction: column;
+    top:0;
+    overflow-y:scroll;
+}
+.msj:before{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:-14px;
+    position:relative;
+    border-style: solid;
+    border-width: 0 13px 13px 0;
+    border-color: transparent #ffffff transparent transparent;            
+}
+.msj-rta:after{
+    width: 0;
+    height: 0;
+    content:"";
+    top:-5px;
+    left:14px;
+    position:relative;
+    border-style: solid;
+    border-width: 13px 13px 0 0;
+    border-color: whitesmoke transparent transparent transparent;           
+}  
+input:focus{
+    outline: none;
+}        
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #d4d4d4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: #d4d4d4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: #d4d4d4;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #d4d4d4;
+}  
     body{
   background-image: url("https://res.cloudinary.com/gyrationtechs/image/upload/v1526053526/bg.jpg");
   
@@ -136,7 +237,109 @@ right: 30%;
           <a href="https://www.linkedin.com/in/david-ozokoye"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526051162/link.jpg" ></a>
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
-      </div>
+      </div><br><br>
+
+<div class="col-sm-3 col-sm-offset-4 frame">
+            <ul></ul>
+            <div>
+                <div class="msj-rta macro">                        
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" placeholder="Type a message"/>
+                    </div> 
+
+                </div>
+                <div style="padding:10px;">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </div>                
+            </div>
+        </div>       
+
+
+<script type="text/javascript">
+var me = {};
+me.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
+
+var you = {};
+you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+
+function formatAMPM(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+}            
+
+//-- No use time. It is a javaScript effect.
+function insertChat(who, text, time){
+    if (time === undefined){
+        time = 0;
+    }
+    var control = "";
+    var date = formatAMPM(new Date());
+    
+    if (who == "me"){
+        control = '<li style="width:100%">' +
+                        '<div class="msj macro">' +
+                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                            '<div class="text text-l">' +
+                                '<p>'+ text +'</p>' +
+                                '<p><small>'+date+'</small></p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</li>';                    
+    }else{
+        control = '<li style="width:100%;">' +
+                        '<div class="msj-rta macro">' +
+                            '<div class="text text-r">' +
+                                '<p>'+text+'</p>' +
+                                '<p><small>'+date+'</small></p>' +
+                            '</div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+                  '</li>';
+    }
+    setTimeout(
+        function(){                        
+            $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
+        }, time);
+    
+}
+
+function resetChat(){
+    $("ul").empty();
+}
+
+$(".mytext").on("keydown", function(e){
+    if (e.which == 13){
+        var text = $(this).val();
+        if (text !== ""){
+            insertChat("me", text);              
+            $(this).val('');
+        }
+    }
+});
+
+$('body > div > div > div:nth-child(2) > span').click(function(){
+    $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
+})
+
+//-- Clear Chat
+resetChat();
+
+//-- Print Messages
+insertChat("me", "Hello, My name is DavBot. You can ask me any question tech related", 0);  
+//insertChat("you", "Hi, Pablo", 1500);
+//insertChat("me", "What would you like to talk about today?", 3500);
+//insertChat("you", "Tell me a joke",7000);
+//insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
+//insertChat("you", "LOL", 12000);
+
+
+//-- NOTE: No use time on insertChat.
+</script>
 <?php
 
 $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -155,8 +358,94 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
   } catch (PDOException $e) {
       throw $e;
   }
-
-?>
+  function davBot($data) {
+    $data = trim($data);
+    $data = chop($data);
+    $data = trim($data, "?");
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
+      if ($_SERVER['REQUEST_METHOD'] === "POST") {
+         
+          $question =davBot($_POST["displayMessage"]);
+          //bot version
+          if($question == "aboutbot"){
+              $reply = "davBot v1.0";
+                         $response = array('status'=>3,'answer'=> $reply);
+                         echo json_encode($response); 
+          }else{
+          
+          //check if pearbot is to be trained
+          $train = explode(':', $question);
+          if($train[0] == 'train'){
+              $inputQuestion = explode('#', $train[1]);
+              $password = 'password';
+              if(!count($inputQuestion)<3 && test_input($password) === test_input($inputQuestion[2])){
+                  if (test_input($inputQuestion[0]) && test_input($inputQuestion[1]) != " "){
+                      $dataQuestion = test_input($inputQuestion[0]);
+                      $dataAnswer = test_input($inputQuestion[1]);
+                      
+                      //is the question or answer already in the database
+                      $select = $conn->query("Select * from chatbot where question LIKE '%$dataQuestion%'");
+                      $select ->setFetchMode(PDO::FETCH_ASSOC);
+                      $fetch = $select->fetchAll();
+                      if($fetch){
+                          $reply = "Do you want to overwrite my knowledge. <br /> Sorry only my creator can";
+                         $response = array('status'=>3,'answer'=> $reply);
+                         echo json_encode($response); 
+                      }
+                      else{
+                          //save into the database as a new question
+                          $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
+                          
+                          if($conn->query($insert)){
+                              $reply = "Thanks for your help, I appreciate";
+                              $response = array('status'=>4, 'answer'=>$reply);
+                              echo json_encode($response);
+                          }else{
+                              $reply = "Something went wrong please try again";
+                              $response = array('status'=>5, 'answer'=>$reply);
+                              echo json_encode($response);
+                          }
+                      }
+                      //saving to database ends here
+                      
+                  }else{
+                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                              $response = array('status'=>5, 'answer'=>$reply);
+                              echo json_encode($response);
+                  }
+              }else{
+                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                              $response = array('status'=>5, 'answer'=>$reply);
+                              echo json_encode($response);
+                  }
+          }else{
+        //retrieving answers to questions from the database 
+          $question = davBot($_POST["displayMessage"]);
+          $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
+          
+          $answer ->setFetchMode(PDO::FETCH_ASSOC);
+          $ans = $answer->fetchAll();
+          if (count($ans) > 0) {
+      
+            $choseRandom = rand(0, count($ans)-1);
+            $response = $ans[$choseRandom]['answer'];
+            $response = array('status'=>1,'answer'=> $response);
+            echo json_encode($response);
+      
+          }
+          else{
+              $error = "I'm not understanding you\' <br> \'You can train me on that.";
+              $response = array('status'=>2, 'answer'=> $error);
+              echo json_encode($response); 
+          }
+       
+      }
+    }
+  }else{
+  ?>
 
 </body>
 </html>
