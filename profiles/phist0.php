@@ -271,6 +271,7 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 
 <footer class="entry-meta">
 
+/*
 <?php
    include_once("header.php");
 
@@ -298,4 +299,5 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
   throw $e;
   }
 ?>
-       
+
+*/     

@@ -1,17 +1,99 @@
 <?php
+if(!defined('DB_USER')){
+  require "../../config.php";
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+}
+$query = $conn->query("SELECT * FROM secret_word");
+$result = $query->fetch(PDO::FETCH_ASSOC);
+$secret_word = $result['secret_word'];
+$question;
 
-$result = $conn->query("Select * from secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-//echo $secret_word;
+global $pass;
+	$pass = "password";
 
-$result2 = $conn->query("Select * from interns_data where username = 'Reme'");
-$user = $result2->fetch(PDO::FETCH_OBJ);
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+	
+	function botAnswer($message){
+		$botAnswer = $message;
+			return $botAnswer;
+	}
 
-//echo $user->name;
+
+	function train($dbcon, $data){
+		$trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
+		$trainCheck->bindParam(':question', $data['question']);
+		$trainCheck->bindParam(':answer', $data['answer']);
+		$trainCheck->execute();
+		$result = $trainCheck->fetch(PDO::FETCH_ASSOC);
+		$rows = $trainCheck->rowCount();
+			if($rows === 0){
+			$trainQuery = $dbcon->prepare("INSERT INTO chatbot (id, question, answer) VALUES(null, :q, :a)");
+			$trainQuery->bindParam(':q', $data['question']);
+			$trainQuery->bindParam(':a', $data['answer']);
+			$trainQuery->execute();
+			$bot = botAnswer("Thanks for helping me be better.");
+
+		}elseif($rows !== 0){
+			$bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else. Remember, the format is train: question # answer # password");
+		}
+		echo $bot;
+	}
+	
+	 	$userInput = strtolower(trim($_POST['user-msg']));
+	 	if(isset($userInput)){
+	 		$user = $userInput;
+	 		 //array_push($_SESSION['chat-log'] , $user);
+	 	}
+	 	
+	 	if(strpos($userInput , 'train:') ===0){
+	 		list($t, $r ) = explode(":", $userInput);
+			list($trainquestion, $trainanswer, $trainpassword) = explode("#", $r);
+			$data['question'] = $trainquestion;
+	 		$data['answer'] = $trainanswer;
+	 		if($trainpassword === $pass){
+	 			$bot = train($conn, $data);
+	 			//array_push($_SESSION['chat-log'] , $bot);
+	 		}else{
+	 			$bot = botAnswer("You have entered a wrong password. Let's try that again with the right password, shall we?");
+	 			//array_push($_SESSION['chat-log'] , $bot);
+	 		}
+	 		
+	 	}elseif($userInput === 'about' || $userInput === 'aboutbot'){
+	 		$bot = botAnswer("Version 1.0");
+     		//array_push($_SESSION['chat-log'] , $bot);
+	 	}else{
+			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
+		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
+		    $userInputRows = $userInputQuery->rowCount();
+		     if($userInputRows == 0){
+		     	$bot = botAnswer("I am unable to answer your question right now. But you can train me to answer this particular question. Use the format train: question #answer #password");
+		     //	array_push($_SESSION['chat-log'] , $bot);
+
+		     }else{
+		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
+		     	$bot = botAnswer($botAnswer);
+		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
+		     }
+     	}
+     	echo $bot;
+
+     	exit();
+     }
+
 ?>
 <!DOCTYPE html><html class=''>
-<head><script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
+<head>
+<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+<script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
+<script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+<meta charset='UTF-8'><meta name="robots" content="noindex">
+<link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+<link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 
 <script src="https://use.typekit.net/hoy3lrg.js"></script>
@@ -37,7 +119,7 @@ body {
   width: 95%;
   min-width: 360px;
   max-width: 1000px;
-  height: 92vh;
+  height: 75vh;
   min-height: 300px;
   max-height: 720px;
   background: #E6EAEA;
@@ -268,7 +350,7 @@ body {
 #frame .content .message-input .wrap {
   position: relative;
 }
-#frame .content .message-input .wrap input {
+#frame .content .message-input .wrap form input {
   font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
   float: left;
   border: none;
@@ -278,14 +360,14 @@ body {
   color: #32465a;
 }
 @media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap input {
+  #frame .content .message-input .wrap form input {
     padding: 15px 32px 16px 8px;
   }
 }
-#frame .content .message-input .wrap input:focus {
+#frame .content .message-input .wrap form input:focus {
   outline: none;
 }
-#frame .content .message-input .wrap .attachment {
+#frame .content .message-input .wrap form .attachment {
   position: absolute;
   right: 60px;
   z-index: 4;
@@ -296,15 +378,15 @@ body {
   cursor: pointer;
 }
 @media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap .attachment {
+  #frame .content .message-input .wrap form .attachment {
     margin-top: 17px;
     right: 65px;
   }
 }
-#frame .content .message-input .wrap .attachment:hover {
+#frame .content .message-input .wrap form .attachment:hover {
   opacity: 1;
 }
-#frame .content .message-input .wrap button {
+#frame .content .message-input .wrap form button {
   float: right;
   border: none;
   width: 50px;
@@ -314,25 +396,31 @@ body {
   color: #f5f5f5;
 }
 @media screen and (max-width: 735px) {
-  #frame .content .message-input .wrap button {
+  #frame .content .message-input .wrap form button {
     padding: 16px 0;
   }
 }
-#frame .content .message-input .wrap button:hover {
+#frame .content .message-input .wrap form button:hover {
   background: #435f7a;
 }
-#frame .content .message-input .wrap button:focus {
+#frame .content .message-input .wrap form button:focus {
   outline: none;
 }
 /*fixed the footer position online*/
 </style></head><body>
+ 	<?php
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = 'Reme' ");
+	$my_data = $data->fetch(PDO::FETCH_BOTH);
 
-
+	$name = $my_data['name'];
+	$src = $my_data['image_filename'];
+	$username =$my_data['username'];
+?>
 <div id="frame">
 	<div id="sidepanel">
 		<div id="profile">
 			<div class="wrap">
-				<?php echo '<img src="'.$user->image_filename.'" class="img-responsive" id="profile-img">'; ?>
+				<img class="img-responsive" id="profile-img" src="<?=$src?>">
 				<p>Chat Bot</p>
 				<!--<i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>-->
 			</div>
@@ -340,9 +428,9 @@ body {
 		
 		<div id="contacts">
 			<ul>
-<li class="contact"><i class="fa fa-user"></i> <?php echo $user->name; ?></li>
-<li class="contact"><i class="fa fa-slack"></i> @<?php echo $user->username; ?></li>
-<li class="contact"><i class="fa fa-lock"></i> <?php echo $secret_word; ?></li>
+<li class="contact"><i class="fa fa-user"></i> <span id="name"><?=$name?></span></li>
+<li class="contact"><i class="fa fa-slack"></i> <span id="username"><?=$username?></span></li>
+<li class="contact"><i class="fa fa-lock"></i>  <span id="secret_word"><?=$secret_word?></span></li>
             </ul>
                 
 		</div>
@@ -372,48 +460,69 @@ body {
 		</div>
 		<div class="message-input">
 			<div class="wrap">
-			<input type="text" placeholder="Write your message..." />
+    <form method="post" action="#">
+			<input type="text" placeholder="Write your message..."  name="user-msg" id="user-msg">
 			<i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-			<button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+			<button class="submit" id="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </form>
 			</div>
 		</div>
 	</div>
 </div>
+
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-<script >$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+    
+<script>
+$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 
 $("#profile-img").click(function() {
 	$("#status-options").toggleClass("active");
 });
 
-$(".expand-button").click(function() {
+/*$(".expand-button").click(function() {
   $("#profile").toggleClass("expanded");
 	$("#contacts").toggleClass("expanded");
-});
+});*/
+
+    var btn = document.getElementById('submit');
+		var question = document.getElementById("user-msg");
+		btn.addEventListener("submit", chat);
 
 
+		function chat(e){
+		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
+			     var xhttp = new XMLHttpRequest();
+			} else if (window.ActiveXObject) { // IE 6 and older
+			  var  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		   
+			xhttp.onreadystatechange = function() {
+	          if(this.readyState == 4 && this.status == 200) {
+	          	// console.log(this.response);
+	          	 userChat(question.value, this.response);
+     			e.preventDefault();
+	            question.value = '';
+	          }
+      	    }
+        xhttp.open('POST', 'profiles/Reme.php', true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send('question='+ question.value);
+        e.preventDefault();
+		}
 
-function newMessage() {
-	message = $(".message-input input").val();
-	if($.trim(message) == '') {
-		return false;
-	}
-	$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+		function userChat(chats, reply){
+			if(question.value !== ''){
+  $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + chats + '</p></li>').appendTo($('.messages ul'));
 	$('.message-input input').val(null);
-	$('.contact.active .preview').html('<span>You: </span>' + message);
 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
-};
+		}
+    setTimeout(function() {
+    $('<li class="replies"><img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /><p>' + reply + '</p></li>').appendTo($('.messages ul'));
+     $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+			}, 1000);
+}
 
-$('.submit').click(function() {
-  newMessage();
-});
 
-$(window).on('keydown', function(e) {
-  if (e.which == 13) {
-    newMessage();
-    return false;
-  }
-});
 //# sourceURL=pen.js
 </script>
 </body></html>

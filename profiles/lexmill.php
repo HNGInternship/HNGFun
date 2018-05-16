@@ -172,29 +172,30 @@ function askQuestion($input)
 
 
 <div>
-    <h1>Stage 1</h1>
+    <p>Welcome to my Page!</p>
     <br>
-
-    HNG Internship 4<br>
+<img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_scale,h_300,w_270/v1524842222/Snapchat-684128679.jpg">
+    <br><hr><br><br>
+    <font color="blue"> HNG Internship 2018</font><br><br><br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
-        $currentDateTime = date('Y-m-d H:i:s');
-        echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+        $currentDateTime = date('                                Y-m-d H:i:s');   &nbsp &nbsp &nbsp
+      <hr>  echo $currentDateTime;
+        ?></h1></div><p class="oj-align-content-center">Name: <?= "Leke !"?><br />Username: <?= "Lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
         </div>
 
 </div><form method="post">
 <label>
-    <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
-</label><label>
+    <input name="input" type="text" class="tb5"  placeholder="Chat with me!">
+</label><br><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
-        <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
+        &nbsp&nbsp&nbsp&nbsp<input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
     </label>
 </label>
 <br />
 
 
-<p>&nbsp;</p>
+<p>&nbsp;</p> 
 </form>
 <p>
     <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
