@@ -31,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
         }
         function chatMode($ques){
             require '../../config.php';
-            $ques = test_input($ques);
+            $ques = test_input($input);
             $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
                 ]);
                 return;
             }
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$input'";
             $result = $conn->query($query)->fetch_all();
             echo json_encode([
                 'status' => 1,
@@ -48,9 +48,9 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             ]);
             return;
         }
-        function trainerMode($ques){
+        function trainerMode($input){
             require '../../config.php';
-            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer = substr($input, 6); 
             $questionAndAnswer =test_input($questionAndAnswer); 
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
             $questionAndAnswer = explode("#",$questionAndAnswer);
@@ -107,11 +107,11 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
             }
         }
         
-        $ques = test_input($_POST['ques']);
-        if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
+        $input = test_input($_POST['input']);
+        if(strpos($input, "train:") !== false){
+            trainerMode($input);
         }else{
-            chatMode($ques);
+            chatMode($input);
         }
        
         return;
