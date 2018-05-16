@@ -189,7 +189,7 @@ function askQuestion($input)
     <input name="input" type="text" class="tb5"  placeholder="Chat with me!">
 </label><br><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
-        &nbsp <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
+     &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp    &nbsp <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
     </label>
 </label>
 <br />
