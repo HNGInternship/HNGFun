@@ -325,7 +325,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
             <div class="chat" id="chat">
                 
                   
-                    <p class="san">Hi! am jayo.   </p>
+                    <p class="san">Hi! am Jayo.   </p>
                     <p class="san">To train me, use - "train:question#answer#password".</p>
                    <p class="san">The Password is: <b>password</b>. </p>
                     <p class="san">type in here.</p>
@@ -346,7 +346,11 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
     var outputArea = $("#chat me up");
     $("#user-input-form").on("submit", function(e) {
         e.preventDefault();
+        document.getElementById("P class=san").innerHTML = "Hi! am Jayo.";
+        document.getElementById("p class=san").innerHTML = "To train me, use= train:question#answer#password.";
+
         var message = $("#user-input").val();
+        
         outputArea.append(`<p class='me'>${message}</p>`);
         $.ajax({
             url: 'profile.php?id=puenehfaith',
