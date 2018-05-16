@@ -176,7 +176,7 @@ function askQuestion($input)
     <br>
     <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_330,w_300/v1524842222/Snapchat-684128679.jpg">
     <hr>
-    HNG Internship 4<br>
+    HNG Internship 2018<br>
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
