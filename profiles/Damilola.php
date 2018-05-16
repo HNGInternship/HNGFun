@@ -367,7 +367,7 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'profile.php?id=Damilola',
+                        url: 'Damilola',
                         dataType: "text",
                         method: 'POST',
                         cache: 'false',
