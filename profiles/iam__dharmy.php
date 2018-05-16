@@ -32,6 +32,7 @@
 
 		if(!isset($_POST['question'])){
 			echo json_encode([
+
 				'status' => 1,
 				'answer' => "What is your question"
 			]);

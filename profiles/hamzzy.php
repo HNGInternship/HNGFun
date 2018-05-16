@@ -11,6 +11,22 @@ $que = $conn->query($sect);
 $get=$que->fetch(PDO::FETCH_ASSOC);
 $secret_word=$get['secret_word'];
 
+    $chat="select * from chatbot";
+    $question=$conn->query($chat);
+    $in = $question->fetch(PDO::FETCH_ASSOC);
+
+
+
+echo json_encode([
+
+        'question'=>$in['question'],
+         'answer'=>$in['answer']
+
+
+
+]);
+
+
 
 
 
@@ -62,12 +78,37 @@ i{
     text-align:center;
     font-size: 30px;
 }
+
+.section{
+    
+    
+}
+.container{
+    display:inline;
+
+
+}
+
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+
+    .con{
+        float: right;
+        display: inline-block;
+        position: relative;
+    }
+
+
+
 </style>
 
 <body>
 
 
-<center>
 <br/>
 
 <div class="container">
@@ -87,20 +128,65 @@ i{
 
 </div>
 
+    <?php echo  json_encode( ['answer'=>$in['answer']
 
+    ]);
+    ?>
+<!--  Chatbot   -->
 
-
-
-
-
+    <input type="text" class="in">
+  <button type="submit"  class="btn"></button>
 </div>
-    
+
+<script src="../js/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+         $('.btn').click(function () {
+
+             var input=$('.in').val
+
+             $.ajax({
+                  url:'profiles/hamzzy.php',
+                  type: "post",
+                  DataType:'json',
+                  success:function (data) {
+                     alert(data.data);
+
+
+
+
+                 }
+
+             });
 
 
 
 
 
-</center>
+         }) ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+</script>
 
 
 </body>
