@@ -1,38 +1,225 @@
 <?php
+//Fetch User Details
 if(!defined('DB_USER')){
   require "../../config.php";		
   try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
+	  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } 
+  catch (PDOException $pe) {
       die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
   }
 }
+ global $conn;
 
-//Fetch User Details
 
-try {
-    $query = 'SELECT * FROM interns_data_ WHERE username =\'john\'';
-    $resultSet = $conn->query($query);
-    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e){
-    throw $e;
+if ($_SERVER['REQUEST_METHOD'] === "GET") {
+		try {
+		    $query = "SELECT name,username,image_filename,secret_word FROM secret_word, interns_data WHERE username ='john'";
+		    $resultSet = $conn->query($query);
+		    $result = $resultSet->fetch(PDO::FETCH_ASSOC);
+		} catch (PDOException $e){
+		    throw $e;
+		}
+		$username = $result['username'];
+		$fullName = $result['name'];
+		$picture = $result['image_filename'];
+		//Fetch Secret Word
+		$secret_word =  $result['secret_word'];
+	}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+
+// to if the post request is not empty 
+	function before ($thiss, $inthat)
+{
+    return substr($inthat, 0, strpos($inthat, $thiss));
 }
-$username = $result['username'];
-$fullName = $result['name'];
-$picture = $result['image_filename'];
-//Fetch Secret Word
-try{
-    $querySecret =  "SELECT * FROM secret_word LIMIT 1";
-    $resultSet   =  $conn->query($querySecret);
-    $result  =  $resultSet->fetch(PDO::FETCH_ASSOC);
-    $secret_word =  $result['secret_word'];
-}catch (PDOException $e){
-    throw $e;
+ function after ($thiss, $inthat)
+{
+    if (!is_bool(strpos($inthat, $thiss)))
+    return substr($inthat, strpos($inthat,$thiss)+strlen($thiss));
+ }
+ function between ($thiss, $that, $inthat)
+    {
+    return before ($that, after($thiss, $inthat));
+    }
+function after_last ($thiss, $inthat)
+     {
+        if (!is_bool(strrevpos($inthat, $thiss)))
+        return substr($inthat, strrevpos($inthat, $thiss)+strlen($thiss));
+    }
+   //use strrevpos function in case your php version does not include it
+function strrevpos($instr, $needle)
+{
+    $rev_pos = strpos (strrev($instr), strrev($needle));
+    if ($rev_pos===false) return false;
+    else return strlen($instr) - $rev_pos - strlen($needle);
 }
-$secret_word =  $result['secret_word'];
+function training($check)
+{
+    $password="password";
+    $newquestion= between(':', '#', $check);
+    $newanswer= between('#', '#', $check);
+    $newpassword= after_last('#', $check);
+    if ($password==$newpassword)
+        {
+            try {
+                    $sql = "INSERT INTO chatbot (id, question, answer) VALUES ('', '$newquestion', '$newanswer')";
+                    // use exec() because no results are returned
+                    $conn->exec($sql);
+                    $res = "Thanks for training me";
+                    return $res;
+                }
+            catch(PDOException $e)
+                    {
+                    echo $sql . "<br>" . $e->getMessage();
+                    }
+        }
+    else
+        {
+            $res = "Please enter a password and train me using train:question#answer#password this should be without space";
+            return $res;
+        }
+}
+function getAns($check)
+ {
+    $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question= '$check' ORDER BY rand() LIMIT 1");
+    $stmt->execute();
+    if($stmt->rowCount() > 0)
+    {
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+      {
+            $res=$row["answer"];
+            return $res;
+      }
+    }
+    else {
+        $res="I don't seem understand what you asked. But you can train me.<br>Type<br>train:question#answer#password";
+        return $res;
+    }
+}
+
+  try{
+        if(!isset($_POST['question'])){
+          echo json_encode([
+            'status' => 1,
+            'answer' => "Please provide a question"
+          ]);
+          return;
+        }
+
+        require '../answers.php';
+      
+        $questions = $_POST['question'];
+        $question = strtolower($questions);
+
+        $question = preg_replace( '/\s+/','', $question);
 
 
+        if (preg_match("/^train:/", $question)) 
+        {
+
+            $res = training($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+//             return;
+           
+        }
+
+        elseif (preg_match("/^about/", $question)|| preg_match('/^version/',$question)) 
+        {
+           echo json_encode([
+            'status' => 1,
+            'answer' => "ChatBuddyv1.0"
+            ]);
+            return;      
+        }
+
+        elseif (preg_match("/^currency/", $question)){
+
+            $from_currency= between("(", "," , "$question");
+            $to_currency= between(",", "," , "$question");
+            $amt= between(",", ")" , "$question");
+            $amount= (float)$amt;
+            $res= currencyConverter($from_currency,$to_currency,$amount);
+            echo  json_encode([
+                'status'=>1,
+                'answer'=> $res
+            ]);
+            return;
+        }
+
+        elseif(preg_match("/^weather/", $question))
+        {
+
+            $country=between("(", ",", $question);
+            $city= between(",", ")", $question);
+            $res= weather($country,$city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+        }
+        elseif(preg_match("/^citytime/", $question))
+        {
+
+        	$city =between("(",")",$question);
+        	$res= cityTime($city);
+            echo json_encode([
+                'status'=>1,
+                'answer' =>$res
+            ]);
+            return;
+
+
+        }
+
+        elseif(preg_match("/^help/", $question))
+        {
+        	echo json_encode([
+                'status'=>1,
+                'answer' =>`The following are the available commands<br>
+                To Train: train:question#answer#password<br>
+                To convert currency: currency(fromCurrency,toCurrency,amount)<br>
+                To check weather: weather(country,city)<br>
+                To check time of any city: cityTime(Continent/city)`
+            ]);
+            return;
+        }
+
+        else{
+
+            $res= getAns($question);
+            echo json_encode([
+            'status' => 1,
+            'answer' => $res
+            ]);
+            
+            return;  
+
+        
+        }
+	}
+
+
+     catch (Exception $e)
+    {
+
+       return $e->message ;
+  
+    }
+
+
+  }
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -82,7 +269,7 @@ $secret_word =  $result['secret_word'];
 		      font-size: 20px;
 		      padding:20px;
 		      margin-right: 20px;
-		      transition: all 0.5s;
+		      transition: all 0.6s;
 		      cursor: pointer;
 		      bottom: 5%;
 		      right: 0;
@@ -226,7 +413,7 @@ $secret_word =  $result['secret_word'];
 	</div>
 	
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" ></script>
+ <script src="../vendor/jquery/jquery.min.js"></script>
 
   <script>
 	$(document).ready(function(){
@@ -245,7 +432,7 @@ $secret_word =  $result['secret_word'];
       		convoAreabox.scrollTop(convoAreabox[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: '../answers.php',
+				url: '/profiles/john.php',
 				type: 'POST',
 				data: {question: question},
 				dataType: 'json',
@@ -264,7 +451,7 @@ $secret_word =  $result['secret_word'];
 				}
 			})
 		});
-	});(jQuery);
+	});
 </script>	
 
 

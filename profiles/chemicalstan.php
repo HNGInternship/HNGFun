@@ -1,20 +1,30 @@
-<?php
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result;
-		$result2 = $conn->query("Select * from interns_data where username = 'chemicalstan'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?><!DOCTYPE html>
+<?php	require 'db.php';
+
+$select = $conn->query("SELECT * FROM secret_word LIMIT 1");
+    $select->setFetchMode(PDO::FETCH_ASSOC);
+    $result= $select->fetch();
+    $secret_word = $result['secret_word'];
+
+
+$result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'chemicalstan'");
+    $result2->setFetchMode(PDO::FETCH_ASSOC);
+    $user = $result2->fetch();
+?>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
 
+   
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
+<!--
+
     <title>CHEMICALSTAN'S PROFILE</title>
+-->
 
 <!--     Bootstrap core CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -24,20 +34,28 @@
   <body>
 
     <!-- Navigation -->
+<!--
     <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
       <div class="container">
         <h1 class="text-center">ChemicalStan's Profile.</h1>
       </div>
     </nav>
+-->
 <!--header end-->
     
     
      <!-- Page Content -->
+             <h1 class="text-center bg-success">Profile.</h1>
+
     <div class="container">
 
         <div class="row">
             <!-- Blog Entries Column -->
+
+        
+
         <hr>
+
             <h2 class="text-center" >Hello Guys, I'm an intern @ HNG4.0</h2>
             <hr>
             <div class="row">
