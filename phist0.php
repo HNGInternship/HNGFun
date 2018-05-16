@@ -271,5 +271,31 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 
 <footer class="entry-meta">
 
+<?php
+   include_once("header.php");
+
+      $profile_name = $_GET['id'];
+       $secret_word = "sample_secret_word";
+
+       require 'db.php';
+?>
+
+<?php
 
 
+           // readfile('profiles/' . $profile_name. '.php');
+       //
+       //     require('profiles/' .$profile_name. '.php');
+    //
+     
+ try {
+  $sql = "SELECT * FROM secret_word";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+  } catch (PDOException $e) {
+  throw $e;
+  }
+?>
+       
