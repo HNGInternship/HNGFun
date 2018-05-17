@@ -1,13 +1,15 @@
  <html>
  <?php 
 
- require '../config.php';
- 
- try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
+// require '../config.php';
+
+ //if(!isset(DB_HOST)) {
+//     try {
+//         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+//     } catch (PDOException $pe) {
+//         die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+//     }
+ //}
 
  try {
      $sql = "SELECT * FROM secret_word";
@@ -60,6 +62,44 @@ $data2 = $q->fetchAll();
         return $output;
     }
 
+    function send_mail($email,$subject,$message){
+//        $to      = 'nobody@example.com';
+//        $subject = 'the subject';
+//        $message = 'hello';
+
+        $headers = "From: bot@hng.fun\r\n";
+
+        $headers .= 'Content-Type: text/plain; charset=utf-8';
+
+        //$email = filter_input($to, FILTER_VALIDATE_EMAIL);
+
+        if($email) {
+            $headers .= "\r\nReply-To: $email";
+        }
+//        $headers = 'From: webmaster@example.com' . "\r\n" .
+//            'X-Mailer: PHP/' . phpversion();
+        if(!preg_match("/^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i", $email)){
+            echo "Incorrect email format";
+            return;
+        }
+       // mail($to, $subject, $message, $headers);
+        $success = mail($email, $subject, $message, $headers, '-fbot@hng.fun');
+
+
+
+        if (isset($success) && $success) {
+
+            echo 'Thank you.
+            Your mesage has been sent';
+            return;
+        }else{
+            echo 'Oops!, there was a problem sending your message';
+            return;
+
+        }
+
+    }
+
  function lookforanswer($question)
  {
      try {
@@ -85,7 +125,7 @@ $data2 = $q->fetchAll();
 //     }
      //$break = strtok('train: #question #answer');
     // echo $break[1];
-     if (substr($question, 0,6) != "train:" && substr($question, 0,7) != "search:" ) {
+     if (stripos($question, "train:") === false) {
          /* bot not training, process question */
          //$answer_stmt->execute()
        $query = $conn->prepare("SELECT * FROM chatbot  WHERE question LIKE :question ORDER BY RAND() Limit 1");
@@ -97,57 +137,111 @@ $data2 = $q->fetchAll();
              echo $answer;
              return;
          }else{
-             echo "You have to train me now, I have no idea of what you are saying";
+             echo "You have to train me now, I have no idea of what you are saying.";
+             echo " Write train: question#answer#password to train me";
+             //echo stripos($question, "train:");
+                 return;
          }
          /* returned message when bot can't find answer*/
-     }elseif(substr($question, 0,7) == "search:"){
-         $train = substr($question, 7);
-         $training = preg_replace('([\s]+)?', ' ', trim($train));
-         $split = explode("#", $training);
-         $question = trim($split[0]);
-
-         echo 'searching';
-         //$answer = search_google($question);
-         //echo $answer;
-
-     }elseif(substr($question, 0,6) == "train:"){
+     }else{
          # bot training process
-
-         $train = substr($question, 0,6);
+         //Write a code to capture the kind of training that will send mail only
+         $train = substr($question, 6);
          $training = preg_replace('([\s]+)', ' ', trim($train));
          $split = explode("#", $training);
-         //list($question, $answer) = explode("#", $training);
-         if (count($split) == 2) {
-             # When user didnt give password
-             echo "You can only train me with a password please. Kindly supply my Password.";
-             return;
-         } elseif (count($split) == 1) {
-             # When user didnt give answer
-            // echo $question;
-             echo "Training is invalid, write train: question # answer # password to train me";
-             return;
-         }
-         $question = trim($split[0]);
-         $answer = trim($split[1]);
-         $password = trim($split[2]);
-         if ($password == 'yessme') {
-             # carry out insertion if password is supplied correctly
-             //echo "correct";
-             $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
-             if ($conn->exec($sql)) {
-                 # check if was inserted
-                 echo "Thanks for the training, I promise to be super smart so soon!.";
+         $firstpart = trim($split[0]);
+        // $answer = trim($split[1]);
+
+         if($firstpart !== "sendmail" ){
+
+
+//             $train = substr($question, 6);
+//             $training = preg_replace('([\s]+)', ' ', trim($train));
+//             $split = explode("#", $training);
+//             //list($question, $answer) = explode("#", $training);
+             if (count($split) == 2) {
+                 # When user didnt give password
+                 echo "You can only train me with a password please. Kindly supply my Password.";
+                 return;
+             } elseif (count($split) == 1) {
+                 # When user didnt give answer
+                // echo $question;
+                 echo "Training is invalid, write train: question # answer # password to train me";
+                // echo print_r($split);
                  return;
              }
-             echo "Have not gotten your question";
-             return;
-         }else{
-             echo "You are not authorized to train me except you supply a valid password";
-            // echo $password;
-         }
+             $question = trim($split[0]);
+             $answer = trim($split[1]);
+             $password = trim($split[2]);
+             if ($password == 'yessme') {
+                 # carry out insertion if password is supplied correctly
+                 //echo "correct";
+                 $sql = "INSERT INTO chatbot(question, answer) VALUES ('" . $question . "', '" . $answer . "')";
+                 if ($conn->exec($sql)) {
+                     # check if was inserted
+                     echo "Thanks for the training, I promise to be super smart so soon!.";
+                     return;
+                 }
+                 echo "Have not gotten your question";
+                 return;
+             }else{
+                 echo "You are not authorized to train me except you supply a valid password";
+                // echo $password;
+             }
 
-         return;
+             return;
          //return "undergoing training";
+         }else{
+             //Then send mail syntax is train: sendmail#to#tsubject#message
+             //echo 'sending mail';
+            // $firstpart
+
+             if(count($split) == 3){
+                 echo "You have to supply the message";
+                 return;
+             }elseif (count($split) == 2) {
+                 # When user didnt give password
+                 echo "You have to supply the subject";
+                 return;
+             } elseif (count($split) == 1) {
+                 # When user didnt give answer
+                 // echo $question;
+                 echo "You have to supply the email address you are sending mail to, Kindly follow the sendmail syntax
+                 train: sendmail#emailto@example.com#tsubject#message";
+                 // echo print_r($split);
+                 return;
+             }
+            // $command = trim($split[0]);
+             $to = trim($split[1]);
+             $subject = trim($split[2]);
+             $message = trim($split[3]);
+
+             //Then send mail
+
+             send_mail($to,$subject,$message);
+
+
+             return;
+         }
+//             if(stripos($question, "search:") !== false){
+//
+//
+//             //$train = substr($question, 7);
+//             $training = preg_replace('([\s]+)', ' ', trim($question));
+//             $split = explode("#", $training);
+//             $question = trim($split[0]);
+//
+//             echo 'searching';
+//             //echo stripos($question, "search:");
+//             $answer = search_google($question);
+//             echo $answer;
+//                 return;
+//             }elseif(stripos($question, "send_mail:") === 0){
+//                 echo 'sending mail';
+//                 return;
+//             }
+
+
      }
 
     /* if(strpos($question, "(") !== false){
@@ -194,13 +288,16 @@ $data2 = $q->fetchAll();
         <title>My Profile</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css" />
-		<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
 
        <!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script> -->
+        <script type="text/javascript" src="vendor/jquery/jquery.js"></script>
+        <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
 		<style>
+            @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900); html, html * { font-family: Roboto; }
 		.font{
 			font-family: Roboto;
 		}
@@ -299,6 +396,8 @@ $data2 = $q->fetchAll();
                             if(e.which == 13) {
                                 jQuery(this).blur();
                                 jQuery('#send').focus().click();
+                                jQuery('#quest').focus();
+
                             }
                         });
 
@@ -321,7 +420,9 @@ $data2 = $q->fetchAll();
 									//alert(output);
                                 var you = '<div class="chat-bucket you" style="" id="chat"><i class="fa fa-android"></i>'+ output +'</div>';
                                 $("#content").append(you) ;
-                                }
+                                };
+
+                                $("#quest").value = '';
 
 
                              });
@@ -330,6 +431,8 @@ $data2 = $q->fetchAll();
                             $('html, body').animate({
                                 scrollTop: $("#content").offset().top
                             },1000);
+
+
 
                         });
                     });
@@ -352,9 +455,8 @@ $data2 = $q->fetchAll();
 		</div>
     <div style="margin:20px"></div>
 		
-	<script type="text/javascript" src="../vendor/jquery/jquery.js"></script>
-	<script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="../vendor/bootstrap/js/bootstrap.js"></script>
+
+	<script type="text/javascript" src="vendor/bootstrap/js/bootstrap.js"></script>
 	
 <!--	<script type="text/javascript">-->
 <!--		$(document).ready(function() {-->
