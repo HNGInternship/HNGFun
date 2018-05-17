@@ -239,6 +239,7 @@ right: 30%;
  </div>
       </div><br><br>
       <right>
+      <span>david chatbot</span>
       <div class="col-sm-3 col-sm-offset-4 frame">
             <ul></ul>
             <div>
