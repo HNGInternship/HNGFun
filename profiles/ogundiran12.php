@@ -212,11 +212,15 @@
         }
 
         .time-container {
-        text-align: center;
-        padding: 2em 0 0 0;
-        font-weight: bold;
-        font-size: 30px;
-        color: #1fde7f;
+            text-align: center;
+            /*padding: 2em 0 0 0;*/
+            font-weight: bold;
+            font-size: 30px;
+            color: #1fde7f;
+        }
+
+        .text-center{
+            text-align: center;
         }
 
         /* cyrillic */
