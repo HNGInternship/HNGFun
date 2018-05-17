@@ -1,6 +1,6 @@
 <?php 
     if(!defined('DB_USER')){
-         require "../config.php";
+         require "../../config.php";
     }
     global $connect;
     $connect = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);

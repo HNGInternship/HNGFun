@@ -28,22 +28,22 @@
 
 <!DOCTYPE html>
 <head>
-    <title>HNG 4.0 |LowkeyNerd</title>
+    <title>HNG 4.0 |lowkeynerd</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
    
 </head>
 <body class="body">
     <div class="box">
-        <span> <a href="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg"><img src="https://res.cloudinary.com/lowkeynerd/image/upload/v1524601133/lkn.jpg" alt="display photo" class="zoom"></a></span>
+        <span> <a href="https://res.cloudinary.com/lowkeynerd/image/upload/v1526554529/lkn.jpg"><img src="https://res.cloudinary.com/lowkeynerd/image/upload/v1526554795/lowkeynerd.jpg" alt="display photo" class="zoom"></a></span>
             
         <h1 id="name">Chiamaka Ibeme </h1>
         <p id="username">HNG Slack @<?php echo $user['username'] ?></p>
         <hr>
             
         <p id="job">Front End Developer</p>
-        
         
         <ul class="list">
             <li><a href="https://github.com/chiamakaibeme" title="Github" target="_blank"><i class="fab fa-github"></i></a></li>
@@ -61,8 +61,8 @@
             padding: 0;
         }
         .box{
-            height: 80%;
-            width: 60%;
+            height: 100%;
+            width: 100%;
             background: rgba(212, 175, 55, 0.4);
             padding: 40px;
             text-align: center;
@@ -70,32 +70,26 @@
             font-family: 'Century Gothic', sans-serif;
         }
 
-        img{
+        .box img{
             border-radius: 50%;
-            width: 200px;
-            height: 200px;
+            max-width: 100%;
+            max-height: 100%;
         }
         
         .zoom{
-            transition: transform 1.5s; /* speed of image zooming out */
+            transition: transform 5.0s; /* speed of image zooming out */
             margin-bottom: 10px;
         }
 
         .zoom:hover{
             transform: scale(1.3);/* zoom- 110% */
         }
+        
         #name{
             font-size: 30px;
             font-weight: 100;
         }
-        #username a{
-            text-decoration: none;
-            color: #020202;
-            margin: 0;
-        }
-        #username a:hover{
-            color: blue;
-        }
+        
         #job{
             font-size: 20px;
             letter-spacing: 3px;
@@ -103,10 +97,11 @@
         span{
             text-align: center;
         }
+        
         .list{
             margin: 0;
             padding: 0;
-            display: flex;
+            display: inline;
             width: 20%;
         }
 
@@ -120,8 +115,6 @@
             text-decoration: none;
             color: #000;
             font-size: 30px;
-            width: 80px;
-            height: 80px;
             position: relative;
             display: block;
             text-align: center;
@@ -131,8 +124,8 @@
         
         .list li a:hover {
             transform: scale(1.3);
+            color: blue;
 			}
-        
-    
+         
     </style>
 </body>

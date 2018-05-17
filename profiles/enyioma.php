@@ -1,6 +1,13 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
+        function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        $data = preg_replace("([?.!])", "", $data);
+        $data = preg_replace("(['])", "\'", $data);
+        return $data;
+       }
       require '../../config.php';
       $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
@@ -354,6 +361,10 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
+        $('#textbox').animate({
+                scrollTop: textbox.scrollHeight,
+                scrollLeft: 0
+            }, 100);
 </script>
 
   <!-- RequireJS bootstrap file -->
