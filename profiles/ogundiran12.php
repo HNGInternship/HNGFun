@@ -161,7 +161,7 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
 
-        .container{
+        .mycontainer{
             margin-top: 25%;
         }
         #app{
@@ -583,7 +583,7 @@
         font-weight: bold;
         }
     </style>
-    <div id="app" class="oj-flex oj-md-flex-items-1 container">
+    <div id="app" class="oj-flex oj-md-flex-items-1 mycontainer">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
