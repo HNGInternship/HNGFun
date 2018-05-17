@@ -639,6 +639,7 @@
         $(function () {
             $("#addClass").click(function () {
                 $('#sidebar_secondary').addClass('popup-box-on');
+                $('#submit_message').focus();
             });
 
             $("#removeClass").click(function () {
