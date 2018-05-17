@@ -161,6 +161,9 @@
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
         }
 
+        body{
+            background-color: #e7f8ec !important;
+        }
         .mycontainer{
             margin-top: 25%;
         }
@@ -358,8 +361,7 @@
         aside {
         background-attachment: fixed;
         background-clip: border-box;
-        background-color: #e7f8ec;
-        background-image: url("https://scontent.fluh1-1.fna.fbcdn.net/v/t1.0-9/12670232_624826600991767_3547881030871377118_n.jpg?oh=226475bcd22faf19705858eb58e776cd&oe=59CE39E7");
+        background-color: rgba(255, 255, 255);
         background-origin: padding-box;
         background-position: center top;
         background-repeat: repeat;
@@ -595,7 +597,7 @@
                 ?>
             </div>
 
-            <div class="round hollow text-center mt-5">
+            <div class="round hollow text-center mt-5 mb-3">
                 <a href="#" id="addClass">
                     <span class="glyphicon glyphicon-comment"></span>
                     Open chat bot
