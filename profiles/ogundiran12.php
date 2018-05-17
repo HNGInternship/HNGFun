@@ -205,7 +205,7 @@
                         }
                     },
                     getAnswerFromDB: function(question){
-                        this.$http.get('profiles/ogundiran12.php?question='+question)
+                        this.$http.get('profiles/olubori.php?question='+question)
                                 .then(response => {
                                     // get body dat
                                     var trainMeMsg = 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
