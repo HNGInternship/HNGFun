@@ -1,4 +1,5 @@
 <?php 
+   //include "../db.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
@@ -56,6 +57,7 @@
     $name = $user->name;
     
 	?>
+
 
 <!DOCTYPE html>
 <html lang="en">
