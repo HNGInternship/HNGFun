@@ -136,8 +136,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
     <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
-    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
-    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
     <script>
         $(function () {
             $("#addClass").click(function () {
@@ -217,7 +215,7 @@
                                 }, response => {
                                     // error callback
 
-                                    console.log(response.responseText);
+                                    console.log(response);
                                     this.sendBotMsg('Something went wrong, please try again later');
                                 });
                     },
