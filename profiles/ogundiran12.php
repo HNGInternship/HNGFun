@@ -217,7 +217,7 @@
                                 }, response => {
                                     // error callback
 
-                                    console.log(response);
+                                    console.log(response.responseText);
                                     this.sendBotMsg('Something went wrong, please try again later');
                                 });
                     },
