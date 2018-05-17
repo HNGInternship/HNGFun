@@ -29,7 +29,7 @@ $sql = "SELECT * FROM interns_data where name='Bashorun Mazeed' ";
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style type="text/css">
 		#page{
-			margin-top: 20px;
+			margin-top: 50px;
 			padding-top: 30px;
 			padding-bottom: 20px;
 			background-color: white;
