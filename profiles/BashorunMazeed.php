@@ -18,12 +18,10 @@ $sql = "SELECT * FROM interns_data where name='Bashorun Mazeed' ";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $question = preg_replace("([?!.])", "", trim($_POST['yourinput']));
-//    $question1 = trim($_POST['yourinput']);
+    $question = preg_replace("([?!.])", "", trim($_POST['message']));
     
     function deletequest($dquest)
     {
-        global $conn;
         $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = ".$dquest." ");
         $trqa->execute();
         $trqa->setFetchMode(PDO::FETCH_ASSOC);
@@ -578,29 +576,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	<div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" style="opacity: 1; display: block; transform: translateX(0px);">
         <div class="chat_box touchscroll chat_box_colors_a">
-            <div class="chat_message_wrapper">
-                <div class="chat_user_avatar">
-                    <img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg" class="md-user-image"><span>You</span>
-                </div>
-                <ul class="chat_message">
-                    <li>
-                        <p>
-                           Test Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        </p>
-                    </li>
-                </ul>
-            </div>
-          <!--   <div class="chat_message_wrapper chat_message_right">
-                <div class="chat_user_avatar">
-                    <span>Bash Bot</span>
-                    <img  src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="md-user-image">
-                </div>
-                <ul class="chat_message">
-                    <li>
-                        <p>A testLorem ipsum dolor sit amet, consectetur. </p>
-                    </li>
-                </ul>
-            </div> -->
+
         </div>
     </div>
 	<div class="chat_submit_box">
