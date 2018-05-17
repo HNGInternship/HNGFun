@@ -587,15 +587,15 @@
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
-        <div class="oj-flex-item">
-            <div class="time-container">
+        <div class="oj-flex-item mt-3">
+            <div class="time-container mt-5">
                 <?php
                 date_default_timezone_set('Africa/Lagos');
                 echo date('h:i A', time());
                 ?>
             </div>
 
-            <div class="text-center">
+            <div class="round hollow text-center mt-5">
                 <a href="#" id="addClass">
                     <span class="glyphicon glyphicon-comment"></span>
                     Open chat bot
