@@ -62,7 +62,7 @@
 
     <style type="text/css">
     #app{
-        
+        height: 100%;
         background:#e7f8ec;
         font-family: "Montserrat", sans-serif;
         width: 100%;
@@ -477,7 +477,7 @@ img {
   font-weight: bold;
 }
     </style>
-    <div id="app" class="container">
+    <div id="app" class="container mt-4">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
