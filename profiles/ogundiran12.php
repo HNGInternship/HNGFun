@@ -66,7 +66,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <link rel="stylesheet" href="https://res.cloudinary.com/mentos/raw/upload/v1526566532/ogundiran12.css">    
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Slabo+27px" rel="stylesheet">
     <!---//adjust css -->
@@ -75,7 +74,7 @@
 
 <body>
 
-    <div class="oj-flex oj-md-flex-items-1 container">
+    <div class="container">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
@@ -86,7 +85,7 @@
             ?>
         </div>
 
-        <div class="oj-flex-item round hollow text-center">
+        <div class="text-center">
             <a href="#" id="addClass">
                 <span class="glyphicon glyphicon-comment"></span>
                 Open chat bot
@@ -134,7 +133,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
-    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
     <script>
         $(function () {
             $("#addClass").click(function () {
