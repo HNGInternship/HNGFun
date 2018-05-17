@@ -229,7 +229,7 @@
     }
 
         //use this to make sure nothing is printed on the
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+       //f ($_SERVER['REQUEST_METHOD'] === 'GET') {  }
 
 ?>
 
