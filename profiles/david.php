@@ -238,6 +238,8 @@ right: 30%;
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
       </div><br><br>
+
+      <!-- chatbot interface-->
       <right>
       <div class="col-sm-3 col-sm-offset-4 frame">
             <ul></ul>
@@ -261,7 +263,19 @@ davbot.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v15260123
 
 var user = {};
 user.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+var introText = "<p>Hello. My name is davbot, I'm a chatbot. You can ask me questions and I will try to answer them. You can also train me using the following format,</p>" +
 
+
+"<code>train : question # answer # password</code>" +
+
+
+'<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>" or even "<i>teach how</i></p>' +
+
+
+'<p>To see this message at any time, type "intro"</p>' +
+
+
+'<p>To see my version number, type "<i>about</i>", "<i>aboutbot</i>" or "<i>about_bot</i>"</p>';
 function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -281,7 +295,7 @@ function insertChat(who, text, time){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "davbot"){
+    if (who == "user"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
                         '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
@@ -329,13 +343,117 @@ $('body > div > div > div:nth-child(2) > span').click(function(){
 //-- Clear Chat
 resetChat();
 
+
+$(document).ready(function() {
+
+$(".mytext").on("keyup", function(e) {
+
+if ((e.keyCode || e.which) == 13) {
+
+var text = $(this).val();
+
+if (text !== "") {
+
+insertChat("user", text);
+
+$(this).val('');
+
+botResponse();
+
+}
+
+}
+
+function botResponse() {
+
+shouldScroll = $("ul.chats").scrollTop + $("ul.chats").clientHeight === $("ul.chats").scrollHeight;
+
+var date = formatAMPM(new Date());
+
+if (text.toUpperCase() === "INTRO") {
+
+insertChat("bot", introText, 200);
+
+} else {
+
+$.ajax({
+
+type: "POST",
+
+url: 'profiles/david.php',
+
+data: {message: text},
+
+success: function(response) {
+
+reply = '<li style="width:100%">' +
+
+'<div class="msj macro">' +
+
+'<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ davbot.avatar +'" /></div>' +
+
+'<div class="text text-l">' +
+
+'<p>'+ response +'</p>' +
+
+'<p><small>'+date+'</small></p>' +
+
+'</div>' +
+
+'</div>' +
+
+'</li>';
+
+setTimeout(
+
+function() {
+
+$("ul.chats").append(reply).scrollTop($("ul.chats").prop('scrollHeight'));
+
+}, 0
+
+);
+
+}
+
+});
+
+if (!shouldScroll) {
+
+scrollToBottom();
+
+}
+
+}
+
+}
+
+});
+
+});
+
+function scrollToBottom() {
+
+$("ul.chats").scrollTop = $("ul.chats").scrollHeight;
+
+}
+
+// $('body > div > div > div:nth-child(2) > span').click(function() {
+
+// $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
+
+// })
+
+insertChat("davbot", introText, 350);
+
+scrollToBottom();
 //-- Print Messages
-insertChat("davbot", "Hello My name is davbot. I'm a chatbot. To know about me simply type <em>aboutbot</em>", 0);  
+/*insertChat("davbot", "Hello My name is davbot. I'm a chatbot. To know about me simply type <em>aboutbot</em>", 0);  
 insertChat("you", "Hi, Pablo", 1500);
 insertChat("me", "What would you like to talk about today?", 3500);
 insertChat("you", "Tell me a joke",7000);
 insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
-insertChat("you", "LOL", 12000);
+insertChat("you", "LOL", 12000);*/
 
 
 //-- NOTE: No use time on insertChat.
