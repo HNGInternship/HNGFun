@@ -358,7 +358,7 @@
         aside {
         background-attachment: fixed;
         background-clip: border-box;
-        background-color: rgba(255, 255, 255);
+        background-color: #e7f8ec;
         background-image: url("https://scontent.fluh1-1.fna.fbcdn.net/v/t1.0-9/12670232_624826600991767_3547881030871377118_n.jpg?oh=226475bcd22faf19705858eb58e776cd&oe=59CE39E7");
         background-origin: padding-box;
         background-position: center top;
@@ -587,20 +587,22 @@
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
-        <div class="oj-flex-item time-container">
-            <?php
-            date_default_timezone_set('Africa/Lagos');
-            echo date('h:i A', time());
-            ?>
-        </div>
+        <div class="oj-flex-item">
+            <div class="time-container">
+                <?php
+                date_default_timezone_set('Africa/Lagos');
+                echo date('h:i A', time());
+                ?>
+            </div>
 
-        <div class="oj-flex-item text-center">
-            <a href="#" id="addClass">
-                <span class="glyphicon glyphicon-comment"></span>
-                Open chat bot
-            </a>
+            <div class="text-center">
+                <a href="#" id="addClass">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    Open chat bot
+                </a>
+            </div>
         </div>
-
+    
         <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
 
             <div class="popup-head">
