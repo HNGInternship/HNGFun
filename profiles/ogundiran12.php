@@ -1,5 +1,5 @@
 <?php 
-   //include "../db.php";
+   include "../../config.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
