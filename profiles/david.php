@@ -238,6 +238,22 @@ right: 30%;
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
       </div><br><br>
+      <center>
+      <div class="col-sm-3 col-sm-offset-4 frame">
+            <ul></ul>
+            <div>
+                <div class="msj-rta macro">                        
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" placeholder="Type a message"/>
+                    </div> 
+
+                </div>
+                <div style="padding:10px;">
+                    <span class="glyphicon glyphicon-share-alt"></span>
+                </div>                
+            </div>
+        </div>   
+        </center>
 <script type="text/javascript">
 
 var me = {};
