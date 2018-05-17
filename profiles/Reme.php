@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>' . $message . '</p>';
 			return $botAnswer;
@@ -95,10 +95,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<style type="text/css">
 	 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 	
+  body{
+
+  }
 	#name-div::after{
 		 content: "";
- /* background: url(https://i.imgur.com/0EWDjqv.jpg);*/
-  opacity: 0.35;
+   opacity: 0.35;
   top: 0;
   left: 0;
   bottom: 0;
@@ -112,10 +114,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
-   /* position: fixed;*/
 		height: 100vh;
 				
-				background-image: url(http://res.cloudinary.com/bogadeji/image/upload/v1523633847/happy_x89ylu.jpg);
+				background-image: url(http://res.cloudinary.com/olohiremeajayi/image/upload/v1526558097/laptop-1512838_1280.png);
 				/*opacity: 50%;*/
 	}
 			#name-div{
@@ -146,22 +147,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				bottom: 7%;
 				right: 10%;
 			}
-			
+		#about-div
+  {
+    background-color: #ffffff;
+  }
 		#abt-me-div{
-			width: 60%;
+			width: 100%;
 			height: auto;
 			margin:  70px auto;
 			margin-bottom: 70px;
 			padding: 100px 100px 0px 100px;
-			background-color: rgba(239, 239, 239, 0.6);
+      background-color: #ffffff;
 		}
 		#about-me{
-			/*float: right;*/
-			/*height: 110%;*/
-			width: ;
+			width:400px ;
 			min-height: 400px;
-			border-radius: 30%;
-			background-color: white;
+			border-radius: 50%;
+			background-color: #2c3e50;
+      color: white;
 			align-items: center;
 			margin-left: -20px;
 		}
@@ -171,14 +174,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#pic{
 			background-image: url();
-			height: 80%;
-			margin-top: 50px;
-			margin-left: -20px;
-			/*margin: 30px 20px 70px 30px;*/
+			height: 300px;
+      width: 300px;
+		/*	margin-top: 50px;
+			margin-left: -20px;*/
 		}
 		#pic img{
-			/*margin: 0px 70px 70px 30px;*/
-			border-radius: 10px;
+			border-radius: 50%;
 		}
 		#contact{
 			display: inline-block;
@@ -194,6 +196,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			display: block;
 			vertical-align: middle;
+      padding: 0 2px;
 		}
 		#social-media{
 			margin-top: 80px;
@@ -338,7 +341,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$src = $my_data['image_filename'];
 	$username =$my_data['username'];
 ?>
-<div class="" align="center">
+<div class="div1" align="center">
 	<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
   
     <div id="name-div">
@@ -355,7 +358,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     </div>
     <div class="oj-sm-flex-2  oj-xl-web-padding-bottom  oj-md-down-web-padding-start oj-lg-down-web-padding-end oj-xl-padding-2x-end oj-xl-6 oj-flex-item">
-      <div id="about-div">
+  <div id="about-div">
 
   <div id="about-me">
     <div id="social-media">
@@ -367,7 +370,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                 </ul>
       </div>
     <p>I am a self-taught, internally motivated person, and aspiring web developer. I have been building capacity with HTML, CSS, Bootstrap, Javascript and most recently Node.js. I want to create solutions in education and healthcare. <blockquote>"Stay Hungry. Stay Foolish" - <i>Steve Jobs</i></blockquote></p>
-    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
+    <div id="contact" align="center"><a href="mailto:remeajayi@gmail.com">CONTACT</a></div>
 
       
 
@@ -387,21 +390,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		<div class="chat hide" id="chat">
 			<div class="chatlogs" id="chatlogs">
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>Welcome.</p>
 						<span class="chat-time"> </span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>I am here to help you.</p>
 						<span class="chat-time"></span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
 						<span class="chat-time"></span>
@@ -462,7 +465,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
+					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>` + chats + `</p>
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>

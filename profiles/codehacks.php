@@ -247,7 +247,7 @@ if(!defined('DB_USER')){
 
     <body>
 
-          <h1 class=""><?php echo $user->name; ?></h1>
+          <h1><?php echo $user->name; ?></h1>
           <span class="job-role">Front-End Developer</span>
 
           <hr>
@@ -302,9 +302,13 @@ if(!defined('DB_USER')){
             </span>
             <div class="bot" id="bot">
               <i class="material-icons" onclick="hideBot()">minimize</i>
-              <h3>codehacks bot</h3>
+              <h3>adien</h3>
               <div id="chat" class="bot-chat">
-                <div id="chat-area"></div>
+                <div id="chat-area">
+                  <p class="bot-message">Hi there, I am Adien, a bot created by Kelvin Gobo.</p>
+                  <p class="bot-message">You can ask me anything and I will do my best to answer.</p>
+                  <p class="bot-message">Type "aboutbot" without the quotes to find out my current version</p>
+                </div>
                 <div class="bot-actions">
                   <form action="codehacks.php" method="post" id="form">
                     <input name="message" id="message" type="text" placeholder="Ask Me Anything">
@@ -324,24 +328,28 @@ if(!defined('DB_USER')){
         });
         var chatArea = document.getElementById('chat');
 
+        function aboutBot() {
+          renderMessage('codehacks bot<br>Version: 0.5', 'bot-message');
+        }
+
         function renderMessage(msg, className) {
-          var message = msg;
           var messageNode = document.createElement('p');
-          messageNode.innerHTML = message;
+          messageNode.innerHTML = msg;
           messageNode.classList.add(className);
           chatArea.appendChild(messageNode);
           chatArea.scrollTop = 3000;
         }
 
         function checkMessage(msg) {
-          renderMessage(msg, 'user-message');
-          if (msg.trim() === 'aboutbot') {
-            var answerNode = document.createElement('p');
-            answerNode.classList.add('bot-message');
-            answerNode.innerHTML = 'codehacks bot<br>Version: 0.5';
-            chatArea.appendChild(answerNode);
+          if (msg.trim() === '' || msg.trim() === null || msg.trim() === undefined) {
+            return;
+          }
+          else if (msg.trim() === 'aboutbot') {
+            renderMessage(msg, 'user-message');
+            aboutBot();
           }
           else {
+            renderMessage(msg, 'user-message');
             sendMessage(msg);
           }
         }
