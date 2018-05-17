@@ -549,9 +549,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    <div class="container">
    		<div id="page" class="row">
-   			<center>
-				<h2>HNG 4.0 INTERN</h2><br>
-			 </center>
 	   		<div class="col-md-5 col-xs-12">
 	   			<img src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="img-responsive center-block">
 	   		</div>
