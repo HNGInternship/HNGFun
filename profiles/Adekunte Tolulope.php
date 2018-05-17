@@ -296,7 +296,7 @@ button:hover, a:hover {
 			</div>
 		</div>
 		<div id="foot">
-		<kbd>ADREX</kbd>
+		<kbd>ADTREX</kbd>
 		</div>
 	</div>
 </div>

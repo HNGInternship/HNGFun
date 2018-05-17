@@ -28,7 +28,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     
-  <style type="text/css">
+   <style type="text/css">
         * {
     margin: 0;
     padding: 0;
@@ -190,9 +190,10 @@ $(".btn-pref .btn").click(function () {
                 <div class="hidden-xs">Hobbies</div>
             </button>
         </div>
+        <br>
         <div class="btn-group" role="group">
             <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">Favorites</div>
+                <div class="hidden-xs">bot</div>
             </button>
         </div>
         <div class="btn-group" role="group">
