@@ -79,6 +79,7 @@
     <!---//adjust css -->
 
     <style type="text/css">
+    @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css");
       /* cyrillic-ext */
         @font-face {
         font-family: 'Montserrat';
@@ -220,6 +221,7 @@
         }
 
         .text-center{
+            width: 100%;
             text-align: center;
         }
 
