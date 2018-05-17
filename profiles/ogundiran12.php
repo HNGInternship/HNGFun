@@ -1,4 +1,5 @@
 <?php 
+   //include "../db.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
@@ -32,7 +33,6 @@
         return;
 
 	}else if(isset($_GET['question'])){
-        require_once '../../config.php';
 
 	   	$question = makeSafe($_GET['question']);
 
@@ -67,6 +67,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
     <link rel="stylesheet" href="https://res.cloudinary.com/mentos/raw/upload/v1526566532/ogundiran12.css">    
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Slabo+27px" rel="stylesheet">
     <!---//adjust css -->
@@ -75,64 +76,68 @@
 
 <body>
 
-    <div class="container">
+    <div class="oj-flex oj-md-flex-items-1 container">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
-        <div class="time-container">
+        <div class="oj-flex-item time-container">
             <?php
             date_default_timezone_set('Africa/Lagos');
             echo date('h:i A', time());
             ?>
         </div>
 
-        <div class="round hollow text-center">
+        <div class="oj-flex-item round hollow text-center">
             <a href="#" id="addClass">
                 <span class="glyphicon glyphicon-comment"></span>
                 Open chat bot
             </a>
         </div>
-    </div>
 
-    <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
+        <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
 
-        <div class="popup-head">
-            <div class="popup-head-left pull-left">
-                <h1>mentOS Bot</h1>
+            <div class="popup-head">
+                <div class="popup-head-left pull-left">
+                    <h1>mentOS Bot</h1>
 
-            </div>
-            <div class="popup-head-right pull-right">
-                <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" style="opacity: 1; display: block; transform: translateX(0px);">
-            <div class="chat_box touchscroll chat_box_colors_a">
-                <!--msgBox content here-->
-            </div>
-        </div>
-        <div class="chat_submit_box">
-            <div class="uk-input-group">
-                <div class="gurdeep-chat-box">
-                    <input @keyup.enter="sendHumanMessage" v-model="humanMessage" type="text" placeholder="Type a message" id="submit_message" name="submit_message" class="md-input" autofocus>
                 </div>
-                <span @click="sendHumanMessage" class="uk-input-group-addon">
-                    <a href="#">
-                        <i class="glyphicon glyphicon-send"></i>
-                    </a>
-                </span>
+                <div class="popup-head-right pull-right">
+                    <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
             </div>
-        </div>
 
-    </aside>
+            <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" style="opacity: 1; display: block; transform: translateX(0px);">
+                <div class="chat_box touchscroll chat_box_colors_a">
+                    <!--msgBox content here-->
+                </div>
+            </div>
+            <div class="chat_submit_box">
+                <div class="uk-input-group">
+                    <div class="gurdeep-chat-box">
+                        <input @keyup.enter="sendHumanMessage" v-model="humanMessage" type="text" placeholder="Type a message" id="submit_message" name="submit_message" class="md-input" autofocus>
+                    </div>
+                    <span @click="sendHumanMessage" class="uk-input-group-addon">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-send"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.0"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+    <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
     <script>
         $(function () {
             $("#addClass").click(function () {
@@ -203,9 +208,7 @@
                         }
                     },
                     getAnswerFromDB: function(question){
-                        // GET //profiles/ogundiran12.php?question
-                        // change profiles/ogundiran12.php?question='+ question)
-                        this.$http.get('?question='+question)
+                        this.$http.get('profiles/ogundiran12.php?question='+question)
                                 .then(response => {
                                     // get body dat
                                     var trainMeMsg = 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
@@ -213,6 +216,8 @@
                                     this.sendBotMsg(this.botMsg);
                                 }, response => {
                                     // error callback
+
+                                    console.log(response.responseText);
                                     this.sendBotMsg('Something went wrong, please try again later');
                                 });
                     },
@@ -270,7 +275,7 @@
                             return;
                         }
 
-                        this.$http.get('?question='+args[1]+'&'+'answer='+args[2])
+                        this.$http.get('profiles/ogundiran12.php?question='+args[1]+'&'+'answer='+args[2])
                                 .then(response => {
                                     // get body data
                                     this.botMsg = (response.data !== null) ? response.data.message : 'Unable to recieve training';
