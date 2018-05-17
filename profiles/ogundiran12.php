@@ -1,8 +1,13 @@
 <?php 
    //include "../db.php";
-   function makeSafe($data){
-    return htmlspecialchars(stripslashes(trim($data)));
+    require "../../config.php";
+
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
     }
+
    if(isset($_GET['answer'])){
 		
 		$question = makeSafe($_GET['question']);
@@ -47,6 +52,10 @@
 		echo json_encode($data);
 		return;
     }
+    function makeSafe($data){
+        return htmlspecialchars(stripslashes(trim($data)));
+    }
+
     global $secret_word;
     $query = $conn->query("Select * from secret_word LIMIT 1");
     $result = $query->fetch(PDO::FETCH_OBJ);
@@ -58,9 +67,11 @@
     
 	?> 
 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">    
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Slabo+27px" rel="stylesheet">
     <link rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+    
     
     <!---//adjust css -->
 
@@ -524,7 +535,7 @@
             ?>
         </div>
 
-        <div class="text-center">
+        <div class="oj-flex-item text-center">
             <a href="#" id="addClass">
                 <span class="glyphicon glyphicon-comment"></span>
                 Open chat bot
