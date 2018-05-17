@@ -162,10 +162,8 @@
 
         .container{
             margin-top: 25%;
-            height: 100%;
         }
         #app{
-            background:#e7f8ec;
             font-family: "Montserrat", sans-serif;
             width: 100%;
             display: flex;
@@ -579,18 +577,18 @@
         font-weight: bold;
         }
     </style>
-    <div id="app" class="container">
+    <div id="app" class="oj-flex oj-md-flex-items-1 container">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
-        <div class="time-container">
+        <div class="oj-flex-item time-container">
             <?php
             date_default_timezone_set('Africa/Lagos');
             echo date('h:i A', time());
             ?>
         </div>
 
-        <div class="text-center">
+        <div class="oj-flex-item text-center">
             <a href="#" id="addClass">
                 <span class="glyphicon glyphicon-comment"></span>
                 Open chat bot
