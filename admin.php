@@ -7,6 +7,8 @@ $nameError = "";
 $usernameError = "";
 $keyError = "";
 $filenameError = "";
+echo "I am here";
+exit();
 
 //$imageSuccess = false;
 $success = false;
