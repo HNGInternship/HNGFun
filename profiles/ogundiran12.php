@@ -1,5 +1,4 @@
 <?php 
-   include "../../config.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
@@ -33,6 +32,7 @@
         return;
 
 	}else if(isset($_GET['question'])){
+        require_once '../../config.php';
 
 	   	$question = makeSafe($_GET['question']);
 
