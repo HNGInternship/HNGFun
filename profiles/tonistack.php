@@ -92,8 +92,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link href="https://fonts.googleapis.com/css?family=Federant" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-
+   
     <style>
 
     .card {
