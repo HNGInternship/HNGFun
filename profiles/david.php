@@ -239,7 +239,6 @@ right: 30%;
  </div>
       </div><br><br>
       <right>
-      <span>david chatbot</span>
       <div class="col-sm-3 col-sm-offset-4 frame">
             <ul></ul>
             <div>
@@ -258,7 +257,7 @@ right: 30%;
 <script type="text/javascript">
 
 var me = {};
-me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+me.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
 
 var you = {};
 you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
