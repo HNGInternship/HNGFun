@@ -459,6 +459,10 @@ insertChat("you", "LOL", 12000);*/
 //-- NOTE: No use time on insertChat.
 
 </script>
+
+
+</body>
+</html>
 <?php
 
 if(!defined('DB_USER')){
@@ -581,17 +585,17 @@ if(!defined('DB_USER')){
     
     "
     
-    - To know who my creator is, just type (who created you) <br />
+    - To know who my creator is, simply type (who created you) <br />
     
-    - To know the dengers of drug abuse just type (dangers of drug abuse) <br />
+    - To get hotel recommendation, simply type (hotel suggestions) <br />
     
-    - To know the effесtѕ of drug abuse just type (effесtѕ оf drug abuse).
+    - To know list of hotels in jos, Plateau. Simply type (hotels in jos).
     
     - To know the cаuѕеѕ of drug abuse just type (cаuѕеѕ of drug abuse) <br />
     
     - To know the solution to drug abuse just type (solution to drug аbuѕе) <br />
     
-    - To know about the bot just type (aboutbot) <br />
+    - To know about the bot just type (about bot) <br />
     
     ",
     
@@ -802,6 +806,3 @@ if(!defined('DB_USER')){
     }
   
   ?>
-
-</body>
-</html>
