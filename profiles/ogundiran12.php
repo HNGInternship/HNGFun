@@ -513,11 +513,11 @@
         font-weight: bold;
         }
     </style>
-    <div id="app" class="container mt-4">
+    <div id="app" class="oj-flex oj-md-flex-items-1 container mt-5">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
-        <div class="time-container">
+        <div class="oj-flex-item time-container">
             <?php
             date_default_timezone_set('Africa/Lagos');
             echo date('h:i A', time());
