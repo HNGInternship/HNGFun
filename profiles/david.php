@@ -238,7 +238,7 @@ right: 30%;
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
       </div><br><br>
-      <center>
+      <right>
       <div class="col-sm-3 col-sm-offset-4 frame">
             <ul></ul>
             <div>
@@ -253,7 +253,7 @@ right: 30%;
                 </div>                
             </div>
         </div>   
-        </center>
+        </right>
 <script type="text/javascript">
 
 var me = {};
