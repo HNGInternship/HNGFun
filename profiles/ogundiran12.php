@@ -435,18 +435,7 @@
         background: #fcfbf6 none repeat scroll 0 0;
         color: #000000;
         }
-        /*
-        .open-btn {
-            border: 2px solid #189d0e;
-            border-radius: 32px;
-            color: #189d0e !important;
-            display: inline-block;
-            margin: 10px 0 0;
-            padding: 9px 16px;
-            text-decoration: none !important;
-            text-transform: uppercase;
-        }
-        */
+
         .chat_box .chat_message_wrapper ul.chat_message > li {
         background: #ededed none repeat scroll 0 0;
         border-radius: 4px;
@@ -768,6 +757,7 @@
                     sendBotMsg: function(message){
                         this.botMsgBox = this.makeBotMsg(message);
                         $('.chat_box').append(this.botMsgBox);
+                        this.scrollDown();
                     },
                     trainBot: function(command){
                         var args = command.match(/\[(.*?)\] \[(.*?)\] \[(.*?)\]/);
@@ -842,6 +832,10 @@
                                     // error callback
                                     this.sendBotMsg('Oops! Trump refused to allow me tell you anything');
                                 });
+                    },
+                    scrollDown: function(){
+                        var chatWrapper = $('.chat_box_wrapper');
+                        chatWrapper.animate({ scrollTop:  chatWrapper.prop("scrollHeight") -  chatWrapper.height() }, 1500);
                     }
                 }
             });
