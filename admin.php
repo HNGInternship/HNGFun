@@ -8,12 +8,12 @@ $usernameError = "";
 $keyError = "";
 $filenameError = "";
 
+
 //$imageSuccess = false;
 $success = false;
 $key = "sample_secret_word";
 
 if(isset($_POST['submit']) ){
-
     //Data Sanitization and Validation
     if($_POST['name'] != ""){
         $_POST['name'] = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
