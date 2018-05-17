@@ -1,4 +1,5 @@
 <?php 
+   //include "../db.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
@@ -32,7 +33,6 @@
         return;
 
 	}else if(isset($_GET['question'])){
-        require_once '../../config.php';
 
 	   	$question = makeSafe($_GET['question']);
 
@@ -92,41 +92,42 @@
                 Open chat bot
             </a>
         </div>
-    </div>
 
-    <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
+        <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
 
-        <div class="popup-head">
-            <div class="popup-head-left pull-left">
-                <h1>mentOS Bot</h1>
+            <div class="popup-head">
+                <div class="popup-head-left pull-left">
+                    <h1>mentOS Bot</h1>
 
-            </div>
-            <div class="popup-head-right pull-right">
-                <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button">
-                    <i class="glyphicon glyphicon-remove"></i>
-                </button>
-            </div>
-        </div>
-
-        <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" style="opacity: 1; display: block; transform: translateX(0px);">
-            <div class="chat_box touchscroll chat_box_colors_a">
-                <!--msgBox content here-->
-            </div>
-        </div>
-        <div class="chat_submit_box">
-            <div class="uk-input-group">
-                <div class="gurdeep-chat-box">
-                    <input @keyup.enter="sendHumanMessage" v-model="humanMessage" type="text" placeholder="Type a message" id="submit_message" name="submit_message" class="md-input" autofocus>
                 </div>
-                <span @click="sendHumanMessage" class="uk-input-group-addon">
-                    <a href="#">
-                        <i class="glyphicon glyphicon-send"></i>
-                    </a>
-                </span>
+                <div class="popup-head-right pull-right">
+                    <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </button>
+                </div>
             </div>
-        </div>
 
-    </aside>
+            <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" style="opacity: 1; display: block; transform: translateX(0px);">
+                <div class="chat_box touchscroll chat_box_colors_a">
+                    <!--msgBox content here-->
+                </div>
+            </div>
+            <div class="chat_submit_box">
+                <div class="uk-input-group">
+                    <div class="gurdeep-chat-box">
+                        <input @keyup.enter="sendHumanMessage" v-model="humanMessage" type="text" placeholder="Type a message" id="submit_message" name="submit_message" class="md-input" autofocus>
+                    </div>
+                    <span @click="sendHumanMessage" class="uk-input-group-addon">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-send"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -205,7 +206,7 @@
                     getAnswerFromDB: function(question){
                         // GET //profiles/ogundiran12.php?question
                         // change profiles/ogundiran12.php?question='+ question)
-                        this.$http.get('?question='+question)
+                        this.$http.get('profiles/ogundiran12.php?question='+question)
                                 .then(response => {
                                     // get body dat
                                     var trainMeMsg = 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
@@ -270,7 +271,7 @@
                             return;
                         }
 
-                        this.$http.get('?question='+args[1]+'&'+'answer='+args[2])
+                        this.$http.get('profiles/ogundiran12.php?question='+args[1]+'&'+'answer='+args[2])
                                 .then(response => {
                                     // get body data
                                     this.botMsg = (response.data !== null) ? response.data.message : 'Unable to recieve training';
