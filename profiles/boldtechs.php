@@ -748,3 +748,5 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
     }
 }
 ?>
+
+	
