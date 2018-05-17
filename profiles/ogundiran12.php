@@ -1,22 +1,17 @@
 <?php 
-   //include "../db.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
-
-    require "../../config.php"; 
-    
-    try {
-    
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    
-    } catch (PDOException $pe) {
-    
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    
-    }
-    
    if(isset($_GET['answer'])){
+
+        require_once '../../config.php';
+    
+       try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+		
 		
 		$question = makeSafe($_GET['question']);
 		$answer = makeSafe($_GET['answer']);
@@ -46,6 +41,13 @@
         return;
 
 	}else if(isset($_GET['question'])){
+        require_once '../../config.php';
+
+        try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
 
 	   	$question = makeSafe($_GET['question']);
 
@@ -107,6 +109,9 @@
         font-weight: 400;
         src: local('Montserrat Regular'), local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v12/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        .container{
+            margin-top: 10%;
         }
         #app{
             height: 100%;
@@ -524,7 +529,7 @@
         font-weight: bold;
         }
     </style>
-    <div id="app" class="container mt-4">
+    <div id="app" class="container">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
