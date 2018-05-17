@@ -256,11 +256,11 @@ right: 30%;
         </right>
 <script type="text/javascript">
 
-var me = {};
-me.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
+var davbot = {};
+davbot.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
 
-var you = {};
-you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+var user = {};
+user.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
 
 function formatAMPM(date) {
     var hours = date.getHours();
@@ -281,7 +281,7 @@ function insertChat(who, text, time){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "me"){
+    if (who == "davbot"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
                         '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
@@ -330,7 +330,7 @@ $('body > div > div > div:nth-child(2) > span').click(function(){
 resetChat();
 
 //-- Print Messages
-insertChat("me", "Hello Tom...", 0);  
+insertChat("davbot", "Hello My name is davbot. I'm a chatbot. To know about me simply type <em>aboutbot</em>", 0);  
 insertChat("you", "Hi, Pablo", 1500);
 insertChat("me", "What would you like to talk about today?", 3500);
 insertChat("you", "Tell me a joke",7000);
