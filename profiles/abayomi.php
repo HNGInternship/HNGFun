@@ -263,15 +263,11 @@ class DBHelper{
 	
 	<style>
         body{
+            width: 100%;
         background: #fff;
         padding: 0;
         margin: 0;
         font-family: 'Montserrat',sans-serif;
-        }
-        html{
-        box-sizing:border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         }
         .main {
         width: 360px;
@@ -360,7 +356,7 @@ class DBHelper{
 	 width: 330px; 
     position: fixed; 
     right:5px;
-     bottom:-380px; 
+     bottom:300px; 
 	}
 	.session-one:hover{
 	 	cursor: pointer; 
@@ -476,9 +472,11 @@ class DBHelper{
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
 
+<!--
         <div id="icons">
-          <?php include('../footer.php'); ?>
+          <?php //include('../footer.php'); ?>
         </div>
+-->
     </div>
     </div>
 <!--  Starting up the Chatbot Design  -->

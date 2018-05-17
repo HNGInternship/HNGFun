@@ -110,7 +110,7 @@
             $randomRow = $rows[$random_index];
             return $randomRow['answer'];
         } else {
-            return "I am afraid I do not have answer to your question but you can however train me using the following format <strong>train: question # answer # password</strong>" ;
+            return "I am afraid I do not have answer to your question but you can however train me using the following format <strong>train: question # answer # password</strong>");
         }
 
 
@@ -229,7 +229,7 @@
     }
 
         //use this to make sure nothing is printed on the
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+       //f ($_SERVER['REQUEST_METHOD'] === 'GET') {  }
 
 ?>
 

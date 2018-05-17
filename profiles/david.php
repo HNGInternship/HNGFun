@@ -239,7 +239,9 @@ right: 30%;
  </div>
       </div><br><br>
 
-<div class="col-sm-3 col-sm-offset-4 frame">
+      <!-- chatbot interface-->
+      <right>
+      <div class="col-sm-3 col-sm-offset-4 frame">
             <ul></ul>
             <div>
                 <div class="msj-rta macro">                        
@@ -252,16 +254,28 @@ right: 30%;
                     <span class="glyphicon glyphicon-share-alt"></span>
                 </div>                
             </div>
-        </div>       
-
-
+        </div>   
+        </right>
 <script type="text/javascript">
-var me = {};
-me.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
 
-var you = {};
-you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+var davbot = {};
+davbot.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
 
+var user = {};
+user.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+var introText = "<p>Hello. My name is davbot, I'm a chatbot. You can ask me questions and I will try to answer them. You can also train me using the following format,</p>" +
+
+
+"<code>train : question # answer # password</code>" +
+
+
+'<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>" or even "<i>teach how</i></p>' +
+
+
+'<p>To see this message at any time, type "intro"</p>' +
+
+
+'<p>To see my version number, type "<i>about</i>", "<i>aboutbot</i>" or "<i>about_bot</i>"</p>';
 function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -281,7 +295,7 @@ function insertChat(who, text, time){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "me"){
+    if (who == "user"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
                         '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
@@ -329,16 +343,121 @@ $('body > div > div > div:nth-child(2) > span').click(function(){
 //-- Clear Chat
 resetChat();
 
+
+$(document).ready(function() {
+
+$(".mytext").on("keyup", function(e) {
+
+if ((e.keyCode || e.which) == 13) {
+
+var text = $(this).val();
+
+if (text !== "") {
+
+insertChat("user", text);
+
+$(this).val('');
+
+botResponse();
+
+}
+
+}
+
+function botResponse() {
+
+shouldScroll = $("ul.chats").scrollTop + $("ul.chats").clientHeight === $("ul.chats").scrollHeight;
+
+var date = formatAMPM(new Date());
+
+if (text.toUpperCase() === "INTRO") {
+
+insertChat("bot", introText, 200);
+
+} else {
+
+$.ajax({
+
+type: "POST",
+
+url: 'profiles/david.php',
+
+data: {message: text},
+
+success: function(response) {
+
+reply = '<li style="width:100%">' +
+
+'<div class="msj macro">' +
+
+'<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ davbot.avatar +'" /></div>' +
+
+'<div class="text text-l">' +
+
+'<p>'+ response +'</p>' +
+
+'<p><small>'+date+'</small></p>' +
+
+'</div>' +
+
+'</div>' +
+
+'</li>';
+
+setTimeout(
+
+function() {
+
+$("ul.chats").append(reply).scrollTop($("ul.chats").prop('scrollHeight'));
+
+}, 0
+
+);
+
+}
+
+});
+
+if (!shouldScroll) {
+
+scrollToBottom();
+
+}
+
+}
+
+}
+
+});
+
+});
+
+function scrollToBottom() {
+
+$("ul.chats").scrollTop = $("ul.chats").scrollHeight;
+
+}
+
+// $('body > div > div > div:nth-child(2) > span').click(function() {
+
+// $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
+
+// })
+
+insertChat("davbot", introText, 350);
+
+scrollToBottom();
 //-- Print Messages
-insertChat("me", "Hello, My name is DavBot. You can ask me any question tech related", 0);  
-//insertChat("you", "Hi, Pablo", 1500);
-//insertChat("me", "What would you like to talk about today?", 3500);
-//insertChat("you", "Tell me a joke",7000);
-//insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
-//insertChat("you", "LOL", 12000);
+/*insertChat("davbot", "Hello My name is davbot. I'm a chatbot. To know about me simply type <em>aboutbot</em>", 0);  
+insertChat("you", "Hi, Pablo", 1500);
+insertChat("me", "What would you like to talk about today?", 3500);
+insertChat("you", "Tell me a joke",7000);
+insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
+insertChat("you", "LOL", 12000);*/
 
 
 //-- NOTE: No use time on insertChat.
+
 </script>
 <?php
 
@@ -358,93 +477,7 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
   } catch (PDOException $e) {
       throw $e;
   }
-  function davBot($data) {
-    $data = trim($data);
-    $data = chop($data);
-    $data = trim($data, "?");
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
-      if ($_SERVER['REQUEST_METHOD'] === "POST") {
-         
-          $question =davBot($_POST["displayMessage"]);
-          //bot version
-          if($question == "aboutbot"){
-              $reply = "davBot v1.0";
-                         $response = array('status'=>3,'answer'=> $reply);
-                         echo json_encode($response); 
-          }else{
-          
-          //check if pearbot is to be trained
-          $train = explode(':', $question);
-          if($train[0] == 'train'){
-              $inputQuestion = explode('#', $train[1]);
-              $password = 'password';
-              if(!count($inputQuestion)<3 && test_input($password) === test_input($inputQuestion[2])){
-                  if (test_input($inputQuestion[0]) && test_input($inputQuestion[1]) != " "){
-                      $dataQuestion = test_input($inputQuestion[0]);
-                      $dataAnswer = test_input($inputQuestion[1]);
-                      
-                      //is the question or answer already in the database
-                      $select = $conn->query("Select * from chatbot where question LIKE '%$dataQuestion%'");
-                      $select ->setFetchMode(PDO::FETCH_ASSOC);
-                      $fetch = $select->fetchAll();
-                      if($fetch){
-                          $reply = "Do you want to overwrite my knowledge. <br /> Sorry only my creator can";
-                         $response = array('status'=>3,'answer'=> $reply);
-                         echo json_encode($response); 
-                      }
-                      else{
-                          //save into the database as a new question
-                          $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
-                          
-                          if($conn->query($insert)){
-                              $reply = "Thanks for your help, I appreciate";
-                              $response = array('status'=>4, 'answer'=>$reply);
-                              echo json_encode($response);
-                          }else{
-                              $reply = "Something went wrong please try again";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                          }
-                      }
-                      //saving to database ends here
-                      
-                  }else{
-                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                  }
-              }else{
-                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                  }
-          }else{
-        //retrieving answers to questions from the database 
-          $question = davBot($_POST["displayMessage"]);
-          $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
-          
-          $answer ->setFetchMode(PDO::FETCH_ASSOC);
-          $ans = $answer->fetchAll();
-          if (count($ans) > 0) {
-      
-            $choseRandom = rand(0, count($ans)-1);
-            $response = $ans[$choseRandom]['answer'];
-            $response = array('status'=>1,'answer'=> $response);
-            echo json_encode($response);
-      
-          }
-          else{
-              $error = "I'm not understanding you\' <br> \'You can train me on that.";
-              $response = array('status'=>2, 'answer'=> $error);
-              echo json_encode($response); 
-          }
-       
-      }
-    }
-  }else{
+  
   ?>
 
 </body>
