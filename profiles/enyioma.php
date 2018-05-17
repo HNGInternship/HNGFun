@@ -361,6 +361,10 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
+        $('#textbox').animate({
+                scrollTop: textbox.scrollHeight,
+                scrollLeft: 0
+            }, 100);
 </script>
 
   <!-- RequireJS bootstrap file -->
