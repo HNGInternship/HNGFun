@@ -1,5 +1,5 @@
 <?php
-include "../db.php";
+//include "../db.php";
 $query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
 $row = $conn->query($query);
 $result = $row->fetch();
@@ -33,33 +33,7 @@ $query1 = "SELECT * FROM secret_word";
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">HNG Fun</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="http://hng.fun">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://hng.fun/learn.php">Learn</a>
-                </li>
-                <li class="nav-item">
-                    <a href="http://hng.fun/listings.php" class="nav-link">Interns</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://hng.fun/admin.php">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://hng.fun/testimonies.php">Testimonies</a>
-                </li>
-            </ul>
-        </div>
-    </nav>    
+<body>    
     <div class="container-fluid">
     
         <div class="row">
