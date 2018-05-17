@@ -45,7 +45,6 @@
             
         <p id="job">Front End Developer</p>
         
-        
         <ul class="list">
             <li><a href="https://github.com/chiamakaibeme" title="Github" target="_blank"><i class="fab fa-github"></i></a></li>
             <li><a href="mailto:chiamakaibeme@ymail.com" title="Yahoomail" target="_blank"><i class="fas fa-envelope"></i></a></li>
@@ -127,7 +126,6 @@
             transform: scale(1.3);
             color: blue;
 			}
-        
-    
+         
     </style>
 </body>
