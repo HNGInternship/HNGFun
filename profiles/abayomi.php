@@ -268,9 +268,6 @@ class DBHelper{
         padding: 0;
         margin: 0;
         font-family: 'Montserrat',sans-serif;
-        box-sizing:border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         }
         .main {
         width: 360px;
@@ -359,7 +356,7 @@ class DBHelper{
 	 width: 330px; 
     position: fixed; 
     right:5px;
-     bottom:-380px; 
+     bottom:300px; 
 	}
 	.session-one:hover{
 	 	cursor: pointer; 
