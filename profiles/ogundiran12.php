@@ -1,5 +1,4 @@
 <?php 
-   //include "../db.php";
    function makeSafe($data){
     return htmlspecialchars(stripslashes(trim($data)));
     }
