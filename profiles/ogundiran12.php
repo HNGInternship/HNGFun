@@ -56,28 +56,20 @@
     $user = $sql->fetch(PDO::FETCH_OBJ);
     $name = $user->name;
     
-	?>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">  
+	?> 
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Slabo+27px" rel="stylesheet">
     <!---//adjust css -->
 
-    <style>
-    html {
-  height: 100%;
-  }
-
-body {
-  background:#e7f8ec;
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-
+    <style type="text/css">
+    #app{
+        
+        background:#e7f8ec;
+        font-family: "Montserrat", sans-serif;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 h1,
 h4 {
   width: 100%;
@@ -485,7 +477,7 @@ img {
   font-weight: bold;
 }
     </style>
-    <div class="container">
+    <div id="app" class="container">
         <h1 class="title fader"><?php echo $name; ?></h1>
         <h4 class="name fader">Software Developer</h4>
 
@@ -553,7 +545,7 @@ img {
             $("#removeClass").click(function () {
                 $('#sidebar_secondary').removeClass('popup-box-on');
             });
-        })
+        });
     </script>
     <script>
         var aside = new Vue({
