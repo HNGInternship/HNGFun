@@ -110,7 +110,7 @@
             $randomRow = $rows[$random_index];
             return $randomRow['answer'];
         } else {
-            return "I am afraid I do not have answer to your question but you can however train me using the following format <strong>train: question # answer # password</strong>" ;
+            return "I am afraid I do not have answer to your question but you can however train me using the following format <strong>train: question # answer # password</strong>");
         }
 
 
