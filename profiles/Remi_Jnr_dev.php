@@ -219,7 +219,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <style>
     body, html {
-      background: url('http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg') no-repeat center top;
+      background: url('http://res.cloudinary.com/remijr/image/upload/c_scale,e_shadow:63,h_282,r_14,w_307/a_0/v1526673163/Screenshot_20180518-205122_1.png') no-repeat center top;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -249,9 +249,10 @@
       font-weight: 700;
       line-height: 20px;
     }
-	.about-text{
+	#about-text{
 		text-shadow: 5px 5px 3px #000;
 		opacity: 0.7;
+		font-size:1.5em;
 	}
     p.intro {
 	  text-shadow: 3px 3px 2px #000;
@@ -368,7 +369,7 @@
         background:#e0e0de;
         height:590px;
         position: fixed;
-        bottom: 100px;
+        bottom: 10px;
         right: 0;
         overflow:auto;
     }
@@ -552,7 +553,7 @@ function scrollToBottom() {
         <div class="col-md-12 text-center"><img src="http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg" class="img-responsive"></div>
         <div class="col-md-8 col-md-offset-2">
           <div class="about-text">
-		  <p> Hi, Sweet! The name is <b>Remilekun Elijah</b><br> and I am a Developer</p>
+		  <p id="about-text"> Hi, Sweet! The name is <b>Remilekun Elijah</b><br> and I am a Developer</p>
           </div>
           <div class="section-title text-center center">
             <h2>My Skills</h2>

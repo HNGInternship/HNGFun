@@ -363,5 +363,41 @@ hr
 					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">Its all in your mind. Full Stack, Empty of Worries</p>				
 	</div>
 </div>
-</body>
+</body
+<footer>
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+               <li class="list-inline-item">
+                  <a id="twitter" href="https://twitter.com/findseun" target="_blank">
+                     <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                     </span>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a id="facebook" href="https://www.facebook.com/findseun" target="_blank">
+                     <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                     </span>
+                  </a>
+               </li>
+               <li class="list-inline-item">
+                  <a id="github" href="https://github.com/findseun" target="_blank">
+                     <span class="fa-stack fa-lg">
+                        <i class="fa fa-circle fa-stack-2x"></i>
+                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                     </span>
+                  </a>
+               </li>
+    
+            </ul>
+            <p class="copyright text-muted">Copyright © HNG FUN 2018</p>
+         </div>
+      </div>
+   </div>
+</footer>
 </html>
