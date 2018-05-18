@@ -26,6 +26,12 @@
 	    $q->setFetchMode(PDO::FETCH_ASSOC);
 	    $my_data = $q->fetch();
 
+	$sql = "SELECT * FROM chatbot ";
+	    $q = $conn->query($sql);
+	    $q->setFetchMode(PDO::FETCH_ASSOC);
+	    $chat = $q->fetch();
+	    var_dump($chat);
+
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	    
 	    $question = preg_replace("([?!.])", "", trim($_POST['message']));
@@ -253,7 +259,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style type="text/css">
 		#page{
-			margin-top: 20px;
+			margin-top: 80px;
 			padding-top: 30px;
 			padding-bottom: 20px;
 			background-color: white;
@@ -655,7 +661,7 @@
                         +'</p> </li>  </ul>  </div>';
 
                     $('.chat_box').append(received_message);
-                    $("#chat").scrollTop($(".chat_box").outerHeight());
+                    // $("#chat").scrollTop($(".chat_box").outerHeight());
                 }
             });
         }
