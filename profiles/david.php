@@ -339,6 +339,7 @@ right: 30%;
       </div><br><br>
 
       <!-- chatbot interface-->
+      <div class="chatbot-container">
       <div class="chat-header">
         <span>Le-Bot</span>
       </div>
