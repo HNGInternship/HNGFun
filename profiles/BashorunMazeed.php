@@ -588,12 +588,14 @@
     </div>
 	<div class="chat_submit_box">
 	    <div class="uk-input-group">
-	        <div class="gurdeep-chat-box">
-	        	<input type="text" placeholder="Type a message" id="message" name="message" class="lg-input">
-	        </div>
-		    <span class="uk-input-group-addon">
-		    	<button type="button" id="submit_message"><i class="glyphicon glyphicon-send"></i></button>
-		    </span>
+	    	<form action="" method="post" id="submit_message">
+		        <div class="gurdeep-chat-box">
+		        	<input type="text" placeholder="Type a message" id="message" name="message" class="lg-input">
+		        </div>
+			    <span class="uk-input-group-addon">
+			    	<button type="submit"><i class="glyphicon glyphicon-send"></i></button>
+			    </span>
+			</form>
 	    </div>
 	</div>
 
@@ -645,7 +647,7 @@
             $('.chat_box').animate({scrollTop: $('#message').get(0).scrollHeight}, 1100); 
 
             $.ajax({
-                url: '/profiles/BashorunMazeed.php',
+                url: 'profiles/BashorunMazeed.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {message: usermsg},
