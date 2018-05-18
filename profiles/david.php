@@ -480,10 +480,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 function aboutbot() {
     echo "<div id='result'>My name is davbot. I'm a chatbot, I get input and process it in other to display the result, if there is no result you can instruct me on how to get such result!</div>";
 }
-function who_created_you(){
+/*function who_created_you(){
 
     echo "<div id='result'>David Ozokoye is my creator. He is currently an intern with HNG<div>";
-}
+}*/
 function train($input) {
     $input = explode('#', $input);
     $question = trim($input[0]);
