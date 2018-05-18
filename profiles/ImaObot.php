@@ -1,8 +1,8 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
+   require '../../config.php';
         //die('Hi');
-        $conn = new mysqli('localhost', 'root', '', 'hng_fun');
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
         
         if(!$conn){
             die('Unable to connect');
@@ -11,7 +11,7 @@
         $pos = strpos($question, 'train:');
 
         if($pos === false){
-            $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
             $query = $conn->query($sql);
             if($query){
                 echo json_encode([
@@ -28,7 +28,7 @@
 
             if($data[2] == 'password'){
 
-                $sql = "INSERT INTO chatbot (questions, answers)
+                $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
 
 
@@ -91,14 +91,13 @@
     .ima{
         text-align: center; 
         width: 652px;
-        height: 500px;
+        /* height: 500px; */
         background-color: rgb(83, 179, 179);
         /* border-color: blueviolet; */
     } 
     .eli{ 
     border:  solid black;
     border-width: 2px;
-    height: 700px;
     width: 650px;
     
     }
@@ -120,19 +119,27 @@
     text-align: center;
     }
     .botbot{
-        background-color:rgb(87, 76, 76);
+        background-color:rgb(83, 159, 169);
          width:650px;
-         /* height:132px; */
+         position: relative;
+         /* left: 600px;
+         bottom:500px;
+         height:132px; */
     }
     .font{
         font-size: 35px;
     }
-    p{
-        margin-top: 20px;
+    #chat-area{
+        border:5px ridge aliceblue;
+        height:200px;
+        background-color:white;
+        overflow-y:scroll;
     }
     </style>
 </head>
 <body>
+<section id="profile">
+
     <div class="ima">
             <div class="eli">
                    
@@ -143,56 +150,51 @@
                             </h3>  
                                                
                 </div>
-        <p style="margin-bottom: 70px;">    
-    <!-- <div class="container"> -->
-        <!-- <img src="..." alt="..." class="rounded-circle"> -->
-        <!-- <span class="border border-success"> -->
             
             <img src="https://res.cloudinary.com/dbvitxz4y/image/upload/v1525789006/cute.jpg"  width="200" height="200" alt="profile" class="rotateimg180">
         <!-- </span> -->
-        <br clear="left" />
+       <p>          
        Am a web designer that designs for fun during my leisure.<br> Am aspiring to become a web developer. <br>I love to love and I hate to hate, always grateful to God, my parents and loved ones. 
-    <br> 
-   </p>
-    <div class="pro" style="background-color: white; ">
-        <p style="color: black;">
-               NAME: Imaobong Elijah Obot<br>
-               OCCUPATION: Web Designer<br>
-               HOBBIES: Playing games, Singing
-            <!-- </pre> -->
-
-        </p>
-        <div>
+              </p><br>
+              <p>
+              <b> NAME:</b> Imaobong Elijah Obot<br>
+               <b/>OCCUPATION:</b> Web Designer<br>
+              <b> HOBBIES:</b> Playing games, Singing
+            </p>
+ </div>        
         <div class="container">
             <div id='chat-area'>
-            <div class="botbot" style="height: 140px; background-color:rgb(87, 76, 76);"> 
-                <div class="font" style="color: rgb(13, 36, 53); text-align: center;"> IMA'S BOT</div>
-                <input type="text" name="message" id="message"> 
-                <button onclick="loadDoc()">Send</button>
+            <p></p>
+                <p></p>
+                <p></p>
+
             </div>
-            <br><br>
-            <span class="input-group-addon" id="basic-addon1">  
-                <i class="fab fa-facebook-square" style=" font-size: 30px; color: rgb(83, 179, 179); "></i> 
-                <i class="fab fa-github" style=" font-size: 30px; color: rgb(83, 179, 179); "></i> 
-                <i class="fab fa-whatsapp-square" style=" font-size: 30px; color: rgb(83, 179, 179); "></i>
-            </span>   
+            <div class="botbot"> 
+                <div class="font" style="color: rgb(13, 36, 53); text-align: center;"> IMA'S BOT</div>
+                                <input type="text" name="message" id="message"> 
+                <button onclick="loadDoc()">Send</button>
+            
+        
+           
                     <!-- <textarea name="chat" id="chat" cols="20" rows="10" style="width: 644px; height: 80px;"> CHAT HERE</textarea> -->
-        </div>
+        
+        <!-- <div class="pro ">
+            </pre> -->
+            <br><br>
+           
+            <span class="input-group-addon" id="basic-addon1">  
+             <a href="https://www.facebook.com/imaobong.obot.184" class="fab fa-facebook-square" style=" font-size: 30px; "></a>
+                <a href="https://github.com/Imaobong-Elijah" class="fab fa-github" style=" font-size: 30px; "></a> 
+                <a  href="https://www.whatsapp.com/Imaobong Obot" class="fab fa-whatsapp-square" style=" font-size: 30px;"></a>
+            </span>   
+        
+      
+        
+   
         </div>
     </div>
-
-        <!-- <div class="botbot" style="height: 130px;"> 
-                <div class="font" style="color: rgb(13, 36, 53); text-align: center;"> IMA'S BOT</div>
-                <form method="POST">
-                    <div class="chat" id="chat">
-                    <textarea name="chat" id="chat" cols="20" rows="10" style="width: 644px; height: 80px;"> CHAT HERE</textarea>
-        </div>
-                    <input type="text" id="mgs" name="mgs"> 
-                    <button  style=" height: 35px; width: 80px;" type="button" onclick="alert('sent!')">Send</button>
-                </form> -->
-            </div>
-            </div>
-                         </div> 
+ </div>
+</section>
     <script>
             function loadDoc() {
                 // alert('Hello');
@@ -230,7 +232,7 @@
                     
                     }
                 };
-                xhttp.open("POST", "ImaObot.php", true);
+                xhttp.open("POST", "/profiles/ImaObot.php", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("message="+message.value);
             }

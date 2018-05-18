@@ -1,7 +1,10 @@
 <?php
+
 <<<<<<< HEAD
  require 'db.php';
+
   $result = $conn->query("Select * from secret_word LIMIT 1");
+
   $result = $result->fetch(PDO::FETCH_OBJ);
 =======
        
@@ -13,6 +16,7 @@
         }
         $question = $_POST['message'];
         $pos = strpos($question, 'train:');
+
         if($pos === false){
             $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
             $query = $conn->query($sql);
@@ -29,12 +33,18 @@
             $data[1] = trim($data[1]);
             $data[2] = trim($data[2]);
 >>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+
   $secret_word = $result->secret_word;
+
 <<<<<<< HEAD
+
+
   $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
 =======
                 $sql = "INSERT INTO chatbot (question, answer)
                 VALUES ('$data[0]', '$data[1]')";
+
+
                 $query = $conn->query($sql);
                 if($query){
                     echo json_encode([
@@ -68,7 +78,9 @@
     }
     
 >>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+
   $user = $result2->fetch(PDO::FETCH_OBJ);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +96,7 @@
        margin-right: auto;
        padding-top: 50px;
        background-color: rgba(136, 7, 7, 0.438);
+
      }
      .me{
          color: white;
@@ -165,10 +178,18 @@
     }
     </script>
                 
+
     <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v5.0.0/3rdparty/require/require.js"></script>
+
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/default/js"></script>
+
 <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v@version@/3rdparty"></script>
+
 <script type="text/javascript" src="../js/main.js"></script>
+
+
 >>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
 </body>
 </html>
+
+
