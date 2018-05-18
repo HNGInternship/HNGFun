@@ -444,7 +444,7 @@ $("ul.chats").scrollTop = $("ul.chats").scrollHeight;
 
 // })
 
-insertChat("davbot", introText, 350);
+insertChat("davbot", introText, 0);
 
 scrollToBottom();
 //-- Print Messages
