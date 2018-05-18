@@ -312,7 +312,7 @@ function insertChat(who, text, time){
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
+                      //  '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
                   '</li>';
     }
     setTimeout(
@@ -326,7 +326,7 @@ function resetChat(){
     $("ul").empty();
 }
 
-$(".mytext").on("keydown", function(e){
+/*$(".mytext").on("keydown", function(e){
     if (e.which == 13){
         var text = $(this).val();
         if (text !== ""){
@@ -338,7 +338,7 @@ $(".mytext").on("keydown", function(e){
 
 $('body > div > div > div:nth-child(2) > span').click(function(){
     $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
-})
+})*/
 
 //-- Clear Chat
 resetChat();
@@ -444,12 +444,12 @@ $("ul.chats").scrollTop = $("ul.chats").scrollHeight;
 
 // })
 
-//insertChat("davbot", , 350);
+insertChat("davbot", introText, 350);
 
 scrollToBottom();
 //-- Print Messages
-insertChat("davbot", introText, 0);  
-/*insertChat("user", "Hi, Pablo", 1500);
+insertChat("davbot", "Hello My name is davbot. I'm a chatbot. To know about me simply type <em>aboutbot</em>", 0);  
+/*insertChat("you", "Hi, Pablo", 1500);
 insertChat("me", "What would you like to talk about today?", 3500);
 insertChat("you", "Tell me a joke",7000);
 insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
