@@ -46,7 +46,7 @@ $data = $q->fetchAll();
                     <hr>
                     <span class="align-middle">
                     <a href="profile.php?id=<?=$list['username']?>">
-                       <button class="btn btn-success"><object align="center">View Profile</object></button>
+                       <button class="btn btn-success">View Profile</button>
                     </a>
                   </span>
                 </div>
