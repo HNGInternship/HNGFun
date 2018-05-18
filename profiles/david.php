@@ -1,4 +1,87 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST['input_text'];
+  //  $data = preg_replace('/\s+/', '', $data);
+    $temp = explode(':', $data);
+    $temp2 = preg_replace('/\s+/', '', $temp[0]);
+    
+    if($temp2 === 'train'){
+        train($temp[1]);
+    }elseif($temp2 === 'aboutbot') {
+        aboutbot();
+    }else{
+        getAnswer($temp[0]);
+    }
+}
+
+function aboutbot() {
+    echo "<div id='result'>My  name is davbot v1.0 - I'm a chatbot, I get input and process it in other to display the result, if there is no result you can instruct me on how to get such result!</div>";
+}
+function train($input) {
+    $input = explode('#', $input);
+    $question = trim($input[0]);
+    $answer = trim($input[1]);
+    $password = trim($input[2]);
+    if($password == 'password') {
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+
+        if(empty($data)) {
+            $training_data = array(':question' => $question,
+                ':answer' => $answer);
+
+            $sql = 'INSERT INTO chatbot ( question, answer)
+          VALUES (
+              :question,
+              :answer
+          );';
+
+            try {
+                $q = $GLOBALS['conn']->prepare($sql);
+                if ($q->execute($training_data) == true) {
+                    echo "<div id='result'>Thank you for teaching me new words, it seem you are very good in lecturing. I will like you to teach me more next time!</div>";
+                };
+            } catch (PDOException $e) {
+                throw $e;
+            }
+        }else{
+            echo "<div id='result'>I already understand this. Teach me something new!</div>";
+        }
+    }else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+    }
+}
+
+function getAnswer($input) {
+    $question = $input;
+    $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+    $q = $GLOBALS['conn']->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetchAll();
+    if(empty($data)){
+        echo "<div id='result'>Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote)</div>";
+    }else {
+        $rand_keys = array_rand($data);
+        echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+    }
+}
+?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
