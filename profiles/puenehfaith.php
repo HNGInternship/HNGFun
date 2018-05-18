@@ -362,8 +362,8 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                 </div>
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
-                    <p class="Jayo">Hi! My name na Jayo.<br>i sabi something well well ask me any questionmy madam want you to teach me more about javascript,.</p>
-                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hi make we start from there.</p>
+                    <p class="Jayo">Hi! My name na Jayo.<br>i sabi something well well ask me any question,my madam want you to teach me more about javascript,.</p>
+                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hello make we start from there.</p>
                     <p class="Jayo">You fit train me by typing "train:question#answer#password" The Password na: <b>password </p>
                   </div>
                 </div>
