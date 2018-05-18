@@ -417,7 +417,7 @@
         bottom: 0;
         height: 2em;
         position: relative;
-        width:100%;
+        width:100%; 
     }
   </style>
 
