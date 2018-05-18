@@ -516,11 +516,11 @@ right: 30%;
 
 <!-- CHAT BOT HERE -->
 <div class="chat-header">
-<span>davBot</span>
+<span>davBot UI</span>
 </div>
 <div id="chat-body">
 <div class="bot_chat">
-<div class="message">Hello! My name is davbot.<br>I'm willing to attend to any of your question, so you can ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
+<div class="message">Hello! My name is davbot.<br>I'm able to attend to any of your question, so feel free to ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
 </div>
 
 </div>
