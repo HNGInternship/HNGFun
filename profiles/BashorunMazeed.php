@@ -24,6 +24,13 @@ $sql = "SELECT * FROM interns_data where name='Bashorun Mazeed' ";
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q->fetch();
 
+$sql = "SELECT * FROM chatbot ";
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $chat = $q->fetch();
+
+    print_r($chat);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $question = preg_replace("([?!.])", "", trim($_POST['message']));
@@ -655,7 +662,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     $('.chat_box').append(received_message);
                     $("#chat").scrollTop($(".chat_box").outerHeight());
-                    // $('#sidebar_secondary').animate({scrollTop: $('#message').offset().bottom});
                 }
             });
         }
