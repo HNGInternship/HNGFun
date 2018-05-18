@@ -86,11 +86,11 @@
       if (isset($data[2])) {
         $password = trim($data[2]);
       } else {
-        echo 'you need to enter a password. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+        echo 'you need to enter a password. contact my owner (email: remilekunelijah21997@gmail.com or slack: @Remi Jnr) if you do not know my password';
         return;
       }
       if ($password != 'password') {
-        echo 'password is incorrect. contact my owner (email: angelabisibello@gmail.com or slack: @angela) if you do not know my password';
+        echo 'password is incorrect. contact my owner (email: remilekunelijah21997@gmail@gmail.com or slack: @Remi Jnr) if you do not know my password';
         return;
       }
       $question = $answer = null;
@@ -213,7 +213,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Angela Bello</title>
+  <title>Remilekun Elijah</title>
   <link rel="stylesheet" type="text/css"  href="vendor/bootstrap/3.3.4/css/bootstrap.css">
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
@@ -543,10 +543,10 @@ function scrollToBottom() {
   <div id="about">
     <div class="container">
       <div class="row">
-        <div class="col-md-12 text-center"><img src="https://res.cloudinary.com/dbrllj2wf/image/upload/v1523952485/angela.jpg" class="img-responsive"></div>
+        <div class="col-md-12 text-center"><img src="http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg" class="img-responsive"></div>
         <div class="col-md-8 col-md-offset-2">
           <div class="about-text">
-            <p>My name is <b>Angela Bello</b>. I am a biochemistry student of Obafemi Awolowo university (OAU). I am in my second year and hope to combine my medical knowledge with technology and become a coder someday in the future.</p>
+            <p>My name is <b>Remilekun Elijah</b>.</p>
           </div>
           <div class="section-title text-center center">
             <h2>My Skills</h2>
@@ -558,8 +558,7 @@ function scrollToBottom() {
                 <ol class="type">
                   <li><a href="#" data-filter="*">CSS</a></li>
                   <li><a href="#" data-filter=".graphic">HTML</a></li>
-                  <li><a href="#" data-filter=".illustration">PHP</a></li>
-                  <li><a href="#" data-filter=".photography">SQL</a></li>
+                  <li><a href="#" data-filter=".illustration">JavaScript</li>
                 </ol>
               </li>
             </ul>
