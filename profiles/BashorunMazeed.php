@@ -194,7 +194,7 @@
 	        {
 	            echo json_encode([
 	                    'status' => 1,
-	                    'answer' => "I am Adina's PROTOTYPE! Version 1.0.Perfect. I am the prototype to the bot she created to take over the world...If that makes any sense at all."
+	                    'answer' => "I am Bash PROTOTYPE! I am the prototype to maake your world easier"
 	                ]);
 	        }
 	        elseif(stripos($question, "deletequest(") === 0)
@@ -589,7 +589,7 @@
 	<div class="chat_submit_box">
 	    <div class="uk-input-group">
 	        <div class="gurdeep-chat-box">
-	        	<input type="text" placeholder="Type a message" id="message"  class="lg-input">
+	        	<input type="text" placeholder="Type a message" id="message" name="message" class="lg-input">
 	        </div>
 		    <span class="uk-input-group-addon">
 		    	<button type="button" id="submit_message"><i class="glyphicon glyphicon-send"></i></button>
@@ -646,7 +646,7 @@
 
             $.ajax({
                 url: 'BashorunMazeed.php',
-                type: 'post',
+                type: 'POST',
                 dataType: 'json',
                 data: {message: usermsg},
                 success: (response) =>{
