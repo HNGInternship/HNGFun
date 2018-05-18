@@ -303,9 +303,8 @@ body
                 </div>
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
-                    <p class="Marvelous">Hi! My name na Marvelous.<br>i sabi something well well ask me any question,my madam want you to teach me more about javascript,.</p>
-                    <p class="Marvelous">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hello make we start from there.</p>
-                    <p class="Marvelous">You fit train me by typing "train:question#answer#password" The Password na: <b>password </p>
+                    <p class="Marvelous">Hi! I'm Marvelous, and you are?
+                     <p class="Marvelous">You can train me by typing "train:question#answer#password" The Password na: <b>password </p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
@@ -325,7 +324,7 @@ body
               var message = $("#user-input").val();
               outputArea.append(`<p class='me'>${message}</p>`);
               $.ajax({
-                url: 'profile.php?id=puenehfaith',
+                url: 'profile.php?id=Marvelous',
                 type: 'POST',
                 data:  'user-input=' + message,
                 success: function(response) {
