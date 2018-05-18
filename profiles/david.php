@@ -345,7 +345,7 @@ right: 30%;
       </div>
       <div id="chat-body">
         <div class="bot_chat">
-            <div class="message">Hello! My name is davbot.<br>I'm a chatbot, you can ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> for information about me.
+            <div class="message">Hello! My name is davbot.<br>I'm a chatbot, you can ask me anything! I promise to assist to the best of my knowledge.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> for information about me.
             </div>
             
         </div>
@@ -479,6 +479,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function aboutbot() {
     echo "<div id='result'>My name is davbot. I'm a chatbot, I get input and process it in other to display the result, if there is no result you can instruct me on how to get such result!</div>";
+}
+function who_created_you(){
+
+    echo "<div id='result'>David Ozokoye is my creator. He is currently an intern with HNG<div>";
 }
 function train($input) {
     $input = explode('#', $input);
