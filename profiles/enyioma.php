@@ -252,7 +252,7 @@
            <h3 class="oj-header-border"><img src="https://res.cloudinary.com/dwkzixuca/image/upload/v1524141051/eyo3.jpg" alt="Enyioma photo"  
             class="oj-avatar-image" width="30px" height="30px"  style="margin-right: 5%">Yorma's Bot</h3><br>
         <div class= "chat-bot">
-        <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is YormaBot. I'm very much open to learn more. You can teach me using the format: 
+        <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is Ima's Bot. I'm very much open to learn more. You can teach me using the format: 
             "train: question #answer #password."</div>
             <div class= "text-box" id="textbox">
                 <p id="chatlog8" class= "chatlog">&nbsp;</p>
