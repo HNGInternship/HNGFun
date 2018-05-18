@@ -12,11 +12,11 @@
 //define('DB_PASSWORD', "");
 
     try {
-  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-} catch (PDOException $pe) {
-  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-}
- global $conn;
+   $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+ } catch (PDOException $pe) {
+   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+ }
+  global $conn;
     
 
         $result = $conn->query("Select * from secret_word LIMIT 1");
@@ -43,7 +43,7 @@ function test_input($data) {
         $question =test_input($_POST["displayMessage"]);
         //bot version
         if($question == "aboutbot"){
-            $reply = "I am Naimahbot v1.0, I am a bot that returns data from the database.<br> I can be trained you know,<br>Training Format: train:question#answer#password";
+            $reply = "I am Naimahbot v1.0, I am a bot that returns data from the database.<br> I can be trained you know,<br>Training Format: <br>train: question # answer # password <br>e.g train: wow # cool # password";
                        $response = array('status'=>3,'answer'=> $reply);
                        echo json_encode($response); 
         }else{
@@ -84,12 +84,12 @@ function test_input($data) {
                     //saving to database ends here
                     
                 }else{
-                    $reply = "Follow the training format.<br> Training Format: train:question#answer#password";
+                    $reply = "Follow the training format.<br> Training Format:<br> train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
             }else{
-                    $reply = "follow the training format.<br> Training Format: train:question#answer#password";
+                    $reply = "follow the training format.<br> Training Format:<br> train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
@@ -223,24 +223,24 @@ h1 {
     margin-left: 20px; 
     margin-bottom: 100px;
     margin-right: 20px;
-    position: absolute;
+    position: relative;
     display: none;
 }
 #chat, #displayHidden{
-  height: 60px;
-    background-color:  #00000f;
+  height: 70px;
+    background-color: Navy;
     width: 100%;
     padding-top: 10px;
-    color: #5563DE;
-    font-size: 20px;
+    color: #74ABE2;
+    font-size: 24px;
     font-weight:bold;
 }
 #displayHidden:hover{
-    color: #7a8690;
-    background-color: #00000f;
+    color: white;
+    background-color: #5563DE;
 }#button:hover{
-    color: #7a8690;
-    background-color: #00000f;
+    color: blue;
+    background-color: #EAEAEA;
 }
 #chatMessages{ 
     width: 100%;
@@ -248,7 +248,7 @@ h1 {
     max-height: 250px;
 }
 button{
-    font-size: 20px;
+    font-size: 18px;
     font-weight:bold;
 }
 #messageReceived, #messageSent, #message{
@@ -257,13 +257,14 @@ button{
     text-align: center;
 }
 #messageReceived{
-    background-color: grey;
+    background-color: Navy;
     width: 50%;
     float: left;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     border-bottom-left-radius: 50px;
     border: #fff 2px solid;
+	color: white;
 }#messageSent{
     background-color: #00000f;
     float: right;
@@ -328,12 +329,12 @@ button{
             <div id="chatbot" style="margin:-100px 20px;">
                 <div id="chat" style="">
                     <span>Welcome, Meet Naimahbot</span>
-                    <button id="button" style="float:right; margin-right:10px;"><span>-</span></button>
+                    <button id="button" style="float:right; margin-right:10px;"><span>X</span></button>
                     <span><?php echo "" . date("h:i:a"); ?></span>
                 </div>
                 <div id="main_chat">
                     <div id="chatMessages">
-                        <div id="message" style="background-color:#00000f; color:white;">Hi, I am Naimahbot. Feel free to talk to me and <br>I'll try to respond to the best of my ability! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
+                        <div id="message" style="background-color: Navy; color:white;">Hi, I am Naimahbot. Feel free to talk to me and <br>I'll try to respond to the best of my ability! </br>To train me, use this format - 'train: question # answer # password'. </br>To learn more about me, simply type - 'aboutbot'.</div>
 
                     </div>
                 </div>
