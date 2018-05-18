@@ -645,7 +645,7 @@
             $('.chat_box').animate({scrollTop: $('#message').get(0).scrollHeight}, 1100); 
 
             $.ajax({
-                url: 'BashorunMazeed.php',
+                url: '/profiles/BashorunMazeed.php',
                 type: 'POST',
                 dataType: 'json',
                 data: {message: usermsg},
