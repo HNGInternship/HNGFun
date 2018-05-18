@@ -1,4 +1,5 @@
 <?php
+
 if(!defined('DB_USER')){
      require "../../config.php";
      try {
@@ -11,17 +12,21 @@ $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
+
 global $pass;
 	$pass = "password";
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
 		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
+					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>' . $message . '</p>';
 			return $botAnswer;
 	}
+
+
 	function train($dbcon, $data){
 		$trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
 		$trainCheck->bindParam(':question', $data['question']);
@@ -35,6 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$trainQuery->bindParam(':a', $data['answer']);
 			$trainQuery->execute();
 			$bot = botAnswer("Thanks for helping me be better.");
+
 		}elseif($rows !== 0){
 			$bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else. Remember, the format is train: question # answer # password");
 		}
@@ -72,6 +78,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		     if($userInputRows == 0){
 		     	$bot = botAnswer("I am unable to answer your question right now. But you can train me to answer this particular question. Use the format train: question #answer #password");
 		     //	array_push($_SESSION['chat-log'] , $bot);
+
 		     }else{
 		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
@@ -79,8 +86,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		     }
      	}
      	echo $bot;
+
      	exit();
      }
+
 ?>
 
 <!DOCTYPE html>
@@ -91,16 +100,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-	<title>Portfolio | Olohireme</title>
+	<title>Portfolio | Jennifer</title>
 	<style type="text/css">
 	 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 	
-  body{
 
-  }
 	#name-div::after{
 		 content: "";
-   opacity: 0.35;
+ /* background: url(https://i.imgur.com/0EWDjqv.jpg);*/
+  opacity: 0.35;
   top: 0;
   left: 0;
   bottom: 0;
@@ -114,11 +122,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
+   /* position: fixed;*/
 		height: 100vh;
 				
-				background-image: url(http://res.cloudinary.com/olohiremeajayi/image/upload/v1526558097/laptop-1512838_1280.png);
+				background-image: url(https://res.cloudinary.com/dzgidc0mr/image/upload/v1526484928/Snapchat-2087923987.jpg);
 				/*opacity: 50%;*/
 	}
+
 			#name-div{
 				
 				font-family: "Montserrat" Monospace;
@@ -147,26 +157,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 				bottom: 7%;
 				right: 10%;
 			}
-		#about-div
-  {
-    background-color: #ffffff;
-  }
+			
+
 		#abt-me-div{
-			width: 100%;
+			width: 60%;
 			height: auto;
 			margin:  70px auto;
 			margin-bottom: 70px;
 			padding: 100px 100px 0px 100px;
-      background-color: #ffffff;
+			background-color: rgba(239, 239, 239, 0.6);
 		}
 		#about-me{
-			width:400px ;
+			/*float: right;*/
+			/*height: 110%;*/
+			width: ;
 			min-height: 400px;
-			border-radius: 50%;
-			background-color: #2c3e50;
-      color: white;
+			border-radius: 30%;
+			background-color: white;
 			align-items: center;
 			margin-left: -20px;
+
+
 		}
 		#about-me p{
 			margin: 30px 22px 20px 22px;
@@ -174,13 +185,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		}
 		#pic{
 			background-image: url();
-			height: 300px;
-      width: 300px;
-		/*	margin-top: 50px;
-			margin-left: -20px;*/
+			height: 80%;
+			margin-top: 50px;
+			margin-left: -20px;
+			/*margin: 30px 20px 70px 30px;*/
 		}
 		#pic img{
-			border-radius: 50%;
+			/*margin: 0px 70px 70px 30px;*/
+			border-radius: 10px;
 		}
 		#contact{
 			display: inline-block;
@@ -196,7 +208,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			text-align: center;
 			display: block;
 			vertical-align: middle;
-      padding: 0 2px;
 		}
 		#social-media{
 			margin-top: 80px;
@@ -207,6 +218,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			display:inline-flex;
 			text-decoration: none;
 			list-style: none;
+
 		}
 		#social-media ul li a{
 			color:#e4e4e4;
@@ -236,14 +248,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		    margin: 0;
 		}
 		p { margin: 0; }
+
+
+
 		/* ---------- chat-box ---------- */
+
 		#chat-box {
 			bottom: 0;
 			font-size: 12px;
 			right: 24px;
 			position: fixed;
 			width: 300px;
+
 		}
+
 		#chat-box header {
 			background: #293239;
 			border-radius: 5px 5px 0 0;
@@ -251,9 +269,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			cursor: pointer;
 			padding: 16px 24px;
 		}
+
 		#chat-box h4, #chat-box h5{
 			line-height: 1.5em;
 			margin: 0;
+
 		}
 		#chat-box h4:before {
 			background: #1a8a34;
@@ -263,16 +283,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			height: 8px;
 			margin: 0 8px 0 0;
 			width: 8px;
+
 		}
+
 		#chat-box h4 {
 			font-size: 12px;
 		}
+
 		#chat-box h5 {
 			font-size: 10px;
 		}
+
 		#chat-box form {
 			padding: 24px;
 		}
+
 		#chat-box input[type="text"] {
 			border: 1px solid #ccc;
 			border-radius: 3px;
@@ -280,9 +305,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			outline: none;
 			width: 234px;
 		}
+
 		header h4{
 			color: #fff;
 		}
+
 		.chat {
 			background: #fff;
 					
@@ -290,14 +317,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			.hide{
 			display: none;
 		}
+
 		.chatlogs {
 			height: 252px;
 			padding: 8px 24px;
 			overflow-y: scroll;
 		}
+
 		.chat-message {
 			margin: 16px 0;
 		}
+
 		.bot img {
 			border-radius: 50%;
 			float: left;
@@ -321,6 +351,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		.chat-message-content {
 			/*margin-left: 56px;*/
 		}
+
 		.bot .chat-time {
 			float: right;
 			font-size: 10px;
@@ -335,18 +366,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body>
  	<?php
-	$data = $conn->query("SELECT * FROM  interns_data WHERE username = 'Reme' ");
+	$username = "Anifa";
+	$data = $conn->query("SELECT * FROM  interns_data WHERE username = '".$username."' ");
 	$my_data = $data->fetch(PDO::FETCH_BOTH);
+
 	$name = $my_data['name'];
 	$src = $my_data['image_filename'];
 	$username =$my_data['username'];
 ?>
-<div class="div1" align="center">
+<div class="" align="center">
 	<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
   
     <div id="name-div">
     <h1><?php echo $name;?></h1>
-    <h4>Web Developer| Writer| B.Engr(In View)</h4>
+    <h4>FULL STACK DEVELOPER | WRITER</h4>
 </div>
   </div>
 </div>
@@ -358,19 +391,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
     </div>
     <div class="oj-sm-flex-2  oj-xl-web-padding-bottom  oj-md-down-web-padding-start oj-lg-down-web-padding-end oj-xl-padding-2x-end oj-xl-6 oj-flex-item">
-  <div id="about-div">
+      <div id="about-div">
 
   <div id="about-me">
-    <div id="social-media">
-        <ul>
-        <li><a href="https://github.com/RemeAjayi"><i class="fa fa-github"></i></a></li>
-        <li><a href="https://twitter.com/olohireme_ajayi"><i class="fa fa-twitter"></i></a></li>
-        <li><a href="https://medium.com/@Olohireme"><i class="fa fa-medium"></i></a></li>
-        <li><a href="https://www.instagram.com/remeajayi/"><i class="fa fa-instagram"></i></a></li>
-                </ul>
-      </div>
-    <p>I am a self-taught, internally motivated person, and aspiring web developer. I have been building capacity with HTML, CSS, Bootstrap, Javascript and most recently Node.js. I want to create solutions in education and healthcare. <blockquote>"Stay Hungry. Stay Foolish" - <i>Steve Jobs</i></blockquote></p>
-    <div id="contact" align="center"><a href="mailto:remeajayi@gmail.com">CONTACT</a></div>
+    
+    <p>I am a junior web developer with experience with HTML, CSS, JavaScript, Bootstrap and PHP. My love for words and solving problems brought me to the world of writing and coding(which I choose to acknowledge as writing). Want to chat, collaborate or hire me on a project, please feel free to contact me.</p>
+    <div id="contact" align="center"><a href="mailto:bogadeji@gmail.com">CONTACT</a></div>
 
       
 
@@ -383,47 +409,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
 
 </div>
-<div id="chat-box">	
-		<header class="clearfix" onclick="change()">
-			<h4>Online...</h4>
-		</header>
-		<div class="chat hide" id="chat">
-			<div class="chatlogs" id="chatlogs">
-				<div class="chat bot chat-message">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>Welcome.</p>
-						<span class="chat-time"> </span>
-					</div> 
-				</div>
-				<div class="chat bot chat-message">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>I am here to help you.</p>
-						<span class="chat-time"></span>
-					</div> 
-				</div>
-				<div class="chat bot chat-message">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
-						<span class="chat-time"></span>
-					</div> 
-				</div>
 
-				
-				 
-				<div id="chat-content"></div>
-				
-			</div> <!-- end chat-history -->
-			<form action="#" method="post" class="form-data">
-				<fieldset>
-					<input type="text" placeholder="Type your message…" name="question" id="question" autofocus>
-					<input type="submit" name="bot-interface" value="SEND"/>
-				</fieldset>
-			</form>
-		</div> <!-- end chat -->
-	</div> <!-- end chat-box -->
 
 
 	<script >
@@ -442,6 +428,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		document.getElementsByClassName('chat-time')[1].innerHTML = myTime;
 		document.getElementsByClassName('chat-time')[2].innerHTML = myTime;
 		btn.addEventListener("submit", chat);
+
+
 		function chat(e){
 		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
 			     var xhttp = new XMLHttpRequest();
@@ -462,10 +450,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         xhttp.send('question='+ question.value);
         e.preventDefault();
 		}
+
 		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" width="32" height="32">
+					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
 						<p>` + chats + `</p>
 						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>

@@ -1,6 +1,13 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
+        function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        $data = preg_replace("([?.!])", "", $data);
+        $data = preg_replace("(['])", "\'", $data);
+        return $data;
+       }
       require '../../config.php';
       $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
         
@@ -252,7 +259,7 @@
            <h3 class="oj-header-border"><img src="https://res.cloudinary.com/dwkzixuca/image/upload/v1524141051/eyo3.jpg" alt="Enyioma photo"  
             class="oj-avatar-image" width="30px" height="30px"  style="margin-right: 5%">Yorma's Bot</h3><br>
         <div class= "chat-bot">
-        <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is YormaBot. I'm very much open to learn more. You can teach me using the format: 
+        <div>Hello, <span id = "greeting"> </span> (Yea I know what time it is). My name is Ima's Bot. I'm very much open to learn more. You can teach me using the format: 
             "train: question #answer #password."</div>
             <div class= "text-box" id="textbox">
                 <p id="chatlog8" class= "chatlog">&nbsp;</p>
@@ -354,6 +361,10 @@
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
+        $('#textbox').animate({
+                scrollTop: textbox.scrollHeight,
+                scrollLeft: 0
+            }, 100);
 </script>
 
   <!-- RequireJS bootstrap file -->

@@ -1,69 +1,88 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+// require 'conn.php';
 
-        //die('Hi');
-        $conn = new mysqli('localhost', 'root', 'root', 'hng_fun');
-        
-        if(!$conn){
-            die('Unable to connect');
-        }
-        $question = $_POST['message'];
-        $pos = strpos($question, 'train:');
+// try{
+//    $sql = 'SELECT * FROM secret_word';
+//    $q = $conn->query($sql);
+//    $q->setFetchMode(PDO::FETCH_ASSOC);
+//    $data = $q->fetch();
+//    $secret_word= $data['secret_word'];
+// } catch (PDOException $e){
+//        throw $e;
+//    }
 
-        if($pos === false){
-            $sql = "SELECT answers FROM chatbot WHERE questions like '$question' ";
-            $query = $conn->query($sql);
-            if($query){
+
+// $result2 = $conn->query("Select * from interns_data where username = 'Uddy'");
+// $user = $result2->fetch(PDO::FETCH_OBJ);
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            require '../db.php';
+            //die('Hi');
+           // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+            
+            if(!$conn){
                 echo json_encode([
-                    'results'=> $query->fetch_all()
+                'results'=> $query->fetch_all()
                 ]);
                 return;
             }
-        }else{
-            $trainer = substr($question,6 );
-            $data = explode('#', $trainer);
-            $data[0] = trim($data[0]);
-            $data[1] = trim($data[1]);
-            $data[2] = trim($data[2]);
-
-            if($data[2] == 'password'){
-
-                $sql = "INSERT INTO chatbot (questions, answers)
-                VALUES ('$data[0]', '$data[1]')";
-
-
+            $question = $_POST['message'];
+            $pos = strpos($question, 'train:');
+    
+            if($pos === false){
+                $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
                 $query = $conn->query($sql);
                 if($query){
                     echo json_encode([
-                        'results'=> 'Trained Successfully'
+                        'results'=> $query->fetch_all()
                     ]);
                     return;
+                }
+            }else{
+                $trainer = substr($question,6 );
+                $data = explode('#', $trainer);
+                $data[0] = trim($data[0]);
+                $data[1] = trim($data[1]);
+                $data[2] = trim($data[2]);
+    
+                if($data[2] == 'password'){
+    
+                    $sql = "INSERT INTO chatbot (question, answer)
+                    VALUES ('$data[0]', '$data[1]')";
+    
+    
+                    $query = $conn->query($sql);
+                    if($query){
+                        echo json_encode([
+                            'results'=> 'Trained Successfully'
+                        ]);
+                        return;
+                    }else{
+                        echo json_encode([
+                            'results'=> 'Error training'
+                        ]);
+                        return;
+                    }
+                    
                 }else{
                     echo json_encode([
-                        'results'=> 'Error training'
+                        'results'=> 'Wrong Password'
                     ]);
                     return;
                 }
                 
-            }else{
-                echo json_encode([
-                    'results'=> 'Wrong Password'
-                ]);
-                return;
             }
             
+            echo json_encode([
+                'results'=>  'working'
+            ]);
+            
+        return ;
+        }else{
+            //echo 'HI';
+            //return;
         }
-        
-        echo json_encode([
-            'reply'=>  'working'
-        ]);
-        
-    return ;
-    }else{
-        //echo 'HI';
-        //return;
-    }
-    
 
 
 ?>
@@ -109,12 +128,33 @@
     background: cornflowerblue;
     width: 25rem;
     height: 30rem;
+    box-shadow: 1px  1px 4px black;
+
 
   }
   #user{
-      margin-left:20rem;
+      margin-left:13rem;
+      margin-right:1rem;
+      border-radius: 5%;
+      background-color:white;
+      text-align:center;
+      color:cornflowerblue;
 }
-.all{
+#bot{
+      margin-left:0.5rem;
+      margin-right:13rem;
+      border-radius: 5%;
+      background-color:black;
+      color:white;
+      text-align:center;
+}
+#msg{
+    background-color:black;
+    text-align:center;
+    background-color:black;
+    
+}
+ll{
   position:absolute;
   background-color: rgb(1, 1, 7)
 }
@@ -163,7 +203,7 @@ input{
          <hr>
       <br>  
       <p class="h4">My name is PRINCEWILL EDWARD</p>    
-      <p class="h4">This is my USERNAME: <i>etibless</i></p>
+      <p class="h4">My username is: <i>etibless</i></p>
       <p >Thank you for stoping by</p>
       <p class="h4"><b>I am an intermediate web Developer.
           <br>A 400 Level Computer Engineering Student
@@ -177,7 +217,7 @@ input{
 <div class="ChatBot">
    
     <h3 style="padding:5px; color:rgb(181, 247, 224);text-shadow:1px 2px 1px #080808;">Etibless Chat!</h3><hr><br>
-    <p>Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
+    <p id="msg">Hi There welcome, To Train me, Type: <br>Train: question#Answer#password</p>
     
 
             <div id='sh'>
@@ -231,7 +271,7 @@ input{
             
             }
         };
-        xhttp.open("POST", "etibless.php", true);
+        xhttp.open("POST", "/profile.php?id=etibless", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("message="+message.value);
     }
@@ -239,6 +279,6 @@ input{
   
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" ></script>
 </html>
