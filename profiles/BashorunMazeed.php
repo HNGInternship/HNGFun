@@ -608,7 +608,7 @@
 			if (firstLoad === true && $('.popup-box-on').hasClass('hidden') === false) {
 				firstLoad = false;
                     var message1 = window.setTimeout(function(){
-                        var default_message = '<div class="chat_message_wrapper chat_message_right"> <div class="chat_user_avatar"> <span>Bash Bot</span>      <img  src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="md-user-image"> </div> <ul class="chat_message"> <li> <p>Hello I\'m BashBot, <br> I\'m here to help you type your message. </p> </li>  </ul>  </div>';
+                        var default_message = '<div class="chat_message_wrapper chat_message_right"> <div class="chat_user_avatar"> <span>Bash Bot</span>      <img  src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="md-user-image"> </div> <ul class="chat_message"> <li> <p>Hello I\'m BashBot, <br> type your message. </p> </li>  </ul>  </div>';
                         $('.chat_box').append(default_message);
                         window.clearTimeout(message1);
                     }, 1000);
