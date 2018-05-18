@@ -1,5 +1,31 @@
 <?php
-
+// functions by @mclint_. DO NOT MODIFY
+function getAJoke(){
+    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
+        "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
+        "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
+        "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
+        "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
+    return $jokes[rand(0, count($jokes) - 1)];
+}
+function emojifyText($text){
+    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
+    return file_get_contents($url);
+}
+function rollADice(){
+    return rand(1, 6);
+}
+function flipACoin(){
+    return rand(0,1) === 1 ? "Heads" : "Tails";
+}
+function predictOutcome($battle){
+    $players = explode('vs', $battle);
+    if(count($players) >= 2){
+        return $players[rand(0, count($players) - 1)];
+    }
+    return "Uhh.. nope. You've provided invalid prediction data.";
+}
+// End of functions by @mclint_
 function get_time(){
     //instantiate date-time object
     $datetime = new DateTime();
@@ -167,33 +193,6 @@ function aboutHNGStage($stage)
     }
 }
 //End of functions by melas
-// functions by @mclint_. DO NOT MODIFY
-function getAJoke(){
-    $jokes = ["My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.", "What is the difference between a snowman and a snowwoman? Snowballs.",
-        "I invented a new word. Plagiarism.", "Helvetica and Times New Roman walk into a bar. 'Get out of here!' shouts the bartender. 'We don't serve your type.'",
-        "Why don’t scientists trust atoms? Because they make up everything.", "Where are average things manufactured? The satisfactory.", "How do you drown a hipster? Throw him in the mainstream",
-        "How does Moses make tea? He brews!", "Why can’t you explain puns to kleptomaniacs? They always take things literally.", "I got called pretty yesterday and it felt good! Actually, the full sentence was 'You're pretty annoying.' but I'm choosing to focus on the positive.",
-        "Two cannibals eating a clown. 'Does this taste funny to you?'", "Why can’t you hear a pterodactyl in the bathroom? Because it has a silent pee.", "Where does a sheep go for a haircut? To the baaaaa baaaaa shop!"];
-    return $jokes[rand(0, count($jokes) - 1)];
-}
-function emojifyText($text){
-    $url = "http://torpid-needle.glitch.me/emojify/{$text}";
-    return file_get_contents($url);
-}
-function rollADice(){
-    return rand(1, 6);
-}
-function flipACoin(){
-    return rand(0,1) === 1 ? "Heads" : "Tails";
-}
-function predictOutcome($battle){
-    $players = explode('vs', $battle);
-    if(count($players) >= 2){
-        return $players[rand(0, count($players) - 1)];
-    }
-    return "Uhh.. nope. You've provided invalid prediction data.";
-}
-// End of functions by @mclint_
 //functions defined by @chigozie. DO NOT MODIFY!!!
 function getDayOfWeek(){
     return date("l");
@@ -1059,6 +1058,12 @@ function strrevpos($instr, $needle)
 
             }
 
+            function getLocationAPI() {
+                $ip = gethostbyname(gethostname());
+                $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip));
+                return $query;
+            }
+
 
 
     function currencyConverter($from_currency, $to_currency, $amount) {
@@ -1170,6 +1175,65 @@ function getLatestNews() {
 //    }
 //}
 
+//<<<<<<< HEAD
+////////////////JONAH VICTOR VICTOR//////////////////
+////////////////                    /////////////////
+///////////////                     /////////////////
+///////////////     vectormike     /////////////////
+////////////////                  //////////////////
+////////////////                  //////////////////
+/////// If you want to touch something, 
+///////      don't touch this side  ///////////////// 
+function getBotInfo() {
+    $bot_version="1.0.1";
+    return "Heyo! I'm Vectormike's smiggle. I'm version " .$bot_version;
+}
+function getBotManual() {
+    return  "Send 'location' to know your location. \n
+    Send 'time' to get the time. \n
+    Send 'about' to know me. \n
+    Send 'help' to see this again. \n
+    To train me, send in this format: \n
+    'train: question # answer # password'";
+}
+function getAge() {
+    $bot_version="1.0.1";
+    return "Vectormike is just 20 years old. As for me, I have got no idea of age. Still " .$bot_version;
+}
+
+function get_client_ip() {
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP']))
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_X_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    else if(isset($_SERVER['HTTP_FORWARDED']))
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    else if(isset($_SERVER['REMOTE_ADDR']))
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    else
+        $ipaddress = 'UNKNOWN';
+    return $ipaddress;
+
+    $PublicIP = get_client_ip();
+    $json  = file_get_contents("https://freegeoip.net/json/$PublicIP");
+    $json  =  json_decode($json ,true);
+    $country =  $json['country_name'];
+    $region= $json['region_name'];
+    $city = $json['city'];
+}
+
+
+///////////////////////////////////////////////////////////////////
+/////////////////// THE    END ////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+
+//Yeah
+//=======
 
 /*******************************************************************************************
 ****************************START OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
@@ -1195,6 +1259,7 @@ function
  
  return $zodiac; 
 } 
+//>>>>>>> e0ad1d08330b21b3ecf050998fddf139f9faf69a
 
 /*************************************************************************************************
 ****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
@@ -1202,3 +1267,5 @@ function
 
 
 ?>
+
+

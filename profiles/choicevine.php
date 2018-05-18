@@ -28,7 +28,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     
-  <style type="text/css">
+   <style type="text/css">
         * {
     margin: 0;
     padding: 0;
@@ -40,8 +40,9 @@ body {
 }
         .container {
             position: relative;
-            width: 100vw;
+            width: 90%;
             padding: 30px;
+            margin: 22px;
         }
 
          .card {
@@ -133,26 +134,23 @@ body {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-    .well {
-        position: relative;
-        width: 90%;
 
-    }
 
     </style>
 </head>
-<body>
+<body class="no-go area">
 
     <script type="text/javascript">
         $(document).ready(function() {
 $(".btn-pref .btn").click(function () {
     $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-   
+     
     $(this).removeClass("btn-default").addClass("btn-primary");   
 });
 });
     </script>
 
+        <div class="masthead"></div>
         <div class="container">
 
             <div class="col-lg-6 col-sm-6" style="position: relative; width: 100%;">
@@ -163,13 +161,13 @@ $(".btn-pref .btn").click(function () {
                 </div>
                     <div class="useravatar">
                          
-                        <img alt="" src="<?php echo $result['image_filename']; ?>">
+                        <img alt="" src="<?php echo $result->image_filename; ?>">
                         </div>
                          <hr>
-                    <div class="card-info"> <span class="card-title"><?php echo $result['name']; ?></span>
+                    <div class="card-info"> <span class="card-title"><?php echo $result->name; ?></span>
 
                         </div>
-                    <div class="card-info"> <span class="card-title"><?php echo $result['username'];  ?></span>
+                    <div class="card-info"> <span class="card-title"><?php echo $result->username;  ?></span>
 
                         </div>
                     <div class="card-info"> <span class="card-title">Developer</span>
@@ -180,7 +178,7 @@ $(".btn-pref .btn").click(function () {
                 </div>
 
                 <div class="mok" style="position: relative;
-                                width: 90%; padding-left: 15px;">
+                                width: 88.2%; padding-left: 11px; ">
             <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
             <button type="button" id="stars" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -192,9 +190,10 @@ $(".btn-pref .btn").click(function () {
                 <div class="hidden-xs">Hobbies</div>
             </button>
         </div>
+        <br>
         <div class="btn-group" role="group">
             <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">Favorites</div>
+                <div class="hidden-xs">bot</div>
             </button>
         </div>
         <div class="btn-group" role="group">
@@ -210,6 +209,3 @@ $(".btn-pref .btn").click(function () {
     </div>
 
    </div>
-
-</body>
-</html>

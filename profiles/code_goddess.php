@@ -1,4 +1,10 @@
 <?php
+
+if(isset($_GET['question'])) {
+    echo $_GET['question'];
+    return;
+  }
+
 if(!isset($conn)) {
         include '../../config.php';
 
@@ -26,6 +32,10 @@ if(!isset($conn)) {
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    
+    
     <style>
     body {
 	background-color: lightblue;
@@ -62,6 +72,53 @@ if(!isset($conn)) {
 
     tr:nth-child(even) {
         background-color: #f2f2f2;
+    }
+
+    /*Styling for the chatbot */
+    .chatbox {
+        border: 1px solid black;
+        background-color: lightpink;
+        padding: 10px;
+        margin: 10px 0;
+
+    }
+
+    .two {
+        border: 1px solid pink;
+        background-color: #ccc;
+    }
+
+    .chatbox::after {
+        content: " ";
+        clear: both;
+        display: table;
+    }
+
+    .chatbox img {
+        float: left;
+        max-width: 60px;
+        width: 100%;
+        margin-right: 20px;
+        border-radius: 50%;
+    }
+
+    .chatbox img.right {
+        float: right;
+        margin-left: 20px;
+        margin-right: 0;
+    }
+
+    .textbox {
+        height: 10px;
+        padding: 10px;
+        width: 60%;
+    }
+
+    #sendbtn {
+        height: 30px;
+        border: 5px solid lightpink;
+        background-color: lightpink;
+        padding: 5px;
     }
     </style>
 </head>
@@ -100,10 +157,56 @@ if(!isset($conn)) {
 
     </table>
 
+     
+    <!--Html for the chatbot -->
+    <h2>The Storm bot</h2>
+    <div class="chatbox">
+        <img src="angel.jpg" alt="Storm bot's picture">
+        <p>Hi! Am StormBot! and you can train me too! </p>
+    </div>
+    <div class="chatbox two">
+        <img src="profile.jpg" alt="profile_picture" class="right">
+        <p>Hey StormBot, am excited to meet you </p>
+    </div>
+    <input type="text" style="float:left" class="textbox" id="chat">
+    <input type="Submit" value="Send" id="sendbtn" onclick="alertchat()">
+    <p id="content"></p>
 
+    <script type="text/javascript">
+    /*function alertmsg() {
+        alert("I am clicked");
+    }*/
+
+    function alertchat() {
+        var chat = document.getElementById("chat").value;
+        alert (chat);
+    }
+
+    /*var chat = document.getElementById("chat").value;
+
+    $(document).ready(function() {
+        $("#sendbtn").click(function() {
+            $.get("code_goddess.php", function(data, status) {
+                alert( "Data: " + data + "Status: " + status);
+                document.getElementById("content").innerHTML = data;
+            });
+        });
+    });*/
+    var chat = document.getElementById("chat").value;
+       
+    $(document).ready(function() {
+        $("#sendbtn").click(function() {
+            $.ajax({url: "code_goddess.php", question: chat, success: function(result) {
+                alert(result);
+            }});
+        });
+    });
+     
+    </script>
 
 </body>
 
 </html>
+
 
 
