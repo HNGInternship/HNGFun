@@ -122,10 +122,10 @@ function getAnswer($input) {
         max-height: 395px;
     }
     .message{
-      background-color: #1380FA;
+      background-color: #000;
       color: white;
       font-size: 0.8em;
-      width: 300px;
+      width: 250px;
       display: inline-block;
               padding: 10px;
       margin: 5px;
@@ -511,18 +511,14 @@ right: 30%;
           <a href="https://www.linkedin.com/in/david-ozokoye"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526051162/link.jpg" ></a>
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
-      </div><br><br>
-
-<!--legend-->
-<div class="chatbot-container">
-
+ <div class="chatbot-container">
 <!-- CHAT BOT HERE -->
 <div class="chat-header">
-<span>davBot</span>
+<span>davBot UI</span>
 </div>
 <div id="chat-body">
 <div class="bot_chat">
-<div class="message">Hello! My name is davbot.<br>I'm willing to attend to any of your question, so you can ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
+<div class="message">Hello! My name is davbot.<br>I'm able to attend to any of your question, so feel free to ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
 </div>
 
 </div>
@@ -538,6 +534,9 @@ right: 30%;
 </div>
 </div>  
 <!---->
+
+      </div><br><br>
+
 <!--My script here-->
 <script>
     var outputArea = $("#chat-body");

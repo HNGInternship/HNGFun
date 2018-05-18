@@ -4,7 +4,7 @@ if (empty($_SESSION)) {
     session_start();
 }
 if(!defined('DB_USER')){
-    require "../../config.php";		
+    require "../../config.php";   
     try {
         define('DB_CHARSET', 'utf8mb4');
         $dsn = 'mysql:host='.DB_HOST.';dbname='.DB_DATABASE.';charset='.DB_CHARSET;
@@ -104,13 +104,13 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
         
             width: 250px;
             border-radius: 100%;
-		border: 7px solid gainsboro;
+    border: 7px solid gainsboro;
         }
         .profile-name {
             font-size: 25px;
             font-weight: 600;
             margin-top: 20px;
-		color:#000000;
+    color:#000000;
         }
         .social-links a {
             margin-right: 20px;
@@ -357,7 +357,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
                     <?=$name;?> (@<?=$username;?>)
                 </p>
                 <div class="text-center social-links">
-			<a href="https://twitter.com/boldtechs" target="_blank"><i class="fa fa-2x fa-twitter"></i></a>
+      <a href="https://twitter.com/boldtechs" target="_blank"><i class="fa fa-2x fa-twitter"></i></a>
                     <a href="https://github.com/engrsaheed" target="_blank"><i class="fa fa-2x fa-github"></i></a>
                     <a href="https://instagram.com/boldtechs" target="_blank"><i class="fa fa-2x fa-instagram"></i></a>
               
@@ -636,23 +636,23 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
         }
     }
     elseif (substr(strtolower(trim($_POST['bot_train'])), 0, 6) === 'train:') {
-        // Regular expression to check if the training command is correct
-        // Retrieve Questions, Location and Function Name
-        $simple_mode_pattern = '/train: (.+[^{}]) \# (.+[^{}])/';
-        $complex_mode_pattern = '/train: ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\# ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\(\((.+)\)\)/';
-        $train_command = $_POST['bot_train'];
-        $match_simple_mode = preg_match($simple_mode_pattern, $train_command, $match_simple);
-        // $match_complex_mode = preg_match($complex_mode_pattern, $train_command, $matches);
-        if ($match_simple_mode or $match_complex_mode) {
-            if ($match_simple_mode) {
-                $question = $match_simple[1];
-                $answer   = $match_simple[2];
-                // Insert question into database
-                $save_message = $conn->prepare(
-                "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
-                $save_message->bindParam(1, $question, PDO::PARAM_STR);
-                $save_message->bindParam(2, $answer, PDO::PARAM_STR);
-                $save_message->execute();
+        // // Regular expression to check if the training command is correct
+        // // Retrieve Questions, Location and Function Name
+        // $simple_mode_pattern = '/train: (.+[^{}]) \# (.+[^{}])/';
+        // $complex_mode_pattern = '/train: ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\# ?(.+) ?(between|from) ?{{(.+)}} ?(and|to) ?{{(.+)}} ?\(\((.+)\)\)/';
+        // $train_command = $_POST['bot_train'];
+        // $match_simple_mode = preg_match($simple_mode_pattern, $train_command, $match_simple);
+        // // $match_complex_mode = preg_match($complex_mode_pattern, $train_command, $matches);
+        // if ($match_simple_mode or $match_complex_mode) {
+        //     if ($match_simple_mode) {
+        //         $question = $match_simple[1];
+        //         $answer   = $match_simple[2];
+        //         // Insert question into database
+        //         $save_message = $conn->prepare(
+        //         "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
+        //         $save_message->bindParam(1, $question, PDO::PARAM_STR);
+        //         $save_message->bindParam(2, $answer, PDO::PARAM_STR);
+        //         $save_message->execute();
                 
                 // Concatenate random answer retrieved from database with the calculated distance
                 $array_responses = ["Thanks for teaching me, I'm a fast learner. Why don't you try asking me again.", "Now I've learnt this command, you can try asking me the same question again. Yaaay, thanks for teaching me."];
@@ -661,35 +661,35 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
                 echo json_encode($response);
             }
             elseif ($match_complex_mode) {
-                $question       = $matches[1];
-                $preposition    = $matches[2];
-                $location1      = parseLocation($matches[3]);
-                $delimiter      = $matches[4];
-                $location2      = parseLocation($matches[5]);
-                $answer         = $matches[6];
-                $function_name  = $matches[11];
-                $_SESSION['location1'] = $location1;
-                $_SESSION['location2'] = $location2;
-                // Include answers.php and call the calculate_distance function if it exists
-                include "../answers.php";
+                // $question       = $matches[1];
+                // $preposition    = $matches[2];
+                // $location1      = parseLocation($matches[3]);
+                // $delimiter      = $matches[4];
+                // $location2      = parseLocation($matches[5]);
+                // $answer         = $matches[6];
+                // $function_name  = $matches[11];
+                // $_SESSION['location1'] = $location1;
+                // $_SESSION['location2'] = $location2;
+                // // Include answers.php and call the calculate_distance function if it exists
+                // include "../answers.php";
                 if (function_exists($function_name) or $match_simple_mode) {
-                    $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
-                    $location1 = str_replace('+', ' ', $location1);
-                    $location2 = str_replace('+', ' ', $location2);
+                    // $distance = "<b>".call_user_func($function_name, $key, $url, $location1, $location2)."</br>";
+                    // $location1 = str_replace('+', ' ', $location1);
+                    // $location2 = str_replace('+', ' ', $location2);
                     
-                    $concat_question = "$question $preposition";
-                    $concat_answer = "$answer ($function_name)";
-                    // Insert question into database
-                    $save_message = $conn->prepare(
-                    "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
-                    $save_message->bindParam(1, $question, PDO::PARAM_STR);
-                    $save_message->bindParam(2, $concat_answer, PDO::PARAM_STR);
-                    $save_message->execute();
+                    // $concat_question = "$question $preposition";
+                    // $concat_answer = "$answer ($function_name)";
+                    // // Insert question into database
+                    // $save_message = $conn->prepare(
+                    // "INSERT INTO chatbot (question, answer) VALUES (?, ?)");
+                    // $save_message->bindParam(1, $question, PDO::PARAM_STR);
+                    // $save_message->bindParam(2, $concat_answer, PDO::PARAM_STR);
+                    // $save_message->execute();
                     
                     // Concatenate random answer retrieved from database with the calculated distance
-                    $array_responses = ["Thanks for teaching me, I'm a fast learner. Why don't you try asking me again. <br /><br /> $answer $location1 $delimiter $location2 : $distance", "Now I've learnt this command, you can try asking me the same question again. Yaaay, thanks for teaching me. <br /><br /> $answer $location1 $delimiter $location2 : $distance"];
-                    $response = ['response'=>'train_message', 'message'=>$array_responses[rand(0, 1)]];
-                    echo json_encode($response);
+                    // $array_responses = ["Thanks for teaching me, I'm a fast learner. Why don't you try asking me again. <br /><br /> $answer $location1 $delimiter $location2 : $distance", "Now I've learnt this command, you can try asking me the same question again. Yaaay, thanks for teaching me. <br /><br /> $answer $location1 $delimiter $location2 : $distance"];
+                    // $response = ['response'=>'train_message', 'message'=>$array_responses[rand(0, 1)]];
+                    // echo json_encode($response);
                 }
                 else {
                     $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br>  <span class="bot-command">train: </span> '];
@@ -742,11 +742,9 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
             }
         }
         else {
-            $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">((calculate_distance))</span> function with the train command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
+            // $response = ['response'=>'train_command_error', 'message'=>'Sorry, that command does not exist, you can only use: <br /><br /> <span class="bot-command">((calculate_distance))</span> function with the train command to get the distance between 2 locations <br /><br /> <span class="bot-command">get duration : [mode]</span> Command to get the estimated trip duration between the last 2 locations <br /><br /> <span class="bot-command">show direction : [mode]</span> Command to display the direction between the last 2 locations'];
             echo json_encode($response);
         }
     }
 }
 ?>
-
-	

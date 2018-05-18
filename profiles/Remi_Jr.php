@@ -48,10 +48,10 @@
     foreach ($words as $word) {
       if (in_array($word, $badWords)) {
         $replies = [
-          'Hey! Watch your Thumbs!',
-          'Stop that! You wont wanna corrupt a brother',
-          'Hey! Watch it, wont take that next.',
-          "I'll act like I didn't see that"
+          'Hey! Watch your mouth!',
+          'The way you talk, yo mama would be ashamed. I\'m sure she taught you better',
+          'Yuck! So dirty.',
+          "I'll reply I didn't see that"
         ];
 
         return $replies[array_rand($replies)];
@@ -117,9 +117,9 @@
     $trainingResponses = [
       'Great! I have learnt something new.',
       'Watch out, I may become the smartest bot in the world!',
-      'Got It!',
+      'TIL something',
       'Interesting. I will try to remember this.',
-      'Noted!'
+      'Noted'
     ];
 
     if (botKnowsIt($question, $answer)) {
@@ -164,7 +164,7 @@
   }
 
   function about() {
-    echo 'Version 2.0';
+    echo 'Version 1.0';
   }
 
   /**
@@ -197,14 +197,14 @@
       return;
     }
     $unknownResponses = [
-      'I don\'t know what you talking about.',
+      'I don\'t know.',
       'no idea!',
       'I guess I don\'t know everything.',
       'interesting question! am not sure.',
       'not sure.',
       'sorry, don\'t know that.'
     ];
-    echo $unknownResponses[array_rand($unknownResponses)] . ' ' . 'But you can train me so I can know the answer next time.';
+    echo $unknownResponses[array_rand($unknownResponses)] . ' ' . 'But you can train me so I know the answer next time.';
     return;
   }
 
@@ -219,7 +219,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <style>
     body, html {
-      background: url('http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg') no-repeat center top;
+      background: url('http://res.cloudinary.com/remijr/image/upload/c_fill,e_shadow:40,h_456,r_9,w_410/a_0/v1526673163/Screenshot_20180518-205122_1.png') no-repeat center top;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -249,13 +249,7 @@
       font-weight: 700;
       line-height: 20px;
     }
-	.about-text{
-		text-shadow: 5px 5px 3px #000;
-		opacity: 0.7;
-	}
     p.intro {
-	  text-shadow: 3px 3px 2px #000;
-	  opacity: 0.7;
       font-size: 16px;
       margin: 12px 0 0;
       line-height: 24px;
@@ -368,7 +362,7 @@
         background:#e0e0de;
         height:590px;
         position: fixed;
-        bottom: 100px;
+        bottom: 30px;
         right: 0;
         overflow:auto;
     }
@@ -417,14 +411,14 @@
         bottom: 0;
         height: 2em;
         position: relative;
-        width:100%; 
+        width:100%;
     }
   </style>
 
   <script type="text/javascript">
     var user = {};
     var bot = {};
-    var introText = "<p>Hey Human, Welcome To My World. <br/> You can ask me questions and I will try my best to answer some. You can also train me if you can using the following format</p>" +
+    var introText = "<p>Hello. You can ask me questions and I will try to answer them. You can also train me using the following format</p>" +
     "<code>train : question # answer # password</code>" +
     '<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>"</p>' +
     '<p>To see this message at any time, type "intro"</p>' +
@@ -552,7 +546,7 @@ function scrollToBottom() {
         <div class="col-md-12 text-center"><img src="http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg" class="img-responsive"></div>
         <div class="col-md-8 col-md-offset-2">
           <div class="about-text">
-		  <p> Hi, Sweet! The name is <b>Remilekun Elijah</b><br> and I am a Developer</p>
+            <p>My name is <b>Remilekun Elijah</b>.</p>
           </div>
           <div class="section-title text-center center">
             <h2>My Skills</h2>

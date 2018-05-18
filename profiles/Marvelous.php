@@ -174,7 +174,7 @@ body
 }
 #chatborder {
   border-style: solid;
-  background-color: #0000ff;
+  background-color: grey;
   border-width: 15px;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -187,10 +187,10 @@ body
   border-radius:15px;
 }
 .chatlog {
-   font: 10px arial, sans-serif;
-}
+   font-family: Georgia, 'Times New Roman', Times, serif;
+   }
 #chatbox {
-  font: 10px arial, sans-serif;
+   font-family: Georgia, 'Times New Roman', Times, serif;
   height: 15px;
   width: 100%;
 }
@@ -245,12 +245,12 @@ body
           border: none;
           outline: 0;
           display: inline-block;
-          color: white;
-          background-color: #000;
+          color: wheat;
+          background-color: grey;
           text-align: center;
           margin: auto;
           cursor: pointer;
-          max-width: 50%;
+          max-width: 30%;
           font-size: 18px;
         }
 .chat-btn:hover, a:hover{
@@ -289,7 +289,7 @@ h5{
   <div id='bodybox'>
   <div id='chatborder'>
     <h1 id="chatlog7" class="chatlog">Hello, I'm Marvelous' bot</h1> </div>
-          <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">chat</i></button>
+          <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Hi</i></button>
           </div>
           <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
