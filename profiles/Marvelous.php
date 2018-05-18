@@ -304,7 +304,7 @@ body
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
                     <p class="Marvelous">Hi! I'm Marvelous, and you are?
-                     <p class="Marvelous">You can train me by typing "train:question#answer#password" The Password na: <b>password </p>
+                     <p class="Marvelous">You can train me by typing "train:question#answer#password" is <b>password </p>
                   </div>
                 </div>
                 <div class="clearfix"></div>
