@@ -1,6 +1,7 @@
 <?php
+
 if(!defined('DB_USER')){
-    require "../../config.php";
+     require "../../config.php";
      try {
          $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
      } catch (PDOException $pe) {
@@ -11,8 +12,10 @@ $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
+
 global $pass;
 	$pass = "password";
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 	
 	function botAnswer($message){
@@ -22,6 +25,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 						<p>' . $message . '</p>';
 			return $botAnswer;
 	}
+
+
 	function train($dbcon, $data){
 		$trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
 		$trainCheck->bindParam(':question', $data['question']);
@@ -35,6 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			$trainQuery->bindParam(':a', $data['answer']);
 			$trainQuery->execute();
 			$bot = botAnswer("Thanks for helping me be better.");
+
 		}elseif($rows !== 0){
 			$bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else. Remember, the format is train: question # answer # password");
 		}
@@ -63,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	 		}
 	 		
 	 	}elseif($userInput === 'about' || $userInput === 'aboutbot'){
-	 		$bot = botAnswer("Version 0.01 ALPHA");
+	 		$bot = botAnswer("Version 1.0");
      		//array_push($_SESSION['chat-log'] , $bot);
 	 	}else{
 			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
@@ -72,6 +78,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		     if($userInputRows == 0){
 		     	$bot = botAnswer("I am unable to answer your question right now. But you can train me to answer this particular question. Use the format train: question #answer #password");
 		     //	array_push($_SESSION['chat-log'] , $bot);
+
 		     }else{
 		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
 		     	$bot = botAnswer($botAnswer);
@@ -79,10 +86,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 		     }
      	}
      	echo $bot;
+
      	exit();
      }
-?>
 
+?>
 
 <!DOCTYPE html>
 <html lang ="en-US"> 
@@ -92,8 +100,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <link href="https://fonts.googleapis.com/css?family=Federant" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet">
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-
+   
     <style>
 
     .card {
@@ -414,6 +421,7 @@ span.chat-img img {
 			float: right;
 			font-size: 10px;
 		}
+
     </style>
     
 </head>
@@ -537,8 +545,7 @@ span.chat-img img {
         </div>
     </div>
 </div>  -->
-
-<div class="top-5" id="chat-box">	
+<div id="chat-box">	
 		<header class="clearfix" onclick="change()">
 			<h4>Online</h4>
 		</header>
@@ -547,8 +554,15 @@ span.chat-img img {
 				<div class="chat bot chat-message">
 					<img src="data:image/jpeg;base64,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" alt="" width="32" height="32">
 					<div class="chat-message-content clearfix">
-						<p>Welcome, I am  Travix , I am here to help you.</p>
+						<p>Welcome.</p>
 						<span class="chat-time"> </span>
+					</div> 
+				</div>
+				<div class="chat bot chat-message">
+					<img src="data:image/jpeg;base64,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" alt="" width="32" height="32">
+					<div class="chat-message-content clearfix">
+						<p>I am here to help you.</p>
+						<span class="chat-time"></span>
 					</div> 
 				</div>
 				<div class="chat bot chat-message">
@@ -565,12 +579,10 @@ span.chat-img img {
 				
 			</div> <!-- end chat-history -->
 			<form action="#" method="post" class="form-data">
-            <div class="input-group">
-					<input class="form-control input-sm"  type="text" placeholder="Type your message…" name="question" id="question" autofocus>
-                    <!-- <span class="input-group-btn">
-                    <input class="btn btn-warning btn-sm" type="submit" name="bot-interface" value="SEND"/>	
-                    </span> -->
-                    </div>
+				<fieldset>
+					<input type="text" placeholder="Type your message…" name="question" id="question" autofocus>
+					<input type="submit" class=" btn-primary" name="bot-interface" value="SEND"/>
+				</fieldset>
 			</form>
 		</div> <!-- end chat -->
 	</div> <!-- end chat-box -->
@@ -592,6 +604,8 @@ span.chat-img img {
 		document.getElementsByClassName('chat-time')[1].innerHTML = myTime;
 		document.getElementsByClassName('chat-time')[2].innerHTML = myTime;
 		btn.addEventListener("submit", chat);
+
+
 		function chat(e){
 		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
 			     var xhttp = new XMLHttpRequest();
@@ -612,6 +626,7 @@ span.chat-img img {
         xhttp.send('question='+ question.value);
         e.preventDefault();
 		}
+
 		function userChat(chats, reply){
 			if(question.value !== ''){
 				var chat = `<div class="chat user chat-message">
@@ -632,10 +647,6 @@ span.chat-img img {
 			}, 1000);
 		}
 	</script>
-
-    
-    
+	
 </body>
-
-
-</html
+</html>

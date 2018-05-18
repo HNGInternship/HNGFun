@@ -1,134 +1,9 @@
 <?php
+
 	if(!defined('DB_USER')){
-		require "../../config.php";
-    }
-    try {
-		$conn = new PDO("mysql:host=".DB_HOST."; dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
-		// set the PDO error mode to exception
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }catch (Exception $e){
-        return $e->getMessage();
-    }
-/**
- *  functions to define
- *  -- check question
- *  --check training
- *  -- train
- *  -- check pssword
- *
- *
- */
-    function processedAnswer($answer){
-        $functionOpeningTag = '(';
-        $functionClosingTag = ')';
-
-
-
-        //find the function
-        //Find the start limiter's position
-        $functionStart = strpos($answer, $functionOpeningTag);
-
-        //Find the ending limiters position, relative to the start position
-        $functionEnd = strpos($answer, $functionClosingTag, $functionStart);
-
-        //  Extract the string between the starting position and ending position
-        $functionName = substr($answer, $functionStart+2, ($functionEnd-2)-$functionStart);
-
-        $response = stripTags($answer);
-
-        // interpolate the string, replace the function name with a function call
-        return str_replace($functionName, call_user_func($functionName), $response);
-
-    }
-    function stripTags($string){
-        return str_replace(['{{', '}}', '((', '))' ], '', $string);
-    }
-    function isTraining($question){
-        $pos = strpos($question,'train:');
-
-        if( $pos === false) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    function trainBot($trainingString, $conn){
-
-            //extract parts, first remove train:
-            $trainingString = str_replace('train:', '', $trainingString);
-
-            //check presence of #
-            $pos = strpos($trainingString,'#');
-            if( $pos === false) {
-
-                return 'Oops! to train this bot please enter, <code>train: question # answer # password <code> ';
-            }
-            //check password
-            $pos = strpos($trainingString, 'password');
-            if( $pos === false) {
-
-                return 'Please enter the right password. The password is <strong>password </strong>.';
-            } else {
-            //the training string is well formated and has password go on and split the string into question and answer parts
-            //first get the question,  start from 0 to the first #
-            $questionPart = trim(substr($trainingString, 0, strpos($trainingString,'#')));
-
-            //get the answer, remove everything else from the training string
-            $answerPart = trim(str_replace(['#', 'password', $questionPart], '', $trainingString));
-
-            // Save it into db, use prepared statement to protect from security exploits
-            try{
-
-                $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
-                $stmt = $conn->prepare($sql);
-                $stmt->execute(
-                    array(
-                    ':question' => stripTags($questionPart),
-                    ':answer' => $answerPart,
-                    )
-                );
-                return 'Thank you for training me';
-
-            } catch(PDOException $e){
-                throw $e;
-            }
-        }
-    }
-
-    function getAnswer($question, $conn){
-
-        $sql ='Select answer from chatbot where question like :question';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array(
-            'question'=> "%$question%",
-        ));
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $stmt->fetchAll();
-
-        if( count($rows) > 0 ){
-            $random_index = rand(0, count($rows)-1);
-            $randomRow = $rows[$random_index];
-            return $randomRow['answer'];
-        } else {
-            return "I am afraid I do not have answer to your question but you can however train me using the following format <strong>train: question # answer # password</strong>" ;
-        }
-
-
-    }
-    function answerHasFunction($answer){
-
-        $openingTags = strpos($answer,'((');
-        $closingTags = strpos($answer,'))');
-
-        if( $openingTags === false && $closingTags === false ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-
+		require "../config.php";
+		
+	}
 
 	try {
 		$conn = new PDO("mysql:host=".DB_HOST."; dbname=".DB_DATABASE, DB_USER, DB_PASSWORD);
@@ -164,19 +39,146 @@
 			$image_filename = $row['image_filename'];
 		}
 
- } catch(PDOException $e){
+ }
+	catch(PDOException $e)
+	{
   echo "Connection failed: " . $e->getMessage();
-}
+	}
+	  /**
+ *  functions to define
+ *  -- check question
+ *  --check training
+ *  -- train
+ *  -- check pssword
+ *
+ *
+ */
+   function processedAnswer($answer){
+        $functionOpeningTag = '(';
+        $functionClosingTag = ')';
+
+
+
+        //find the function
+        //Find the start limiter's position
+        $functionStart = strpos($answer, $functionOpeningTag);
+
+        //Find the ending limiters position, relative to the start position
+        $functionEnd = strpos($answer, $functionClosingTag, $functionStart);
+
+        //  Extract the string between the starting position and ending position
+        $functionName = substr($answer, $functionStart+2, ($functionEnd-2)-$functionStart);
+
+        $response = stripTags($answer);
+
+        // interpolate the string, replace the function name with a function call
+        return str_replace($functionName, call_user_func($functionName), $response);
+
+    }
+    function stripTags($string){
+        return str_replace(['{{', '}}', '((', '))' ], '', $string);
+    }
+    function isTraining($question){
+        $pos = strpos($question,'train:');
+
+        if( $pos === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+       function trainBot($trainingString, $conn){
+
+            //extract parts, first remove train:
+            $trainingString = str_replace('train:', '', $trainingString);
+
+            //ckeck presence of #
+            $pos = strpos($trainingString,'#');
+            if( $pos === false) {
+
+                return 'Oops! to train this bot please enter, <code>train: question # answer # password <code> ';
+            }
+            //check password
+            $pos = strpos($trainingString, 'password');
+            if( $pos === false) {
+
+                return 'Please enter a valid password. <strong>password </strong> is the password.';
+            } else {
+            //the training sting is well formated and has password go on and split the string into question and answer parts
+            //first get the question,  start from 0 to the first #
+            $questionPart = trim(substr($trainingString, 0, strpos($trainingString,'#')));
+
+            //get the answer, remove everything else from the training string
+            $answerPart = trim(str_replace(['#', 'password', $questionPart], '', $trainingString));
+
+            // Save it into db, use prepared statement to protect from security exploits
+            try{
+
+                $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(
+                    array(
+                    ':question' => stripTags($questionPart),
+                    ':answer' => $answerPart,
+                    )
+                );
+                return 'Thank you for training me';
+
+            } catch(PDOException $e){
+                throw $e;
+            }
+        }
+    }
+
 
 
      //Bot Brain
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        require_once "../answers.php";
-        if ( isset( $_POST['question'] ) ){
+        //require "../answers.php";
+        if(isset($_POST['question'])){
+			
+		$question='%'.$_POST['question'].'%';
+			
+           
+           $stmt = $conn->prepare("select answer from chatbot where question like :question LIMIT 1");
+           $stmt->bindParam( ':question', $question);
+           $stmt->execute();
 
-            $question = $_POST['question'];
+           $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($rows){
+             // echo json_encode([
+                // 'status' => 1,
+                // 'answer' => "Please provide a question"
+            // ]);
+		echo json_encode (['answer'=>$rows['answer']]);
 
-            //remove question mark and triim
+              
+        }
+		else
+             echo json_encode([
+                'answer' => "I am afraid I do not have answer to your question but you can train me using the following format <strong>train: question # answer # password</strong>"
+            ]);
+		}
+
+        function answerHasFunction($answer){
+
+        $openingTags = strpos($answer,'((');
+        $closingTags = strpos($answer,'))');
+
+        if( $openingTags === false && $closingTags === false ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+        function getBotDetails(){
+        return "I am Cyclo Bot @Version 1.0 ";
+    }
+         function getHelpdetails(){
+        return "I am here to assist ask me any questions and I will answer if I can. You can also train me  to answer your questions by using the format <strong>train: question # answer # password</strong>";
+    }
+    //remove question mark and trim
             $question = trim($question);
             $question = str_replace('?', '', $question);
 
@@ -185,12 +187,20 @@
                 echo json_encode([
                     'status' => 1,
                     'answer' => getBotDetails()
+
                 ]);
                 return;
-            }
 
-            //check if the input is a training attempt
-            if( isTraining($question) ){
+             //check if the question is "help" in which case return infoon help
+            if ($question == "help"){
+            echo json_encode([
+                 'status'=>1,
+                 'answer'=>getHelpdetails()
+                ]);
+                return;}
+
+             //check if the input is a training attempt
+            if(isTraining($question) ){
                 $trainingResult = trainBot($question, $conn);
                 //train the bot
                 echo json_encode([
@@ -205,7 +215,7 @@
 
             //if the answer has ((<function_name>)) then parse it
             if(answerHasFunction($answer)){
-                //sned the parsed answer
+                //send the parsed answer
                 echo json_encode([
                     'status' => 1,
                     'answer' => processedAnswer($answer)
@@ -226,14 +236,33 @@
             ]);
             return;
         }
+
     }
 
-        //use this to make sure nothing is printed on the
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+//duplicated code
+           /* stmt=$conn->prepare("select*from chatbot where answer is like :'' " LIMIT 1);
+           $stmt =bindParam( :answer, `%`.$answer.`%`)
+           $stmt->execute();
+
+
+           $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll();
+        if(count($rows)>0){
+
+             echo json_encode([
+                'status' => 1,
+                'answer' => "Please provide a question"
+            ]);
+
+             
+        }*/
+
+		
+		
 
 ?>
-
-
+<!doctype html>
 <html lang="en" class="no-js">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -241,11 +270,11 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="HNG Internship 4.0 Profile Page for Miss Takuro Gbemisola">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>-
+		<!--error is pointing below-->
+        <script src="../js/jquery.min.js" type="text/javascript"></script>-
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 
-        <script type="text/javascript">
+        <script type="text/javascript">  
             (function($) {
                 $(document).ready(function() {
                     var $chatbox = $('.chatbox'),
@@ -267,28 +296,28 @@
                         $chatbox.removeClass('chatbox--empty');
                     });
                     var msg =$('#quesform');
- msg.submit(function(e){
+            msg.submit(function(e){
                 e.preventDefault();
                 var msgBox = $('textarea[name=question]');
                 var question = msgBox.val();
                 $(".chatbox__body").append("<div class='chatbox__body__message chatbox__body__message--right'><p>" + question + "</p></div>");
-
+                    debugger;
                 $.ajax({
-                    url: 'michelletakuro.php',
+                    url: 'profiles/michelletakuro.php',
                     type: 'POST',
                     data: {question: question},
                     dataType: 'json',
 				}).done(function(response){
-                    $(".chatbox__body").append( "<div class='chatbox__body__message chatbox__body__message--right'><p>" + response.answer + "</p></div>");
+                    $(".chatbox__body__message--right").append("<div id='cyclo'><img src='http://res.cloudinary.com/michelletakuro/image/upload/v1526025467/DSC_0491.jpg'><p>" + response.answer + "</p></div>");
                    // console.log(response.result);
                     //alert(response.result.d);
                     //alert(answer.result);
                 }).fail(function(error){
                         //console.log(error);
                         alert(JSON.stringify(error));
-                });
+                });  
                 $('.chatbox__body').scrollTop($('.chatbox__body')[0].scrollHeight);
-                $("#texts").empty();
+                $("#texts").empty();       
             });
 
 
@@ -296,6 +325,8 @@
 
             })(jQuery);
 
+			
+		
         </script>
 
         <style type="text/css">
@@ -487,7 +518,7 @@
 
             .chatbox button:active{
                 background-color: black;
-
+                
             }
 
 
@@ -617,7 +648,28 @@
             .chatbox__body__message--left img {
                 left: -5px;
             }
-
+            
+            #cyclo p{
+                border-radius: 4px;
+                font-size: 14px;
+                background-color: #fff;
+                -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+                box-shadow: 2px 2px black;
+                text-align: left;
+                padding-left:30px;
+                margin-left:10px;
+            }
+            
+            #cyclo{
+                position: relative;
+                left:-60px;
+                width: 109%;
+                
+                }
+            
+            #cyclo img{
+                left:-10px;
+            }
             .chatbox__body__message--right {
                 float: right;
                 margin-right: -15px;
@@ -782,14 +834,14 @@
             <a href="https://ng.linkedin.com/in/gbemisola-takuro-78b34046"> <img class="images" src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025462/images_1_2.jpg" height="50px" width="50px"> </a>
 
             <footer id="footer">
-                <p>?Takuro Gbemisola |HNG INTERNSHIP 4.0</p>
+                <p>©Takuro Gbemisola |HNG INTERNSHIP 4.0</p>
             </footer>
 
 
             <!--Chat bot code-->
 
 
-    <div class="chatbox chatbox--tray chatbox--empty">
+<div class="chatbox chatbox--tray chatbox--empty">
     <div class="chatbox__title">
         <h5><a href="#">Cyclo Bot</a></h5>
         <button class="chatbox__title__tray">
@@ -811,7 +863,11 @@
         </div>
         <div class="chatbox__body__message chatbox__body__message--left">
             <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025467/DSC_0491.jpg" height="40px" width="40px" alt="Picture">
-            <p>I am here to assist you to the best of my ability. </p>
+            <p>I am here to assist you to the best of my ability. You can find out more about me by typing <strong>#About me</strong></p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="http://res.cloudinary.com/michelletakuro/image/upload/v1526025467/DSC_0491.jpg" height="40px" width="40px" alt="Picture">
+            <p> You can also train me  to answer your questions by using the format <strong>train: question # answer # password</strong>. </p>
         </div>
 
     </div>
@@ -837,6 +893,3 @@
 
     </body>
 </html>
-<?php
-        }
-?>
