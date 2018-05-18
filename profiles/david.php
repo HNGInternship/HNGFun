@@ -122,10 +122,10 @@ function getAnswer($input) {
         max-height: 395px;
     }
     .message{
-      background-color: #1380FA;
+      background-color: #000;
       color: white;
       font-size: 0.8em;
-      width: 300px;
+      width: 250px;
       display: inline-block;
               padding: 10px;
       margin: 5px;
@@ -512,8 +512,6 @@ right: 30%;
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
       </div><br><br>
-
-<!--legend-->
 <div class="chatbot-container">
 
 <!-- CHAT BOT HERE -->
