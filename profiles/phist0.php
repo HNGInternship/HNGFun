@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         function botAnswer($message){
                 $botAnswer = '<div class="chat bot chat-message">
-                                        <img src="" alt="" width="32" height="32">
+                                        <img src="https://res.cloudinary.com/phisto/image/upload/v1526618309/chatbot.jpg" alt="" width="32" height="32">
                                         <div class="chat-message-content clearfix">
                                                 <p>' . $message . '</p>';
                         return $botAnswer;
@@ -613,19 +613,19 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 
 <div id="chat-box">
                 <header class="clearfix" onclick="change()">
-                        <h4>Online_</h4>
+                        <h4>Online</h4>
                 </header>
                 <div class="chat hide" id="chat">
                         <div class="chatlogs" id="chatlogs">
                                 <div class="chat bot chat-message">
-                                        <img src="  " alt="" width="32" height="32">
+                                        <img src="https://res.cloudinary.com/phisto/image/upload/v1526618309/chatbot.jpg" alt="" width="32" height="32">
                                         <div class="chat-message-content clearfix">
                                                 <p>Welcome.</p>
                                                 <span class="chat-time"> </span>
                                         </div>
                                 </div>
        <div class="chat bot chat-message">
-                                        <img src="   " alt="" width="32" height="32">
+                                        <img src="https://res.cloudinary.com/phisto/image/upload/v1526618309/chatbot.jpg" alt="" width="32" height="32">
                                         <div class="chat-message-content clearfix">
                                                 <p>I am here to help you.</p>
                                                 <span class="chat-time"></span>
@@ -633,7 +633,7 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
                                 </div>    
                                 
                                     <div class="chat bot chat-message">
-                                        <img src="  " alt="" width="32" height="32">
+                                        <img src="https://res.cloudinary.com/phisto/image/upload/v1526618309/chatbot.jpg" alt="" width="32" height="32">
                                         <div class="chat-message-content clearfix">
                                                 <p>You can ask me questions, and I will do my best to answer. You can train me to answer specific questions. Just make use of the format train: question # answer # password.</p>
                                                 <span class="chat-time"></span>
