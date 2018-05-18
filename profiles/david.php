@@ -295,10 +295,9 @@ function insertChat(who, text, time){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "davbot"){
+    if (who == "user"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ davbot.avatar +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
@@ -308,6 +307,7 @@ function insertChat(who, text, time){
     }else{
         control = '<li style="width:100%;">' +
                         '<div class="msj-rta macro">' +
+                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ davbot.avatar +'" /></div>' +
                             '<div class="text text-r">' +
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
@@ -330,7 +330,7 @@ $(".mytext").on("keydown", function(e){
     if (e.which == 13){
         var text = $(this).val();
         if (text !== ""){
-            insertChat("davbot", text);              
+            insertChat("user", text);              
             $(this).val('');
         }
     }
@@ -444,7 +444,7 @@ $("ul.chats").scrollTop = $("ul.chats").scrollHeight;
 
 // })
 
-insertChat("davbot", introText, 0);
+insertChat("davbot", introText, 350);
 
 scrollToBottom();
 //-- Print Messages
