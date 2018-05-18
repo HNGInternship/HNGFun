@@ -201,14 +201,14 @@
 			html {
 				font-size: 100%;
 				box-sizing: border-box;
-				height: 100%;
+				height: auto !important;
 			}
 
 			body {
 				font-family: Roboto, 'Roboto Slab', sans-serif;
 				font-size: 1.4rem;
 				line-height: 1;
-				height: 100%;
+				height: auto !important;
 				background: #ecf0f1;
 			}
 
