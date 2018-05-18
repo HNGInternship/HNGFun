@@ -85,7 +85,7 @@
         if(empty($data)){
             echo "<div id='result'>I'm not sure I understand this yet. </br>I see those words of yours, but I don't understand them yet. Marveloius would like you to train me. 
 </br>Can you please teach me by typing train:question#answer#passwor
-</br>You fit type <b>help</b> to know more about me.</div>";
+</br>You can type <b>help</b> to know more about me.</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -108,8 +108,56 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
     <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script> 
-    <title>Marvelous</title>
-<style>
+<style>    
+.img
+{
+   align : "center";
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background: wheat;
+}
+.title {
+  color: grey;
+  font-size: 18px;
+}
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+button:hover, a:hover 
+{
+  opacity: 0.7;
+  }
+  h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 100%;
+    text-align: center;
+    color:black;
+    font-weight: bold;
+}
+body
+{
+  background-image: url("./images/back.jpg");
+  text-align:center; font-family: Georgia, 'Times New Roman', Times, serif;
+  }
   #bodybox {
   margin: auto;
   max-width: 550px;
@@ -214,57 +262,7 @@
 h5{
   background-color: #ffffff;
   margin-left: 15px;
-}     
-.img
-{
-   align : "center";
-}
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  background: wheat;
-}
-.title {
-  color: grey;
-  font-size: 18px;
-}
-button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  padding: 8px;
-  color: white;
-  background-color: #000;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
-a {
-  text-decoration: none;
-  font-size: 22px;
-  color: black;
-}
-button:hover, a:hover 
-{
-  opacity: 0.7;
-  }
-  h1{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 100%;
-    text-align: center;
-    color:black;
-    font-weight: bold;
-}
-body
-{
-  background-image: url("./images/back.jpg");
-  text-align:center; font-family: Georgia, 'Times New Roman', Times, serif;
-  
-}
+   }
 </style>
 </head>
 <body>
