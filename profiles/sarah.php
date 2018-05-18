@@ -186,7 +186,7 @@
       font-family: Roboto, sans-serif;
       font-size: 1.4rem;
       line-height: 1;
-      height: 100%;
+/*       height: 100%; */
       background: lightsmoke;
     }
 
@@ -443,7 +443,7 @@
         <h1 class="name">Sarah Temitope</h1>
         <p class="labels">Budding Designer ✿ Lover of Life</p>
       </section>
-<!--       <section class="socials">
+      <section class="socials">
         <a href="https://www.instagram.com/elegant_garlie0" class="fa-icon" target="_blank">
           <i class="fa fa-fw fa-instagram"></i>
         </a>
@@ -462,7 +462,7 @@
         <a href="mailto:talk2oluwasarah@gmail.com" class="fa-icon" target="_blank">
           <i class="fa fa-fw fa-envelope"></i>
         </a>
-      </section> -->
+      </section>
 
       <form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Let's talk!</span>
