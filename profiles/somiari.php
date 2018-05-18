@@ -501,7 +501,7 @@
 				<div class="chat-msgs">
 					<p class="alan">Hello! I'm Alan, and I am
 						<del>not</del> a bot.</p>
-					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
+					<p class="alan">To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type">
 					<textarea class="chat-msg" name="message" required></textarea>
