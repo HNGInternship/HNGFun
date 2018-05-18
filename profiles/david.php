@@ -471,7 +471,7 @@ right: 30%;
 
 
         $.ajax({
-            url: 'profile.php?id=Legendary',
+            url: 'profile.php?id=david',
             type: 'POST',
             data:  'input_text=' + message,
             success: function(response) {
