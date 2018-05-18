@@ -27,7 +27,7 @@
         
         if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp2 === 'aboutJayo') {
+        }elseif($temp2 === 'aboutbot') {
             aboutbot();
         }elseif($temp2==='help'){
             help();
@@ -37,7 +37,7 @@
             getAnswer($temp[0]);
         }
     }
-  ##About Jayo
+  ##About Bot
     function aboutbot() {
         echo "<div id='result'><strong>hi my name na Jayo, my madam want you to teach me more about javascript </strong></div>";
     }
@@ -46,7 +46,7 @@
    
    }
   
-  ##Train Jayo
+  ##Train Bot
     function train($input) {
         $input = explode('#', $input);
         $question = trim($input[0]);
@@ -60,7 +60,7 @@
             if(empty($data)) {
                 $training_data = array(':question' => $question,
                     ':answer' => $answer);
-                $sql = 'INSERT INTO Jayo ( question, answer)
+                $sql = 'INSERT INTO chatbot ( question, answer)
               VALUES (
                   :question,
                   :answer
@@ -83,7 +83,7 @@
     }
     function getAnswer($input) {
         $question = $input;
-        $sql = 'SELECT * FROM Jayo WHERE question = "'. $question . '"';
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
