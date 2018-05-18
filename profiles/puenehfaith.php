@@ -88,9 +88,9 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-            echo "<div id='result'>Sorry o! dem never train me to learn this one </br>Abeg you go like change me?
+            echo "<div id='result'>Sorry o! dem never train me to learn this one </br>Abeg i want you to train me
 </br>for me to answer your question well well make you type, train:question#answer#password
-</br>You fit type <b>help</b> make we start from there.</div>";
+</br>You fit type <b>help</b> to know more about me.</div>";
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
@@ -363,7 +363,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
                     <p class="Jayo">Hi! My name na Jayo.<br>i sabi something well well ask me any questionmy madam want you to teach me more about javascript,.</p>
-                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hello make we start from there.</p>
+                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hi make we start from there.</p>
                     <p class="Jayo">You fit train me by typing "train:question#answer#password" The Password na: <b>password </p>
                   </div>
                 </div>
