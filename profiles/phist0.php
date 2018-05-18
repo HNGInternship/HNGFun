@@ -360,7 +360,7 @@ CHAT CSS
                 .user .chat-message-content {
             margin-right: 40px;
             border-radius: 15px 15px 0 15px;
-            background: #0572ce;
+            background: #ce5504;
             padding: 15px 10px;
             color: white;
         }
