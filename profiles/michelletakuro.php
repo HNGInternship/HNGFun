@@ -303,7 +303,7 @@
                 $(".chatbox__body").append("<div class='chatbox__body__message chatbox__body__message--right'><p>" + question + "</p></div>");
                     debugger;
                 $.ajax({
-                    url: 'michelletakuro.php',
+                    url: 'profiles/michelletakuro.php',
                     type: 'POST',
                     data: {question: question},
                     dataType: 'json',

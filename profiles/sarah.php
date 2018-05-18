@@ -179,14 +179,14 @@
     html {
       font-size: 100%;
       box-sizing: border-box;
-      height: auto;
+      height: auto !important;
     }
 
     body {
       font-family: Roboto, sans-serif;
       font-size: 1.4rem;
       line-height: 1;
-      height: auto;
+      height: auto !important;
       background: lightsmoke;
     }
 
