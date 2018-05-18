@@ -1,12 +1,11 @@
 <?php
-	if(!defined('DB_USER')){
-	  require "../../config.php";		
-	  try {
-	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-	  } catch (PDOException $pe) {
-	      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-	  }
-	}
+	require "../../config.php";		
+  try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+  } catch (PDOException $pe) {
+      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+  }
+
 
 try {
     $sql = "SELECT * FROM secret_word";
@@ -46,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'answer' => "Delete successful!! The answer to that question is currently not in the database...unless ofcourse your stalker just added it back!"
                 ]);
         return;
-        }else{ //if input is not a question in db
+        }else{ //if message is not a question in db
                  echo json_encode([
                 'status' => 1,
                 'answer' => "There is no question like that in the database."
@@ -57,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         return;
     }
 
-    if(stripos($question, "train:") === 0) //if the input is to train (if it begins with 'train:')
+    if(stripos($question, "train:") === 0) //if the message is to train (if it begins with 'train:')
     {
         if(substr_count($question, "#") === 2) //if it has two hastags
         {
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $trqa->execute();
                     $trqa->setFetchMode(PDO::FETCH_ASSOC);
                     $rows = $trqa->fetchAll();
-                    if(count($rows)>0){ //if input is a question in db
+                    if(count($rows)>0){ //if message is a question in db
                         $index = rand(0, count($rows)-1); //choose random row
                         $row = $rows[$index];
                         $answer = $row['answer'];
@@ -114,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $trqa->execute();
                     $trqa->setFetchMode(PDO::FETCH_ASSOC);
                     $rows = $trqa->fetchAll();
-                    if(count($rows)>0){ //if input is a question in db
+                    if(count($rows)>0){ //if message is a question in db
                         $index = rand(0, count($rows)-1); //choose random row
                         $row = $rows[$index];
                         $answer = $row['answer'];
@@ -124,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ]);
                             return;
 
-                    }else{ //if input is not a question in db
+                    }else{ //if message is not a question in db
                              echo json_encode([
                             'status' => 1,
                             'answer' => "Training Unsuccessfull! Incorrect training password. Do like so: 'train: question #answer #password' without the quote ofcourse."
@@ -142,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $trqa->execute();
             $trqa->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $trqa->fetchAll();
-            if(count($rows)>0){ //if input is a question in db
+            if(count($rows)>0){ //if message is a question in db
                 $index = rand(0, count($rows)-1); //choose random row
                 $row = $rows[$index];
                 $answer = $row['answer'];
@@ -217,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $trqa->execute();
             $trqa->setFetchMode(PDO::FETCH_ASSOC);
             $rows = $trqa->fetchAll();
-            if(count($rows)>0){ //if input is a question in db
+            if(count($rows)>0){ //if message is a question in db
             $index = rand(0, count($rows)-1); //choose random row
             $row = $rows[$index];
             $answer = $row['answer'];
@@ -377,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    display: none;
 		    height: 466px;
 		    position: fixed;
-		    right: 70px;
+		    right: 35px;
 		    width: 300px;
 		    font-family: 'Open Sans', sans-serif;
 		}
@@ -636,7 +635,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var usermsg = $("#message").val().trim();
 
         if (usermsg != '') {
-            var msg='<div class="chat_message_wrapper"><div class="chat_user_avatar"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg" class="md-user-image"><span>You</span></div><ul class="chat_message"><li><p>'+
+            var msg='<div class="chat_message_wrapper"><div class="chat_user_avatar"><img src="http://res.cloudinary.com/taghreedaa/image/upload/v1525351717/guest-avatar.jpg" class="md-user-image"><span>You</span></div><ul class="chat_message"><li><p>'+
                 usermsg.replace(/\n/g, '<br />') +
                 '</p></li></ul></div>';
 
@@ -655,8 +654,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         +'</p> </li>  </ul>  </div>';
 
                     $('.chat_box').append(received_message);
-
-                    $('#message').animate({scrollTop: $('.chat_box').get(0).scrollHeight}, 1000);
+                    $("#chat").scrollTop($(".chat_box").outerHeight());
+                    // $('#sidebar_secondary').animate({scrollTop: $('#message').offset().bottom});
                 }
             });
         }
