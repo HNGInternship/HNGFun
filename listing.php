@@ -12,7 +12,7 @@ $data = $q->fetchAll();
       <div class="row">
          <div class="col-lg-8 col-md-10 mx-auto">
             <div class="page-heading">
-               <h1>Meett our Interns</h1>
+               <h1>Meet our Interns</h1>
                <span class="subheading">Intern Gallery</span>
             </div>
         </div>
@@ -46,7 +46,7 @@ $data = $q->fetchAll();
                     <hr>
                     <span class="align-middle">
                     <a href="profile.php?id=<?=$list['username']?>">
-                       <button class="btn btn-success"><object align="center">Vew Profile</object></button>
+                       <button class="btn btn-success"><object align="center">View Profile</object></button>
                     </a>
                   </span>
                 </div>
