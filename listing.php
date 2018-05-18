@@ -45,9 +45,9 @@ $data = $q->fetchAll();
                     <h4 class="card-title mt-1"><?= $list['name']?></h4>
                     <hr>
                     <span class="align-middle">
-                    <a href="profile.php?id=<?=$list['username']?>">
-                       <center> <button class="btn btn-success">  View Profile </button></center>
-                    </a>
+                 <center> <a href="profile.php?id=<?=$list['username']?>">
+                        <button class="btn btn-success">  View Profile </button>
+                    </a></center>
                   </span>
                 </div>
 
