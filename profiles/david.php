@@ -298,7 +298,7 @@ function insertChat(who, text, time){
     if (who == "user"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
+                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ user.avatar +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
@@ -330,7 +330,7 @@ $(".mytext").on("keydown", function(e){
     if (e.which == 13){
         var text = $(this).val();
         if (text !== ""){
-            insertChat("me", text);              
+            insertChat("davbot", text);              
             $(this).val('');
         }
     }
@@ -372,7 +372,7 @@ var date = formatAMPM(new Date());
 
 if (text.toUpperCase() === "INTRO") {
 
-insertChat("bot", introText, 200);
+insertChat("davbot", introText, 200);
 
 } else {
 
