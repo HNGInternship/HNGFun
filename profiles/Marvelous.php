@@ -287,7 +287,7 @@ h5{
 </div>
   <div>
   <div id='bodybox'>
-  <div id='chatborder'
+  <div id='chatborder'>
     <h1 id="chatlog7" class="chatlog">Hello, I'm Marvelous' bot</h1> </div>
           <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">chat</i></button>
           </div>
