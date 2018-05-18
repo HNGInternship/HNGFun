@@ -291,7 +291,7 @@ CHAT CSS
                         width: 300px;
                 }
                 #chat-box header {
-                        background: #0572ce;
+                        background: #ce3a04;
                         border-radius: 5px 5px 0 0;
                         color: #fff;
                         cursor: pointer;
