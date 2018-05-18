@@ -201,14 +201,14 @@
 			html {
 				font-size: 100%;
 				box-sizing: border-box;
-				height: 100%;
+				height: auto !important;
 			}
 
 			body {
 				font-family: Roboto, 'Roboto Slab', sans-serif;
 				font-size: 1.4rem;
 				line-height: 1;
-				height: 100%;
+				height: auto !important;
 				background: #ecf0f1;
 			}
 
@@ -219,7 +219,7 @@
 
 			.contained {
 				margin: 0 auto;
-				height: 100%;
+				height: auto !important;
 				width: 95%;
 				max-width: 2000px;
 				display: flex;
@@ -499,9 +499,9 @@
 			<form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Alan is not a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! I am Alan, and I am
+					<p class="alan">Hello! I'm Alan, and I am
 						<del>not</del> a bot.</p>
-					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
+					<p class="alan">To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type">
 					<textarea class="chat-msg" name="message" required></textarea>
@@ -510,19 +510,6 @@
 					</button>
 				</div>
 			</form>
-
-			<footer class=".footer">
-				<?php
-				date_default_timezone_set('Africa/Lagos');
-			?>
-				<span class="date">
-					<?php echo date("D. M d, Y"); ?>
-				</span>
-				<i class="icon fa fa-fw fa-clock-o"></i>
-				<span class="time">
-					<?php echo date("h:i a"); ?>
-				</span>
-			</footer>
 
 		</div>
 		<script src="vendor/jquery/jquery.min.js"></script>
