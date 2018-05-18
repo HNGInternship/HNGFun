@@ -1,4 +1,25 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+    if(!defined('DB_USER')){
+    require "../../config.php"; 
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+  }
+
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="david"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
