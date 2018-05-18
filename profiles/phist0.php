@@ -613,7 +613,7 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 
 <div id="chat-box">
                 <header class="clearfix" onclick="change()">
-                        <h4>Online</h4>
+                        <h4>ChatBot Online</h4>
                 </header>
                 <div class="chat hide" id="chat">
                         <div class="chatlogs" id="chatlogs">
