@@ -557,14 +557,12 @@
 	   			<h3><b> NAME :</b> <?php echo $my_data['name']; ?></h3>
 				<h3> <b> USERNAME: </b> <?php echo $my_data['username']; ?></h3>
 				<h3><b> EMAIL : </b>bashorun.mazeed@gmail.com</h3>
-				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4><br><br><br><br>
+				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4><br><br><br>
 
 				<center>
 		   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
-			        <div class="round hollow text-center">
 			        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
-			        </div>
-	        	</center>
+	        	</center>s
 	   		</div>
 	   	</div>
    </div>
