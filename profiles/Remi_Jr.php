@@ -219,7 +219,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <style>
     body, html {
-      background: url('http://res.cloudinary.com/remijr/image/upload/v1526671733/28379139_2000703830185094_5251360290686817928_n.jpg') no-repeat center top;
+      background: url('http://res.cloudinary.com/remijr/image/upload/c_fill,e_shadow:40,h_456,r_9,w_410/a_0/v1526673163/Screenshot_20180518-205122_1.png') no-repeat center top;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -362,7 +362,7 @@
         background:#e0e0de;
         height:590px;
         position: fixed;
-        bottom: 100px;
+        bottom: 30px;
         right: 0;
         overflow:auto;
     }
