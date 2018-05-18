@@ -8,239 +8,239 @@
 	  }
 	}
 
-try {
-    $sql = "SELECT * FROM secret_word";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $data = $q->fetch();
 
-    $secret_word = $data['secret_word'];
-	} catch (PDOException $e) {
+	try {
+	    $sql = "SELECT * FROM secret_word";
+	    $q = $conn->query($sql);
+	    $q->setFetchMode(PDO::FETCH_ASSOC);
+	    $data = $q->fetch();
 
-	    throw $e;
-	}
+	    $secret_word = $data['secret_word'];
+		} catch (PDOException $e) {
 
-$sql = "SELECT * FROM interns_data where name='Bashorun Mazeed' ";
-    $q = $conn->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-    $my_data = $q->fetch();
+		    throw $e;
+		}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    $question = preg_replace("([?!.])", "", trim($_POST['message']));
-   
-    function deletequest($dquest)
-    {
-    	
-        $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = ".$dquest." ");
-        $trqa->execute();
-        $trqa->setFetchMode(PDO::FETCH_ASSOC);
-        $rows = $trqa->fetchAll();
-        if(count($rows)>0){
-            $sqld = "DELETE FROM chatbot WHERE question =".$dquest."";  //delete from database
-            $dfunc = $conn->prepare($sqld);
-            $dfunc->execute();
-            $dfunc->setFetchMode(PDO::FETCH_ASSOC);
-            echo json_encode([
-                    'status' => 1,
-                    'answer' => "Delete successful!! The answer to that question is currently not in the database...unless ofcourse your stalker just added it back!"
-                ]);
-        return;
-        }else{ //if input is not a question in db
-                 echo json_encode([
-                'status' => 1,
-                'answer' => "There is no question like that in the database."
-            ]);
-        return;
+	$sql = "SELECT * FROM interns_data where name='Bashorun Mazeed' ";
+	    $q = $conn->query($sql);
+	    $q->setFetchMode(PDO::FETCH_ASSOC);
+	    $my_data = $q->fetch();
 
-        }
-        return;
-    }
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	    
+	    $question = preg_replace("([?!.])", "", trim($_POST['message']));
+	   
+	    function deletequest($dquest)
+	    {
+	    	
+	        $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = ".$dquest." ");
+	        $trqa->execute();
+	        $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	        $rows = $trqa->fetchAll();
+	        if(count($rows)>0){
+	            $sqld = "DELETE FROM chatbot WHERE question =".$dquest."";  //delete from database
+	            $dfunc = $conn->prepare($sqld);
+	            $dfunc->execute();
+	            $dfunc->setFetchMode(PDO::FETCH_ASSOC);
+	            echo json_encode([
+	                    'status' => 1,
+	                    'answer' => "Delete successful!! The answer to that question is currently not in the database...unless ofcourse your stalker just added it back!"
+	                ]);
+	        return;
+	        }else{ //if message is not a question in db
+	                 echo json_encode([
+	                'status' => 1,
+	                'answer' => "There is no question like that in the database."
+	            ]);
+	        return;
 
-    if(stripos($question, "train:") === 0) //if the input is to train (if it begins with 'train:')
-    {
-        if(substr_count($question, "#") === 2) //if it has two hastags
-        {
-            $passstrt = strripos($question, "#") + 1;
-            $answerstrt = stripos($question, "#") + 1;
-            $answerend = strripos($question,"#") - $answerstrt;
-            $trainqend = stripos($question, "#") - 6;
-            $trainquest = trim(substr($question,6,$trainqend));
-//            echo $trainquest;
-            $trainanswer = trim(substr($question,$answerstrt, $answerend));
-//            echo $trainanswer;
-            $trainpass = trim(substr($question, $passstrt));
-            if(trim(substr($question, $answerstrt, $answerend)) === "") // if there is no answer
-            {
-                $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
-                    $trqa->execute();
-                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
-                    $rows = $trqa->fetchAll();
-                    if(count($rows)>0){ //if input is a question in db
-                        $index = rand(0, count($rows)-1); //choose random row
-                        $row = $rows[$index];
-                        $answer = $row['answer'];
-                            echo json_encode([
-                                'status' => 1,
-                                'answer' => $answer,  //returns one row answer
-                            ]);
-                        return;
+	        }
+	        return;
+	    }
 
-                    }else{ //if input is not a question in db
-                             echo json_encode([
-                            'status' => 1,
-                            'answer' => "Training Unsuccessfull! You forgot to add your desired answer. Do like so: 'train: question #answer #password' without the quote ofcourse."
-                        ]);
-                    return;
-                    }
-            }
-            else // if there is answer
-            {
-                if($trainpass === "password") //if password is correct
-                {
-                    $sql = "insert into chatbot (question, answer) values ('".$trainquest."', '".$trainanswer."')";  //insert into database
-                    $trqa = $conn->prepare($sql);
-                    $trqa->execute();
-                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
-                    echo json_encode([
-                            'status' => 1,
-                            'answer' => "Training successful!! Ask the same question to get an answer!"
-                        ]);
-                        return;
-                }
-                else //if password is not correct
-                {
-                    $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
-                    $trqa->execute();
-                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
-                    $rows = $trqa->fetchAll();
-                    if(count($rows)>0){ //if input is a question in db
-                        $index = rand(0, count($rows)-1); //choose random row
-                        $row = $rows[$index];
-                        $answer = $row['answer'];
-                            echo json_encode([
-                                'status' => 1,
-                                'answer' => $answer,  //returns one row answer
-                            ]);
-                            return;
+	    if(stripos($question, "train:") === 0) //if the message is to train (if it begins with 'train:')
+	    {
+	        if(substr_count($question, "#") === 2) //if it has two hastags
+	        {
+	            $passstrt = strripos($question, "#") + 1;
+	            $answerstrt = stripos($question, "#") + 1;
+	            $answerend = strripos($question,"#") - $answerstrt;
+	            $trainqend = stripos($question, "#") - 6;
+	            $trainquest = trim(substr($question,6,$trainqend));
+	//            echo $trainquest;
+	            $trainanswer = trim(substr($question,$answerstrt, $answerend));
+	//            echo $trainanswer;
+	            $trainpass = trim(substr($question, $passstrt));
+	            if(trim(substr($question, $answerstrt, $answerend)) === "") // if there is no answer
+	            {
+	                $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
+	                    $trqa->execute();
+	                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	                    $rows = $trqa->fetchAll();
+	                    if(count($rows)>0){ //if message is a question in db
+	                        $index = rand(0, count($rows)-1); //choose random row
+	                        $row = $rows[$index];
+	                        $answer = $row['answer'];
+	                            echo json_encode([
+	                                'status' => 1,
+	                                'answer' => $answer,  //returns one row answer
+	                            ]);
+	                        return;
 
-                    }else{ //if input is not a question in db
-                             echo json_encode([
-                            'status' => 1,
-                            'answer' => "Training Unsuccessfull! Incorrect training password. Do like so: 'train: question #answer #password' without the quote ofcourse."
-                        ]);
-                        return;
+	                    }else{ //if input is not a question in db
+	                             echo json_encode([
+	                            'status' => 1,
+	                            'answer' => "Training Unsuccessfull! You forgot to add your desired answer. Do like so: 'train: question #answer #password' without the quote ofcourse."
+	                        ]);
+	                    return;
+	                    }
+	            }
+	            else // if there is answer
+	            {
+	                if($trainpass === "password") //if password is correct
+	                {
+	                    $sql = "insert into chatbot (question, answer) values ('".$trainquest."', '".$trainanswer."')";  //insert into database
+	                    $trqa = $conn->prepare($sql);
+	                    $trqa->execute();
+	                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	                    echo json_encode([
+	                            'status' => 1,
+	                            'answer' => "Training successful!! Ask the same question to get an answer!"
+	                        ]);
+	                        return;
+	                }
+	                else //if password is not correct
+	                {
+	                    $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
+	                    $trqa->execute();
+	                    $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	                    $rows = $trqa->fetchAll();
+	                    if(count($rows)>0){ //if message is a question in db
+	                        $index = rand(0, count($rows)-1); //choose random row
+	                        $row = $rows[$index];
+	                        $answer = $row['answer'];
+	                            echo json_encode([
+	                                'status' => 1,
+	                                'answer' => $answer,  //returns one row answer
+	                            ]);
+	                            return;
 
-                    }
-                    return;
-                }
-            }
-        }
-        else //if it does not have 2 hashtags
-        {
-            $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
-            $trqa->execute();
-            $trqa->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $trqa->fetchAll();
-            if(count($rows)>0){ //if input is a question in db
-                $index = rand(0, count($rows)-1); //choose random row
-                $row = $rows[$index];
-                $answer = $row['answer'];
-//                echo $answer;
-                    echo json_encode([
-                        'status' => 1,
-                        'answer' => $answer,  //returns one row answer
-                    ]);
-                return;
+	                    }else{ //if message is not a question in db
+	                             echo json_encode([
+	                            'status' => 1,
+	                            'answer' => "Training Unsuccessfull! Incorrect training password. Do like so: 'train: question #answer #password' without the quote ofcourse."
+	                        ]);
+	                        return;
 
-            }else{ //if no answer for the question in database
-                if(substr_count($question, "#") === 1) //if it has 1 hashtag
-                {
-                    $onlyhash = stripos($question, "#") + 1;
-                    if(trim(substr($question, $onlyhash)) === "") //if no answer and password
-                    {
-                         echo json_encode([
-                        'status' => 1,
-                        'answer' => "Training Unsuccessfull! Please add desired answer and the training password, like so: 'train: question #answer #password' without the quote ofcourse."
-                        ]);
-                return;
-                    }
-                    else //if no password only
-                    {
-                         echo json_encode([
-                        'status' => 1,
-                        'answer' => "Training Unseccessfull! Please add the training password, like so: 'train: question #answer #password' without the quote ofcourse."
-                        ]);
-                return;
-                    }
-                }
-                else //if it does not have 1 or 2 hashtags
-                {
-                    echo json_encode([
-                    'status' => 1,
-                    'answer' => "Training Unseccessfull! Please train with this pattern: 'train: question #answer #password' without the quote ofcourse."
-                    ]);
-                return;
-                }
+	                    }
+	                    return;
+	                }
+	            }
+	        }
+	        else //if it does not have 2 hashtags
+	        {
+	            $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
+	            $trqa->execute();
+	            $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	            $rows = $trqa->fetchAll();
+	            if(count($rows)>0){ //if message is a question in db
+	                $index = rand(0, count($rows)-1); //choose random row
+	                $row = $rows[$index];
+	                $answer = $row['answer'];
+	//                echo $answer;
+	                    echo json_encode([
+	                        'status' => 1,
+	                        'answer' => $answer,  //returns one row answer
+	                    ]);
+	                return;
 
-            }
-        }
-        return;
-    }
-    else // if it is a question
-    {
-        if(stripos($question, "aboutbot") === 0 && strlen($question) ===8)
-        {
-            echo json_encode([
-                    'status' => 1,
-                    'answer' => "I am Adina's PROTOTYPE! Version 1.0.Perfect. I am the prototype to the bot she created to take over the world...If that makes any sense at all."
-                ]);
-        }
-        elseif(stripos($question, "deletequest(") === 0)
-        {
-            if((substr($question, 12, 1) === "'") && (substr($question, -2, 1) === "'") &&(substr($question, -1) === ")"))
-            {
-                $deletequest = '"'.preg_replace("([?!.])", "", trim(substr($question, 13, -2))).'"';
-                deletequest($deletequest);
-            }
-            else
-            {
-                echo json_encode([
-                    'status' => 1,
-                    'answer' => "That function wasn't typed correctly. Please do it like so: deletequest('your question')"
-                ]);
-            }
-        }
-        else
-        {
-            $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
-            $trqa->execute();
-            $trqa->setFetchMode(PDO::FETCH_ASSOC);
-            $rows = $trqa->fetchAll();
-            if(count($rows)>0){ //if input is a question in db
-            $index = rand(0, count($rows)-1); //choose random row
-            $row = $rows[$index];
-            $answer = $row['answer'];
-    //        echo $answer; //returns one row answer
-                        echo json_encode([
-                            'status' => 1,
-                            'answer' => $answer,  //returns one row answer
-                        ]);
-                return;
+	            }else{ //if no answer for the question in database
+	                if(substr_count($question, "#") === 1) //if it has 1 hashtag
+	                {
+	                    $onlyhash = stripos($question, "#") + 1;
+	                    if(trim(substr($question, $onlyhash)) === "") //if no answer and password
+	                    {
+	                         echo json_encode([
+	                        'status' => 1,
+	                        'answer' => "Training Unsuccessfull! Please add desired answer and the training password, like so: 'train: question #answer #password' without the quote ofcourse."
+	                        ]);
+	                return;
+	                    }
+	                    else //if no password only
+	                    {
+	                         echo json_encode([
+	                        'status' => 1,
+	                        'answer' => "Training Unseccessfull! Please add the training password, like so: 'train: question #answer #password' without the quote ofcourse."
+	                        ]);
+	                return;
+	                    }
+	                }
+	                else //if it does not have 1 or 2 hashtags
+	                {
+	                    echo json_encode([
+	                    'status' => 1,
+	                    'answer' => "Training Unseccessfull! Please train with this pattern: 'train: question #answer #password' without the quote ofcourse."
+	                    ]);
+	                return;
+	                }
 
-            }else{ //if no answer for the question in database
-                     echo json_encode([
-                    'status' => 1,
-                    'answer' => "I can't answer your question! Please train me like so: 'train: question #answer #password' without the quote ofcourse."
-                ]);
+	            }
+	        }
+	        return;
+	    }
+	    else // if it is a question
+	    {
+	        if(stripos($question, "aboutbot") === 0 && strlen($question) ===8)
+	        {
+	            echo json_encode([
+	                    'status' => 1,
+	                    'answer' => "I am Bash PROTOTYPE! I am the prototype to maake your world easier"
+	                ]);
+	        }
+	        elseif(stripos($question, "deletequest(") === 0)
+	        {
+	            if((substr($question, 12, 1) === "'") && (substr($question, -2, 1) === "'") &&(substr($question, -1) === ")"))
+	            {
+	                $deletequest = '"'.preg_replace("([?!.])", "", trim(substr($question, 13, -2))).'"';
+	                deletequest($deletequest);
+	            }
+	            else
+	            {
+	                echo json_encode([
+	                    'status' => 1,
+	                    'answer' => "That function wasn't typed correctly. Please do it like so: deletequest('your question')"
+	                ]);
+	            }
+	        }
+	        else
+	        {
+	            $trqa = $conn->prepare("SELECT * FROM  chatbot WHERE question = '".$question."' ");
+	            $trqa->execute();
+	            $trqa->setFetchMode(PDO::FETCH_ASSOC);
+	            $rows = $trqa->fetchAll();
+	            if(count($rows)>0){ //if message is a question in db
+	            $index = rand(0, count($rows)-1); //choose random row
+	            $row = $rows[$index];
+	            $answer = $row['answer'];
+	    //        echo $answer; //returns one row answer
+	                        echo json_encode([
+	                            'status' => 1,
+	                            'answer' => $answer,  //returns one row answer
+	                        ]);
+	                return;
 
-            }
-        }
-        return;
-    }  
-	  
-} else {
+	            }else{ //if no answer for the question in database
+	                     echo json_encode([
+	                    'status' => 1,
+	                    'answer' => "I can't answer your question! Please train me like so: 'train: question #answer #password' without the quote ofcourse."
+	                ]);
 
+	            }
+	        }
+	        return;
+	    }  
+		  
+	} else {
 ?>
 <!DOCTYPE html>
 <html>
@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style type="text/css">
 		#page{
-			margin-top: 20px;
+			margin-top: 60px;
 			padding-top: 30px;
 			padding-bottom: 20px;
 			background-color: white;
@@ -377,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		    display: none;
 		    height: 466px;
 		    position: fixed;
-		    right: 70px;
+		    right: 35px;
 		    width: 300px;
 		    font-family: 'Open Sans', sans-serif;
 		}
@@ -549,9 +549,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
    <div class="container">
    		<div id="page" class="row">
-   			<center>
-				<h2>HNG 4.0 INTERN</h2><br>
-			 </center>
 	   		<div class="col-md-5 col-xs-12">
 	   			<img src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="img-responsive center-block">
 	   		</div>
@@ -560,15 +557,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	   			<h3><b> NAME :</b> <?php echo $my_data['name']; ?></h3>
 				<h3> <b> USERNAME: </b> <?php echo $my_data['username']; ?></h3>
 				<h3><b> EMAIL : </b>bashorun.mazeed@gmail.com</h3>
-				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4>
-	   		</div><br>
+				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4><br><br><br>
 
-	   		<center>
-	   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
-		        <div class="round hollow text-center">
-		        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
-		        </div>
-	        </center>
+				<center>
+		   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
+			        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
+	        	</center>s
+	   		</div>
 	   	</div>
    </div>
 
@@ -591,12 +586,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 	<div class="chat_submit_box">
 	    <div class="uk-input-group">
-	        <div class="gurdeep-chat-box">
-	        	<input type="text" placeholder="Type a message" id="message"  class="lg-input">
-	        </div>
-		    <span class="uk-input-group-addon">
-		    	<button type="button" id="submit_message"><i class="glyphicon glyphicon-send"></i></button>
-		    </span>
+	    	<form action="" method="post" id="submit_message">
+		        <div class="gurdeep-chat-box">
+		        	<input type="text" placeholder="Type a message" id="message" name="message" class="lg-input">
+		        </div>
+			    <span class="uk-input-group-addon">
+			    	<button type="submit"><i class="glyphicon glyphicon-send"></i></button>
+			    </span>
+			</form>
 	    </div>
 	</div>
 
@@ -611,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			if (firstLoad === true && $('.popup-box-on').hasClass('hidden') === false) {
 				firstLoad = false;
                     var message1 = window.setTimeout(function(){
-                        var default_message = '<div class="chat_message_wrapper chat_message_right"> <div class="chat_user_avatar"> <span>Bash Bot</span>      <img  src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="md-user-image"> </div> <ul class="chat_message"> <li> <p>Hello I\'m BashBot, <br> I\'m here to help you type your message. </p> </li>  </ul>  </div>';
+                        var default_message = '<div class="chat_message_wrapper chat_message_right"> <div class="chat_user_avatar"> <span>Bash Bot</span>      <img  src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="md-user-image"> </div> <ul class="chat_message"> <li> <p>Hello I\'m BashBot, <br> type your message. </p> </li>  </ul>  </div>';
                         $('.chat_box').append(default_message);
                         window.clearTimeout(message1);
                     }, 1000);
@@ -639,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         var usermsg = $("#message").val().trim();
 
         if (usermsg != '') {
-            var msg='<div class="chat_message_wrapper"><div class="chat_user_avatar"><img src="https://res.cloudinary.com/funsholaniyi/image/upload/v1524159157/default.jpg" class="md-user-image"><span>You</span></div><ul class="chat_message"><li><p>'+
+            var msg='<div class="chat_message_wrapper"><div class="chat_user_avatar"><img src="http://res.cloudinary.com/taghreedaa/image/upload/v1525351717/guest-avatar.jpg" class="md-user-image"><span>You</span></div><ul class="chat_message"><li><p>'+
                 usermsg.replace(/\n/g, '<br />') +
                 '</p></li></ul></div>';
 
@@ -648,8 +645,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $('.chat_box').animate({scrollTop: $('#message').get(0).scrollHeight}, 1100); 
 
             $.ajax({
-                url: 'BashorunMazeed.php',
-                type: 'post',
+                url: 'profiles/BashorunMazeed.php',
+                type: 'POST',
                 dataType: 'json',
                 data: {message: usermsg},
                 success: (response) =>{
@@ -658,8 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         +'</p> </li>  </ul>  </div>';
 
                     $('.chat_box').append(received_message);
-
-                    $('#message').animate({scrollTop: $('.chat_box').get(0).scrollHeight}, 1000);
+                    $("#chat").scrollTop($(".chat_box").outerHeight());
                 }
             });
         }

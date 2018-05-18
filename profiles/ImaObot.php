@@ -1,6 +1,69 @@
 <?php
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+   require '../../config.php';
+        //die('Hi');
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+        
+        if(!$conn){
+            die('Unable to connect');
+        }
+        $question = $_POST['message'];
+        $pos = strpos($question, 'train:');
+
+        if($pos === false){
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
+            $query = $conn->query($sql);
+            if($query){
+                echo json_encode([
+                    'results'=> $query->fetch_all()
+                ]);
+                return;
+            }
+        }else{
+            $trainer = substr($question,6 );
+            $data = explode('#', $trainer);
+            $data[0] = trim($data[0]);
+            $data[1] = trim($data[1]);
+            $data[2] = trim($data[2]);
+
+            if($data[2] == 'password'){
+
+                $sql = "INSERT INTO chatbot (question, answer)
+                VALUES ('$data[0]', '$data[1]')";
 
 
+                $query = $conn->query($sql);
+                if($query){
+                    echo json_encode([
+                        'results'=> 'Trained Successfully'
+                    ]);
+                    return;
+                }else{
+                    echo json_encode([
+                        'results'=> 'Error training'
+                    ]);
+                    return;
+                }
+                
+            }else{
+                echo json_encode([
+                    'results'=> 'Wrong Password'
+                ]);
+                return;
+            }
+            
+        }
+        
+        echo json_encode([
+            'reply'=>  'working'
+        ]);
+        
+    return ;
+    }else{
+        //echo 'HI';
+        //return;
+    }
+    
 
 
 ?>
@@ -17,8 +80,6 @@
     <style>
      img{
      border-radius: 50%;
-     /* height: 200px; */
-     /* width: 300px; */
     } 
     .rotateimg180{
          -webkit-transform:rotate(270deg);
@@ -28,27 +89,22 @@
          transform: rotate(270deg); 
     }
     .ima{
-       
-        /* border-color: blueviolet; */
-         text-align: center; 
-        width: 450px;
-        height: 400px;
-        margin: 77px 0 0 420px;
+        text-align: center; 
+        width: 652px;
+        /* height: 500px; */
         background-color: rgb(83, 179, 179);
-
+        /* border-color: blueviolet; */
     } 
-     .eli{ 
+    .eli{ 
     border:  solid black;
     border-width: 2px;
-    /* background-color: red;  */
- 
- /* font-size: 50px; */
+    width: 650px;
+    
     }
     .pro{
         font-size: 20px;
         color: black;
-        /* border:  solid black; */
-        /* border-width: 5px; */
+        
     }
     h3{
         
@@ -59,54 +115,127 @@
     }
     .head{
         background-color: rgb(83, 179, 179);
-        /* border:  solid black; */
     border-width: 2px; 
+    text-align: center;
     }
-    p{
-        margin-top: 20px;
-        /* COLOR:WHITE; */
+    .botbot{
+        background-color:rgb(83, 159, 169);
+         width:650px;
+         position: relative;
+         /* left: 600px;
+         bottom:500px;
+         height:132px; */
+    }
+    .font{
+        font-size: 35px;
+    }
+    #chat-area{
+        border:5px ridge aliceblue;
+        height:200px;
+        background-color:white;
+        overflow-y:scroll;
     }
     </style>
 </head>
 <body>
+<section id="profile">
+
     <div class="ima">
             <div class="eli">
+                   
                 <div class="head">
                         <h3>
                                 IMAOBOT'S PROFILE
-                                <hr>
-                            </h3>
+                                <hr style=" border: 1px dotted black;">
+                            </h3>  
+                                               
                 </div>
-        <p>    
-    <!-- <div class="container"> -->
-        <!-- <img src="..." alt="..." class="rounded-circle"> -->
-        <!-- <span class="border border-success"> -->
             
             <img src="https://res.cloudinary.com/dbvitxz4y/image/upload/v1525789006/cute.jpg"  width="200" height="200" alt="profile" class="rotateimg180">
         <!-- </span> -->
-        <br clear="left" />
-       Am a web designer that designs for fun during my leisure. Am aspiring to become a web developer. I love to love and I hate to hate, always grateful to God, my parents and loved ones. 
-<br> 
-<br>
+       <p>          
+       Am a web designer that designs for fun during my leisure.<br> Am aspiring to become a web developer. <br>I love to love and I hate to hate, always grateful to God, my parents and loved ones. 
+              </p><br>
+              <p>
+              <b> NAME:</b> Imaobong Elijah Obot<br>
+               <b/>OCCUPATION:</b> Web Designer<br>
+              <b> HOBBIES:</b> Playing games, Singing
+            </p>
+ </div>        
+        <div class="container">
+            <div id='chat-area'>
+            <p></p>
+                <p></p>
+                <p></p>
 
-    </p>
-    <div class="pro">
-        <p style="color: black;">
-               NAME: Imaobong Elijah Obot<br>
-               OCCUPATION: Web Designer<br>
-               HOBBIES: Playing games, Singing
-            <!-- </pre> -->
-        </p>
+            </div>
+            <div class="botbot"> 
+                <div class="font" style="color: rgb(13, 36, 53); text-align: center;"> IMA'S BOT</div>
+                                <input type="text" name="message" id="message"> 
+                <button onclick="loadDoc()">Send</button>
+            
+        
+           
+                    <!-- <textarea name="chat" id="chat" cols="20" rows="10" style="width: 644px; height: 80px;"> CHAT HERE</textarea> -->
+        
+        <!-- <div class="pro ">
+            </pre> -->
+            <br><br>
+           
+            <span class="input-group-addon" id="basic-addon1">  
+             <a href="https://www.facebook.com/imaobong.obot.184" class="fab fa-facebook-square" style=" font-size: 30px; "></a>
+                <a href="https://github.com/Imaobong-Elijah" class="fab fa-github" style=" font-size: 30px; "></a> 
+                <a  href="https://www.whatsapp.com/Imaobong Obot" class="fab fa-whatsapp-square" style=" font-size: 30px;"></a>
+            </span>   
+        
+      
+        
+   
         </div>
-    <span class="input-group-addon" id="basic-addon1">  
-        <i class="fab fa-facebook-square" style=" font-size: 30px; color: rgb(83, 179, 179); "></i> 
-        <i class="fab fa-github" style=" font-size: 30px; color: rgb(83, 179, 179); "></i> 
-        <i class="fab fa-whatsapp-square" style=" font-size: 30px; color: rgb(83, 179, 179); "></i>
-    </span> 
-    
-    
-</div>
-        </div>
-    <!-- </div> -->
-    </body>
+    </div>
+ </div>
+</section>
+    <script>
+            function loadDoc() {
+                // alert('Hello');
+                var message = document.querySelector('#message');
+                //alert(message.value);
+                var p = document.createElement('p');
+                p.id = 'user';
+                var chatarea = document.querySelector('#chat-area');
+                p.innerHTML = message.value;
+                chatarea.appendChild(p);
+                
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    console.log(xhttp.responseText);
+                    var result = JSON.parse(xhttp.responseText);
+                    
+                    var pp = document.createElement('p');
+                    pp.id = 'bot';
+                    if(result.results == ''){
+                        pp.innerHTML = 'Not in database. please train me';
+                        chatarea.append(pp)
+                        return;
+                    }
+                    console.log(typeof(result.results))
+                    if(typeof(result.results) == 'object' ){
+                        var res = Math.floor(Math.random() * result.results.length);
+                        pp.innerHTML = result.results[res];
+                        chatarea.append(pp)
+                    }else{
+                        var res = Math.floor(Math.random() * result.results.length);
+                        pp.innerHTML = result.results;
+                        chatarea.append(pp)
+                    }
+                    
+                    }
+                };
+                xhttp.open("POST", "/profiles/ImaObot.php", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send("message="+message.value);
+            }
+            </script>
+</body>
 </html>

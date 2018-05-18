@@ -693,7 +693,7 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
                       function userChat(chats, reply){
                               if(question.value !== ''){
                                       var chat = `<div class="chat user chat-message">
-                                              <img src="http://placehold.it/45/000000/fff&text=ME" alt="" width="32" height="32">
+                                              <img src="http://placehold.it/45/000000/fff&text=YOU" alt="" width="32" height="32">
                                               <div class="chat-message-content clearfix">
                                                       <p>` + chats + `</p>
                                                       <span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
