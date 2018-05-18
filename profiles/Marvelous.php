@@ -174,7 +174,7 @@ body
 }
 #chatborder {
   border-style: solid;
-  background-color: #0000ff;
+  background-color: grey;
   border-width: 15px;
   margin-top: 15px;
   margin-bottom: 15px;
@@ -245,12 +245,12 @@ body
           border: none;
           outline: 0;
           display: inline-block;
-          color: white;
-          background-color: #000;
+          color: wheat;
+          background-color: grey;
           text-align: center;
           margin: auto;
           cursor: pointer;
-          max-width: 50%;
+          max-width: 30%;
           font-size: 18px;
         }
 .chat-btn:hover, a:hover{
