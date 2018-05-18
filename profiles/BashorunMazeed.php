@@ -194,7 +194,7 @@
 	        {
 	            echo json_encode([
 	                    'status' => 1,
-	                    'answer' => "I am Adina's PROTOTYPE! Version 1.0.Perfect. I am the prototype to the bot she created to take over the world...If that makes any sense at all."
+	                    'answer' => "I am Bash PROTOTYPE! I am the prototype to maake your world easier"
 	                ]);
 	        }
 	        elseif(stripos($question, "deletequest(") === 0)
@@ -557,15 +557,13 @@
 	   			<h3><b> NAME :</b> <?php echo $my_data['name']; ?></h3>
 				<h3> <b> USERNAME: </b> <?php echo $my_data['username']; ?></h3>
 				<h3><b> EMAIL : </b>bashorun.mazeed@gmail.com</h3>
-				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4>
-	   		</div><br>
+				<h4><b> FAVORITE QUOTE: </b>"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it." <br><span> Patrick McKenzie </span></h4><br><br><br>
 
-	   		<center>
-	   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
-		        <div class="round hollow text-center">
-		        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
-		        </div>
-	        </center>
+				<center>
+		   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
+			        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
+	        	</center>s
+	   		</div>
 	   	</div>
    </div>
 
@@ -588,12 +586,14 @@
     </div>
 	<div class="chat_submit_box">
 	    <div class="uk-input-group">
-	        <div class="gurdeep-chat-box">
-	        	<input type="text" placeholder="Type a message" id="message"  class="lg-input">
-	        </div>
-		    <span class="uk-input-group-addon">
-		    	<button type="button" id="submit_message"><i class="glyphicon glyphicon-send"></i></button>
-		    </span>
+	    	<form action="" method="post" id="submit_message">
+		        <div class="gurdeep-chat-box">
+		        	<input type="text" placeholder="Type a message" id="message" name="message" class="lg-input">
+		        </div>
+			    <span class="uk-input-group-addon">
+			    	<button type="submit"><i class="glyphicon glyphicon-send"></i></button>
+			    </span>
+			</form>
 	    </div>
 	</div>
 
@@ -645,8 +645,8 @@
             $('.chat_box').animate({scrollTop: $('#message').get(0).scrollHeight}, 1100); 
 
             $.ajax({
-                url: 'BashorunMazeed.php',
-                type: 'post',
+                url: 'profiles/BashorunMazeed.php',
+                type: 'POST',
                 dataType: 'json',
                 data: {message: usermsg},
                 success: (response) =>{
