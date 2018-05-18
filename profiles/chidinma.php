@@ -212,9 +212,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 		#user {color: white;
 			margin-left: 15px;
-			width: 80px;
-			height: 30px;
-			border-radius: 20px;}
+			}
 	
 
 		</style>	
