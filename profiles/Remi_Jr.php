@@ -219,7 +219,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <style>
     body, html {
-      background: url('http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg') no-repeat center top;
+      background: url('http://res.cloudinary.com/remijr/image/upload/v1526671733/28379139_2000703830185094_5251360290686817928_n.jpg') no-repeat center top;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
