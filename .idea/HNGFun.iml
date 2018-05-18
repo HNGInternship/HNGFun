@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/bootstrap/css" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/botman/botman" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/botman/driver-web" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/composer" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/evenement/evenement" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/mpociot/pipeline" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/opis/closure" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/psr/container" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/dns" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/event-loop" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/promise" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/promise-timer" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/socket" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/react/stream" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/spatie/macroable" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/symfony/http-foundation" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/symfony/polyfill-mbstring" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/symfony/polyfill-php72" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/symfony/var-dumper" />
-      <excludeFolder url="file://$MODULE_DIR$/profiles/vendor/tightenco/collect" />
-    </content>
+    <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHP" type="php">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/3.3.4" />
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/css" />
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/js" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/css" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/fonts" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/less" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/scss" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/3.3.4" />
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/css" />
+          <root url="file://$MODULE_DIR$/vendor/bootstrap/js" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/css" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/fonts" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/less" />
+          <root url="file://$MODULE_DIR$/vendor/font-awesome/scss" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

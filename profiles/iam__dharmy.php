@@ -1,4 +1,14 @@
 <?php 
+		
+		if(!defined('DB_USER')){
+			require "../../config.php";		
+			try {
+			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			} catch (PDOException $pe) {
+			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+			}
+		}
+
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -13,14 +23,7 @@
 <?php
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		if(!defined('DB_USER')){
-			require "../../config.php";		
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
+		
 		require "../answers.php";
 
 		date_default_timezone_set("Africa/Lagos");
@@ -93,7 +96,7 @@
 			}else{
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer</b>"
+					'answer' => "Sorry, I cannot answer your question.Please train me. The training data format is  <b>train: question # answer # password</b>"
 				]);
 			}		
 			return;
@@ -109,7 +112,7 @@
 			if(count($split_string) == 1){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "Invalid training format. <br> Type  <b>train: question # answer</b>"
+					'answer' => "Invalid training format. <br> Type  <b>train: question # answer # password</b>"
 				]);
 				return;
 			}
@@ -119,14 +122,14 @@
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
-					'answer' => "You need to enter the training password to train me."
+					'answer' => "Please enter the training password to train me."
 				]);
 				return;
 			}
 
 			$password = trim($split_string[2]);
 			//verify if training password is correct
-			define('TRAINING_PASSWORD', 'trainpwforhng');
+			define('TRAINING_PASSWORD', 'password');
 			if($password !== TRAINING_PASSWORD){
 				echo json_encode([
 					'status' => 0,
@@ -156,13 +159,17 @@
 		]);
 		
 	}
+	else{
 ?>
 
-<?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
+
+<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<style type="text/css">
       body {
 			
 			background-size: cover;
@@ -177,8 +184,21 @@
 		h5{ color: white
 		
 		}
+		.container{
+            width: 100%;
+            min-height: 100%
+        }
+        .body0 {
+            height: 100%;
+        }
+
+        span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal;
+        }
 		
-.chat-frame {
+		.chat-frame {
 			border-color: #cccccc;
 			color: #333333;
 			background-color: #ffffff;
@@ -189,7 +209,7 @@
 		}
 
 		.chat-messages {
-			background-color: firebrick;
+			background-color: lightblue;
 			padding: 5px;
 			height: 300px;
 			overflow-y: auto;
@@ -232,15 +252,15 @@
 			margin-left: 20%;
 			border-radius: 50%;
 		}
-
+		.f-icon {
+			font-size: 40px;
+		}
    
       </style>
 
   </head>
 
   <body style = "background color: #FFFFFF">
-
-  
 
 <!-- Main Content -->
 <div class="container-fluid">
@@ -270,14 +290,14 @@
 				</div>
 
 			</div>
-
+<!--<footer>
 			<div>
 				<a href="https://github.com/iam-dharmy"><i class="fa fa-github"></i></i></a>&nbsp;&nbsp;
 				<a href="https://twitter.com/@iam_dharmy"><i class="fa fa-twitter"></i></i></a>&nbsp;&nbsp;
 				<a href="https://medium.com/@damis"><i class="fa fa-medium"></i></i></a>&nbsp;&nbsp;
 				<a href="https://web.facebook.com/soyombo.damilola"><i class="fa fa-facebook"></i></i></a>	
 			</div>
-
+</footer>-->
 </div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
 <div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
@@ -299,11 +319,9 @@
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							
-							<h5>To train me, type <br/><b>train: question # answer</b><h5>
+							<h5>To train me, type <br/><b>train: question # answer # password</b><h5>
 						</div>
 					</div>
-
-					
 				</div>
 			</div>
 			
@@ -321,9 +339,12 @@
 		</div>
 	</div>
 </div>
-<script src="../vendor/jquery/jquery.min.js"></script>
+<!--<script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>-->
+<!--
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>-->
 <script>
 	
 	$(document).ready(function(){
@@ -383,6 +404,4 @@
 </script>	
 </body>
 </html>
-<?php
-}
-?>
+<?php } ?>

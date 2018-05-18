@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Tests/bootstrap.php" colors="true">
+    <php>
+        <var name="db_dsn" value="mysql:dbname=hng_fun;host=localhost"/>
+        <var name="db_username" value="root"/>
+        <var name="db_password" value=""/>
+    </php>
+
+    <testsuites>
+        <testsuite name="HNGFUN Test Suite">
+            <directory>./Tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

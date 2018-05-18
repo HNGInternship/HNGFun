@@ -1,16 +1,253 @@
-    <?php
-        $result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_OBJ);
-        $secret_word = $result->secret_word;
+   <?php
+	if(!defined('DB_USER')){
+            require "../config.php";
+}
 
-        $result2 = $conn->query("Select * from interns_data where username = 'abayomi'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
+class Db{
+    
+	private static $_instance;
+	private $conn;
+	
+	protected function __construct(){		
+		$this->conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE . ";charset=utf8", DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+		$tz = (new DateTime('now', new DateTimeZone('Africa/Lagos')))->format('P');
+		$this->conn->query("SET time_zone='$tz';");
+		// Error handling
+		if (mysqli_connect_error()) {
+			trigger_error("Failed to connect to MySQL: " . mysqli_connect_error(),
+				E_USER_ERROR);
+		}	 
+	}
+
+	public static function getInstance(){
+		if (!self::$_instance) { 
+			self::$_instance = new self();
+		}
+		return self::$_instance->conn;
+	}  
+	
+	//  clone
+	public function __clone(){
+	}
+	
+}
+
+class Response{
+	public $status;
+	public $data = array();
+	public $message;
+	
+	function __construct($status = '', $data = null, $message = ''){
+		$this->status = $status;
+		$this->data = $data;
+		$this->message = $message;
+	}
+}
+
+
+class DBHelper{
+	private $dbh;
+
+	public function __construct(){
+		$this->dbh = Db::getInstance();
+	}
+	
+	public function getSecret_Word(){	
+		try {
+			$query = $conn->prepare("SELECT * FROM secret_word LIMIT 1");
+			$query->execute();
+			$query->setFetchMode(PDO::FETCH_ASSOC);
+			$data = $query->fetch();
+			return $data['secret_word'];
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+	
+	public function getMyProfile($username = 'abayomi'){
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			$query = $conn->prepare("SELECT * FROM interns_data WHERE username='{$username}' LIMIT 1");			
+			$query->execute();
+			$query->setFetchMode(PDO::FETCH_OBJ);
+			return $name = $query->fetch();		
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+	
+	public function getQuestion($question){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		try {
+			$query = $conn->prepare("SELECT * FROM chatbot ORDER BY RAND()");
+			$query->execute();
+			$query->setFetchMode(PDO::FETCH_ASSOC);
+			$data = $query->fetchAll();
+			return searchQuestion($question, $data);
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+    
+	public function PairExists($question, $answer){
+	$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+			$sql = $conn->prepare("SELECT * FROM chatbot WHERE question = :question AND answer = :answer");
+			$sql->execute([':question' => $question, ':answer' => $answer]);
+			$result = $sql->fetch(PDO::FETCH_ASSOC);
+			if ($result) return true;
+			return false;
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+	
+	public function trainMyBot($question, $answer){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		try {
+			$stmt = $conn->prepare("INSERT INTO chatbot (question, answer) VALUES (:question, :answer)");
+			$stmt->execute(array(
+				":question" => $question,
+				":answer" => $answer,
+			));
+			return $insertId = $this->dbh->lastInsertId();
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+}
+
+	function neat_string($string){
+		if (is_array($string)) {
+			$data = [];
+			foreach ($string as $key => $value) {
+				$data[$key] =neat_string($value);
+			}
+		} else {
+			return strip_tags(trim(filter_var($string, FILTER_SANITIZE_STRING)));
+		}
+	}
+
+	function searchQuestion($question, $questions_array){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$keywords = explode(' ', $question); // explode to get words
+		$word_count = count($keywords);
+		$q_sorta = [];
+		if (!empty($questions_array)) { // loop through all the questions
+			foreach ($questions_array as $item) {
+				$question = $item['question'];
+				if (!empty($keywords)) {
+					$hit_count = 0;
+					foreach ($keywords as $word) {
+						// we log number of word hits in a question
+						if (strstr($question, $word) || strstr($word, $question)) {
+							$hit_count++;
+						}
+					}
+					if ($hit_count) {
+						$q_sorta[] = $item;
+					}
+					if($hit_count >= $word_count){
+					    // This stops the loop and returns the item
+	                    return $item;
+	                }
+				}
+			}
+		}
+		ksort($q_sorta);
+		return end($q_sorta);
+	}
+
+	function botMessage($message, $status = 'success'){
+		$myResponse = new Response();
+		$myResponse->status = $status;
+		$myResponse->message = $message;
+		return json_encode($myResponse);
+	}
+
+	function botAnswer($result){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		if (empty($result)) $answer = 'I will understand you better, if you train me. To train me type; train: Question # Answer # Password';
+		else {
+			$question = $result['question'];
+			$answer = $result['answer'];
+			
+			$index_of_parentheses = stripos($answer, "((");
+			
+			if ($index_of_parentheses === false) {
+				return $answer;
+			} else {
+				$index_of_parentheses_closing = stripos($answer, "))");
+				if ($index_of_parentheses_closing !== false) {
+					$function_name = substr($answer, $index_of_parentheses + 2, $index_of_parentheses_closing - $index_of_parentheses - 2);
+					$function_name = trim($function_name);
+					if (stripos($function_name, ' ') !== false) { //if method name contains spaces, do not invoke method
+						$answer = str_replace("(($function_name))", $function_name(), $answer);
+					}
+				}
+			}
+		}
+		return $answer;
+	}
+
+	function messageBot(){
+		$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		$m = new DBHelper();
+		$message =neat_string($_POST['message']);
 		
-		$username = $user['username'];
-		$name = $user['name'];
-		$image_filename = $user['image_filename'];
+		$if_training_mode = preg_match("/^train/", $message);
+		if ($if_training_mode) {
+			$message = str_replace('train:', '', $message);
+			
+			$message = preg_replace('([\s]+)', ' ', trim($message));
+			$message = preg_replace("([?.])", "", $message); 
+			
+			if (count($matches = explode('#', $message, 3)) === 3) {
+				$question =neat_string($matches[0]);
+				$answer =neat_string($matches[1]);
+				$password =neat_string($matches[2]);
+				
+				if ($password !== 'password') {
+					return botMessage('Please enter the correct password train me');
+				}if (empty($question)) {
+					return botMessage('Ask me anything');
+				}
+				if (empty($answer)) {
+					return botMessage('Include the answer please...');
+				}
+				if ($m->PairExists($question, $answer) !== false) {
+					return botMessage('Question exist. Please try something new?');
+				} else {
+					$m->trainMyBot($question, $answer);
+					return botMessage('ChatMe is awesome, I\'did love to learn more');
+				}
+			} else {
+				return botMessage('I\'d prefer, train: Question # Answer # Password');
+			}
+		} else {
+			$result = $m->getQuestion($message);
+			$answer = botAnswer($result);
+			return botMessage($answer);
+		}
+	}
 
-    ?>
+	if (!empty($_POST)) {
+		
+		if (!isset($_POST["function"])) {
+			$data = $_POST['json'];
+			$_POST = json_decode($data, true);
+		}
+		if (is_callable($_POST['function'])) {
+			echo $_POST['function']();
+		}
+		exit;
+	}
+	$name = (new DBHelper())->getMyProfile();
+
+?>
+<?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
+
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -18,535 +255,412 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Abayomi</title>
-
-    <!-- jQuery library -->
-
-    <style>
-        * {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
+	<!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="js/jScrollPane/jScrollPane.css">
+	<title>HNGFun | Abayomi</title>
+	
+	<style>
+        body{
+            width: 100%;
+        background: #fff;
+        padding: 0;
+        margin: 0;
+        font-family: 'Montserrat',sans-serif;
         }
-        *:before,
-        *:after {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
+        .main {
+        width: 360px;
+        height: 600px;
+        left: 50%;
+        top:55%;
+        background: rgb(43, 108, 167);
+        position: absolute;
+        transform: translate(-50%, -50%);
         }
-        html {
-            font-size: 10px;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+         img{
+        height: 150px;
+        width: 150px;
+        top: -80px;
+        position: absolute;
+        left: calc(50% - 80px);
+        border: 3px solid rgb(115, 169, 219);
+        border-radius: 50%;
+        -moz-box-shadow: #2a3132 0px 4px 7px; 
+        -webkit-box-shadow: #2a3132 0px 4px 7px; 
+        box-shadow: #2a3132 0px 4px 7px; 
+        background: #fff;   
         }
-       
-        body {
-			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-size: 14px;
-            line-height: 1.42857143;
-            color: #333333;
-            background-color: #ffffff;
-            background-image: url("http://res.cloudinary.com/abayomijohn273/image/upload/v1524099224/abayomi.jpg");
-            background-repeat: no-repeat;
-            background-size: 1420px;
-            background-attachment: fixed;
-            background-position: center;
-            margin-top: 4px;
-            font-family: 'Lato', sans-serif;
-            color: rgb(68, 64, 64);
+        h1 {
+        margin-top: 100px;
+        font-size: 24px;
+        color: #fff;
+        text-align: center;
         }
+        h3 {
+        margin: -10px;
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+        }
+        p{
+        margin:20px 35px;
+        width: 80%;
+        text-align: center;
+        line-height:1.4em;
         
-        p {
-            font-size: 18px;
         }
-        
-        legend {
-            font-size: 19px;
+        .connect_me {
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 16px;
         }
-        
-        #mainav {
-            display: flex;
+        #icons{
+         margin-left: 50px;
         }
-        
-        img {
-            /* opacity: 0.4;
-    filter: alpha(opacity=40); */
-            /* For IE8 and earlier */
-        }
-        
-        roundimg {
-            border-radius: 50%;
-        }
-        
-        #name {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        
-        #int {
-            text-transform: uppercase;
-            font-size: 55px;
-            color: rgb(78, 131, 230);
-            margin-top: 105px;
-            font-weight: 650;
-            font-family: Calibri, 'Trebuchet MS', sans-serif;
-            text-shadow: 4px 4px 5px rgb(184, 178, 178);
-        }
-        
-        #intro {
-            font-size: 25px;
-            color: rgb(68, 64, 64);
-            font-family: 'Crimson Text', serif;
-            margin-bottom: 45px;
-        }
-        
-        #roundimage {
-            margin-top: 20px;
-            margin-bottom: 120px;
-        }
-        
-        #myNavbar {
-            color: rgb(68, 64, 64);
-        }
-        
-        #ido {
-            color: rgb(68, 64, 64);
-            font-size: 18px;
-            font-weight: 500;
-            font-family: 'Lato', sans-serif;
-        }
-        
-        #horline {
-            padding: top 0px;
-            margin-top: -9px;
-            margin-bottom: 0px;
-            border-width: 2px;
-            border-color: rgb(78, 131, 230);
-        }
-        
-        #me {
-            text-align: center;
-        }
-        
-        #search {
-            align-self: auto;
-        }
-        
-        .navbar-inverse {
-            background: transparent;
-            border-color: rgb(255, 255, 255);
-            border-width: 1px;
-            box-shadow: 2px 2px rgb(105, 99, 99);
-            font-size: 16px;
-            font-weight: 500;
-        }
-        
-        #site {
-            font-size: 19px;
-        }
-        
-        .sticky {
-            position: fixed;
-            top: 0;
-            width: 90%;
-        }
-        
-        #siten {
-            font-size: 57px;
-            font-family:  Calibri, 'Trebuchet MS', sans-serif;
-            color: rgb(78, 131, 230);
-            text-shadow: 4px 4px 5px rgb(184, 178, 178);
-        }
-        
-        .no-space {
-            padding-right: 0;
-            padding-left: 0;
-        }
-        
-        .lightblue {
-            /* font-size: 57px; */
-            font-family: Calibri, 'Trebuchet MS', sans-serif;
-            color: rgb(78, 131, 230);
-            text-shadow: 4px 4px 5px rgb(184, 178, 178);
-        }
-        
-        #socialicons {
-            margin-top: 30px;
-        }
-        /* reducing margin between social icons */
-        
-        .socicons {
-            margin-left: -130px;
-        }
-        
-        @media only screen and (max-width: 700px) {
-            .socicons,
-            .facebook {
-                margin: 10px;
-            }
-        }
-        
-        .socicons:hover {
-            opacity: 0.8;
-        }
-        
-        .facebook:hover {
-            opacity: 0.8;
-        }
-        /* awesome fonts styling */
-        
         .fa {
-            padding: 20px;
-            font-size: 30px;
-            width: 30px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 50%
+            position: relative;
+        padding: 20px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50%;
         }
-        
         .fa:hover {
-            opacity: 0.7;
+        opacity: 0.7;
         }
-        
         .fa-facebook {
-            background: #3B5998;
-            color: white;
+        background: #3B5998;
+        color: white;
         }
-        
         .fa-twitter {
-            background: #55ACEE;
-            color:
+        background: #55ACEE;
+        color:#fff;
         }
-        
         .fa-github {
-            background: rgb(50, 73, 90);
-            color:
+        background: rgb(50, 73, 90);
+        color:#fff;
         }
-        
         .fa-linkedin {
-            background: rgb(47, 136, 204);
-            color:
+        background: rgb(47, 136, 204);
+        color:#fff;
+        }
+        .date{
+        margin-bottom: 10px;
         }
         
-        #imgmodal {
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.5s;
-        }
-        
-        #imgmodal:hover {
-            opacity: 0.7;
-        }
-        
-        .modal {
-            display: block;
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.9)
-        }
-        
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-        }
-        
-        #modalcaption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 0;
-            height: 150px;
-        }
-        
-        .modal-content,
-        #modalcaption {
-            animation-name: zoom;
-            animation-duration: 0.8s;
-        }
-        
-        @keyframes zoom {
-            from {
-                transform: scale(0)
+        /* ChatBot section */
+    .section-main{
+	 width: 330px; 
+    position: fixed; 
+    right:5px;
+     bottom:300px; 
+	}
+	.session-one:hover{
+	 	cursor: pointer; 
+	}
+	.open-more{
+	 	bottom:0px; 
+        transition:2; 
+	}
+	.chat-border{
+		 border:1px solid rgb(43, 108, 167);
+		  margin: 0px; 
+	}
+	.session-one{
+	 	background-color:rgb(43, 108, 167); 
+	}
+	.session-one p{
+        color:#fff; 
+        margin:0px;
+        padding: 0px; 
+        font-size: 15px; 
+        font-weight: bold; 
+	}
+	.session-one p:hover{
+		 color:#fff;
+		  cursor: pointer; 
+	}
+	.right-session-one{
+		 text-align: right;
+        position: absolute;
+        top: 10px;
+        left: 70%;
+	}
+	.right-session-one i{
+        color:#fff; 
+        font-size: 15px;
+        padding: 12px 3px; 
+	} 
+	.right-session-one i:hover{
+	 	color:red; 
+	} 
+	.session-two{
+		 padding: 0px;
+		 margin: 0px; 
+		 background-color: #F3F3F3; 
+		 height: 300px; 
+	}
+
+	.messages{
+		 overflow-y:scroll; 
+		 height:300px; 
+	}
+	.messages ul{
+		 padding: 0px;
+		
+	}
+	.messages ul li{
+		 list-style: none; 
+		 margin-top:-10px; 
+		 position: relative; 
+		 margin-left:10px; 
+	}
+	.session-three{
+	 	border-top: 2px solid #EEEEEE; 
+	}
+
+	.input-group{
+		margin-top: 5px; 
+		margin-bottom: -5px; 
+	}
+	input.form-control{
+		 height: 40px; 
+		 padding: 3px 6px; 
+		 border:1px solid #007bff; 
+	}
+	.btn{
+        position: absolute;
+        bottom: 16px;
+        right: 25px;
+		  padding:11px 15px;
+            border:none;
+            color:white;
+            font-size:20px;
+            background-color:cornflowerblue;
+	}
+	.textInput{
+		margin-bottom:16px;
+        margin-left: 5px;
+	}
+	.follow{
+		font-size: 24px;
+	}
+	.replies{
+        color: cornflowerblue;
+	}
+    .sent{
+        color:forestgreen;
+        position: relative;
+	}
+        @media (max-width: 700px){
+        .section-main{
+                position: relative;
+                margin: 180% auto 0px;
             }
-            to {
-                transform: scale(1)
-            }
         }
-        
-        .close {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font: 40px;
-            font-weight: bold;
-            transition: 0.6s;
-        }
-        
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        
-        @media only screen and (max-width: 700px) {
-            .modal-content {
-                width: 100%;
-            }
-        }
-        /* center picture  */
-        
-        .footer {
-            margin-top: 15px;
-            left: 0;
-            bottom: 0;
-            width: 100%;
-            background-color: black;
-            opacity: 0.8;
-            color: white;
-            text-align: center;
-        }
-        
-        #social {}
-        
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        #formset {
-            margin-top: 250px;
-            margin-bottom: 50px;
-        }
-        
-        #formset>input {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-            border: 4px rgb(184, 178, 178);
-            border-radius: 4px;
-        }
-        
-        form {
-            border: 6px rgb(184, 178, 178);
-            border-radius: 6px;
-        }
-        
-        #request {
-            background-color: rgb(78, 131, 230);
-            border-radius: 6px;
-            box-sizing: border-box;
-            border: none;
-            padding: 10px 16px;
-        }
-        
-        #webdev {
-            position: left;
-        }
-        
-        select {
-            width: 100%;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            margin-bottom: 12px;
-        }
-    </style>
+	</style>
 </head>
-
 <body>
+    <div class="main">
+        <div class="image"><img src="<?php echo $user->image_filename; ?>" alt="Author's Picture"></div>
+        <div class="details">
+            <h1><?php echo $user->name; ?></h1>
+            <h3>Slack Username: @<?php echo $user->username; ?></h3>
+            <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
+            <p class="connect_me">Connect with me</p>
 
-    <header>
-        <div class="container ">
-            <div class="row">
-                <div class="col-md-12" id="name" text-uppercase>
-                    <h1 id="siten">Abayomi</h1>
-                    <h4 id="ido">Web Design and Development</h4>
-
-                </div>
-            </div>
+<!--
+        <div id="icons">
+          <?php //include('../footer.php'); ?>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-inverse" data-spy="" id="">
-                        <div class="container-fluid">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span> 
-                                      </button>
-                                <a class="navbar-brand" href="#" id="site">AbayomiCode</a>
-                            </div>
-                            <div class="collapse navbar-collapse" id="myNavbar">
-                                <ul class="nav navbar-nav">
-                                    <li class="active"><a href="home.html">Home</a></li>
-                                    <li><a href="portfolio.html">My Portfolio</a></li>
-                                    <li><a href="contact.html">Contact Me</a></li>
-                                    <li><a href="about.html">About Me</a></li>
-                                </ul>
-
-                                <form class="navbar-form navbar-right" action="http://www.google.com/search?g=[value from input-field]" id="search" name="q" target="_blank" method="get">
-                                    <div class=" input-group">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <div class="input input-group-btn">
-                                            <button class=" btn btn-default" type="submit"><i class=" glyphicon glyphicon-search">
-                                        </i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </nav>
-
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-12">
-                    <hr id="horline">
-                </div>
-            </div>
-        </div>
-
-    </header>
-
-    <main>
-        <div class="container">
-            <div class="row" id="me">
-                <div class="col-md-12">
-                    <h1 id="int">Web Designer and Developer</h1>
-                    <p id="intro">
-                        <em>Hello, I am <?php echo $user->name?> with username @<?php echo $user->username?>, Specializing in Web Design and Development.
-                             </em>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row" id="roundimage">
-                <div class="col-md-4"></div>
-
-                <div class="col-md-4 ">
-                  <img src="<?php echo $user->image_filename ?>" alt="This is my picture" class="img-circle center " id="imgmodal" title="I am a cool web developer">
-
-                </div>
-                <div class="col-md-4"></div>
-
-
-                <!-- <div class="modal fade" id="roundModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalTitle">Curious to know Me?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="http://res.cloudinary.com/abayomijohn273/image/upload/v1524099224/abayomi.jpg" alt="Content Solutions" class="img-responsive img-rounded">
-                                <p>I am Abayomi</p><a href="about.html">read more..</a>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-
-            </div>
-        </div>
-
-
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2 class="lightblue">CONTACT ME</h2>
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>You can contact me on the following social media platforms:</p>
-
-
-                </div>
-            </div>
-
-
-        </div>
-        <div class="container" id="socialicons">
-            <div class="row">
-
-                <div class="col-md-2 facebook">
-                    <a href="http://www.facebook.com/abayomijohn1670" target="_blank" id="facebook">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993879/facebook.png" width="50px" height="50px" title="Click to check my facebook profile" alt="facebook icon"></a>
-                </div>
-                <div class="col-md-2 socicons">
-                    <a href="http://www.twitter.com/abayomijohn273" target="_blank" id="twitter">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993880/twitter.png" width="50px" height="50px" title="Click to check my twitter profile" alt="twitter icon"></a>
-                </div>
-                <div class="col-md-2 socicons">
-                    <a href="http://github.com/abayomijohn273" target="_blank" id="github">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993879/GitHub-Mark-120px-plus.png" width="50px" height="50px" title="Click to check my github profile" alt="github icon"></a>
-                </div>
-                <div class="col-md-2 socicons">
-                    <a href="http://www.linkedin.com/in/abayomi-olatunji-a60766b2" target="_blank" id="linkedin">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993880/linkedin.png" width="50px" height="50px" title="Click to check my linkedin profile" alt="linkedin icon"></a>
-                </div>
-                <div class="col-md-2 socicons">
-                    <a href="" target="_blank" id="badoo">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993879/badoo.png" width="50px" height="50px" alt=""></a>
-                </div>
-                <div class="col-md-2 socicons">
-                    <a href="" target="_blank" id="instagram">
-                        <img src="https://res.cloudinary.com/i-code/image/upload/v1523993879/instagram.png" width="50px" height="50px" title="Click to check my instagram account" alt=" instagram icon"></a>
-                </div>
-
-
-
-
-            </div>
-        </div>
-
-
-
-
-
-
-
-    </main>
-    <div class="container footer">
-        <p>Copyright &copy; HNG FUN
-            <?php echo date("Y"); ?>
-        </p>
+-->
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery3.2.1.min.js"></script>
+    </div>
+<!--  Starting up the Chatbot Design  -->
 
-
+         <!-- Chatbot Section -->
+	<div class="section-main">
+        <div class="row chat-border">
+            <div class="col-md-12 col-sm-12 col-xs-12 session-one bg-primary">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6 left-session-one">
+                        <p id="chatbot-heading" class="blink"><i class="fa fa fa-question-circle"></i> Let's Chat</p>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 right-session-one">
+                        <a href="#"><i class="fa fa-minus" aria-hidden="true"></i></a>
+                        <a href="#"><i class="fa fa-clone" aria-hidden="true" id="maximize"></i></a>
+                        <a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row chat-border">
+            <div class="col-md-12 col-sm-12 col-xs-12 session-two">
+                <div class="messages">
+                    <ul id="message-outlet">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row chat-border">
+            <div class="col-md-12 col-sm-12 col-xs-12 session-three">
+                <form id="message_chat_form" >
+                    <div class="input-group">
+                    	<div class="row">
+                    	 	<div class ="col-xs-9 textInput">
+                    	 		<input type="text" class="form-control custom-control" id="chat_message_text" autofocus="autofocus" rows="2" style="resize:none" placeholder="Type your message here"> 
+                    	 	</div>	
+                    	 	<div class ="col-xs-3 sendBtn">
+                    	 		<button type="submit" class="btn btn-success btn-sm pull-right">Send</button>  
+                    	 	</div>
+                    	</div>
+                    </div>
+             	</form>
+         	</div>
+     	</div>
+    </div>
 </body>
+</html> 
 
-</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/477bc8d938.js"></script>
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>s
+<script type="text/javascript">
+    var chat = chat || {};
+
+    (function () {
+        this.onReady = function () {
+            // send welcome messages
+            var strMessages = '<li class="replies"><p><small style="font-size: 15px;" >Hi, My name is ChatMe <br> How can I help you?</small></p></li><div class="clearfix"></div> ';
+            $('#message-outlet').append(strMessages);
+            $(".messages").scrollTop($("#message-outlet").outerHeight());
+        };
+
+        this.postJSON = function (dataObject, targeturl, callback) {
+            $.ajax({
+                type: "POST",
+                url: targeturl,
+                data: {"json": JSON.stringify(dataObject)},
+                dataType: 'json',
+                success: function (data) {
+                    callback(data);
+                    return true;
+                },
+                complete: function () {
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    return false;
+                }
+            });
+        };
+
+        $('#message_chat_form').submit(function (e) {
+            e.preventDefault();
+            chat.messageChat();
+            $('#message_chat_form')[0].reset();
+        });
+
+        this.messageChat = function () {
+
+            var message = $("#chat_message_text").val();
+
+            var strMessages = '<li class="sent"><p><small style="font-size:15px;">You:</small> ' +
+                ' ' + message + '</p></li><div class="clearfix"></div> ';
+            $('#message-outlet').append(strMessages);
+            $(".messages").scrollTop($("#message-outlet").outerHeight());
+
+            var data = {
+                "function": "messageBot",
+                "message": message,
+            };
+            this.postJSON(data, "../profiles/abayomi.php", function (response) {
+                $('#message_chat_form')[0].reset();
+                console.log(response);
+                var strMessages = '<li class="replies"><small style="font-size: 15px; color:rgb(47, 136, 204);" >ChatMe:</small> ' +
+                    ' ' + response.message + '</p></li><div class="clearfix"></div> ';
+                $('#message-outlet').append(strMessages);
+                $(".messages").scrollTop($("#message-outlet").outerHeight());
+
+            });
+        };
+
+    }).apply(chat);
+
+
+    $(this).delay(800).queue(function () {
+        chat.onReady();
+        $(this).dequeue();
+    });   
+</script>
+
+<script>
+    //ON load of chat box page 
+    $(document).ready(function(){
+        $(".left-session-one").click(function(){
+                $("#chatbot-heading").removeClass('blink');
+                $('.section-main').toggleClass("open-more");
+        });
+        $(".fa-minus").click(function(){
+            $('.section-main').removeClass("open-more");
+        });
+
+         $(".fa-times").click(function(){
+            $('.section-main').removeClass("open-more");
+        });
+
+        $(".fa-clone").click(function(){
+  				$( "#maximize").resizable({
+				      maxHeight: 250,
+				      maxWidth: 350,
+				      minHeight: 150,
+				      minWidth: 200
+				    });
+				  } );
+                        
+        $('.section-main').addClass("open-more");
+        // welcome();
+        $("#textbox").keypress(function(event){
+            if( event.which == 13){
+                if( $("#send").click() ){
+                    $("#send").click();
+                    event.preventDefault();
+                }
+            }
+        });
+        $("#send").click(function(){
+            var usernameTag = "<li><div class='right-chat'><p><b>You: </b>";
+            
+            var prevState = $("#chatSection").html();
+            
+            if(prevState.length == 194){
+                var username = $("#textbox").val();
+                
+                if(prevState.length > prevState.length){
+                    prevState = prevState + "<br/>";
+                }
+                
+                $("#chatSection").html(prevState + usernameTag + username + "</p><span>" +botDate+ "</span></div></li>");
+                $(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
+                $("#textbox").val("");
+                displayUsername(username);
+            }
+            else{
+                var userQuestion = $("#textbox").val();
+                if(prevState.length > prevState.length){
+                     prevState = prevState + "<br/>";
+                }
+                $("#chatSection").html(prevState + usernameTag + userQuestion + "</p></div></li>");
+                $(".chat-section").scrollTop($(".chat-section").prop("scrollHeight"));
+                $("#textbox").val("");
+                ai(userQuestion);
+                }
+        });                          
+    });
+</script>
+<?php } ?>

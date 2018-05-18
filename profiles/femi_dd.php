@@ -1,135 +1,134 @@
 <?php
 // ob_start();
-session_start();  
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-   if(!defined('DB_USER')){
+session_start();
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+   if (!defined('DB_USER')) {
       //live server
-      // require "../../config.php";
-      // localhost
-      require "../config.php";
+      require "../../config.php";
+      //   localhost
+      // require "../config.example.php";
       try {
-         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+         $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
       } catch (PDOException $pe) {
-         die("🤖I couldn't connect to knowledge base : ".$pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
+         echo ("🤖I couldn't connect to knowledge base : " . $pe->getMessage() . DB_DATABASE . ": " . $pe->getMessage());
       }
    }
-
-   require '../answers.php';
+   // require '../answers.php';
    global $conn;
-   function train($trainData) {
-      $data = [];
-      $data['response'] = null;
-      $data['request'] = null;
-      $temp = explode("#", $trainData);
-      $data['request']  = $temp[0];
-      $data['response'] = $temp[1];
-      $data['request'] = preg_replace('/(train:)/', '', $temp[0]);
-      $data['response'] = preg_replace('/@/', '', $temp[1]);
-      if(store($data['request'], $data['response'])) {
+
+   function train($question, $answer) {
+      $question = trim($question);
+      $answer = trim($answer);
+      if (store($question, $answer)) {
          return "🤖 I just learnt something new, thanks to you 😎";
       } else {
          return "🤖 I'm sorry, An error occured while trying to store what i learnt 😔";
       }
    }
-   
-   function findThisPerson($user){
+
+   function findThisPerson($user) {
       global $conn;
-      $statement = $conn->prepare("select * from interns_data where username like :user limit 1");
+      $statement = $conn->prepare("select * from interns_data where username like :user or name like :user limit 1");
       $statement->bindValue(':user', "%$user%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $statement->fetchObject();
       return $rows;
    }
-   
+
    function searchRequest($request) {
       global $conn;
-      $statement = $conn->prepare("select * from chatbot where question like :request");
+      $statement = $conn->prepare("select answer from chatbot where question like :request order by rand()");
       $statement->bindValue(':request', "%$request%");
       $statement->execute();
       $statement->setFetchMode(PDO::FETCH_ASSOC);
       $rows = $statement->fetch();
       $response = $rows['answer'];
-      if(!empty($response)):
-         $response = "🤖 ".$response;
+      if (!empty($response)):
+         $response = "🤖 " . $response;
       endif;
       //check for function
-      if(preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
-         $functionName = $match[0];
-         $functionName = str_replace('(', '', $functionName);
-         $functionName = str_replace(')', '', $functionName);
-         if(function_exists($functionName)) {
-            $response = str_replace($functionName, $functionName(), $response);
-            $response = "🤖 ".$response;
-         } else {
-            $response = "🤖 I'm sorry, The function doesn't exist";
+      try {
+         if (preg_match('/(\(+[a-zA-Z_]+\))/', $response, $match)) {
+            $functionName = $match[0];
+            $functionName = str_replace('(', '', $functionName);
+            $functionName = str_replace(')', '', $functionName);
+            if (function_exists($functionName)) {
+               $response = str_replace($functionName, $functionName(), $response);
+               $response = str_replace('(', '', $response);
+               $response = str_replace(')', '', $response);
+            } else {
+               $response = "🤖 I'm sorry, The function doesn't exist";
+            }
          }
+      } catch (Exception $ex) {
+         echo $ex->getMessage();
       }
       return $response;
    }
 
-   function store($request, $response) {
+   function store($request, $response)
+   {
       global $conn;
       $statement = $conn->prepare("insert into chatbot (question, answer) values (:request, :response)");
       $statement->bindValue(':request', $request);
       $statement->bindValue(':response', $response);
       $statement->execute();
-      if($statement->execute()) {
+      if ($statement->execute()) {
          return true;
       } else {
          return false;
       }
    }
 
-   if(isset($_GET['new_request'])) {
-      $response_and_request = [];
-      $response_and_request['request'] = "";
-      $response_and_request['response'] = "";
-      $response_and_request['time'] = "";
-      $request = $_GET['new_request'];
-      $response_and_request['request'] = trim($request);
-
-      if(empty($response_and_request['request'])) {
-         $response_and_request['response'] = "🤖 You haven't made any request";
-         // echo json_encode($response_and_request);
-
+   if (isset($_POST['new_request'])) {
+      $bot_response['response'] = [];
+      $user_request = "";
+      $bot_response['response'] = "";
+      $request = $_POST['new_request'];
+      $user_request = trim($request);
+      if (empty($user_request)) {
+         $bot_response['response'] = "🤖 You haven't made any request";
       } else {
-         if(!empty(searchRequest($response_and_request['request']))) {
-            $response_and_request['response'] = searchRequest($response_and_request['request']);
-            // goto send;
+         if (!empty(searchRequest($user_request))) {
+            $bot_response['response'] = searchRequest($user_request);
+         } else if (preg_match("/(train:)/", $user_request)) {
+            $power_split = explode("#", $request);
+            $question = trim(preg_replace("/(train:)/", "", $power_split[0]));
+            $answer = trim($power_split[1]);
+            $password = trim($power_split[2]);
 
-         } else if(preg_match("/(train:)/", $response_and_request['request']) && preg_match('/(@)/', $response_and_request['request'])) {
-            $response_and_request['response'] = train($response_and_request['request']);
-            // goto send;
+            if ($password != "password") {
+               $bot_response['response'] = "🤖 Training Access Denied!";
+            } else {
+               $bot_response['response'] = train($question, $answer);
+            }
 
-         } else if(preg_match('/(find:)/', $request)) {
+         } else if (preg_match('/(find:)/', $request)) {
             $ex = explode("find:", $request);
 
-            if(!empty($users = findThisPerson($ex[1]))) {
-               // $count = count($users);
-               $response_and_request['response'] = array('resultType'=>'find', 'users'=> $users);
+            if (!empty($users = findThisPerson($ex[1]))) {
+               $bot_response['response'] = array('resultType' => 'find', 'users' => $users);
             } else {
-               $response_and_request['response'] = "🤖 I couldn't find a user by that username or name";
+               $bot_response['response'] = "🤖 I couldn't find a user by that username or name";
             }
-            // goto send;
+
          } else {
-            $response_and_request['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
-            // goto send;
+            $bot_response['response'] = "🤖 I  don't understand your request, I hope you wouldn't mind training me?";
          }
       }
       send:
-      $response_and_request['time'] = date('h:i:s A');
-      echo json_encode($response_and_request);
+      echo json_encode($bot_response);
    }
 }
-if($_SERVER['REQUEST_METHOD'] == "GET") {
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
    $result2 = $conn->query("Select * from interns_data where username = 'femi_dd'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
-} ?>
-<?php if($_SERVER['REQUEST_METHOD'] == "GET") { ?>
+}?>
+<?php if ($_SERVER['REQUEST_METHOD'] == "GET") {?>
    <style>
    body {
       background: #DAE3E7;
@@ -222,10 +221,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
             <h2 style="text-align:left">Backend Developer</h2>
             <ul class="list-inline">
                <li><a target="_blank" title="Twitter/Femi_DD" href="https://twitter.com/Femi_DD"><i class="fa fa-twitter"></i></a></li>
-               <li><a target="_blank" title="Facebook/KoleIbrahimAbdulQudus" href="https://facebook.com/KoleIbrahimAbdulQudus"><i class="fa fa-facebook"></i></a></li>
                <li><a target="_blank" title="Linkedin/KoleIbrahimAbdulQudus" href="https://www.linkedin.com/in/koleibrahimabdulqudus/"><i class="fa fa-linkedin"></i></a></li>
                <li><a target="_blank" title="Github/Femi-DD" href="https://github.com/femi-dd"><i class="fa fa-github-alt"></i></a></li>
-               <li><a target="_blank" title="StackOverflow/Femi_DD" href="https://stackoverflow.com/story/femi_dd"><i class="fa fa-stack-overflow"></i></a></li>
                <li><a style="font-size:20px;" class="btn btn-cta-primary pull-right" href="mailto:femi.highsky@gmail.com" target="_blank"><i class="fa fa-paper-plane"></i> Contact Me</a></li>
             </ul>
          </div>
@@ -241,78 +238,98 @@ if($_SERVER['REQUEST_METHOD'] == "GET") {
       </div>
       <div class="bot round-corners">
          <div class="inner">
-            <h2>femiBot 🤖</h2>
-            <i style="font-size: 15px">To train the bot, follow :<br />
-               1. train:What is the time @The time is (timefunction) (where train: is the question and @is the answer, timefunctionis the function to handler your request)<br />
-               2. train:Today's date @Todays date is (date)<br />
-               3. My boss is working hard to give me some functions of my own very soon, I'll write them here when they're ready.<br>
-               4. To find a user, just type => find:username or find:name</i>
-               <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
-               <div class="input-group">
-                  <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
-                  <div class="input-group-btn">
-                     <button class="btn btn-success pull-right" id="send" onclick="sendData()" value="newrequest" type="button">Send💬</button>
-                  </div>
+            <h2>The femiBot 🤖</h2>
+            <div id="chatarea" style="overflow: auto; height:300px; border:1px solid whitesmoke; border-radius:5px"></div>
+            <div class="input-group">
+               <input type="text" class="form-control" id="message" type="text" placeholder="Message" name="newrequest" />
+               <div class="input-group-btn">
+                  <button class="btn btn-success pull-right" id="send" type="button">Send 💬</button>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
-      <p>Copyright &copy; Kole-Ibrahim AbdulQudus 2018</p>
-   </footer>
+</div>
+<footer style="margin-bottom:0px; text-align:center; padding-top:25px;" id="footer">
+   <p>Femi_DD @ 2018 HNG</p>
+</footer>
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-function sendData() {
-   var message = document.getElementById("message").value;
-   var chatArea = document.getElementById("chatarea");
-   var newElement = document.createElement("input");
-   newElement.className = "form-control form-control2 text-right";
-   newElement.value = message;
-   chatArea.appendChild(newElement);
 
-//request time  element
-var timeEl2 = document.createElement("p");
-timeEl2.className = "timeEl text-right";
-timeEl2.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
-chatArea.appendChild(timeEl2);
-//request time element
-
-   var xmlhttp = new XMLHttpRequest();
-   if (window.XMLHttpRequest) {
-      xmlhttp = new XMLHttpRequest();
-   } else if (window.ActiveXObject) {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-   }
-   xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-         var response = JSON.parse(xmlhttp.responseText);
-         var newElement = document.createElement("input");
-         var timeEl = document.createElement("p");
-      timeEl.className = "timeEl text-left";
-         newElement.className = "form-control form-control2 text-left";
-         if(response.response.resultType === "find") {
-            var newElement = document.createElement("div");
-            newElement.className = "form-control form-control2 text-left";
-            newElement.innerHTML = "Intern ID => " + response.response.users.intern_id + "\n" +
-            "Intern Name => " + response.response.users.name + "\n" +
-            "Intern Username => " + response.response.users.username + "\n" +
-            "Intern Profile Picture => " + response.response.users.image_filename;
-         }
-         newElement.value = response.response;
-         chatArea.appendChild(newElement);
-         timeEl.innerHTML = response.time;
-         chatArea.appendChild(timeEl);
-      }
-   }
-   //live server
-//    xmlhttp.open("POST", "https://hng.fun/profiles/femi_dd.php?new_request="+message, true);
-   //localhost
-   xmlhttp.open("POST", "http://localhost/HNGFun/profiles/femi_dd.php?new_request="+message, true);
-   xmlhttp.send();
-   document.getElementById("message").value = "";
+function newElementsForUser(userRequest) {
+   var chatArea = $("#chatarea");
+   var messageElement = "<div class='form-control form-control2 text-right'>" + userRequest + "</div>";
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+   var timeElement = "<p class='timeEl text-right'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
 }
+
+function newElementsForBot(botResponse) {
+   var chatArea = $("#chatarea");
+   if (botResponse.response.resultType == "find") {
+      var messageElement = "<div class='form-control form-control2 text-left'>Intern ID => " + botResponse.response.users.intern_id + "<br/>Name => " + botResponse.response.users.name + "<br/>Intern Username => " + botResponse.response.users.username + "<br/>Intern Profile Picture => " + botResponse.response.users.image_filename + "</div>";
+   } else { 
+      var messageElement = "<div class='form-control form-control2 text-left'>" + botResponse.response + "</div>";
+   }
+   chatArea.html(chatArea.html() + messageElement);
+   var time = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true , milliseconds: true});
+   var timeElement = "<p class='timeEl text-left'>" + time + "</p>";
+   chatArea.html(chatArea.html() + timeElement);
+   chatArea.scrollTop($("#chatarea")[0].scrollHeight);
+}
+
+$(document).ready(function() {
+   response = {"response" : "Hello there, I'm femiBot.<br/>Here's a couple of things i can do.<br/> 1. You can ask me anything<br/>2. You can find a friend who's in the dope HNGInternship<br/>syntax : find: username or find: name<br/>3. You open open a URL by typing open:your_url"};
+   newElementsForBot(response);
+});
+
+$(document).ready(function chargeBot() {
+   $("#send").click(function () {
+      var message = $("#message").val();
+      newElementsForUser(message);
+      if (message == "" || message == null) {
+         response = { 'response': 'Please type something' };
+         newElementsForBot(response);
+      }else if (message.includes('open:')) {
+         url = message.split('open:');
+         window.open('http://' + url[1]);
+      } else if (message.includes("randomquote:") || message.includes("random quotes:")) {
+         $.getJSON("https://talaikis.com/api/quotes/random/", function (json) {
+            response = json['quote'] + '<br/> Author : ' + json['author'];
+            botResponse = { 'response': response };
+            newElementsForBot(botResponse);
+         });
+         $("#chatarea").scrollTop($("#chatarea")[0].scrollHeight);
+      } else if (message.includes("aboutbot") || message.includes("about bot") || message.includes("aboutbot:")) {
+         response = { 'response': 'Version 4.0' };
+         newElementsForBot(response);
+      } else {
+         $.ajax({
+            url: "profiles/femi_dd.php",
+            type: "POST",
+            data: { new_request: message },
+            dataType: "json",
+            success: function (botResponse) {
+               newElementsForBot(botResponse);
+            }
+         });
+      }
+      $("#message").val("");
+   });
+});
+
+document.body.addEventListener('keyup', function (e) {
+   if (e.keyCode == "13") {
+      $("#send").click();
+   }
+});
+
 </script>
+
 </html>
-<?php } ?>
+
+<?php }?>

@@ -1,222 +1,269 @@
-<!DOCTYPE html>
-<html>
-<head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=Edge">
- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
- <title>my profile</title>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
- --> <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
- <style type="text/css" media="screen">
- body{
-  background-image: linear-gradient(to right, #7ed56f, #28b485);
-  font-family: 'Montserrat', serif;
-  font-style: normal;
-  font-weight: 300;
-}
-                    /*.img{
-                         border-radius: 300px;
-                         }*/
-                         .top_head{
-                          padding-top: 5.8rem;
-                         }
-                         .display{
-                          font-size: 7rem;
-                          font-weight: 900;
-                          text-align: center;
-                          padding-top: 10px ;
-                          color: #3b3a3a;
-                          margin: 0px;
-                        }
-                        .sub_display{
-                          font-size: 3rem;
-                          font-weight: 800;
-                          text-align: center;
-                          padding-top:-10px;
-                          margin: 0px;
-                          color: #cfeae1;
+  <!DOCTYPE html>
+  <html>
+  <head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+   <title>my profile</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  --> 
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
 
-                        }
-                        .sub_display2{
+  <style type="text/css" media="screen">
+  body{
+    /* background-image: linear-gradient(to right, #7ed56f, #28b485); */
+    background-image: url('http://www.artchiz.com/wp-content/uploads/2013/08/parallax-background.png');
+    background-repeat: no-repeat;
+    background-size:100%;
+	width: 100%;
+	height: 100vh;
+    font-style: normal;
+    font-weight: 300;
+    font-family: Montserrat;
+  }
+                                            /*.img{
+                           border-radius: 300px;
+                           }*/
+                           .top_head{
+                            padding-top: 5.8rem;
+                          }
+                          .display{
+                            font-size: 6rem;
+                            font-weight: 900;
+                            text-align: center;
+                            padding-top: 10px ;
+                            color: white;
+                            margin: 0px;
+                          }
+                          .sub_display{
+                            font-size: 3rem;
+                            font-weight: 900;
+                            text-align: center;
+                            padding-top:-10px;
+                            margin: 0px;
+                            color:#707070 ;
+
+                          }
+                          .sub_display2{
                            font-size: 1.6rem;
-                          font-weight: 700;
-                          text-align: center;
-                          color: #abf3aa;
-                        }
-                        .button{
-                         padding-top:1rem;
-                         text-align: center;
-                       }
+                           font-weight: 100;
+                           text-align: center;
+                           color: white;
+                           text-transform: uppercase;
 
-                       .btn {
-                         background: #ffffff;
-                         border: 2px solid #ffffff;
-                         border-radius: 100px;
-                         color: #444;
-                         font-size:25px;
-                         font-weight: bold;
-                         letter-spacing: 2px;
-                         text-transform: uppercase;
-                         text-decoration: none;
-                         padding: 13px 22px;
-                         padding-top: 1rem;
-                         /*margin-top: 42px;*/
-                         transition: all 0.4s ease-in-out;
-                       }
+                           /* font-family: 'Gugi', cursive; */
+                         }
+                         .button{
+                           padding:0;
+                           text-align: center;
+                         }
 
-                       .btn:hover {
-                         background: transparent;
-                         border-color: #ffffff;
-                         color: #ffffff;
-                       }
-                       /* ---------------------------social links---------------------------------------------------- */
-                       .social-icon {
-                         position: relative;
-                         padding-top: 1rem;
-                         margin: 0;
-                         text-align: center;
-                       }
+                         .btn {
+                           background: #dee1e4;
+                           border: 2px solid #ffffff;
+                           border-radius: 100px;
+                           color: #444;
+                           font-size:25px;
+                           font-weight: bold;
+                           letter-spacing: 2px;
+                           text-transform: uppercase;
+                           text-decoration: none;
+                           padding: 13px 22px;
+                           padding-top: 1rem;
+                           margin: 4rem;
+                           transition: all 0.4s ease-in-out;
+                         }
 
-                       .social-icon li {
-                         display: inline-block;
-                         list-style: none;
-                       }
+                         .btn:hover {
+                           background: transparent;
+                           border-color: #ffffff;
+                           color: #ffffff;
+                         }
+                         /* ---------------------------social links---------------------------------------------------- */
+                         .social-icon {
+                           position: relative;
+                           padding-top: 1rem;
+                           margin: 0;
+                           text-align: center;
+                         }
 
-                       .social-icon li a {
-                         border: 2px solid #292929;
-                         color: #292929;
-                         border-radius: 100px;
-                         cursor: pointer;
-                         font-size: 16px;
-                         text-decoration: none;
-                         transition: all 0.4s ease-in-out;
-                         width: 50px;
-                         height: 50px;
-                         line-height: 50px;
-                         text-align: center;
-                         vertical-align: middle;
-                         position: relative;
-                         margin: 22px 12px 10px 12px;
-                       }
+                         .social-icon li {
+                           display: inline-block;
+                           list-style: none;
+                         }
+
+                         .social-icon li a {
+                           border: 2px solid white;
+                           color: white;
+                           border-radius: 100px;
+                           cursor: pointer;
+                           font-size: 16px;
+                           text-decoration: none;
+                           transition: all 0.4s ease-in-out;
+                           width: 50px;
+                           height: 50px;
+                           line-height: 50px;
+                           text-align: center;
+                           vertical-align: middle;
+                           position: relative;
+                           margin: 22px 12px 10px 12px;
+                         }
 
 
 
 
-                       .social-icon .icon-1 a:hover {
-                        background-color: blue;
-                        border-color: blue;
-                        color: white;
-                        transform: scale(1.1);
-                      }
-
-                      .social-icon .icon-2 a:hover {
-                        background-color: #00b0ed;
-                        border-color: #00b0ed;
-                        color: white;
-                        transform: scale(1.1);
-                      }
-                      /*  .social-icon .icon-4 a:hover {
-                      background-color: #00e676;
-                        border-color: green;
-                        color: black;
-                        transform: scale(1.1);
-                        } */
-
-                        .social-icon .icon-3 a:hover {
-                          background-color:#bb22a6 ;
-                          border-color: #bb22a6;
+                         .social-icon .icon-1 a:hover {
+                          background-color: blue;
+                          border-color: blue;
                           color: white;
                           transform: scale(1.1);
                         }
 
-                        .social-icon .icon-4 a:hover {
-                          background-color:#00a859 ;
-                          border-color: #00a859;
+                        .social-icon .icon-2 a:hover {
+                          background-color: #00b0ed;
+                          border-color: #00b0ed;
                           color: white;
                           transform: scale(1.1);
                         }
+                        /*  .social-icon .icon-4 a:hover {
+                        background-color: #00e676;
+                          border-color: green;
+                          color: black;
+                          transform: scale(1.1);
+                          } */
 
-                        .social-icon .icon-5 a:hover {
-                          background-color:#171515 ;
-                          border-color: #171515;
-                          color: white;
-                          transform: scale(1.1);
+                          .social-icon .icon-3 a:hover {
+                            background-color:#bb22a6 ;
+                            border-color: #bb22a6;
+                            color: white;
+                            transform: scale(1.1);
+                          }
+
+                          .social-icon .icon-4 a:hover {
+                            background-color:#00a859 ;
+                            border-color: #00a859;
+                            color: white;
+                            transform: scale(1.1);
+                          }
+
+                          .social-icon .icon-5 a:hover {
+                            background-color:#171515 ;
+                            border-color: #171515;
+                            color: white;
+                            transform: scale(1.1);
+                          }
+                          .footer{
+                           padding-top: 5rem;
+                         }
+                         #header{
+                           background-color: transparent;
+                           font-weight:400 bold;
+                           text-transform: uppercase;
+                           letter-spacing: 2px;
+                           /* font-family: 'Gugi', cursive; */
+
+                         }
+                         .row{
+                          /* background-color: #c7cbd0 ; */
+                          /* background-image: linear-gradient(to right, #c7cbd0,#cfeae1 , #9fa4aa , #aeb3ba); */
+                          background-color: transparent;
+                          padding: 10px 10px 10px 10px;
                         }
-                        .footer{
-                         padding-top: 5rem;
-                       }
-                       #header{
-                         background-color: transparent;
-                         font-weight: bold;
-                         text-transform: uppercase;
-                         letter-spacing: .4rem;
-                         padding-top:0; 
-                       }
-                       .navbar{
-                        text-align: center;
-                       }
-                       .nav li a {
+                        .navbar-left{
+                          float:  left ;
+                          width: 20%;
+
+                        }
+                        .navbar-right{
+                          float: right ;
+                          /*   width: 70%; */
+                        }
+                        .nav li a {
                           text-decoration: none;
                           padding-left: 1.2rem;
-                          font-size: 1.3rem;
-                          color: #e6ffe7;
-                          font-weight:100 bold;
+                          font-size: 1rem;
+                          color: #705070;
+                          font-weight:200 bold;
                           text-align: center;
-                       }
+                        }
                         .nav  {
                           list-style: none;
                           display: inline-flex;
 
-                       }
-                       .main{
+                        }
+                        .main{
                           text-decoration: none;
                           font-size: 3rem;
                           color: #e6ffe7;
                           font-weight:100 bold;
                           text-align: left
-                       }
-                       
-                    </style>
-                  </head>
-                  <body>
-                    <header id="header">
-                      <div class="navbar">
-                       <ul class="nav">
-                        <li><a href="">Intern</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Register</a></li>
-                        <li><a href="">learn</a></li>
-                        <li><a href="">Testimonies</a></li>
-                      </ul>
+                        }
+                        .image{
+                          width: 50px;
+                          height: 20px;
+                          border-radius: 2000px;
+                          padding-left: 100px;
+                        }
+
+                      </style>
+                    </head>
+                    <body>
+                     <!--  <header id="header">
+                        <div class="row">
+                          <div class="navbar-left">
+                           <ul class="nav">
+                            <li><a href="https://hng.fun/index.php">HNG FUN</a></li>
+                          </ul>
+                        </div>
+                        <div class="navbar-right">
+                         <ul class="nav">
+                          <li><a href="https://hng.fun/index.php">Home</a></li>
+                          <li><a href="https://hng.fun/learn.php">learn</a></li>
+                          <li><a href="https://hng.fun/listing.php">interns</a></li>
+                          <li><a href="https://hng.fun/admin.php">registers</a></li>
+                          <li><a href="https://hng.fun/testimonies.php">testimonies</a></li>
+                        </ul>
+                      </div>
+                      <div style="clear: both;">
+
+                      </div>
                     </div>
-                  </header>
+                  </header> -->
                   <div class="container">
                     <div class="top_head">
-                        <!--  <div class="img">
-                             <img src="https://www.instagram.com/p/Bd8dvbHBU9C/?taken-by=anny_hiss" alt=""> 
-                           </div> -->
-                           <h1 class="display">Welcome.</h1>
-                           <p class="sub_display">Animashaun Oluwatosin</p>
-                           <p class= "sub_display2">A front-end web developer.</p>
-                           <div class="button">
-                             <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact</a>
-                           </div>
-                           <div class="footer">
+                          <!--  <div class="img">
+                               <img src="https://www.instagram.com/p/Bd8dvbHBU9C/?taken-by=anny_hiss" alt=""> 
+                             </div> -->
+                             <div class="image">
+                               <img src="http://res.cloudinary.com/annyhiss/image/upload/b_rgb:aeb3ba,c_scale,h_213,r_29,z_1.5/v1524441531/26864051_2033385723571357_8957167605911650304_n.jpg" alt="">
+                             </div>
+                             <div>
+                                 <h1 class="display">Welcome.</h1>
+                             <p class="sub_display">Animashaun Oluwatosin</p>
+                             <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
+                             <div class="button">
+                               <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact <i class="fa fa-envelope fa-0.5x icon-5"></i></a>
+                             </div>
+                             </div>
+                           
+                             <div class="footer">
 
-                             <div class="col-md-12 col-sm-12">
-                              <ul class="social-icon">
-                               <li class="icon-1" ><a href="https://www.facebook.com/annyhiss99" class="fa fa-facebook"></a></li>
-                               <li class="icon-2"><a href="https://twitter.com/annyhiss" class="fa fa-twitter"></a></li>
-                               <li class="icon-3" ><a href="https://www.instagram.com/anny_hiss/" class="fa fa-instagram"></a></li>
-                               <li class="icon-4" ><a href=tel:"08164444515" class="fa fa-phone"></a></li>
-                               <li class="icon-5" ><a href="https://github.com/annyhiss" class="fa fa-github"></a></li>      
-                             </ul>
+                               <div class="col-md-12 col-sm-12">
+                                <ul class="social-icon">
+                                 <li class="icon-1" ><a href="https://www.facebook.com/annyhiss99" class="fa fa-facebook"></a></li>
+                                 <li class="icon-2"><a href="https://twitter.com/annyhiss" class="fa fa-twitter"></a></li>
+                                 <li class="icon-3" ><a href="https://www.instagram.com/anny_hiss/" class="fa fa-instagram"></a></li>
+                                 <li class="icon-5" ><a href="http://tosinani.xyz/" class="fa fa-globe"></a></li> 
+                                 <li class="icon-4" ><a href=tel:"08164444515" class="fa fa-phone"></a></li>
+                                 <li class="icon-5" ><a href="https://github.com/annyhiss" class="fa fa-github"></a></li>      
+                               </ul>
+                             </div>
                            </div>
+
                          </div>
-
                        </div>
-                     </div>
 
-                   </body>
-                   </html>
+                     </body>
+                     </html>

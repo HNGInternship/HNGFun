@@ -1,8 +1,36 @@
 <?php
 
-include_once realpath(__DIR__ . '/..') . "/answers.php"; 
+ include_once("../answers.php"); 
 
-require("../../config.php");
+if (!defined('DB_USER')){
+            
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
+
+ global $conn;
+
+ try {
+  $sql = 'SELECT * FROM secret_word LIMIT 1';
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $data = $q->fetch();
+  $secret_word = $data['secret_word'];
+} catch (PDOException $e) {
+  throw $e;
+}    
+try {
+  $sql = "SELECT * FROM interns_data WHERE `username` = 'juliet' LIMIT 1";
+  $q = $conn->query($sql);
+  $q->setFetchMode(PDO::FETCH_ASSOC);
+  $my_data = $q->fetch();
+} catch (PDOException $e) {
+  throw $e;
+}
 
 function decider($string){
   
@@ -12,160 +40,175 @@ function decider($string){
     $key = $field[0];
     $key = strtolower(preg_replace('/\s+/', '', $key));
   if(($key == "train")){
-     $password ="p@55";
+     $password ="password";
      $trainer =$field[1];
      $result = explode ("#", $trainer);
   if($result[2] && $result[2] == $password){
     echo"<br>Training mode<br>";
     return $result;
-  } else echo "opssss!!! Looks like you are trying to train me without permission";
-  
-
-    
-     
+  } 
+  else echo "opssss!!! Looks like you are trying to train me without permission";   
   }
    }
-   
-
 }
-function tester($string){
-  if (strpos($string, ":" ) !== false) 
-  { 
-   $field = explode (":", $string);
-   $key = $field[0];
-   $key = strtolower(preg_replace('/\s+/', '', $key));
-   if(($key !== "train")){
-     
-    echo"<br>testing mode activated<br>";
-    return $string;
- }
-}
-return $string;
- }
 
-// Create connection
-$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-// Check connection
 
-if (!$connect) {
-    die("Connection failed: " . mysqli_connect_error());
+function assistant($string)
+{    $reply = "";
+    if ($string == 'what is my location') {
+       
+      
+      $ip=$_SERVER['REMOTE_ADDR'];
+      $reply =unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+      $reply =var_export('you are in '. $reply['geoplugin_regionName'] .' in '. $reply['geoplugin_countryName']);
+      return $reply;
+        
+    }
+    elseif ($string == 'tell me about your author') {
+        $reply= 'Her name is <i class="em em-sunglasses"></i> Chidimma Juliet Ezekwe, she is Passionate, gifted and creative backend programmer who love to create appealing Web apps solution from concept through to completion. An enthusiastic and effective team player and always challenge the star to quo by taking up complex responsibilities. Social account ';
+        return $reply;    
+    }
+    elseif ($string == 'open facebook') {
+        $reply= "<p>Facebook opened successfully </p> <script language='javascript'> window.open(
+    'https://www.facebook.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'open twitter') {
+        $reply = "<p>Twitter opened successfully </p> <script language='javascript'> window.open(
+    'https://twitter.com/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }elseif ($string == 'open linkedin') {
+        $reply= "<p>Linkedin opened successfully </p> <script language='javascript'> window.open(
+    'https://www.linkedin.com/jobs/',
+    '_blank' //
+    );
+    </script>
+    ";
+    return $reply;
+    }
+    elseif ($string == 'shutdown my pc') {
+        $reply =  exec ('shutdown -s -t 0');
+        return $reply;
+    }elseif ($string == 'get my pc name') {
+        $reply = getenv('username');
+        return $reply;
+    }
+    else{
+        $reply = "";
+        return $reply;
+    }
+  
 }
+
+
+
+
 $existError =false;
-  $reply = "";//process starts
+$reply = "";//process starts
 if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
 
- global $connect;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($connect, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-// $secret_word= "sample_secret_word";
-
-       
-        if ($_POST['msg'] == 'commands') {
-        $reply= 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
-      } 
-      // else if($reply==""){
-       
-      //   $reply = assistant($_POST['msg']);
-       
-      // }
-     if($reply =="") {
-
-         $post= mysqli_real_escape_string($connect, $_POST['msg']);
-           $result = decider($post);
-           if($result){
-                $question=$result[0]; 
-                $answer= $result[1];
-                $sql = "SELECT * FROM chatbot";
-                $result = mysqli_query($connect, $sql);
-                
-                if (mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-                        ;
-                        while($row = mysqli_fetch_assoc($result)) {
-              $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
-              $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
-              $strippedRowQ = strtolower(preg_replace('/\s+/', '', $row['question']));
-              $strippedRowA = strtolower(preg_replace('/\s+/', '', $row['answer']));
-                            if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
-                            $reply = "I know this already, but you can make me smarter by giving another response to this command";
-                            $existError = true;
-                            break;
-                            
-                            }
-                            
-                        }        
-                } 
-
-                if(!($existError)){
-                    $sql = "INSERT INTO chatbot (question, answer) VALUES ('".$question."', '".$answer."')";
-                    
-                            if (mysqli_query($connect, $sql)) {
-                                $reply = "Thanks to you, I am smarter now";
-                            } else {
-                                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                            }
-                    
-                    
-                   }
-                
-       
-           } else{
-             $input = tester($post); 
-
-      if($input){
-        
-      
-        $time ="what is the time";
-        // query db to look for question 
-        $answer = "";
-        $sql = "SELECT * FROM chatbot";
-        $result = mysqli_query($connect, $sql);
-        
-        if (mysqli_num_rows($result) > 0) {
-          if (!$result) {
-            die(mysqli_error($link));
-        }
-          $input = strtolower(trim($input));
-          $sql = "SELECT * FROM chatbot WHERE trim(question) = '$input'";
-          $result = mysqli_query($connect, $sql);
-                     
-          if(mysqli_num_rows($result) > 0){
-            
-            $answer = [];         
-          while($row = mysqli_fetch_assoc($result)) {
-            array_push($answer, $row['answer']);
-                    
-        } 
-        $answer = $answer[array_rand($answer)];
-         }       
-            }
-            
-      if($answer != ""){
-        $reply = $answer;
-        
-            
-         } 
-    }
-    // end input
-           
+  if ($_POST['msg'] == 'commands') {
+    $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
+    echo $reply;
   } 
-  // end test
+      if($reply==""){
+       $reply = assistant($_POST['msg']);
+       echo $reply;
+       
+     }
+  if($reply =="") {
+
+    $post= $_POST['msg'];
+    $result = decider($post);
+    if($result){
+      $question=$result[0]; 
+      $answer= $result[1];
+      $sql = "SELECT * FROM chatbot WHERE question = '$question' And answer = '$answer'";
+      $stm = $conn->query($sql);
+      $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+      $result = $stm->fetchAll();
+        
+        if (count(($result))> 0) {
+              
+          // while($result) {
+          //   $strippedQ = strtolower(preg_replace('/\s+/', '', $question));
+          //   $strippedA = strtolower(preg_replace('/\s+/', '', $answer));
+          //   $strippedRowQ = strtolower(preg_replace('/\s+/', '', $result['question']));
+          //   $strippedRowA = strtolower(preg_replace('/\s+/', '', $result['answer']));
+          //   if(($strippedRowQ == $strippedQ) && ($strippedRowA == $strippedA)){
+          //   $reply = "I know this already, but you can make me smarter by giving another response to this command";
+          //   $existError = true;
+          //   break;
+            
+          //   }
+              
+          // }  
+          $existError = true; 
+          echo "I know this already, but you can make me smarter by giving another response to this command";
+            
+        } 
+      else
+        if(!($existError)){
+          $sql = "INSERT INTO chatbot(question, answer)
+          VALUES(:quest, :ans)";
+          $stm =$conn->prepare($sql);
+          $stm->bindParam(':quest', $question);
+          $stm->bindParam(':ans', $answer);
+
+          $saved = $stm->execute();
+            
+          if ($saved) {
+              echo  "Thanks to you, I am smarter now";
+          } else {
+              echo "Error: could not understand";
+          }
+            
+          
+        }  
+  }
+  else{
+    $input = trim($post); 
+ 
+  if($input){
+    
+    $sql = "SELECT * FROM chatbot WHERE question = '$input'";
+    $stm = $conn->query($sql);
+    $stm->setFetchMode(PDO::FETCH_ASSOC);
+
+    $res = $stm->fetchAll();
+    
+    if (count($res) > 0) {
+    
+      $index = rand(0, count($res)-1);
+      $response = $res[$index]['answer'];  
+
+      echo $response;
+    
+    }
+    else{
+       echo "I did'nt get that, please rephrase or try again later";
+    }       
+  }
+}
+          
+      
+    
+      }       
+  
  
 
-  if($reply == ""){
-        $reply ="I did'nt get that, please rephrase or try again later";
-    }
-  }
-  echo $reply;
-
-
-  // function
-
+}
+else{
   
-}else
-{
 ?>
 
 <!DOCTYPE html>
@@ -179,6 +222,8 @@ $secret_word = $row['secret_word'];
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v4.2.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+
 
 
 <style type="text/css">
@@ -495,49 +540,58 @@ a:focus {
 </style>
   </head>
 
-  <body>
-<?php 
-
-global $connect;
-$sql = "SELECT * FROM secret_word";
-$result = mysqli_query($connect, $sql);
-$row = mysqli_fetch_assoc($result);
-$secret_word = $row['secret_word'];
-// $secret_word= "sample_secret_word";
-?>
-
-  <!-- Page Content -->
-    <div class="container">
-
-      <!-- Portfolio Item Heading -->
-      <h1 >Chidimma Juliet Ezekwe</h1>
-      <small>Wed Developer</small>
-
-      <!-- Portfolio Item Row -->
-      <div class="row">
-
-        <div class="col-md-6">
-          <img class="img-fluid" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523620041/juliet.jpg" alt="juliet">
+<!-- jet -->
+<body class="oj-web-applayout-body">
+    <!-- Template for rendering navigation items shared between nav bar and nav list -->
+    <script type="text/html" id="navTemplate">
+      <li><a href="#">
+        <span :class="[[$data['iconClass']]]"></span>
+        <oj-bind-text value="[[$data['name']]]"></oj-bind-text>
+      </a></li>
+    </script>
+   
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+       <div id="pageContent" class="oj-web-applayout-page">
+        <!--
+           ** Oracle JET V5.0.0 web application header pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern.
+        -->
+        <oj-module role="main" class="oj-web-applayout-max-width oj-web-applayout-content oj-complete" config="[[moduleConfig]]"><!-- ko ojModule: {"view":$properties.config.view, "viewModel":$properties.config.viewModel,"cleanupMode":$properties.config.cleanupMode,"animation":$properties.animation} --><!--
+ Copyright (c) 2014, 2018, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+<div class="oj-hybrid-padding">
+  <my-profile>
+    </my-profile>
+    <div class="twcd container">
+        <div class="name">
+        <h1 >Chidimma Juliet Ezekwe</h1>
+      <h4>Web Developer</h4>
+          </div>
+          <div class="profile mx-auto">
+          <div class="oj-flex">
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+            <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+</div>
+            <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
         </div>
-
-        <div class="col-md-6">
-          <h3 class="my-3">Description</h3>
+                      </div>
+          <div class="about">
+          <h3>Description</h3>
           <p>An Innovative web deveploper inter at HngInternship<sup>4</sup></p>
-          <h3 class="my-3">Details</h3>
+          <h3 >Details</h3>
           <ul>
             <li>Creative</li>
             <li>Innovative</li>
             <li>Team player</li>
             <li>Result oriented and time conscious</li>
           </ul>
-        </div>
+          </div>
+    </div>  
 
-      </div>
-      <div class="row">
-        <!-- chatbot -->
-        <div class="col-md-6">
-          
-            <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
+    <button type="button" class="btn btn-danger btn-lg pull-right" data-toggle="collapse" data-target="#chat">Chat now</button>
               
               <div id="chat" class="wrapper collapse">
 
@@ -586,10 +640,10 @@ $secret_word = $row['secret_word'];
                        <span class="login-status">Online    | <?php
             echo "" . date("h:i:a");
             ?>, <?php
-            $query = @unserialize (file_get_contents('http://ip-api.com/php/'));
-            if ($query && $query['status'] == 'success') {
-            echo '' . $query['country'] . ', ' . $query['city'] . '!';
-            }
+            
+            $ip=$_SERVER['REMOTE_ADDR'];
+            $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+            echo var_export('you are in '. $reply['geoplugin_countryName'] .' in '. $reply['geoplugin_regionName']);
             ?></span>
                         
                       </span>
@@ -704,12 +758,30 @@ $secret_word = $row['secret_word'];
 
     <!-- Custom scripts for this template -->
     <script src="../js/hng.min.js"></script>
+  
+</div><!-- /ko --><div data-bind="_ojNodeStorage_" style="display: none;" class="oj-subtree-hidden">
+        </div></oj-module>
+      </div>
+      </div>
+ 
+</body>
+<!-- end jet -->
+
+
+  <body>
+
+  
+
+        
+
+      
+   
+          
+            
 
   </body>
 
 </html>
-<?php
-      }
 
-      ?>
-
+<?php 
+}?>

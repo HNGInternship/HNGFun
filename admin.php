@@ -3,17 +3,17 @@ include_once("header.php");
 require 'db.php';
 
 // Initializing Error Variables To Null.
-$nameError ="";
+$nameError = "";
 $usernameError = "";
-$keyError="";
+$keyError = "";
 $filenameError = "";
+
 
 //$imageSuccess = false;
 $success = false;
-$key = "1n73rn@Hng";
+$key = "sample_secret_word";
 
 if(isset($_POST['submit']) ){
-
     //Data Sanitization and Validation
     if($_POST['name'] != ""){
         $_POST['name'] = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
@@ -22,17 +22,16 @@ if(isset($_POST['submit']) ){
         }
     }
 
-  if($_POST['image_filename'] != ""){
-      $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
-      if ($_POST['image_filename'] == ""){
-          $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
-      }
-  }
+    if($_POST['image_filename'] != ""){
+        $_POST['image_filename'] = filter_var($_POST['image_filename'], FILTER_SANITIZE_URL);
+        if ($_POST['image_filename'] == ""){
+            $filenameError = "<span class='invalid'>Please enter a proper file URL .</span>";
+        }
+    }
 
     // key
     if($_POST['key'] != ""){
-
-        if ($_POST['key'] != "1n73rn@Hng"){
+        if ($_POST['key'] != "sample_secret_word"){
             $keyError = "<span class='invalid'>Please enter a valid key code.</span>";
         }
     }
@@ -40,90 +39,53 @@ if(isset($_POST['submit']) ){
     // key valid ends
     if($_POST['username'] != ""){
         $_POST['username'] = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-            if($_POST['username'] == ""){
-                $usernameError = "<span class='invalid'>Please enter a valid username</span>";
-            }
-
-            $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-
-           if(!empty($q->fetchAll())) {
-                    $usernameError = "<span class='invalid'>Username already taken, please choose another!</span>";
-                }
-            else if (!file_exists( 'profiles/' . $_POST['username'] . '.php')) {
-                  //$eror = file_exists( 'profiles/' . $_POST['username'] . '.php');
-                    $usernameError = "<span class='invalid'>Please create your profile page first using " . $_POST['username'].'.php</span> <p> We cannot find ' . $_POST['username'] .'.php  in the profiles folder. Maybe wait some minutes for autodeploy </p>' ;
-            }
-         }
-
-    // /** Upload File and Insert Data into Database
-    // if ($nameError == "" && $usernameError == "" && $keyError == "") {
-    //     //Upload file
-    //     $max_size = 500 * 1024; // 500 KB
-    //     $destination_directory = "images/";
-    //     $validExtensions = array("jpeg", "jpg", "png", "JPEG", "JPG", "PNG");
-    //     $temporary = explode(".", $_FILES["file"]["name"]);
-    //     $file_extension = end($temporary);
-
-    //     if ( (($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") ||
-    //             ($_FILES["file"]["type"] == "image/jpeg")) && in_array($file_extension, $validExtensions)) {
-    //         if ( $_FILES["file"]["size"] < ($max_size) ) {
-    //             if ( $_FILES["file"]["error"] > 0 ) {
-    //                 $uploadError = "Error: <strong>" . $_FILES["file"]["error"] . "</strong>";
-    //             }
-    //             else if (file_exists($destination_directory . $_FILES["file"]["name"]) ) {
-    //                 $uploadError = "Error: File <strong>" . $_FILES["file"]["name"] . "</strong> already exists.";
-    //             }
-    //             else {
-    //                 $sourcePath = $_FILES["file"]["tmp_name"];
-    //                 $targetPath = $destination_directory . $_FILES["file"]["name"];
-    //                 if(move_uploaded_file($sourcePath, $targetPath)) {
-    //                     $imageSuccess = true;
-    //                 } else {
-    //                     $uploadError = "Upload failed";
-    //                 }
-    //             }
-    //         }
-    //         else {
-    //             $uploadError = "The size of image you are attempting to upload is " . round($_FILES["file"]["size"]/1024, 2) . " KB, maximum size allowed is " . round($max_size/1024, 2) . " KB";
-    //         }
-    //     }
-    //     else {
-    //         $uploadError = "Invalid image format. Allowed formats: JPG, JPEG, PNG.";
-    //     } **/
-
-        //if ($imageSuccess) {
-            //Insert Data
-            if ($nameError == "" && $usernameError == "" && $keyError == "")
-            {
-            $name = $_POST['name'];
-            $username = $_POST['username'];
-            $imageName  =  $_POST['image_filename'];
-
-            $intern_data = array(':name' => $name,
-                ':username' => $username,
-                ':imageName' => $imageName);
-
-            $sql = 'INSERT INTO interns_data ( name, username, image_filename)
-                  VALUES (
-                      :name,
-                      :username,
-                      :imageName
-                  );';
-
-            try {
-                $q = $conn->prepare($sql);
-                if ($q->execute($intern_data) == true) {
-                    $success = true;
-                };
-            } catch (PDOException $e) {
-                throw $e;
-            }
+        if($_POST['username'] == ""){
+            $usernameError = "<span class='invalid'>Please enter a valid username</span>";
         }
-      //  }
-    //}
+
+        $sql = 'SELECT * FROM interns_data WHERE username = "'. $_POST['username'] .'"';
+        $q = $conn->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $userData = $q->fetchAll();
+
+        if(!empty($userData)) {
+            $usernameError = "<span class='invalid'>Username already taken, please choose another!</span>";
+        }else if (!file_exists( 'profiles/' . $_POST['username'] . '.php')) {
+            //$eror = file_exists( 'profiles/' . $_POST['username'] . '.php');
+            $usernameError = "<span class='invalid'>Please create your profile page first using " . $_POST['username'].'.php</span> <p> We cannot find ' . $_POST['username'] .'.php  in the profiles folder. Maybe wait some minutes for autodeploy </p>' ;
+        }
+    }
+
+   
+    //Insert Data
+    if ($nameError == "" && $usernameError == "" && $keyError == ""){
+
+        $name = $_POST['name'];
+        $username = $_POST['username'];
+        $imageName  =  $_POST['image_filename'];
+
+        $intern_data = array(':name' => $name,
+            ':username' => $username,
+            ':imageName' => $imageName);
+
+        $sql = 'INSERT INTO interns_data ( name, username, image_filename)
+              VALUES (
+                  :name,
+                  :username,
+                  :imageName
+              );';
+
+        try {
+            $q = $conn->prepare($sql);
+            if ($q->execute($intern_data) == true) {
+                $success = true;
+            };
+        } catch (PDOException $e) {
+            throw $e;
+        }
+    }
 }
+
 ?>
 <header class="masthead" style="background-image: url('img/home-bg.jpg')">
     <div class="overlay"></div>

@@ -7,3 +7,8 @@ phpmyadmin/
 /deploy
 .idea/
 config.php
+
+.travis.yml
+push.sh
+/vendor/
+disruption.png

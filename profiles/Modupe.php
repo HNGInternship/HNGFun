@@ -1,6 +1,6 @@
 <?php
 
-require '..db.php';
+require 'db.php';
 
 $username = "Modupe";
 
@@ -33,15 +33,10 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
  
     <title>My Portfolio</title>
     <style>
-        body{
-            margin: 0;
-            padding: 0;  
-        }
-        
-        .card{
+        .mycard{
             position: absolute;
             top:50%;
-            left: 70%;
+            left: 60%;
             transform: translate(-50%, -50%);
             width: 500px;
             height: 430px;
@@ -50,13 +45,13 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 20px 20px rgba(0,0,0,0.2);
-            display: none;
+            
 
         }
-        .profile{
+        .myprofile{
             position: absolute;
             top:45%;
-            left: 50%;
+            left: 40%;
             transform: translate(-50%, -50%);
             width: 300px;
             height: 410px;
@@ -69,43 +64,9 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
+            display:block;
         }
-       .profile img{
-           width: 100%;
-       }
-     
-       button{
-           margin-top: 110%;
-           width: 40%;
-           height: 50px;
-           padding: 10px;
-           font-size: 14px;
-           text-align: center;
-           margin-left: 25%;
-           border-radius: 10px;
-           background-color:#008ed6;
-           color:white;
-           box-shadow: 2px 2px 5px #000;
-           -webkit-transition: -webkit-transform ease-out 0.1s, background 0.2s;
-          -moz-transition: -moz-transform ease-out 0.1s, background 0.2s;
-           transition: transform ease-out 0.1s, background 0.2s; 
-        }
-
-        button:active {
-        background: black;
-        opacity: .6;
-        transform: translateY(9px);
-        }
-
-        button:hover{
-            background: rgba(255, 255, 255, 0.05);
-            -webkit-transform: scale(0.93);
-            -moz-transform: scale(0.93);
-            -ms-transform: scale(0.93);
-            transform: scale(0.93);
-            color: #fff;
-        }
-
+  
         #name{
            left:35%;
            position: absolute;
@@ -113,18 +74,18 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
-        h3{
+        .aboutMe{
            margin-top: 20%;
            margin-left: 100px; 
            text-decoration: underline;
            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
            text-align: center;
         }
-        p{
+        .paragraph{
             margin-left: 160px;
            overflow: hidden;
         }
-        ul {
+        .ulList {
             margin: 0;
             padding: 0;
             position: absolute;
@@ -133,15 +94,14 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             transform: translate(-50%, -50%);
             display: flex;
         }
-        ul li {
+       .ulList li {
             position: relative;
             list-style: none;
             text-align: center;
-         
             cursor: pointer;
         }
         
-        ul li .text {
+        .ulList li .text {
             position: absolute;
             width: 0;
             left: 50%;
@@ -154,13 +114,13 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             color: #0000ff;
         }
         
-        ul li .fa {
+        .ulList li .fa {
             font-size: 2em;
             color: 	 #0000e6;
             padding: 15px;
         }
         
-        ul li:hover .text {
+        .ulList li:hover .text {
             width: 120px;
             margin-left: -60px;
         }
@@ -168,18 +128,18 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     </style>
 </head>
-<body>
+<body onload="typeWriter()">
 
-<div class="card"> 
+<div class="mycard"> 
         
 <h1 id="name"></h1>
-<h3>About Me</h3>
-<p>I am a full-stack web developer/designer in the making. MERN(Mongo, Express, React and Node) to be precise.
+<h3 class="aboutMe">About Me</h3>
+<p class="paragraph">I am a full-stack web developer/designer in the making. MERN(Mongo, Express, React and Node) to be precise.
     Comfortable with HTML5, CSS3, BOOTSTRAP and JavaScript. I've got great communication skills, attention to detail,
     ability to work independently and in mixed teams . 
  </p>
 <div class="container">
-        <ul>
+        <ul class="ulList">
             <li><a href="https://www.facebook.com/dupsy.dby"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                 <div class="text">facebook</div>
             </li>
@@ -199,15 +159,13 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
 </div>
-<div class="profile" id="pic">
-    <button id="btn">Learn More</button>
+<div class="myprofile" id="pic">
 </div>
 
 <script>
 var i = 0;
 var txt = 'Adebayo Modupe A.';
 var speed = 150;
-var button = document.getElementById("btn");
 function typeWriter() {
   if (i < txt.length) {
     document.getElementById("name").innerHTML += txt.charAt(i);
@@ -215,16 +173,6 @@ function typeWriter() {
     setTimeout(typeWriter, speed);
   }
 }
- 
-   document.querySelector("button").addEventListener("click", function(){
-    document.querySelector("div").style.display = "block";   
-    document.getElementById("pic").style.left = "35%";
-    document.querySelector("div").style.left = "55%";
-    typeWriter();
-    button.style.display = "none";
-    
-       
-   });
 
 
 </script>

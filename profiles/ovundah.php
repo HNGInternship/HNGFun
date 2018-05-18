@@ -41,12 +41,7 @@
 		}
 	}
 
-    $stmt = $conn->prepare("SELECT * FROM chatbot");
-		$stmt->execute();
-
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-        $json = json_encode($rows);
+    
 ?>
 
 <html>
@@ -54,7 +49,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Ovundah King</title>
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+        <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
 
         <style>
             body{
@@ -69,7 +64,7 @@
                 padding: 50px;
                 margin-left: 50px;
                 text-align: center; 
-                background: linear-gradient(#88194b, #19133e)
+                background: linear-gradient(#761742, #19133e)
             }
             @media only screen and (max-width: 1100px){
                 body {
@@ -85,28 +80,32 @@
     </head>
     
     <body>
-        <div class="row">
-            <div class='info'>
-            <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,o_100,r_100,w_200/a_349/v1523814132/Ovundah.png" alt="Ovundah King" >
+        <div class="oj-flex demo-panel-wrapper">
+            <div class="oj-panel demo-mypanel oj-flex-item info">
+                <div>
+                    <img src="http://res.cloudinary.com/ovu/image/upload/c_scale,o_100,r_100,w_200/a_349/v1523814132/Ovundah.png" alt="Ovundah King" >
             
-            <div style="font-family: 'Exo 2', sans-serif;'">
-                <div style='color: #ffb72d'>
-                    <h1><strong>Ovundah King</strong></h1>
-                    <p>Tech Enthusiast</p>
-                    <p>Figma, HTML, CSS, JS, MEAN</p>
+                    <div style="font-family: 'Exo 2', sans-serif;'">
+                        <div style='color: #ffb72d'>
+                            <h1><strong style='color: #ffb72d'>Ovundah King</strong></h1>
+                            <p>Tech Enthusiast</p>
+                            <p>Figma, HTML, CSS, JS, MEAN</p>
+                        </div>
+    	                <a href="https://twitter.com/OvundahKing" style='color: #5697ff'>
+                            <i class="fa fa-twitter fa-3x"></i>
+                        </a>
                     </div>
-	               <a href="https://twitter.com/OvundahKing" style='color: #5697ff'>
-                       <i class="fa fa-twitter fa-3x"></i>
-                    </a>
-            </div>
             
-        </div>
-        <div class='bot embed-responsive embed-responsive-4by3'>
-            <iframe class="embed-responsive-item" src="https://hng.fun//profiles/ovundah/dist/"
+                </div>
+            </div>
+            <div class="oj-panel demo-mypanel oj-flex-item" style="background-color: #19133e">
+                <iframe  src="https://hng.fun/profiles/ovundah/"
+                        scrolling='no'
+                        frameborder='0'
                         width="100%" 
                         height="100%">
-            </iframe>
-        </div>
+                </iframe>
+            </div>
         </div>
     </body>
 </html>

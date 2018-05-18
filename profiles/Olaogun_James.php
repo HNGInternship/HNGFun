@@ -131,14 +131,15 @@ input[type=submit]:hover {
 <?php
 
 if(!defined('DB_USER')){
-    require "../config.php";
-  }
-  try {
-    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-  } catch (PDOException $pe) {
-    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-  }
+  require "../../config.php";
+}
+try {
+  $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+} catch (PDOException $pe) {
+  die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+}
 
+global $conn;
 
 
 
@@ -158,8 +159,15 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
   <?php
                       
     if (isset($_POST['payload'])) {
-		require "../answers.php"; 
-	  $question = $_POST['payload'];	  
+    require "../answers.php"; 
+    $question = $_POST['payload'];
+    function trainningMode($question) {
+      if (strpos($question, 'train:') !== false) {
+        return true;
+      }
+      return false;
+      }
+          
 	 function botReply() {
 		global $question;
 		global $conn;
@@ -177,13 +185,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
 		  return $question_chat[$question_chat_index]['answer'];
 		}
 
-	  function trainningMode($question) {
-		if (strpos($question, 'train:') !== false) {
-		  return true;
-		}
-		return false;
-    }
-    
+	
     function questionFromTranning($question) {
       $s = 7;
       $e = strlen($question) - strpos($question, " # ");
@@ -203,7 +205,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
         exit();
         return;
       }
-      if (trim($string[2]) !== "pass") {
+      if (trim($string[2]) !== "password") {
         echo "Invalid password, i will not allow you train me.";
         exit();
         return;
@@ -219,7 +221,30 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
       echo "Thank you. i have gained more knowledge.";
       return;
     }
-	
+    function multiplication($a, $b)
+    {
+        $c = $a * $b;
+        echo $c;
+    }
+
+    function addition($a, $b)
+    {
+        $c = $a + $b;
+        echo $c;
+    }
+
+    function subtraction($a, $b)
+    {
+        $c = $a - $b;
+        echo $c;
+    }
+
+    function division($a, $b)
+    {
+        $c = $a / $b;
+        echo $c;
+    }
+
 	  function multiplication_question($question) {
 		if (strpos($question, 'multiply:') !== false) {
 		  return true;
@@ -358,7 +383,7 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
       </div>
       <div>
         <div class="my_user message bot">
-          <span class="content">I can perform basic arithmetic of two numbers. to calculate follow the format below: <code><br>add: 1st num + 2nd num <br>multiply: 1st num * 2nd num <br>subtract: 1st num - 2nd num <br>divide: 1st num / 2nd num</code></span>
+          <span class="content">I can perform basic arithmetic of two numbers. to calculate follow the format below: <code><br>add: 1st number + 2nd number <br>multiply: 1st number * 2nd number <br>subtract: 1st number - 2nd number <br>divide: 1st number / 2nd number</code></span>
         </div>
       </div>
     </div>
@@ -371,9 +396,6 @@ $my_details = $result2->fetch(PDO::FETCH_OBJ);
 </ul>	
 </body>
 </html>
-<script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
 <script type="text/javascript">
   window.onload = function() {
     $(document).keypress(function(e) {
