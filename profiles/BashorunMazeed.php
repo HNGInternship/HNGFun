@@ -253,7 +253,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<style type="text/css">
 		#page{
-			margin-top: 80px;
+			margin-top: 60px;
 			padding-top: 30px;
 			padding-bottom: 20px;
 			background-color: white;
