@@ -27,7 +27,7 @@
         
         if($temp2 === 'train'){
             train($temp[1]);
-        }elseif($temp2 === 'aboutbot') {
+        }elseif($temp2 === 'aboutJayo') {
             aboutbot();
         }elseif($temp2==='help'){
             help();
@@ -37,7 +37,7 @@
             getAnswer($temp[0]);
         }
     }
-  ##About Bot
+  ##About Jayo
     function aboutbot() {
         echo "<div id='result'><strong>hi my name na Jayo, my madam want you to teach me more about javascript </strong></div>";
     }
@@ -46,7 +46,7 @@
    
    }
   
-  ##Train Bot
+  ##Train Jayo
     function train($input) {
         $input = explode('#', $input);
         $question = trim($input[0]);
@@ -60,7 +60,7 @@
             if(empty($data)) {
                 $training_data = array(':question' => $question,
                     ':answer' => $answer);
-                $sql = 'INSERT INTO chatbot ( question, answer)
+                $sql = 'INSERT INTO Jayo ( question, answer)
               VALUES (
                   :question,
                   :answer
@@ -83,7 +83,7 @@
     }
     function getAnswer($input) {
         $question = $input;
-        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+        $sql = 'SELECT * FROM Jayo WHERE question = "'. $question . '"';
         $q = $GLOBALS['conn']->query($sql);
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
@@ -363,7 +363,7 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
                 <div class="modal-body "  > 
                   <div class="chat" id="chat">
                     <p class="Jayo">Hi! My name na Jayo.<br>i sabi something well well ask me any questionmy madam want you to teach me more about javascript,.</p>
-                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Hi make we start from there.</p>
+                    <p class="Jayo">Anything you tell me to do i go do am,Assurance cover you.<br> You fit type Heloo make we start from there.</p>
                     <p class="Jayo">You fit train me by typing "train:question#answer#password" The Password na: <b>password </p>
                   </div>
                 </div>
