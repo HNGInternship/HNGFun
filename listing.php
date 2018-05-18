@@ -1,9 +1,9 @@
 <?php
 include_once("header_currentlisting.php");
-include_once("../config.php");
+//include_once("../config.php");
 require ('paginator.php');
 
-$mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE); 
+//$mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_DATABASE); 
 
 //DO NOT limit this query with LIMIT keyword, or...things will break!
 $query = "SELECT * FROM interns_data";
@@ -13,8 +13,8 @@ $limit = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 8; //movies per page
 $page = ( isset( $_GET['page'] ) ) ? $_GET['page'] : 1; //starting page
 $links = 8;
 
-$paginator = new Paginator( $mysqli, $query ); //__constructor is called
-$results = $paginator->getData( $limit, $page );
+//$paginator = new Paginator( $mysqli, $query ); //__constructor is called
+//$results = $paginator->getData( $limit, $page );
 ?>
 
 <style>
@@ -54,7 +54,7 @@ $results = $paginator->getData( $limit, $page );
   <p class="text-center my-1">HNG4.0 has been a life-transforming journey for interns across Africa.</p>
   <p class="text-center my-1">Don't take our word for it...take theirs.</p>
   <div class="row mx-0 mt-4 justify-space-between">
-  <?php for($p = 0; $p < count($results->data); $p++): ?>  
+  <?php //for($p = 0; $p < count($results->data); $p++): ?>  
     
     <?php 
     //store in $movie variable for easier reading
@@ -69,7 +69,7 @@ $results = $paginator->getData( $limit, $page );
       </div>
       <h4 class="text-center mt-3"><?php echo $row['name'];?></h4>
     </div>
-<?php endfor ?>
+<?php //endfor ?>
     <nav class="text-xs-center" style="margin:auto;">
     <br>
 <br>
