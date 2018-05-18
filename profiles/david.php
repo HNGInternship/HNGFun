@@ -319,8 +319,102 @@ font-family: verdana;
 color: #fff;
 left: 30%; 
 right: 30%;
-
 }
+/*legend*/
+
+.chatbot-container{
+      background-color: #F3F3F3;
+      width: 500px;
+      height: 500px;
+      margin: 10px;
+      box-sizing: border-box;
+      box-shadow: -3px 3px 5px gray;
+    }
+    .chat-header{
+      width: 500px;
+      height: 50px;
+      background-color: #1380FA;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 1.5em;
+    }
+    #chat-body{     
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px 20px 20px;
+        background: white;           
+        overflow-y: scroll;
+        height: 395px;
+        max-height: 395px;
+    }
+    .message{
+      background-color: #1380FA;
+      color: white;
+      font-size: 0.8em;
+      width: 300px;
+      display: inline-block;
+              padding: 10px;
+      margin: 5px;
+              border-radius: 10px;
+                line-height: 18px;
+    }
+    .bot_chat{
+      text-align: left;
+
+    }
+    .bot_chat .message{
+      background-color: #1380FA;
+      color: white;
+      opacity: 0.9;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .user_chat{
+      text-align: right;
+    }
+    .user_chat .message{
+      background-color: #E0E0E0;
+      color: black;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .chat-footer{
+      background-color: #F3F3F3;
+    }
+    .input-text-container{
+      margin-left: 20px;
+    }
+    .input_text{      
+      width: 370px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      border: 0.5px solid #1380FA;
+      border-radius: 5px;
+    }
+    .send_button{
+      width: 75px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      color: white;
+      border:none;
+      border-radius: 5px;
+      background-color: #1380FA;
+    }.myfooter{
+      margin: 100px 0px 50px 0px;
+      font-size: 0.9em;
+    }.footer_line{
+      padding: 0px;
+      margin-bottom: 20px;
+      border: 0.5px solid #34495E;
+      background-color: #34495E;
+      width: 100%;
+    }
+    .grey-text{
+      text-decoration: none;
+    }
+
+/**/
 </style>
   </head>
   <body>
@@ -338,7 +432,64 @@ right: 30%;
  </div>
       </div><br><br>
 
+<!--legend-->
+<div class="chatbot-container">
 
+<!-- CHAT BOT HERE -->
+<div class="chat-header">
+<span>Le-Bot</span>
+</div>
+<div id="chat-body">
+<div class="bot_chat">
+<div class="message">Hello! My name is Le-bot.<br>I'm willing to attend to any of your question, so you can ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
+</div>
+
+</div>
+</div>
+<div class="chat-footer">
+<div class="input-text-container">
+<form action="" method="post" id="chat-input-form">
+<input type="text" name="input_text" id="input_text" required class="input_text" placeholder="Type your question here...">
+<button type="submit" class="send_button" id="send">Send</button>
+</form>
+</div>        
+</div>
+</div>
+</div>  
+<!---->
+<!--My script here-->
+<script>
+    var outputArea = $("#chat-body");
+
+    $("#chat-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#input_text").val();
+
+        outputArea.append(`<div class='user_chat'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=Legendary',
+            type: 'POST',
+            data:  'input_text=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='bot-chat'><div class='message'>" + result + "</div></div>");
+                    $('#chat-body').animate({
+                        scrollTop: $('#chat-body').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#input_text").val("");
+
+    });
+</script>
 </body>
 </html>
 <?php
