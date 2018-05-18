@@ -44,9 +44,9 @@ $data = $q->fetchAll();
                     <!--Name-->
                     <h4 class="card-title mt-1"><?= $list['name']?></h4>
                     <hr>
-                    <span class="align-middle">
+               
                 <center> <a href="profile.php?id=<?php echo $row['username'];?>" class="my-0 py-0 btn btn-default">View Profile</a></center>
-                  </span>
+                
                 </div>
 
             </div>
