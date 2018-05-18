@@ -295,10 +295,10 @@ function insertChat(who, text, time){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "user"){
+    if (who == "davbot"){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ user.avatar +'" /></div>' +
+                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ davbot.avatar +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
@@ -444,7 +444,7 @@ $("ul.chats").scrollTop = $("ul.chats").scrollHeight;
 
 // })
 
-insertChat("davbot", introText, 350);
+insertChat("davbot", introText, 0);
 
 scrollToBottom();
 //-- Print Messages
