@@ -179,14 +179,14 @@
     html {
       font-size: 100%;
       box-sizing: border-box;
-      height: 100%;
+      height: auto;
     }
 
     body {
       font-family: Roboto, sans-serif;
       font-size: 1.4rem;
       line-height: 1;
-/*       height: 100%; */
+      height: auto;
       background: lightsmoke;
     }
 
@@ -438,7 +438,7 @@
 <body>
 
     <div class="constrain">
-      <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A really fine pic of Sarah" class="profile-dp">
+      <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A fine pic of Sarah" class="profile-dp">
       <section class="title">
         <h1 class="name">Sarah Temitope</h1>
         <p class="labels">Budding Designer ✿ Lover of Life</p>
