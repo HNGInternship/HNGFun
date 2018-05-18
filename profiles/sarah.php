@@ -49,7 +49,7 @@
 		date_default_timezone_set("Africa/Lagos");
 		$time = date("Y/m/d");
 		$respondTime = array( 'Today\'s date is '.$time,
-								'it\'s '. $time,
+								'It\'s '. $time,
 								'Today is '. $time,
 								$time);
 		$index = mt_rand(0, 3);
@@ -61,7 +61,7 @@
 		date_default_timezone_set("Africa/Lagos");
 		$time = date("h:i A");
 		$respondTime = array( 'The time is '.$time,
-								'it\'s '. $time,
+								'It\'s '. $time,
 								$time);
 		$index = mt_rand(0, 2);
 		return $anwerSam = $respondTime[$index];
@@ -93,7 +93,7 @@
 					echo repondTraining();
 				};
 			} catch (PDOException $e) {
-				echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+				echo "I did't quite get that, something must be wrong, <br> please try again";
 			} // End Catch
 		} // End Else
 	} // Train Function Ends here
@@ -104,7 +104,7 @@
 		$repondTraining = array(  'Noted! Thank you for teaching me',
 									'Acknowledged, thanks, really want to learn more',
 									'A million thanks, I\'m getting smarter',
-									'i\'m getting smarter, I really appreciate');
+									'I\'m getting smarter, I really appreciate');
 		$index = mt_rand(0, 3);
 		return $anwerSam = $repondTraining[$index];
 	}
@@ -179,14 +179,14 @@
     html {
       font-size: 100%;
       box-sizing: border-box;
-      height: 100%;
+      height: auto;
     }
 
     body {
       font-family: Roboto, sans-serif;
       font-size: 1.4rem;
       line-height: 1;
-      height: 100%;
+      height: auto;
       background: lightsmoke;
     }
 
@@ -438,7 +438,7 @@
 <body>
 
     <div class="constrain">
-      <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A really fine pic of Sarah" class="profile-dp">
+      <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A fine pic of Sarah" class="profile-dp">
       <section class="title">
         <h1 class="name">Sarah Temitope</h1>
         <p class="labels">Budding Designer ✿ Lover of Life</p>
