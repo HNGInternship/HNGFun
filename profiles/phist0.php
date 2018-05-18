@@ -597,7 +597,7 @@ footer[role="contentinfo"]{background-color:#FFFFFF;}
 	<ul>
 		<li>&#8217; : HNG 4.0 Internship </li>
 </ul>
-<p><a style="color: #990000;" href="#chat-box">Need Information? Chat With The Bot Here &gt;&gt;</a></p>
+<p><a style="color: #990000;" href="#chat-box" onclick="change()">Need Information? Chat With The Bot Here &gt;&gt;</a></p>
 </div>
 
 												</div>
