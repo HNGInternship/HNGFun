@@ -285,7 +285,6 @@ h5{
 
 <p><button>Contact<a href="#"></a></button></p>
 </div>
-<body>
   <div>
   <div id='bodybox'>
   <div id='chatborder'
