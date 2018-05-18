@@ -449,8 +449,8 @@ $("ul.chats").scrollTop = $("ul.chats").scrollHeight;
 scrollToBottom();
 //-- Print Messages
 insertChat("davbot", introText, 0);  
-insertChat("user", "Hi, Pablo", 1500);
-/*insertChat("me", "What would you like to talk about today?", 3500);
+/*insertChat("user", "Hi, Pablo", 1500);
+insertChat("me", "What would you like to talk about today?", 3500);
 insertChat("you", "Tell me a joke",7000);
 insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
 insertChat("you", "LOL", 12000);*/
