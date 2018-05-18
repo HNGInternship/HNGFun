@@ -95,20 +95,18 @@ function getAnswer($input) {
    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
     <style media="screen">
 
-
-    /*legendary*/
     .chatbot-container{
       background-color: #F3F3F3;
-      width: 500px;
+      width: 400px;
       height: 500px;
       margin: 10px;
       box-sizing: border-box;
       box-shadow: -3px 3px 5px gray;
     }
     .chat-header{
-      width: 500px;
+      width: 400px;
       height: 50px;
-      background-color: #1380FA;
+      background-color: #000;
       color: white;
       text-align: center;
       padding: 10px;
@@ -139,7 +137,7 @@ function getAnswer($input) {
 
     }
     .bot_chat .message{
-      background-color: #1380FA;
+      background-color: #000;
       color: white;
       opacity: 0.9;
       box-shadow: 3px 3px 5px gray;
@@ -163,7 +161,7 @@ function getAnswer($input) {
       height: 35px;
       padding: 5px;
       margin-top: 8px;
-      border: 0.5px solid #1380FA;
+      border: 0.5px solid #000;
       border-radius: 5px;
     }
     .send_button{
@@ -174,7 +172,7 @@ function getAnswer($input) {
       color: white;
       border:none;
       border-radius: 5px;
-      background-color: #1380FA;
+      background-color: #000;
     }.myfooter{
       margin: 100px 0px 50px 0px;
       font-size: 0.9em;
