@@ -248,7 +248,7 @@ hr{
 
 .containers
 {
-	width: 380px;
+	width: 410px;
 	margin: 0px auto;
 	height: 950px;	
 }
@@ -511,7 +511,7 @@ hr{
 <style type="text/css">
 					.chat-bot {
 						background-color: #fff;
-						margin: 10px 0px 0px 5px;
+						margin: 10px 0px 0px 0px;
 						border-radius: 5px 5px 0px 0px;
 						padding-bottom: 40px;
 						position: relative; 
@@ -624,7 +624,7 @@ hr{
  <!--Andy Bot-->
  <div class="row">
 					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-8 col-sm-10">
+					<div class="col-md-8 col-sm-10" style="padding-left: 0px;padding-right: 0px;">
 						<!-- chat bot -->
 				<div class="chat-bot">
 					<!-- chat title area -->
