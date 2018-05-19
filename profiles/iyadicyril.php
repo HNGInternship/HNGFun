@@ -496,7 +496,7 @@ hr{
 }
 
 </style>
-<div id="header" class="containers" style="height:100px">
+<div id="header" class="containers" style="height:150px;margin-top: 0px;padding-top: 37px;margin-bottom: 49px;">
 	<div id="logo">
 		<h1><a href="#">@IyadiCyril</a></h1>
 	</div>	
@@ -652,7 +652,7 @@ hr{
 						<div class="message-input-area">
 							<label for="user-message"></label>
 							<input type="text" class="message-input" id="user-message" name="user-message" placeholder="Ask me anything" required>
-							<button class="btn btn-primary" type="button" onclick="sendMsg()">Send</button>
+							<button class="btn btn-primary" type="button" onclick="sendMsg()" style="padding-left: 0px;padding-right: 0px;">DM</button>
 						</div>
 					</div>
 
