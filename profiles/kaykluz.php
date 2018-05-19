@@ -4,74 +4,147 @@
 // die;
 function getAction($input)
 {
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
-	
-	function botAnswer($message){
-		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://res.cloudinary.com/kaykluz/image/upload/v1524408376/avatar_solo.jpg" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>' . $message . '</p>';
-			return $botAnswer;
+	$data = [];
+	switch ($input['stage']) {
+		case 0: //bot intro
+			$data = greet();
+			break;
+		case 1: // chat or train
+			$human_response = preg_replace('([\s]+)', ' ', trim($input['human_response']));
+			$data = chat_or_train($human_response);
+			break;
 	}
-	function train($dbcon, $data){
-		$trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
-		$trainCheck->bindParam(':question', $data['question']);
-		$trainCheck->bindParam(':answer', $data['answer']);
-		$trainCheck->execute();
-		$result = $trainCheck->fetch(PDO::FETCH_ASSOC);
-		$rows = $trainCheck->rowCount();
-			if($rows === 0){
-			$trainQuery = $dbcon->prepare("INSERT INTO chatbot (id, question, answer) VALUES(null, :q, :a)");
-			$trainQuery->bindParam(':q', $data['question']);
-			$trainQuery->bindParam(':a', $data['answer']);
-			$trainQuery->execute();
-			$bot = botAnswer("Thanks for making me better.");
-		}elseif($rows !== 0){
-			$bot = botAnswer("I already know how to do that. You can ask me a new question, or teach me something else using the format: question # answer # password");
+	return json_encode($data);
+}
+function KluzBotGetMenu()
+{
+	return '1. enter menu to show this help <br>
+            2. Find synonyms E.g: Synonyms of love? <br>
+            3. train me e.g: train synonyms of goat # goatie,goater,etc # passkey. <br>
+            3. clear screen: cls. <br>
+            4. exit bot: exit. <br>
+           ';
+}
+function train($human_response)
+{
+	$human_response = trim($human_response);
+	if (!is_valid_training_format($human_response)) {
+		$data = ["data" => "In correct train syntax", "stage" => 1];
+	} else {
+		$inputs = get_question_answer_password($human_response);
+		if (strcmp($inputs['password'], 'password') !== 0) {
+			$data = ["data" => "You don't have the pass key", "stage" => 2];
+		} else {
+			$data = set_question($inputs['question'], $inputs['answer']);
 		}
-		echo $bot;
 	}
-	
-		
-	
-	 	$userInput = strtolower(trim($_POST['question']));
-	 	if(isset($userInput)){
-	 		$user = $userInput;
-	 		 //array_push($_SESSION['chat-log'] , $user);
-	 	}
-	 	
-	 	if(strpos($userInput , 'train:') ===0){
-	 		list($t, $r ) = explode(":", $userInput);
-			list($trainquestion, $trainanswer, $trainpassword) = explode("#", $r);
-			$data['question'] = $trainquestion;
-	 		$data['answer'] = $trainanswer;
-	 		if($trainpassword === $pass){
-	 			$bot = train($conn, $data);
-	 			//array_push($_SESSION['chat-log'] , $bot);
-	 		}else{
-	 			$bot = botAnswer("You have entered a wrong password.");
-	 			//array_push($_SESSION['chat-log'] , $bot);
-	 		}
-	 		
-	 	}elseif($userInput === 'about' || $userInput === 'aboutbot'){
-	 		$bot = botAnswer("Version 1.0");
-     		//array_push($_SESSION['chat-log'] , $bot);
-	 	}else{
-			 $userInputQuery = $conn->query("SELECT * FROM chatbot WHERE question like '".$userInput."' ");
-		     $userInputs = $userInputQuery->fetchAll(PDO::FETCH_ASSOC);
-		    $userInputRows = $userInputQuery->rowCount();
-		     if($userInputRows == 0){
-		     	$bot = botAnswer("I do not know the answer. Train me using the format train: question #answer #password");
-		     //	array_push($_SESSION['chat-log'] , $bot);
-		     }else{
-		     	$botAnswer = $userInputs[rand(0, count($userInputs)-1)]['answer'];
-		     	$bot = botAnswer($botAnswer);
-		     	//array_push($_SESSION['chat-log'] , botAnswer($botAnswer));
-		     }
-     	}
-     	echo $bot;
-     	exit();
-     }
+	return $data;
+}
+function chat($human_response)
+{
+	$data = [];
+	if (strcmp(strtolower(trim($human_response)), 'menu') == 0) {
+		$data = ["data" => KluzBotGetMenu(), "stage" => 2];
+	} elseif (strcmp(strtolower(trim($human_response)), 'aboutbot') == 0) {
+		$data = ['data' => 'Kluzbot v1.0.1', 'stage' => 1];
+	} else {
+		$data = get_answer($human_response);
+	}
+	return $data;
+}
+function chat_or_train($human_response)
+{
+	if (strpos(trim($human_response), 'train') !== false && strpos(trim($human_response), ':') !== false) {
+		return train($human_response);
+	} else {
+		return chat($human_response);
+	}
+}
+function get_answer($human_response)
+{
+	global $conn;
+	$question = prepare_question_chat($human_response);
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}' or question = '{$question}?'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+	if (count($results) > 0) {
+		$data = $results[rand(0, count($results) - 1)]['answer'];
+	} else {
+		$data = "Just a bot, still learning :-)";
+	}
+	return ["data" => $data, "stage" => 1];
+}
+function set_question($question, $answer)
+{
+	global $conn;
+	$sql = "SELECT * FROM chatbot WHERE question = '{$question}'";
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$results = $q->fetchAll();
+	if (count($results) > 0) {
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+		try {
+			$query = $conn->prepare($sql);
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new answer to that question. thanks';
+			};
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+	} else {
+		$sql = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+		try {
+			$query = $conn->prepare($sql);
+			if ($query->execute([':question' => $question, ':answer' => $answer]) == true) {
+				$data = 'Cool, I have learnt a new question. thanks';
+			};
+		} catch (PDOException $e) {
+			$data = "Something went wrong, please try again";
+		}
+	}
+	return ["data" => $data, "stage" => 1];
+}
+function greet()
+{
+	$greetings = [
+		'Hi there, I\'m KluzBot. type menu to see what i can do',
+		'Hi there, I\'m KluzBot. type menu to see what i can do',
+		'Hi there, I\'m KluzBot. type menu to see what i can do'
+	];
+	return ["data" => $greetings[array_rand($greetings)], "stage" => 1];
+}
+function prepare_question_train($question)
+{
+	$question = trim($question);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+function prepare_question_chat($human_response)
+{
+	$human_response = trim($human_response);
+	$question = str_replace('?', '', $human_response);
+	$question = preg_replace('([\s]+)', ' ', $question);
+	return $question;
+}
+function is_valid_training_format($human_response)
+{
+	$human_response = trim($human_response);
+	$input_parts = explode('#', $human_response);
+	return count($input_parts) === 3;
+}
+function get_question_answer_password($human_response)
+{
+	$parts = explode('#', trim($human_response));
+	$password = array_pop($parts);
+	$password = trim($password);
+	$question_part = trim($parts[0]);
+	$question_part_split = explode(':', $question_part);
+	array_shift($question_part_split);
+	$question = array_shift($question_part_split);
+	$answer = trim($parts[1]);
+	return ['question' => trim($question), 'answer' => $answer, 'password' => $password];
+}
  
     try {
         $sql = 'SELECT * FROM secret_word';
@@ -1074,7 +1147,8 @@ function insertMessage() {
   $('.message-input').val(null);
   updateScrollbar();
   setTimeout(function() {
-      }, 1000 + (Math.random() * 20) * 100);
+    fakeMessage();
+  }, 1000 + (Math.random() * 20) * 100);
 }
 $('.message-submit').click(function() {
   insertMessage();
@@ -1085,7 +1159,27 @@ $(window).on('keydown', function(e) {
     return false;
   }
 })
-
+var Fake = [
+  'Hi there, I\'m Kaykluz and you?',
+  'Nice to meet you',
+  'How are you?',
+  'Not too bad, thanks',
+  'What do you do?',
+  'That\'s awesome',
+  'Its a great day',
+  'I think you\'re a nice person',
+  'Why do you think that?',
+  'Can you explain?',
+  'Anyway I\'ve gotta go now',
+  'It was a pleasure chat with you',
+  'later friend',
+  'Bye',
+  ':)'
+]
+function fakeMessage() {
+  if ($('.message-input').val() != '') {
+    return false;
+  }
   $('<div class="message loading new"><figure class="avatar"><img src="http://res.cloudinary.com/kaykluz/image/upload/v1524408376/avatar_solo.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
   updateScrollbar();
   setTimeout(function() {
@@ -1096,58 +1190,86 @@ $(window).on('keydown', function(e) {
     i++;
   }, 1000 + (Math.random() * 20) * 100);
 }
-function change(){
-			document.getElementById("chat").classList.toggle('hide');
+$('.button').click(function(){
+  $('.menu .items span').toggleClass('active');
+   $('.menu .button').toggleClass('active');
+});
+$(document).ready(function() {
+			// Perform other work here ...
+			let stage = 0;
+			var visitor = '';
+			var done_intro = 0;
+			let url = "profiles/alabamustapha.php";
 			
-    }
-     var btn = document.getElementsByClassName('form-data')[0];
-		var question = document.getElementById("question");
-		var chatLog = document.getElementById("chatlogs");
-		var chatContent = document.getElementById("chat-content");
-		var myTime = new Date().toLocaleTimeString(); 
-		document.getElementsByClassName('chat-time')[0].innerHTML = myTime;
-		document.getElementsByClassName('chat-time')[1].innerHTML = myTime;
-		document.getElementsByClassName('chat-time')[2].innerHTML = myTime;
-		btn.addEventListener("submit", chat);
-		function chat(e){
-		    if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
-			     var xhttp = new XMLHttpRequest();
-			} else if (window.ActiveXObject) { // IE 6 and older
-			  var  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			$("div#chat-bot").hide();
+			
+			$("a#start-chat-bot").click(function(e){
+				
+				$("div#chat-bot").toggle();
+				
+				stage = 0;
+				doIntro();
+				$(".human_input").on('keyup', function (e) {
+					if (e.keyCode == 13) {
+						
+						if($("input.human_input").val().trim().length < 1){
+							// $("div.conversation").append(makeMessage("Please provide an input"));
+						}else if($("input.human_input").val() == "cls"){
+							$("div.conversation").html('');
+							$("div.conversation").append(makeMessage("Clean slate, Check menu if needed"));
+							$('input.human_input').val('');
+						}else if($("input.human_input").val() == "exit"){
+							$("div.conversation").html('');
+							$('input.human_input').val('');
+							stage = 0;
+							$("div#chat-bot").hide();	
+						}else{
+							human_response = $("input.human_input").val().trim();
+							
+							$("div.conversation").append(makeHumanMessage(human_response));
+							
+							$('input.human_input').val('');
+							$.post(url, {human_response: human_response, stage: 1})
+							.done(function(response) {
+								response = jQuery.parseJSON(response);
+								if(stage == 1){
+									if(Array.isArray(response.data)){
+										$("div.conversation").append(makeMessage(response.data));
+									}else{
+										$("div.conversation").append(makeMessage(response.data));
+									}
+									
+								}
+								stage = response.stage;	
+							}).fail(function() {
+								alert( "error" );
+							})
+						}	
+					}
+				});
+			});
+		
+			function makeMessage(message){
+				return "<div class='message'> <div class='bot-message message-content text'><span>" + message + "</span></div></div>";
 			}
-		   
-			xhttp.onreadystatechange = function() {
-	          if(this.readyState == 4 && this.status == 200) {
-	          	// console.log(this.response);
-	          	 userChat(question.value, this.response);
-     			e.preventDefault();
-	            question.value = '';
-	          }
-      	    }
-        xhttp.open('POST', 'profiles/kaykluz.php', true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send('question='+ question.value);
-        e.preventDefault();
-		}
-		function userChat(chats, reply){
-			if(question.value !== ''){
-				var chat = `<div class="chat user chat-message">
-					<img src="http://res.cloudinary.com/kaykluz/image/upload/v1524408376/avatar_solo.jpg" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>` + chats + `</p>
-						<span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
-					 </div>
-				</div>`;
+			
+			function makeHumanMessage(message){
+				return "<div class='pull-right message'><div class='human-message message-content text'><span>" + message + "</span></div></div>";
 			}
-			chatContent.innerHTML += chat;
-		     
-		    setTimeout(function() {
-			    chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
-					</div> 
-				</div>`;
-				document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight;	
-			}, 1000);
-		}
+			function doIntro(human_input){
+					$.post(url, {human_response: human_input, stage: stage})
+						.done(function(response) {
+							$("div.conversation").html('');
+							response = jQuery.parseJSON(response);
+							stage = response.stage;
+							$("div.conversation").append(makeMessage(response.data));
+							// responsiveVoice.speak(response.data);
+						}).fail(function() {
+							alert("error");
+						})
+			}
+		
+		});
 		</script>
 </head>
 </html>

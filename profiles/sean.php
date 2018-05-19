@@ -21,383 +21,824 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Seun Adebanwo</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<link href="http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
 
-<!--[if IE 6]>
-<link href="default_ie6.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-</head>
-<body>
+    <title>Seun Adebanwo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!------ Include the above in your HEAD tag ---------->
+	
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).on('click', '.panel-heading span.icon_minim', function (e) {
+		var $this = $(this);
+		if (!$this.hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideUp();
+			$this.addClass('panel-collapsed');
+			$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+		} else {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$this.removeClass('panel-collapsed');
+			$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+		}
+	});
+	$(document).on('focus', '.panel-footer input.chat_input', function (e) {
+		var $this = $(this);
+		if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+			$this.parents('.panel').find('.panel-body').slideDown();
+			$('#minim_chat_window').removeClass('panel-collapsed');
+			$('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+		}
+	});
+	$(document).on('click', '#new_chat', function (e) {
+		var size = $( ".chat-window:last-child" ).css("margin-left");
+		 size_total = parseInt(size) + 400;
+		alert(size_total);
+		var clone = $( "#chat_window_1" ).clone().appendTo( ".container" );
+		clone.css("margin-left", size_total);
+	});
+	$(document).on('click', '.icon_close', function (e) {
+		//$(this).parent().parent().parent().parent().remove();
+		$( "#chat_window_1" ).remove();
+	});
 
+	</script>
+
+	<script type="text/javascript">
+		$(function() {
+		var Accordion = function(el, multiple) {
+			this.el = el || {};
+			this.multiple = multiple || false;
+
+			// Variables privadas
+			var links = this.el.find('.link');
+			// Evento
+			links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+		}
+
+		Accordion.prototype.dropdown = function(e) {
+			var $el = e.data.el;
+				$this = $(this),
+				$next = $this.next();
+
+			$next.slideToggle();
+			$this.parent().toggleClass('open');
+
+			if (!e.data.multiple) {
+				$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+			};
+		}	
+
+		var accordion = new Accordion($('#accordion'), false);
+	});
+
+
+	</script>
+	<!------ Include the above in your HEAD tag ---------->
+	
 <style>
 
-
-html, body
-{
-	height: 100%;
-}
-
-body
-{
-	margin-top: 50px;
-	padding: 0px;
-	background:#212529;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 10pt;
-	color: #737373;
-}
-
-h1, h2, h3
-{
-	margin: 0;
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+* {
+    margin: 0;
 	padding: 0;
-	font-family: 'Englebert', sans-serif;
-	color: #111021;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-h2
-{
-	font-weight: 400;
-	font-size: 2.00em;
-	color: #17165f;
+body {
+	background: #2d2c41;
+	font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
 }
 
-p, ol, ul
-{
-	margin-top: 0px;
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
-p
-{
-	line-height: 180%;
-	margin: 30px 0px 30px 0px;
+.iamgurdeep-pic {
+    position: relative;
+}
+.username {
+    bottom: 0;
+    color: #ffffff;
+    padding: 30px 15px 4px;
+    position: absolute;
+    width: 100%;
+    text-shadow: 1px 1px 2px #000000;
+    
+background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #2d2c41 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #2d2c41 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a64d4d4d',GradientType=0 ); /* IE6-9 */
+}
+.iamgurdeeposahan {
+    border-radius: 4px 4px 0 0;
+}
+.username > h2 {
+    font-family: oswald;
+    font-size: 27px;
+    font-weight: lighter;
+    margin: 31px 0 4px;
+    position: relative;
+    text-shadow: 1px 1px 2px #000000;
+    text-transform: uppercase;
+}
+.username > h2 small {
+    color: #ffffff;
+    font-family: open sans;
+    font-size: 13px;
+    font-weight: 400;
+    position: relative;
+}
+.username .fa{
+    color: #ffffff;
+    font-size: 14px;
+    margin: 0 0 0 4px;
+    position: static;
+}
+.edit-pic a {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    color: #2d2c41;
+    font-size: 21px;
+    height: 39px;
+    line-height: 38px;
+    margin: 8px;
+    text-align: center;
+    width: 39px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+    text-decoration: none !important;
+     display: list-item;
+     background-color: rgba(255, 255, 255, 0.1)
+}
+.edit-pic a:hover {
+   font-size: 17px;
+   opacity: 0.9;
+  }
+.edit-pic a:focus {
+   background:#b63b4d;
+    color: #fff;
+    border: 1px solid #b63b4d;
+}
+a:focus {
+    outline: none;
+    outline-offset: 0px;
+}
+.edit-pic {
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.tags {
+    background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 0 0;
+    padding: 2px 5px;
+     -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.tags:hover {
+    background: rgba(255, 255, 255, 0.3) none repeat scroll 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 0 0;
+    padding: 2px 5px;
+}
+#accordion:hover .edit-pic {
+    opacity: unset;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
 
-a
-{
-	color: #8C2287;
+.btn-o {
+    
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    color: #ffffff !important;
+    display: inline-block;
+    font-family: open sans;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    margin: 0 0 10px;
+    padding: 5px 11px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    
+   background-color: rgba(255, 255, 255, 0.1);
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.btn-o:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+    color: #fff !important;
+  }
+.btn-o:focus {
+   background:#b63b4d;
+    color: #fff;
+    border: 1px solid #b63b4d;
+}
+.submenu .iamgurdeeposahan {
+    background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0 !important;
+    border-radius: 50%;
+    height: 60px;
+    padding: 2px;
+    width: 60px;
+}
+.photosgurdeep > a {
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 50%;
+    display: inline-block !important;
+    padding: 0 !important;
+}
+.view-all {
+    background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0 !important;
+    border: 1px solid;
+    float: right;
+    font-family: oswald;
+    font-size: 26px;
+    height: 60px;
+    line-height: 61px;
+    text-align: center;
+    width: 60px;
+}
+.photosgurdeep {
+    padding: 10px 9px 4px 35px;
+}
+ul {
+	list-style-type: none;
 }
 
-a:hover
-{
+a {
+	color: #b63b4d;
 	text-decoration: none;
 }
 
-a img
-{
-	border: none;
-}
+/** =======================
+ * Contenedor Principal
+ ===========================*/
+h1 {
+ 	color: #FFF;
+ 	font-size: 24px;
+ 	font-weight: 400;
+ 	text-align: center;
+ 	margin-top: 40px;
+ }
 
-img.alignleft
-{
-	float: left;
-}
+h1 a {
+ 	color: #c12c42;
+ 	font-size: 16px;
+ }
 
-img.alignright
-{
-	float: right;
-}
+ .accordion {
+ 	width: 100%;
+ 	max-width: 360px;
+ 	margin: 30px auto 20px;
+ 	background: #FFF;
+ 	-webkit-border-radius: 4px;
+ 	-moz-border-radius: 4px;
+ 	border-radius: 4px;
+ }
 
-img.aligncenter
-{
-	margin: 0px auto;
-}
-
-hr
-{
-	display: none;
-}
-
-/** WRAPPER */
-
-#wrapper
-{
-	overflow: hidden;
-	background: #FFFFFF;
-	box-shadow: 0px 0px 20px 5px rgba(0,0,0,.10);
-	border-radius: 40px;	
-}
-
-.container
-{
-	width: 380px;
-	margin: 0px auto;	
-}
-
-.clearfix
-{
-	clear: both;
-}
-
-/** HEADER */
-
-#header
-{
-	overflow: hidden;
-	width: 920px;
-	padding: 0px 0px;
-	padding-top: 10px;
-}
-
-/** LOGO */
-
-#logo
-{
-	float: left;
-	width: 400px;
-	height: 100px;
-}
-
-
-#logo h1 a
-{
-	line-height: 100px;
-	text-decoration: none;
-	font-size: 2em;
-	font-weight: 400;
-	color: #FFFFFF;
-	width: 400px;
-}
-
-/** MENU */
-
-#menu
-{
-	float: right;
-	width: 650px;
-	height: 80px;
-	margin-top: 20px;
-	background: #8C2287;
-	box-shadow: 0px 0px 10px 1px rgba(0,0,0,.10);
-	border-radius: 20px 20px 0px 0px;
-}
-
-#menu ul
-{
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	line-height: normal;
-	text-align: center;
-}
-
-#menu li
-{
-	display: inline-block;
-	padding: 0px 20px;
-}
-
-#menu a
-{
+.accordion .link {
+	cursor: pointer;
 	display: block;
-	line-height: 80px;
-	text-decoration: none;
-	font-family: 'Englebert', sans-serif;
-	font-size: 1.50em;
-	color: #FFFFFF;
+	padding: 15px 15px 15px 42px;
+	color: #4D4D4D;
+	font-size: 14px;
+	font-weight: 700;
+	border-bottom: 1px solid #CCC;
+	position: relative;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
 }
 
-#menu a:hover
-{
-	text-decoration: underline;
+.accordion li:last-child .link {
+	border-bottom: 0;
 }
 
-/** PAGE */
+.accordion li i {
+	position: absolute;
+	top: 16px;
+	left: 12px;
+	font-size: 18px;
+	color: #595959;
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
 
-#page
-{
-	overflow: hidden;
-	padding: 50px 0px;
+.accordion li i.fa-chevron-down {
+	right: 12px;
+	left: auto;
+	font-size: 16px;
+}
+
+.accordion li.open .link {
+	color: #b63b4d;
+}
+
+.accordion li.open i {
+	color: #b63b4d;
+}
+.accordion li.open i.fa-chevron-down {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.accordion li.default .submenu {display: block;}
+/**
+ * Submenu
+ -----------------------------*/
+ .submenu {
+ 	display: none;
+ 	background: #444359;
+ 	font-size: 14px;
+ }
+
+ .submenu li {
+ 	border-bottom: 1px solid #4b4a5e;
+ }
+
+ .submenu a {
+ 	display: block;
+ 	text-decoration: none;
+ 	color: #d9d9d9;
+ 	padding: 12px;
+ 	padding-left: 42px;
+ 	-webkit-transition: all 0.25s ease;
+ 	-o-transition: all 0.25s ease;
+ 	transition: all 0.25s ease;
+ }
+
+ .submenu a:hover {
+ 	background: #b63b4d;
+ 	color: #FFF;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.nav.navbar-nav .dropdown-toggle {
+    padding: 0 !important;
+}
+
+.dropdown-toggle span {
+    background: rgba(255, 255, 255, 0.1) none repeat scroll 0 0;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    font-size: 23px !important;
+    height: 38px;
+    line-height: 40px;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: center;
+    width: 38px;
+    text-shadow:none !important;
+}
+
+.nav.navbar-nav {
+    bottom: 10px;
+    position: absolute;
+    right: 12px;
+    transition: all 0.4s ease 0s;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    border-radius: 2px !important;
+    margin-top: 10px;
+    min-width: 101px;
+    padding: 0;
+}
+.navbar-nav > li > .dropdown-menu li a {
+    color: #333333 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 2px 8px !important;
+    text-align: right !important;
+    text-shadow:none !important;
+}
+.dropdown-toggle {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0 !important;
+    font-size: 15px !important;
+}
+
+.dropdown {
+  -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.dropdown-menu>li>a {
+    color:#428bca;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+.dropdown ul.dropdown-menu {
+    border-radius:4px;
+    box-shadow:none;
+}
+.dropdown ul.dropdown-menu:before {
+    content: "";
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    z-index: 10;
+}
+
+
+
+
+:before, :after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 	
+@media (min-width: 768px)
+.navbar-nav {
+    float: left;
+    margin: 0;
 }
 
-#page h2
-{
-	padding-bottom: 20px;
+.navbar-nav {
+    margin: 7.5px -15px;
 }
 
-/** CONTENT */
-
-#content
-{
-	float: left;
-	width: auto;
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
 }
 
-/** SIDEBAR */
-
-#sidebar
-{
-	float: right;
-	width: 280px;
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
 }
 
-#sidebar #sbox1
-{
-	margin-bottom: 30px;
+.dropdown-menu.pull-right {
+    right: 0;
+    left: auto;
 }
 
-/* Footer */
-
-#footer
-{
-	overflow: hidden;
-	padding:  0px 30px 0px;
-	color: #C54F7F;
+.open>.dropdown-menu {
+    display: block;
 }
 
-#footer p
-{
-	text-align: center;
+.navbar-nav > li > .dropdown-menu {
+    border-radius: 2px !important;
+    margin-top: 10px;
+    min-width: 101px;
+    padding: 0;
 }
 
-#footer a
-{
-	color: #CE6790;
+.dropdown ul.dropdown-menu {
+    border-radius: 4px;
+    box-shadow: none;
 }
 
-.image-style img
+/***********************
+CHATBOT CSS
+**************/
+
+.chat
 {
-	margin-bottom: 2em;
-	border-radius: 30px;
-	padding: 0px 40px;
-	width: 300px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-/** LIST STYLE 1 */
-
-.list-style1
+.chat li
 {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
-	font-family: 'Open Sans', sans-serif;
-	color: #777777;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
 }
 
-.list-style1 li
+.chat li.left .chat-body
 {
-	padding: 10px 0px 10px 0px;
-	border-top: 1px solid #D6D6D6;
+    margin-left: 60px;
 }
 
-.list-style1 a
+.chat li.right .chat-body
 {
-	color: #777777;
+    margin-right: 60px;
 }
 
-.list-style1 h3
+
+.chat li .chat-body p
 {
-	padding: 10px 0px 5px 0px;
-	font-weight: 500;
-	color: #444444;
+    margin: 0;
+    color: #777777;
 }
 
-.list-style1 .posted
+.panel .slidedown .glyphicon, .chat .glyphicon
 {
-	padding: 0px 0px 0px 0px;
+    margin-right: 5px;
 }
 
-.list-style1 .first
+.panel-body
 {
-	border-top: 0px;
-	padding-top: 0px;
+    overflow-y: scroll;
+    height: 250px;
 }
 
-/** LIST STYLE 2 */
-
-.list-style2
+::-webkit-scrollbar-track
 {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
 }
 
-.list-style2 li
+::-webkit-scrollbar
 {
-	padding: 10px 0px 20px 0px;
-	border-top: 1px solid #C9C9C9;
+    width: 12px;
+    background-color: #F5F5F5;
 }
 
-.list-style2 a
+::-webkit-scrollbar-thumb
 {
-	color: #777777;
-}
-
-.list-style2 .first
-{
-	padding-top: 0px;
-	border-top: 0px;
-}
-
-.link-style1
-{
-	display: inline-block;
-	margin-top: 20px;
-	background: #8C2287;
-	border-radius: 10px;
-	padding: 10px 30px;
-	text-decoration: none;
-	font-family: 'Englebert', sans-serif;
-	font-size: 1.50em;
-	color: #FFFFFF;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }
 
 
 </style>
-<div id="header" class="container">
-	<div id="logo">
-		<h1><a href="#">@Sean</a></h1>
-	</div>	
-</div>
-<div id="wrapper" class="container">
-	<div id="page" style="width: 350px;">
-		<div id="content"> <a href="#" class="image-style" style="padding-right: 40px;padding-left: 30px;width: 370.797px;"><img src="http://res.cloudinary.com/findseun/image/upload/c_scale,e_art:incognito,h_300,w_300/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png" width="300" height="300" alt=""></a>
-			<h2>Full Stack Elemente</h2>					
-					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">Its all in your mind. Full Stack, Empty of Worries</p>				
-	</div>
-</div>
-</body
-<footer>
-   <div class="container">
-      <div class="row">
-         <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-               <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/findseun" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
-               <li class="list-inline-item">
-                  <a id="facebook" href="https://www.facebook.com/findseun" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
-               <li class="list-inline-item">
-                  <a id="github" href="https://github.com/findseun" target="_blank">
-                     <span class="fa-stack fa-lg">
-                        <i class="fa fa-circle fa-stack-2x"></i>
-                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                     </span>
-                  </a>
-               </li>
     
-            </ul>
-            <p class="copyright text-muted">Copyright © HNG FUN 2018</p>
-         </div>
-      </div>
-   </div>
-</footer>
+
+</head>
+<body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+<div class="container">
+	<div class="row">
+	
+        
+    <h1>@Sean <br><small>Chaos is a ladder</small></h1>
+	<!-- Contenedor -->
+	<ul id="accordion" class="accordion">
+    <li>
+<div class="col col_4 iamgurdeep-pic">
+<img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">
+<div class="edit-pic">
+<a href="https://web.facebook.com/findseun" target="_blank" class="fa fa-facebook"></a>
+<a href="https://www.instagram.com/findseun/" target="_blank" class="fa fa-instagram"></a>
+<a href="https://twitter.com/findseun" target="_blank" class="fa fa-twitter"></a>
+
+
+
+</div>
+<div class="username">
+    <h2>Seun 'Banwo  <small><i class="fa fa-map-marker"></i> Nigeria (Lagos)</small></h2>
+    <p><i class="fa fa-briefcase"></i> Web Design and Development.</p>
+    
+    <a href="https://web.facebook.com/findseun" target="_blank" class="btn-o"> <i class="fa fa-user-plus"></i> Add Friend </a>
+    <a href="https://www.instagram.com/findseun/" target="_blank"  class="btn-o"> <i class="fa fa-plus"></i> Follow </a>
+    
+    
+     <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fa fa-ellipsis-v pull-right"></span></a>
+          <ul class="dropdown-menu pull-right">
+            <li><a href="#">Video Call <i class="fa fa-video-camera"></i></a></li>
+            <li><a href="#">Poke <i class="fa fa-hand-o-right"></i></a></li>
+            <li><a href="#">Report <i class="fa fa-bug"></i></a></li>
+            <li><a href="#">Block <i class="fa fa-lock"></i></a></li>
+          </ul>
+        </li>
+      </ul>
+   
+</div>
+    
+</div>
+        
+    </li>
+		<li>
+			<div class="link"><i class="fa fa-globe"></i>About<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#"><i class="fa fa-calendar left-none"></i> Date of Birth : 24/06/2018</a></li>
+				<li><a href="#">Address : NIGERIA,Lagos</a></li>
+				<li><a href="mailto:findseun@gmail.com">Email : findseun@gmail.com</a></li>
+				<li><a href="#">Phone : +234-800-000-0000</a></li>
+			</ul>
+		</li>
+		<li class="default open">
+			<div class="link"><i class="fa fa-code"></i>Professional Skills<i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li><a href="#"><span class="tags">Adobe Photoshop</span> <span class="tags">Magento</span> <span class="tags">CSS</span> <span class="tags">Phyton</span> 
+                <span class="tags">Graphic Design</span> <span class="tags">HTML</span> <span class="tags">HTML5</span> <span class="tags">JavaScript</span> 
+                <span class="tags">Django</span> <span class="tags">bootstrap</span> <span class="tags">User Interface Design</span> <span class="tags">Wordpress</span></li></a>
+			</ul>
+		</li>
+		<li>
+			<div class="link"><i class="fa fa-picture-o"></i>Photos <small>1,120</small><i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+				<li class="photosgurdeep"><a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+				</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+               
+                <a class="view-all" href="https://web.facebook.com/findseun" target="_blank" >15+
+        		</a>
+    			    
+				</li>
+			</ul>
+		</li>
+		<li><div class="link"><i class="fa fa-users"></i>Friends <small>1,053</small><i class="fa fa-chevron-down"></i></div>
+			<ul class="submenu">
+    			<li class="photosgurdeep"><a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+				</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+        		</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+        		</a>
+                <a href="#"><img class="img-responsive iamgurdeeposahan" alt="iamgurdeeposahan" src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png">                 
+    			</a>
+               
+                <a class="view-all" href="https://web.facebook.com/findseun" target="_blank">50+
+        		</a>
+    			    
+				</li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+    
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
+                            </span>Refresh</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
+                            </span>Available</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
+                            </span>Busy</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                                Away</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="chat">
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>        
+</body
 </html>
