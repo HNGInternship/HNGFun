@@ -511,9 +511,7 @@ right: 30%;
           <a href="https://www.linkedin.com/in/david-ozokoye"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526051162/link.jpg" ></a>
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
-      </div><br><br>
-<div class="chatbot-container">
-
+ <div class="chatbot-container">
 <!-- CHAT BOT HERE -->
 <div class="chat-header">
 <span>davBot UI</span>
@@ -536,6 +534,9 @@ right: 30%;
 </div>
 </div>  
 <!---->
+
+      </div><br><br>
+
 <!--My script here-->
 <script>
     var outputArea = $("#chat-body");

@@ -219,7 +219,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <style>
     body, html {
-      background: url('http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg') no-repeat center top;
+      /*background: url('http://res.cloudinary.com/remijr/image/upload/v1526696408/IMG_20180519_025812_232.jpg') no-repeat center top;*/
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -229,6 +229,8 @@
       color: #777;
       width: 100% !important;
       height: 100% !important;
+	  background-color: cyan;
+	  
     }
     h2 {
       margin: 0 0 20px 0;
@@ -249,13 +251,15 @@
       font-weight: 700;
       line-height: 20px;
     }
-	.about-text{
-		text-shadow: 5px 5px 3px #000;
-		opacity: 0.7;
+	#about-text{
+		text-align: center;
+		text-shadow: 2px 2px 3px #000;
+		opacity: 1;
+		font-size:25px;
 	}
     p.intro {
-	  text-shadow: 3px 3px 2px #000;
-	  opacity: 0.7;
+	  text-shadow: 2px 2px 3px #000;
+	  
       font-size: 16px;
       margin: 12px 0 0;
       line-height: 24px;
@@ -288,13 +292,14 @@
       display: block;
     }
     ul, ol {
+	
       padding: 0;
       webkit-padding: 0;
       moz-padding: 0;
     }
     hr {
       height: 1px;
-      width: 70px;
+      width: 250px;
       text-align: center;
       position: relative;
       background: #666;
@@ -311,11 +316,12 @@
       margin-left: 10px;
       text-align: center;
       width: 80%;
+	  
     }
     #about img {
       border-radius: 50%;
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 300px;
       display: inline-block;
       -webkit-filter: drop-shadow(16px 16px 10px rgba(0,0,0,0.9));
       filter: drop-shadow(16px 16px 10px rgba(0,0,0,0.9));
@@ -323,7 +329,7 @@
     #about p {
       margin-top: 40px;
       margin-bottom: 30px;
-      line-height: 22px;
+      line-height: 29px;
     }
     .categories {
       padding-bottom: 30px;
@@ -335,6 +341,7 @@
     ol.type li {
       display: inline-block;
       margin-left: 20px;
+	  font-weight: 600;
     }
     ol.type li a {
       border: 1px solid #777;
@@ -368,7 +375,7 @@
         background:#e0e0de;
         height:590px;
         position: fixed;
-        bottom: 100px;
+        bottom: 5px;
         right: 0;
         overflow:auto;
     }
@@ -380,7 +387,7 @@
         list-style-type: none;
         padding:18px;
         position:absolute;
-        bottom:47px;
+        bottom:46px;
         display:flex;
         flex-direction: column;
         top:0;
@@ -424,7 +431,7 @@
   <script type="text/javascript">
     var user = {};
     var bot = {};
-    var introText = "<p>Hey Human, Welcome To My World. <br/> You can ask me questions and I will try my best to answer some. You can also train me if you can using the following format</p>" +
+    var introText = "<p>Hey Human welcome, You can ask me questions and I will try to answer some. You can also train me if you can using the following format</p>" +
     "<code>train : question # answer # password</code>" +
     '<p>Feel free to replace the word "<i>train</i>" with "<i>teach</i>" or "<i>coach</i>"</p>' +
     '<p>To see this message at any time, type "intro"</p>' +
@@ -504,7 +511,7 @@
           } else {
             $.ajax({
               type: "POST",
-              url: 'profiles/angela.php',
+              url: 'profiles/remi_jnr_dev.php',
               data: {message: text},
               success: function(response) {
                 reply = '<li style="width:100%">' +
@@ -552,7 +559,7 @@ function scrollToBottom() {
         <div class="col-md-12 text-center"><img src="http://res.cloudinary.com/remijr/image/upload/v1524646974/FB_IMG_15233947670837503.jpg" class="img-responsive"></div>
         <div class="col-md-8 col-md-offset-2">
           <div class="about-text">
-		  <p> Hi, Sweet! The name is <b>Remilekun Elijah</b><br> and I am a Developer</p>
+		  <p id="about-text"> Hi, Sweet! The name is <b>Remilekun Elijah</b><br> and I am a Developer</p>
           </div>
           <div class="section-title text-center center">
             <h2>My Skills</h2>
