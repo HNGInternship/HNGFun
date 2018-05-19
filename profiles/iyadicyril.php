@@ -744,10 +744,10 @@ hr{
 
 	    		if (position == 'sent') {	    			
 	    			div.classList = position + "-message";
-					$(".message-area").scrollTop($(".message-area")[0].scrollHeight);
+					
 	    		}else if (position == 'received'){
 	    			div.classList = position + "-message text-left"
-					$(".message-area").scrollTop($(".message-area")[0].scrollHeight);
+					
 	    		}
 	    		
 	    		par.classList = "message " + position;
@@ -756,7 +756,7 @@ hr{
 	    		//join/append all the element together
 	    		div.appendChild(par);
 	    		messageArea.appendChild(div);
-
+				$(".message-area").scrollTop($(".message-area")[0].scrollHeight);
 	    		//add autoscroll function
 	    	}
 	    	
