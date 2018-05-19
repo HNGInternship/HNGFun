@@ -178,7 +178,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
 
     <style>
 
+<<<<<<< HEAD
       .body{
+=======
+      body{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         font-family: 'roboto';
         background-image: url('https://res.cloudinary.com/dzbxciyvo/image/upload/v1524148027/imageedit_1_9203304264.gif');
         background-size: cover;
@@ -186,7 +190,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
         background-attachment: fixed;
       }
 
+<<<<<<< HEAD
       .profileimg{
+=======
+      .profile{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         width: 95%;
         margin-left: auto;
         margin-right: auto;
@@ -286,7 +294,11 @@ if($_SERVER['REQUEST_METHOD'] === "POST"){
     </style>
 </head>
 <body class="oj-web-applayout-body">
+<<<<<<< HEAD
     <div id="globalBody" class="oj-web-applayout-page body">
+=======
+    <div id="globalBody" class="oj-web-applayout-page">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       
 
       <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">

@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+    require_once '../db.php';
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     try {
         $select = 'SELECT * FROM secret_word';
         $query = $conn->query($select);

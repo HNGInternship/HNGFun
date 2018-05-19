@@ -4,6 +4,19 @@ if (empty($_SESSION)) {
     session_start();
 }
 
+<<<<<<< HEAD
+=======
+// if (file_exists('config.php')) {
+//     include 'config.php';
+// }
+// else if (file_exists('../config.php')) {
+//     include '../config.php';
+// }
+// else if (file_exists('../../config.php')) {
+//     include '../../config.php';
+// }
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 if(!defined('DB_USER')){
     require "../../config.php";		
     try {
@@ -44,7 +57,11 @@ $name = $intern_detail['name'];
 $username = $intern_detail['username'];
 $filename = $intern_detail['image_filename'];
 
+<<<<<<< HEAD
 $padding = '58px 80px';
+=======
+$padding = '50px 80px';
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 $home_url = '';
 
 if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
@@ -63,8 +80,13 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?=$name;?></title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+=======
+    <link rel="stylesheet" href="<?=$home_url;?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=$home_url;?>vendor/font-awesome/css/font-awesome.min.css">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <link href="https://fonts.googleapis.com/css?family=Josefin%20Sans:400,500,600,700" rel='stylesheet' type='text/css' />
     <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
@@ -78,7 +100,10 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
         .btn {
             font-family: "Josefin Sans","Montserrat","Segoe UI","Roboto","Helvetica Neue","Arial","sans-serif";
+<<<<<<< HEAD
             border-radius: 5px !important;
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
 
         .container.profile-body {
@@ -164,7 +189,11 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
         }
 
         .skill-list {
+<<<<<<< HEAD
             margin-bottom: 25px;
+=======
+            margin-bottom: 50px;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
 
         .skill-list h4 {
@@ -238,7 +267,11 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             padding: 15px 0 0 15px;
             height: 523px;
             width: 400px;
+<<<<<<< HEAD
             top: -50px;
+=======
+            top: 0;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             right: 30px;
             margin: 55px 0px 0px 20px;
             background: #FFFFFF;
@@ -261,7 +294,10 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
 
         .fa-close, .fa-question-circle {
             font-size: 23px;
+<<<<<<< HEAD
             color: #FFFFFF;
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
 
         .chatbot-menu-header span {
@@ -284,10 +320,13 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             overflow-y: scroll;
         }
 
+<<<<<<< HEAD
         input[type=text] {
             border: 1px solid #BDBDBD !important;
         }
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         .chatbot-message-bot, .chatbot-message-sender {
             float: left;
             padding: 7px 10px;
@@ -297,6 +336,7 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             word-wrap: break-word;
         }
 
+<<<<<<< HEAD
         .chatbot-message-bot > div > p, .chatbot-sender-bot > div > p {
             margin-top: 10px !important;
         }
@@ -305,6 +345,8 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
             height: 80px !important;
         }
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         #last-message > p {
             margin-bottom: 0;
         }
@@ -526,7 +568,11 @@ if (!stristr($_SERVER['REQUEST_URI'], 'id')) {
         </div>
     </div>
 </body>
+<<<<<<< HEAD
 <script src="<?=$home_url;?>/js/jquery.min.js" type="text/javascript"></script>
+=======
+<script src="<?=$home_url;?>vendor/jquery/jquery.min.js" type="text/javascript"></script>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!-- Latest compiled and minified JavaScript -->
 <script src="<?=$home_url;?>vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
@@ -608,11 +654,23 @@ $(document).on('click', '.chatbot-send', function(e){
 
     content_height = $('.chatbot-menu-content').prop('scrollHeight');
     $('.chatbot-menu-content').scrollTop(content_height);
+<<<<<<< HEAD
+=======
+
+    url = './profiles/christoph.php';
+    if (location.pathname.includes('christoph.php')) {
+        url = '../profiles/christoph.php'
+    }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     
     // Use AJAX to query DB and look for matches to user's query
     if(message_string !== '' && message_string.trim() !== 'help' && password && !aboutbot) {
         $.ajax({
+<<<<<<< HEAD
             url: '/profiles/christoph',
+=======
+            url: url,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             data: bot_query+'='+payload.message,
             type: 'POST',
             dataType: 'JSON',

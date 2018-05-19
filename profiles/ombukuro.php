@@ -1,6 +1,10 @@
 <?php
 //include "../db.php";
+<<<<<<< HEAD
 $query = ("SELECT * FROM interns_data WHERE username='ombukuro'");
+=======
+$query = ("SELECT * FROM interns_data_ WHERE username='ombukuro'");
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 $row = $conn->query($query);
 $result = $row->fetch();
 $username = $result['username'];
@@ -33,6 +37,7 @@ $query1 = "SELECT * FROM secret_word";
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </head>
 
+<<<<<<< HEAD
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">HNG Fun</a>
@@ -60,6 +65,9 @@ $query1 = "SELECT * FROM secret_word";
             </ul>
         </div>
     </nav>    
+=======
+<body>    
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <div class="container-fluid">
     
         <div class="row">

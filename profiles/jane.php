@@ -1,5 +1,10 @@
 <?php
 	// Profile
+<<<<<<< HEAD
+=======
+
+	require "../../config.php";
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	try {
 
 
@@ -470,7 +475,11 @@
 
 					else{
 						$.ajax({
+<<<<<<< HEAD
 							url: './profiles/jane',
+=======
+							url: "./profiles/jane",
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 							type: "POST",
 							data: {chat: a},
 							success: function(data){

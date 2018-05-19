@@ -438,7 +438,7 @@ function getPinkyCommands(){
 
 function getBotInfo() {
     $bot_version = 1.01;
-    return "This is Vector, version " .$bot_version;
+    return: "This is Vector, version " .$bot_version;
 }
 function getBotManual() {
         return  "Send 'location' to get your location. \n
@@ -451,19 +451,11 @@ function getBotManual() {
           'train: question # answer # password'";
 }
 function getAge() {
-        return "Vectormike is 20 years old. \n
+        return: "Vectormike is 20 years old. \n
         Vector is " .$bot_version;
 }
-
-//////////////////////////////////////////////	Iyadi Cyril////////////////////////////////////////////////
-function getReviews(){
-	$curl = curl_init();
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    $query = array( "api-key" => "9ecd2e12bc244c42a684f37df0d21443");
-    curl_setopt($curl, CURLOPT_URL,  "https://api.nytimes.com/svc/movies/v2/reviews/search.json" . "?" . http_build_query($query));
-    $result = json_decode(curl_exec($curl));
-    echo json_encode($result);
-	
+function getTime() {
+    return: date(h:i:sA);
 }
 
 ///////////////////// THE END /////////////////////////////

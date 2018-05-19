@@ -21,6 +21,7 @@
         body {
             color: blue;
             background-color: white;
+<<<<<<< HEAD
 	    }
 	    #wrap {
             width:50%;
@@ -38,6 +39,26 @@
 	        width: 500px;
 	        padding-left: 20px;     
 	       }
+=======
+}
+#wrap {
+                width:50%;
+                margin:0 auto;
+                padding-top: 100px;
+                
+        }
+        .container{
+            margin: 50px auto;
+        }
+p {
+            font-family: verdana;
+            font-size: 16px;
+            color: black;
+            width: 500px;
+            padding-left: 20px;
+        
+       }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         img{
             padding-left: 20px;
             border-radius: 50%;
@@ -84,6 +105,11 @@
         form {
             font-size: 15px;
         }
+<<<<<<< HEAD
+=======
+
+        }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     </style>
         
         <script type="text/javascript">

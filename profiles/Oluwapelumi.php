@@ -1,6 +1,19 @@
 <?php
+<<<<<<< HEAD
 require '../db.php';
 require '../answers.php';
+=======
+
+if (!defined('DB_USER')) {
+    include_once("../answers.php");
+    require '../../config.php';
+    try {
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 $sql = "Select * from secret_word LIMIT 1";
@@ -15,6 +28,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 function chatWithMe($question, $conn){
     $question = sanitize_input($question);
     $fetchAnswerToQuestion = "SELECT * FROM chatbot WHERE question =:question";
+<<<<<<< HEAD
     if($conn) {
         $query = $conn->prepare($fetchAnswerToQuestion);
         $query->bindParam(":question",$question);
@@ -39,6 +53,36 @@ function chatWithMe($question, $conn){
         return;
     }
 
+=======
+    try {
+        $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_DATABASE, DB_USER, DB_PASSWORD);
+        if($conn) {
+            $query = $conn->prepare($fetchAnswerToQuestion);
+            $query->bindParam(":question",$question);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $rows = $query->fetchAll();
+            if(count($rows)>0){
+                $index = rand(0, count($rows)-1); //choose random answer
+                $row = $rows[$index];
+                $answer = $row['answer'];
+                echo json_encode([
+                    'status' => 1,
+                    'response' => $answer,
+                ]);
+                return;
+            }
+
+            echo json_encode([
+                'status' => 1,
+                'response' => "Sorry, I don't know this question but you can teach me: <br> Train pattern <br>train: question #answer #password"
+            ]);
+            return;
+        }
+    } catch (PDOException $e) {
+        return "Error: " . $e->getMessage();
+    }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     return;
 }
 
@@ -49,37 +93,64 @@ function sanitize_input($user_input) {
     return $user_input;
 }
 
+<<<<<<< HEAD
 function trainMeBoss($queAndAns, $conn){
     $queAndAns = substr($queAndAns, 6); //cut out train word
     $queAndAns =sanitize_input($queAndAns);
     $queAndAns = explode("#",$queAndAns);
 
     if((count($queAndAns) >= 2)) {
+=======
+function trainMeBoss($queAndAns, $conn)
+{
+    $queAndAns = substr($queAndAns, 6); //cut out train word
+    $queAndAns = sanitize_input($queAndAns);
+    $queAndAns = explode("#", $queAndAns);
+
+    if ((count($queAndAns) >= 2)) {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         $question = sanitize_input($queAndAns[0]);
         $answer = sanitize_input($queAndAns[1]);
         $password = sanitize_input($queAndAns[2]);
     }
 
+<<<<<<< HEAD
     if(!(isset($password))|| $password !== 'password') {
         echo json_encode([
             'status'    => 1,
             'response'    => "Sorry, you entered and incorrect password. You mind trying again?"
+=======
+    if (!(isset($password)) || $password !== 'password') {
+        echo json_encode([
+            'status' => 1,
+            'response' => "Sorry, you entered and incorrect password. You mind trying again?"
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         ]);
         return;
     }
 
+<<<<<<< HEAD
     if(isset($question) && isset($answer)) {
         //input validation
         if($question == "" ||$answer =="") {
             echo json_encode([
                 'status'    => 1,
                 'response'    => "Please check, you seem to have no question or answer defined"
+=======
+    if (isset($question) && isset($answer)) {
+        //input validation
+        if ($question == "" || $answer == "") {
+            echo json_encode([
+                'status' => 1,
+                'response' => "Please check, you seem to have no question or answer defined"
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             ]);
             return;
         }
 
         $doIKnowThisQuery = "SELECT * FROM chatbot WHERE question LIKE '$question'";
 
+<<<<<<< HEAD
         if($conn) {
             if($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)) {
                 if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)->answer === $answer) {
@@ -108,30 +179,80 @@ function trainMeBoss($queAndAns, $conn){
         ]);
         return;
     }
+=======
+        try {
+            if ($conn) {
+                if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)) {
+                    if ($conn->query($doIKnowThisQuery)->fetch(PDO::FETCH_OBJ)->answer === $answer) {
+                        echo json_encode([
+                            'status' => 1,
+                            'response' => "I know this already."
+                        ]);
+                    }
+                    return;
+                };
+
+                $trainQuery = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+
+                if ($conn->query($trainQuery)->execute() === true) {
+                    echo json_encode([
+                        'status' => 1,
+                        'response' => "I'm getting better, all thanks to you"
+                    ]);
+                    return;
+                }
+            }
+        } catch (PDOException $e) {
+            return "Error: " . $e->getMessage();
+        }
+    } else {
+        echo json_encode([
+            'status' => 0,
+            'response' => "Sorry, you didn't follow my train pattern.<br> You might wanna check this<br>train: question #answer #password"
+        ]);
+    }
+    return;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
     $question = sanitize_input($_POST['question']);
 
     if ($question == 'aboutbot') {
+<<<<<<< HEAD
         echo json_encode([
             'status' => 0,
             'response' => "JuiceBot Version 0.1.0. <br> I'm still in the development process so you might want to check continuatlly to see my newly added features. <br>Nice to meet you though"
         ]);
         return;
+=======
+       echo json_encode([
+               'status' => 0,
+           'response' => "JuiceBot Version 0.1.0. <br> I'm still in the development process so you might want to check continuatlly to see my newly added features. <br>Nice to meet you though"
+       ]);
+       return;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
 
     if ($question == 'where am i') {
         $query = getLocationAPI();
         if($query && $query['status'] == 'success') {
             echo json_encode([
+<<<<<<< HEAD
                 'status' => 1,
+=======
+                    'status' => 1,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 'response' => 'You\'re currently in '.$query ['country'].', '.$query['regionName'].', '.$query['city'].'.'
             ]);
             return;
         } else {
             echo json_encode([
+<<<<<<< HEAD
                 'status' => 0,
+=======
+                    'status' => 0,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 'response' => 'Unable to get location: '. $query['message']
             ]);
             return;
@@ -151,9 +272,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             'status' => 0,
             'response' => "Here are my default features that will be useful to you <br>
  help: shows you how to use this bot efficiently<br>
+<<<<<<< HEAD
   aboutbot: know more about me.<br> 
   where am i: get your location at your finger tip<br>
   town-townname Shows you the weather of that town"
+=======
+  aboutbot: know more about me.<br>
+  train: question #answer #password {to train me}<br>
+  You can also type in your question and I'll give you the answer if I know it"
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         ]);
         return;
     }
@@ -396,9 +523,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 
 			displayFrame.html(displayFrame.html()+displayChat);
 
+<<<<<<< HEAD
 			//Process your qestion with ajax.
 			$.ajax({
 				url: "../profiles/Oluwapelumi",
+=======
+			//Process your question with ajax.
+			$.ajax({
+				url: "profiles/Oluwapelumi.php",
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 				type: "POST",
 				data: {question: user_question},
 				dataType: "json",
@@ -412,7 +545,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 						displayFrame.html(displayFrame.html()+display);
 						message.val("");
 					}else if(data.status == 0){
+<<<<<<< HEAD
 						var display = '<div class="message" id="bot-message">'+
+=======
+                            var display = '<div class="message" id="bot-message">'+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 							'<div class="col-md-6">'+
 							'<p class="message received">'+data.response+'</p>'+
 							'</div>'+

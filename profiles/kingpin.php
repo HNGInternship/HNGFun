@@ -27,7 +27,11 @@
               {
                 echo json_encode([
                  'status' => 1,
+<<<<<<< HEAD
                         'answer' => "thanks  alot for enlarging my knowledge base"
+=======
+                        'answer' => "thanks for enlarging my knowledge base"
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                         ]);
 return;
 
@@ -184,7 +188,11 @@ return;
 
    background-color:rgba(238, 29, 29, 0.34);
 }
+<<<<<<< HEAD
 .body
+=======
+body
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 {
   width: 100%;
   color: #FBF7F7;
@@ -264,7 +272,10 @@ return;
 	</title>
 </head>
 <body>
+<<<<<<< HEAD
 <div class="body">
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   <?php
 //require "../db.php";
 if (!defined('DB_USER')){
@@ -320,7 +331,11 @@ if (!defined('DB_USER')){
 <a href="#" class="fa fa-instagram"></a>
 <a href="#" class="fa fa-slack"></a>
 </center> 	</div></div></center>
+<<<<<<< HEAD
 </div>
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 </html>
 <script>

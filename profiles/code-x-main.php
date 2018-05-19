@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<<<<<<< HEAD
 	<style>
 	
 body {
@@ -18,12 +19,23 @@ p {
 	font-size: 12px;
 	font-family: Ubuntu;
 	color: #000000;
+=======
+	<style> 
+	p {
+	font-size: 12px;
+	font-family: Ubuntu;
+	color: #ececec;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	text-align: center;
 }
 h1 {
 	font-size: 50px;
 	font-family: Ubuntu;
+<<<<<<< HEAD
 	color: #bcbaba;
+=======
+	color: #ececec;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	background: #000000;
 	text-align: center;
 }
@@ -34,6 +46,7 @@ h3 {
 	background: #000000;
 	text-align: center;
 }
+<<<<<<< HEAD
 h4, h5 {
 	line-height: 1.5em;
 	margin: 0;
@@ -48,6 +61,13 @@ fieldset {
 	margin: 0;
 	padding: 0;
 }
+=======
+
+a {
+	text-align: center;
+}
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .row {
 	background: #ececec;
 	font-family: Ubuntu;
@@ -73,6 +93,7 @@ fieldset {
     display: table;
     clear: both;
 }
+<<<<<<< HEAD
 hr {
 	background: #e9e9e9;
     border: 0;
@@ -219,6 +240,8 @@ p { margin: 0; }
 	font-style: italic;	
 	margin: 0 0 0 80px;
 }
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	</style>
 </head>
 <body>
@@ -252,6 +275,7 @@ p { margin: 0; }
   $res2 = $res1->fetch(PDO::FETCH_ASSOC);
   $secret_word = $res2['secret_word'];
 ?>
+<<<<<<< HEAD
 
 <div id="live-chat">
 		
@@ -408,6 +432,11 @@ document.getElementById('text-input').onkeypress = function(e){
  
 
 </script>
+=======
+  </div>
+</div> 
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 </body>
 

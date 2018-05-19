@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 <?php
 try{
      $profile = 'SELECT * FROM interns_data WHERE username= "samtech"';
+=======
+<<<<<<< HEAD
+ <?php
+ try{
+=======
+
+<?php
+try{
+>>>>>>> 9937252cc84dc5efe5670ec61af59ea90aa11fea
+     $profile = 'SELECT * FROM interns_data_ WHERE username= "samtech"';
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
      $check = 'SELECT * FROM secret_word LIMIT 1';
 
      $query = $conn->query($check);
@@ -14,10 +26,25 @@ try{
  }catch (PDOException $e) {
      throw $e;
  }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+ 
+ $secret_word = $get['secret_word'];
+ 
+ ?>
+ 
+ <html>
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
  $secret_word = $get['secret_word'];
 ?>
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+=======
+>>>>>>> 9937252cc84dc5efe5670ec61af59ea90aa11fea
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
      <head>
          <title> MY PROFILE</title>
          <style type="text/css">

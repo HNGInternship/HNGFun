@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css?family=Lato|Work+Sans:400,900&subset=latin-ext');
  
 .hero-div, .hero-text{
 	font-family: 'Work Sans', sans-serif;
 }
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .hero-main-text{
 	font-size: 800%;
 	text-transform: uppercase;
@@ -20,6 +23,7 @@
 	/*text-transform: capitalize;*/
 	margin: -1% 0 0 0;
 	padding: 0!important;
+<<<<<<< HEAD
 	font-weight: lighter!important;
 }
 .font-icon{
@@ -64,3 +68,9 @@ color: #FFFFFF !important;
 	border-top: 2px solid #000;
 	width:5%;
 }
+=======
+}
+.font-icon{
+	font-size: 200%;
+}
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

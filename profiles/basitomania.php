@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
   /*$result = $conn->query("Select * from secret_word LIMIT 1");
+=======
+  $result = $conn->query("Select * from secret_word LIMIT 1");
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -8,7 +12,11 @@
   
   $username = $user['username'];
   $name = $user['name'];
+<<<<<<< HEAD
   $image_filename = $user['image_filename'];*/
+=======
+  $image_filename = $user['image_filename'];
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ?>   
 
 <!DOCTYPE html>
@@ -20,6 +28,10 @@
 		<link rel="stylesheet" type="text/css" href="css/responsive.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Changa+One|Open+Sans" rel="stylesheet">
+<<<<<<< HEAD
+=======
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         <style>
         /********************
 GENERAL
@@ -203,6 +215,12 @@ a {
         	border-radius: 10px;
     		line-height: 18px;
 		}
+<<<<<<< HEAD
+=======
+.bot-chat .bot-message {
+            text-align: right;
+        }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .bot-chat{
 			text-align: left;
 		}
@@ -226,6 +244,15 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
+<<<<<<< HEAD
+=======
+.chat-output .bot-message {
+            text-align: right;
+        }
+.chat-output .bot-message .message {
+            background: #eee;
+        }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 button{
       border:none;
@@ -297,6 +324,90 @@ input[type=text] {
 				</div>
 			</section>		
 		</div>
+<<<<<<< HEAD
+=======
+<?php
+	try {
+	$sql = 'SELECT * FROM secret_word';
+	$q = $conn->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetch();
+} catch (PDOException $e) {
+	throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$data = $_POST['input-text'];
+  //  $data = preg_replace('/\s+/', '', $data);
+	$temp = explode(':', $data);
+	$temp2 = preg_replace('/\s+/', '', $temp[0]);
+	
+	if($temp2 === 'train'){
+		train($temp[1]);
+	}elseif($temp2 === 'aboutbot') {
+		aboutbot();
+	}else{
+		getAnswer($temp[0]);
+	}
+}
+
+function aboutbot() {
+	echo "<div id='result'>BasBot v1.0 - I am simply a bot that returns data from the database and I also can be taught new tricks!</div>";
+}
+function train($input) {
+	$input = explode('#', $input);
+	$question = trim($input[0]);
+	$answer = trim($input[1]);
+	$password = trim($input[2]);
+	if($password == 'password') {
+		$sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+		$q = $GLOBALS['conn']->query($sql);
+		$q->setFetchMode(PDO::FETCH_ASSOC);
+		$data = $q->fetch();
+
+		if(empty($data)) {
+			$training_data = array(':question' => $question,
+				':answer' => $answer);
+
+			$sql = 'INSERT INTO chatbot ( question, answer)
+		  VALUES (
+			  :question,
+			  :answer
+		  );';
+
+			try {
+				$q = $GLOBALS['conn']->prepare($sql);
+				if ($q->execute($training_data) == true) {
+					echo "<div id='result'>Training Successful!</div>";
+				};
+			} catch (PDOException $e) {
+				throw $e;
+			}
+		}else{
+			echo "<div id='result'>I already understand this. Teach me something new!</div>";
+		}
+	}else {
+		echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+	}
+}
+
+function getAnswer($input) {
+	$question = $input;
+	$sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+	$q = $GLOBALS['conn']->query($sql);
+	$q->setFetchMode(PDO::FETCH_ASSOC);
+	$data = $q->fetchAll();
+	if(empty($data)){
+		echo "<div id='result'>Sorry, I do not know that command. You can train me simply by using the format - 'train: question # answer # password'</div>";
+	}else {
+		$rand_keys = array_rand($data);
+		echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+	}
+}
+?>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 		<footer>
 			<p>&copy; 2017 Maniaweb.</p>
@@ -304,7 +415,11 @@ input[type=text] {
 			<script type = text/javascript>
 				var outputArea = $("#user-output");
 
+<<<<<<< HEAD
 				$("input-form").on("submit", function(e) {
+=======
+				$("#input-form").on("submit", function(e) {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 					e.preventDefault();
 
@@ -333,7 +448,10 @@ input[type=text] {
 
 				});
 			</script>
+<<<<<<< HEAD
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		</div>
 	</body>
 </html>

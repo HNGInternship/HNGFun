@@ -1,7 +1,8 @@
 <?php 
-	
+	 
 	if(!defined('DB_USER')){
-		require "/config.example.php";		
+		require "/config.example.php";	
+	   
 		try {
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 		} catch (PDOException $pe) {
@@ -155,26 +156,14 @@
   else {
 ?>
 
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
- <html xmlns="http://www.w3.org/1999/xhtml">
- <head>
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
- <title>Iyadi Cyril</title>
- <meta name="keywords" content="">
- <meta name="description" content="">
- <link href="http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css">
- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
- <!--[if IE 6]>
- <link href="default_ie6.css" rel="stylesheet" type="text/css" />
- <![endif]-->
- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
- <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
- <script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+ <link href="https://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css"> 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="https://hng.fun/js/jquery.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
-
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
  	
  </head>
  <body>
@@ -271,7 +260,8 @@ hr{
 .container
 {
 	width: 380px;
-	margin: 0px auto;	
+	margin: 0px auto;
+	height: 950px;	
 }
 
 .clearfix
@@ -517,21 +507,21 @@ hr{
 }
 
 </style>
-<div id="header" class="container">
+<div id="header" class="container" style="height:100px">
 	<div id="logo">
 		<h1><a href="#">@IyadiCyril</a></h1>
 	</div>	
 </div>
 <div id="wrapper" class="container">
 	<div id="page" style="width: 350px;">
-		<div id="content"> <a href="#" class="image-style" style="padding-right: 40px;padding-left: 30px;width: 370.797px;"><img src="http://res.cloudinary.com/dj7y9zirl/image/upload/v1523825090/IMG_20180411_111139_1.jpg" width="300" height="200" alt=""></a>
+		<div id="content"> <a href="#" class="image-style" style="padding-right: 40px;padding-left: 30px;width: 370.797px;"><img src="https://res.cloudinary.com/dj7y9zirl/image/upload/v1523825090/IMG_20180411_111139_1.jpg" width="300" height="200" alt=""></a>
 			<h2 class="text-center">Software developer</h2>					
 					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">The only edge i have is my ever in-depth desire to learn. </br> Have fun with my bot...He's name is Andy.</p>										
 	</div>
 </div>
 
  <!--Andy Bot-->
- <div class="col-md-4 offset-md-1 chat-frame" style="width:350px;height:457px">
+ <div class=" " style="width:350px;height:457px">
 			<h2 class="text-center"><u>CHATBOT</u></h2>
 			<div class="row chat-messages" id="chat-messages">
 				<div class="col-md-12" id="message-frame">
@@ -543,12 +533,12 @@ hr{
 					<div class="row single-message">
 						<div class="col-md-12 single-message-bg">
 							<h5>I'm social, chat me up. </h5>
+							<h5>To teach me a response use: <br/><b>train: question # answer # password</b><h5>
 						</div>
 					</div>
 					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
+						<div class="col-md-12 single-message-bg">							
 							
-							<h5>To teach me a resonse use: <br/><b>train: question # answer # password</b><h5>
 						</div>
 					</div>
 				</div>
@@ -560,8 +550,8 @@ hr{
 					<div class="col-md-12 col-sm-12 col-12">
 						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
 					</div>
-					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
-						<button type="submit" class="btn btn-info float-right w-100" style="width:70px;border-left-width:0px;border-right-width:0px;padding-left:10px;padding-right:10px;margin-left:90px;margin-right:90px">DM</button>
+					<div class=" " style="margin-top: 20px; width:350px;">
+						<button type="submit" class="btn btn-info" style="width:70px;border-left-width:0px;border-right-width:0px;padding-left:10px;padding-right:10px;margin-left:140px;margin-right:140px">DM</button>
 					</div>
 				</form>	
 			</div>
@@ -571,8 +561,8 @@ hr{
 <script>	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
-		questionForm.submit(function(e){
-			e.preventDefault();
+		questionForm.submit(function(event){
+			event.preventDefault();
 			var questionBox = $('input[name=question]');
 			var question = questionBox.val();
 			//var question = $('#question-form').val();
@@ -589,7 +579,7 @@ hr{
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "../profiles/iyadicyril.php",
+				url: "profile/iyadicyril.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",

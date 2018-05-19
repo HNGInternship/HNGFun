@@ -333,6 +333,7 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
             this.reset()
         });
 	});
+<<<<<<< HEAD
 	
 </script>	
 </div>
@@ -342,3 +343,12 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 	}
 ?>
 
+=======
+</script>	
+</body>
+</html>
+
+<?php 
+	}
+?>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

@@ -40,8 +40,13 @@ $activeArray[$fileIndex]="active";
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
+<<<<<<< HEAD
 
     <!-- Custom fonts for this template -->
+=======
+      <!-- Custom fonts for this template -->
+  <!-- Custom fonts for this template -->
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -134,6 +139,7 @@ $activeArray[$fileIndex]="active";
 
   <body>
     <!-- Navigation -->
+<<<<<<< HEAD
 
     <nav class="navbar navbar-expand-lg navbar-light"  >
 
@@ -156,6 +162,19 @@ $activeArray[$fileIndex]="active";
         <ul class="navbar-nav ml-auto">
             <li class="nav-item <?= $activeArray[0] ?>">
                 <a href="index" class="nav-link">Home</a>
+=======
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="index.php">HNG FUN</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Home</a>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             </li>
             <li class="nav-item <?= $activeArray[1] ?>">
                 <a href="learn" class="nav-link">Learn</a>
@@ -163,8 +182,14 @@ $activeArray[$fileIndex]="active";
             <li class="nav-item <?= $activeArray[2] ?>">
                 <a href="listing" class="nav-link">Our Interns</a>
             </li>
+<<<<<<< HEAD
             <li class="nav-item <?= $activeArray[3] ?>">
                 <a href="testimonies" class="nav-link">Testimonies</a>
+=======
+            
+            <li class="nav-item">
+              <a class="nav-link" href="listing.php">Interns</a>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             </li>
             <li class="nav-item <?= $activeArray[4] ?>">
                 <a href="sponsors" class="nav-link">Sponsors</a>
@@ -172,6 +197,7 @@ $activeArray[$fileIndex]="active";
             <li class="nav-item <?= $activeArray[5] ?>">
                 <a href="alumni" class="nav-link">Alumni</a>
             </li>
+<<<<<<< HEAD
              <li class="nav-item <?= $activeArray[8] ?>">
                 <a href="sign-up" class="nav-link">Sign Up</a>
             </li>
@@ -182,3 +208,10 @@ $activeArray[$fileIndex]="active";
   </div>
 
     </nav>
+=======
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

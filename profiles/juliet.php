@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 include_once("../answers.php"); 
+=======
+ include_once("../answers.php"); 
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 if (!defined('DB_USER')){
             
@@ -113,21 +117,35 @@ function assistant($string)
 
 $existError =false;
 $reply = "";//process starts
+<<<<<<< HEAD
 //echo "This is the POST message " + $_POST['msg'];
 if(isset($_GET['msg'])){ 
 
   if ($_GET['msg'] == 'commands') {
+=======
+if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
+
+  if ($_POST['msg'] == 'commands') {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     $reply = 'These are my commands <p>1. what is my location, 2. tell me about your author, 3. open facebook, 6. open twitter, 7. open linkedin, 8. shutdown my pc, 9. get my pc name.</p>';
     echo $reply;
   } 
       if($reply==""){
+<<<<<<< HEAD
        $reply = assistant($_GET['msg']);
+=======
+       $reply = assistant($_POST['msg']);
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
        echo $reply;
        
      }
   if($reply =="") {
 
+<<<<<<< HEAD
     $post= $_GET['msg'];
+=======
+    $post= $_POST['msg'];
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     $result = decider($post);
     if($result){
       $question=$result[0]; 
@@ -206,9 +224,15 @@ if(isset($_GET['msg'])){
       }       
   
  
+<<<<<<< HEAD
 return;
 }
 
+=======
+
+}
+else{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   
 ?>
 
@@ -239,7 +263,11 @@ return;
 html {
   font-size:75%;
 }
+<<<<<<< HEAD
 .body {
+=======
+body {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   font: 400 normal 14px/1.4 'Lato', sans-serif;
   color: #706c72;
   background: #0bc3f7;
@@ -257,7 +285,11 @@ html {
 .clear {
     *zoom: 1;
 }
+<<<<<<< HEAD
 .img {
+=======
+img {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   width: 100%;
   vertical-align: bottom;
 }
@@ -441,6 +473,7 @@ a:focus {
 }
 
 /* Chatbox messages */
+<<<<<<< HEAD
 
 .chatbox-messages {
   margin: 20px 20px 0 44px;
@@ -448,6 +481,15 @@ a:focus {
   overflow-y: overlay;
 }
 
+=======
+
+.chatbox-messages {
+  margin: 20px 20px 0 44px;
+  height: 376px;
+  overflow-y: overlay;
+}
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .chatbox-messages .avatar {
   float: left;
 }
@@ -543,7 +585,10 @@ a:focus {
 
 <!-- jet -->
 <body class="oj-web-applayout-body">
+<<<<<<< HEAD
 	<div class="body">
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <!-- Template for rendering navigation items shared between nav bar and nav list -->
     <script type="text/html" id="navTemplate">
       <li><a href="#">
@@ -575,7 +620,11 @@ a:focus {
           <div class="profile mx-auto">
           <div class="oj-flex">
             <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
+<<<<<<< HEAD
             <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+=======
+            <div class="oj-md-6 oj-lg-6 oj-xl-6 oj-flex-item"><img class="profile-img mx-auto" src="http://res.cloudinary.com/julietezekwe/image/upload/v1523643285/juliet.png" alt="my-profile">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </div>
             <div class="oj-md-3 oj-lg-3 oj-xl-3 oj-flex-item"></div>
         </div>
@@ -632,6 +681,7 @@ a:focus {
                   </div><!-- /.sidebar -->
 
                   <div class="chatbox">
+<<<<<<< HEAD
 
                     <div class="person">
                       <span class="avatar">
@@ -657,6 +707,33 @@ a:focus {
             hiddenDiv.fadeIn();
             play();
 
+=======
+
+                    <div class="person">
+                      <span class="avatar">
+                        <img src="http://res.cloudinary.com/julietezekwe/image/upload/v1523964193/human.png" alt="human Image" />
+                        <span class="status online"></span>
+                      </span>
+                      <span class="info">
+                       <span class="login-status">Online    | <?php
+            echo "" . date("h:i:a");
+            ?>, <?php
+            
+            $ip=$_SERVER['REMOTE_ADDR'];
+            $reply = unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
+            echo var_export('you are in '. $reply['geoplugin_countryName'] .' in '. $reply['geoplugin_regionName']);
+            ?></span>
+                        
+                      </span>
+                    </div><!-- /.person -->
+                <script>
+            $(document).ready(function(){
+            var hiddenDiv = $(".messages");
+            var show = function() {
+            hiddenDiv.fadeIn();
+            play();
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             };
 
             hiddenDiv.hide();
@@ -705,7 +782,11 @@ a:focus {
                     jQuery.ajax({
                         url: "/profiles/juliet.php",
                         data: dataString,
+<<<<<<< HEAD
                         type: "GET",
+=======
+                        type: "POST",
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                          cache: false,
                              success: function(response) {
             setTimeout(function(){
@@ -765,7 +846,11 @@ a:focus {
         </div></oj-module>
       </div>
       </div>
+<<<<<<< HEAD
  </div>
+=======
+ 
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 <!-- end jet -->
 
@@ -784,3 +869,6 @@ a:focus {
   </body>
 
 </html>
+
+<?php 
+}?>

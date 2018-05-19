@@ -174,20 +174,36 @@ function askQuestion($input)
 <div>
     <h1>Stage 1</h1>
     <br>
+<<<<<<< HEAD
 
     HNG Internship 4<br>
+=======
+    <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_330,w_300/v1524842222/Snapchat-684128679.jpg">
+    <hr>
+    HNG Internship 2018<br>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
         date_default_timezone_set('Africa/Lagos');
         $currentDateTime = date('Y-m-d H:i:s');
         echo $currentDateTime;
+<<<<<<< HEAD
         ?></h1></div><p class="oj-align-content-center">NAME: <?= "LEKE"?><br />USERNAME:: <?= "LEXMILL"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+=======
+        ?></h1></div><p class="oj-align-content-center">My name is : <?= "Leke!"?><br />My HNG username is : <?= "lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         </div>
 
 </div><form method="post">
 <label>
+<<<<<<< HEAD
     <input name="input" type="text" class="tb5"  placeholder="Chat with me! Press Ask to send.">
 </label><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK"><label>
+=======
+    <input name="input" type="text" class="tb5"  placeholder="Chat with Smart!">
+</label><br><label>
+    <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK">&nbsp&nbsp&nbsp<label>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
     </label>
 </label>

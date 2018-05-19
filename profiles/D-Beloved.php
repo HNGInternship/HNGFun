@@ -15,7 +15,11 @@
 		.body0 {
 			height: 100%;
 		}
+<<<<<<< HEAD
 		.img {
+=======
+		.img-fluid {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			border-radius: 50%;
 			margin: 2em 20em 0em 20em;
 		}
@@ -72,10 +76,17 @@
 			margin-left: 9em;
 			margin-top: 10px;
 		}
+<<<<<<< HEAD
 		.body {
 			margin: 0px;
 			background-color: #8E60F1; !important;
 			
+=======
+		body, html {
+			margin: 0px;
+			background-color: #8E60F1; !important;
+			height: 100%;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		}
 		.body1 {
 			font-family: 'Source Sans Pro', sans-serif;
@@ -88,7 +99,10 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 <div class="body">
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <?php
     global $conn;
     try {
@@ -108,7 +122,11 @@
                     <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
                     data-bind="attr:{'aria-label':'Avatar of Moronkeji Ayodeji'}">
                     </oj-avatar>
+<<<<<<< HEAD
                     <img class="img" onerror="this.src='images/default.jpg'" src="https://res.cloudinary.com/dbeloved/image/upload/v1524498118/dee1.jpg" >
+=======
+                    <img class="img-fluid " onerror="this.src='images/default.jpg'" src="https://res.cloudinary.com/dbeloved/image/upload/v1524498118/dee1.jpg" >
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 </div>
             </div>
             <div class="body0">
@@ -141,7 +159,11 @@
     }
 		$secret_word = $data['secret_word'];
 	?>
+<<<<<<< HEAD
 </div>
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 
 <script type="application/javascript">

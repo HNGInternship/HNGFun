@@ -16,6 +16,12 @@
     /* background-image: linear-gradient(to right, #7ed56f, #28b485); */
     background-image: url('http://www.artchiz.com/wp-content/uploads/2013/08/parallax-background.png');
     background-repeat: no-repeat;
+<<<<<<< HEAD
+=======
+    background-size:100%;
+	width: 100%;
+	height: 100vh;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     font-style: normal;
     font-weight: 300;
     font-family: Montserrat;
@@ -195,6 +201,7 @@
                           font-size: 3rem;
                           color: #e6ffe7;
                           font-weight:100 bold;
+<<<<<<< HEAD
                           text-align: left;
                         }
                         .image{
@@ -202,6 +209,9 @@
                           height: 20px;
                           border-radius: 2000px;
                           padding-left: 100px;
+=======
+                          text-align: left
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                         }
                         .image{
                           width: 50px;
@@ -213,7 +223,11 @@
                       </style>
                     </head>
                     <body>
+<<<<<<< HEAD
                       <header id="header">
+=======
+                     <!--  <header id="header">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                         <div class="row">
                           <div class="navbar-left">
                            <ul class="nav">
@@ -233,7 +247,7 @@
 
                       </div>
                     </div>
-                  </header>
+                  </header> -->
                   <div class="container">
                     <div class="top_head">
                           <!--  <div class="img">
@@ -243,6 +257,7 @@
                                <img src="http://res.cloudinary.com/annyhiss/image/upload/b_rgb:aeb3ba,c_scale,h_213,r_29,z_1.5/v1524441531/26864051_2033385723571357_8957167605911650304_n.jpg" alt="">
                              </div>
                              <div>
+<<<<<<< HEAD
                                <h1 class="display">Welcome.</h1>
                                <p class="sub_display">Animashaun Oluwatosin</p>
                                <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
@@ -251,6 +266,16 @@
                                </div>
                              </div>
                              
+=======
+                                 <h1 class="display">Welcome.</h1>
+                             <p class="sub_display">Animashaun Oluwatosin</p>
+                             <p class= "sub_display2">A front-end web developer.<br>a problem solver.</p>
+                             <div class="button">
+                               <a class="btn btn-primary " href="mailto:animashaunoluwatosin7@gmail.com" role="button">contact <i class="fa fa-envelope fa-0.5x icon-5"></i></a>
+                             </div>
+                             </div>
+                           
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                              <div class="footer">
 
                                <div class="col-md-12 col-sm-12">

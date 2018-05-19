@@ -624,7 +624,11 @@
 		            <p style="font-size: 12px; font-style: italic; font-weight: bold;">Optimus Prime is thinking...</p>
 		        </div>
 		        <div class="oj-flex oj-flex-item oj-md-12 oj-sm-12">
+<<<<<<< HEAD
 		            <input class="oj-flex-item oj-md-12 oj-sm-12 oj-margin oj-padding" type="text" name="question" placeholder="Ask a question" style="border-radius: 3px; border: none; background-color: white" />
+=======
+		            <input class="oj-flex-item oj-md-12 oj-sm-12 oj-margin oj-padding" type="text" name="question" placeholder="Ask a question" style="border-radius: 3px; border: none;" />
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		        </div>
 		        <div class="oj-flex oj-flex-item oj-md-12 oj-sm-12" style="margin-top: 15px">
 		            <button type="submit" class="oj-flex-item oj-md-12 oj-sm-12 oj-margin" style="background: #3385ff; border: none; border-radius: 3px">Send</button>

@@ -6,7 +6,11 @@
     $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
     $query_result = $secret_word_query->fetch();
   
+<<<<<<< HEAD
     $sql_query = 'SELECT * FROM interns_data WHERE username="tracy96"';
+=======
+    $sql_query = 'SELECT * FROM interns_data WHERE username="tracy"';
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     $query_my_intern_db = $conn->query($sql_query);
     $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
     $intern_db_result = $query_my_intern_db->fetch();

@@ -8,19 +8,26 @@ $answer = "Welcome, I am Olanrewaju, how may i help you, i can tell time, soon i
 if(!array_key_exists('ajax', $_POST)){
     // 'not ajax'
     require_once ('answers.php');
+<<<<<<< HEAD
     require_once ('../config.php');
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 } else {
     // ajax mode, need our own db and calling answers
     require_once ('../answers.php');
     require_once ('../../config.php');
+<<<<<<< HEAD
     
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
 }
+<<<<<<< HEAD
 function get_zones(){
     foreach ( timezone_abbreviations_list() as $abbr => $timezone ){
         foreach( $timezone as $val ) {
@@ -44,6 +51,8 @@ function get_timezone($city, $zones){
     }
     return isset($results[0]) ? $results[0] : '' ;
 }
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 function return_version(){
     define ('VERSION', "Waju @1.0.1");
 
@@ -134,6 +143,7 @@ function parse_answer($answer){
     
     //  Extract the string between the starting position and ending position 
     $function_name = substr($answer, $function_start_pos+2, ($function_end_pos-2)-$function_start_pos);
+<<<<<<< HEAD
     
     // check for  presence of params and extract
     if(strpos($answer, "{{")){
@@ -152,6 +162,11 @@ function parse_answer($answer){
         $response = strip_my_tags($answer);
     
     // interpolate the string, replace the function name with a function call
+=======
+    // interpolate the string, replace the function name with a function call
+     $response = strip_my_tags($answer);
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     return str_replace($function_name, call_user_func($function_name), $response);
 
 }
@@ -184,9 +199,13 @@ function train($training_string, $conn){
         
         //get the answer, remove everything else from the training string
         $answer_part = trim(str_replace(['#', PASSWORD, $question_part], '', $training_string));
+<<<<<<< HEAD
         if(strpos($question_part, 'location')){
             $question_part = trim(str_replace('location', '', $question_part));
         }
+=======
+  
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         // Save it into db, use prepared statement to protect from security exploits
         try{
 
@@ -194,7 +213,11 @@ function train($training_string, $conn){
             $stmt = $conn->prepare($sql);
             $stmt->execute(
                 array(
+<<<<<<< HEAD
                 ':question' => strip_my_tags($question_part),
+=======
+                ':question' => $question_part,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 ':answer' => $answer_part,
                 )
             );
@@ -211,6 +234,7 @@ function train($training_string, $conn){
 function get_name(){
     return " Abolarin Olanrewaju Olabode";
 }
+<<<<<<< HEAD
 function get_the_time($timezone = 'Africa/lagos' ){
 
         $datetime = new DateTime();
@@ -231,6 +255,17 @@ function get_the_time($timezone = 'Africa/lagos' ){
 //         $datetime->setTimezone(new DateTimeZone($timezone));
 //         return $datetime->format('H:i A');  
 // }
+=======
+function get_the_time(){
+    //instantiate date-time object
+     $datetime = new DateTime();
+     //set the timezone to Africa/Lagos 
+     $datetime->setTimezone(new DateTimeZone('Africa/lagos'));
+     //format the time
+
+     return $datetime->format('H:i: A');
+ }
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 //QUERY for User Profile, using prepared statement for security
   try {
@@ -256,6 +291,7 @@ function get_the_time($timezone = 'Africa/lagos' ){
 
     throw $e;
 }
+<<<<<<< HEAD
 if ( isset($_POST['location'])){
         $city = $_POST['location'];
         $zones  = get_zones();
@@ -268,6 +304,10 @@ if ( isset($_POST['location'])){
         return;
 }
     //RUNTIME --
+=======
+
+//RUNTIME --
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
  if( isset ( $_POST['submit'] ) || isset( $_POST['ajax'] ) ){
     if($_POST['question'] == "") {
         $answer = 'Please type a question to start chatting';
@@ -278,7 +318,11 @@ if ( isset($_POST['location'])){
         $question = trim($question);
         //remove question mark 
         $question = str_replace('?', '', $question);
+<<<<<<< HEAD
        
+=======
+            
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
           //check if the input is a training attempt
         $is_training = check_training($question);
         
@@ -286,7 +330,10 @@ if ( isset($_POST['location'])){
         if(!$is_training){
            if($question == "aboutbot"){
                 $answer = return_version();
+<<<<<<< HEAD
                 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
            } else {
 
                  //check the question in db, getting a row or false
@@ -567,7 +614,11 @@ if( !array_key_exists('ajax', $_POST)){
         left: 10%;
         background: white;
         font-size: 14px;
+<<<<<<< HEAD
         height:250px;
+=======
+        height:100px;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         width:350px;
         padding:0;
         box-shadow: 3px -1px 10px 1px rgba(0,0,0,0.345);
@@ -577,7 +628,11 @@ if( !array_key_exists('ajax', $_POST)){
         /*  */
     }
     .chat-area.chat-area--js {
+<<<<<<< HEAD
         height: 250px;
+=======
+        height: 170px;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     
     .chat-form{
@@ -586,12 +641,17 @@ if( !array_key_exists('ajax', $_POST)){
         left:0;
         width:100%;
     }
+<<<<<<< HEAD
     .waju-input-field{
+=======
+    .input-field{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         width:75%;
         margin:0;
         outline:none;
         text-indent: 10px;
         height:30px;
+<<<<<<< HEAD
         border-bottom: 2px solid rgba(0,0,0,0.345);
     }
     input[type="text"]{
@@ -603,6 +663,14 @@ if( !array_key_exists('ajax', $_POST)){
         box-shadow: 2px -3px 3px rgba(0,0,0,0.145);
     }
     .waju-send-button{
+=======
+    }
+    .form-group{
+        padding:0;
+        margin:0;
+    }
+    .send-button{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         width:20%;
         margin:0;
         background: #92BF8F;
@@ -610,7 +678,11 @@ if( !array_key_exists('ajax', $_POST)){
         font-weight: bold;
         color:rgba(255,255,255,0.789);
     }
+<<<<<<< HEAD
     .chat-area .chat-header{
+=======
+    .chat-header{
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         background: linear-gradient(96deg, #373A98 0, #226AE6 58%);
         height: 40px;
         padding: 10px 10px 0 10px;
@@ -629,9 +701,14 @@ if( !array_key_exists('ajax', $_POST)){
         background: rgb(124, 191, 116);   
     }
     span.toggle{
+<<<<<<< HEAD
         padding: 2px 25px;
         cursor:pointer;
 
+=======
+        padding: 2px 10px;
+        cursor:pointer;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     .chat-list-wrapper{
         position: relative;
@@ -652,8 +729,13 @@ if( !array_key_exists('ajax', $_POST)){
         width: 70%;
         margin-top: 10px; 
         font-style: italic;
+<<<<<<< HEAD
         word-spacing: 0.1em;
         letter-spacing: 0.08em;
+=======
+        font-weight: bold;
+        color: rgba(255, 255, 255,0.9);
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     .chat-list__item--user{
         background: #DBE1E1;
@@ -661,7 +743,10 @@ if( !array_key_exists('ajax', $_POST)){
         margin-left:auto;
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
+<<<<<<< HEAD
         color:rgba(0,0,0,0.789);
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     .chat-list__item--bot{
         text-align: right;
@@ -669,7 +754,10 @@ if( !array_key_exists('ajax', $_POST)){
         background: #007BFF;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
+<<<<<<< HEAD
         color: rgba(255, 255, 255,0.9);
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     </style>
     <div class="chat-area chat-area--js" data-state="">
@@ -688,6 +776,7 @@ if( !array_key_exists('ajax', $_POST)){
             </ul>
         </div>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?id=" . $_GET['id']; ?>" class="chat-form" id="chatForm" method="POST">
+<<<<<<< HEAD
             <div class="form-group waju-form-group">
                 <input type="text" name="question" id="questionField" class="waju-input-field" autofocus>
                 <input type="submit" name="submit" value="Send" class="waju-send-button">
@@ -697,6 +786,16 @@ if( !array_key_exists('ajax', $_POST)){
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script >
         window.addEventListener("load", function() {
+=======
+            <div class="form-group">
+                <input type="text" name="question" id="questionField" class="input-field" autofocus>
+                <input type="submit" name="submit" value="Send" class="send-button">
+            </div>
+        </form>
+    </div>
+<script>
+window.addEventListener("load", function() {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     loadQuestions = function(){
 
         return new Promise((resolve, reject) => {
@@ -724,6 +823,7 @@ if( !array_key_exists('ajax', $_POST)){
             this.$wrapper = this.$el.find('.chat-list-wrapper');
             this.$toggle = this.$el.find('span.toggle'); 
         },
+<<<<<<< HEAD
         sendApiRequest: function(location){
             let self = this;
         
@@ -781,6 +881,8 @@ if( !array_key_exists('ajax', $_POST)){
                  //clear the input
             self.$userInput.val('');
         },
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
        
         /**
          * Handle input from the user
@@ -792,6 +894,7 @@ if( !array_key_exists('ajax', $_POST)){
                 this.appendMessage("Please input a message", 'bot');
                 return;
             } 
+<<<<<<< HEAD
              //append the message
              this.appendMessage(message,'user');
 
@@ -802,6 +905,10 @@ if( !array_key_exists('ajax', $_POST)){
                 return;
             }
            
+=======
+            //append the message
+            this.appendMessage(message,'user');
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             //if input is a command run it regardless of state;
             if( message.charAt(0) == '#' ){
                 // run command
@@ -828,6 +935,7 @@ if( !array_key_exists('ajax', $_POST)){
             //send a request to the serve and append it to the bot
             sendRequest: function(message) {
                 let self = this;
+<<<<<<< HEAD
 
                 let posting = $.ajax({
                     url: "/profiles/Waju", //remove.php later
@@ -842,6 +950,15 @@ if( !array_key_exists('ajax', $_POST)){
                         return;
                     }
                     self.appendMessage(data.message, 'bot');
+=======
+                let posting = $.post({
+                    url: 'profiles/Waju.php',
+                    data: {question: message, ajax: 'AJAX'},
+                    dataType: 'json'
+                });
+                posting.done(function(data){
+                    self.appendMessage(data.message, 'bot');;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 });  
             },
         /**
@@ -851,7 +968,11 @@ if( !array_key_exists('ajax', $_POST)){
             //PS; 'this' is chatBot Object
             // console.log( `Appending message: ${message} from Sender: ${senderType}`);
             //for bots, add a 400s delay, for user dont;
+<<<<<<< HEAD
             let delay = senderType == 'bot' ? 1000 : 800,
+=======
+            let delay = senderType == 'bot' ? 800 : 400,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 self = this;
             setTimeout(function(){
                 self.$chatList.append(`
@@ -862,14 +983,27 @@ if( !array_key_exists('ajax', $_POST)){
 
             //scroll the chat interface up/ down
             this.$wrapper.animate(
+<<<<<<< HEAD
                     {scrollTop: $('.chat-list__item').last().offset().top+900 },
                      1000);
                            
+=======
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         },
         toggleView: function(e){
             // if height is ,170.. increase it and point down 
             console.log(this.$el.height());
+<<<<<<< HEAD
             if( this.$el.height() <= 250 ){
+=======
+            if( this.$el.height() <= 180 ){
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     // <!-- &#x23EC; -->
                     this.$toggle.html(`<span class="toggle" data-state="down">&#x23EC;</span>`);
                     this.$el.animate({ height: 350 }, { duration: 300 })
@@ -877,7 +1011,11 @@ if( !array_key_exists('ajax', $_POST)){
                 // reduce it and point down 
                 // <!-- &#x23EC; -->
                 this.$toggle.html(`<span class="toggle" data-state="down">&#x23EB;</span>`);
+<<<<<<< HEAD
                 this.$el.animate({ height: 250 }, { duration: 300 })
+=======
+                this.$el.animate({ height: 180 }, { duration: 300 })
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             }
         },
          //gets the machine to switch to a command mode
@@ -921,6 +1059,7 @@ if( !array_key_exists('ajax', $_POST)){
             let self = this,
                 fetch_data = loadQuestions();
                 fetch_data.then(function(data){
+<<<<<<< HEAD
                    self._questions =data.results; 
                    return data;                  // self._questions = data.result;
                 }).then(function(data){
@@ -940,6 +1079,29 @@ if( !array_key_exists('ajax', $_POST)){
                      1000);
                 })
            
+=======
+                   self._questions =data.results;                   // self._questions = data.result;
+                })
+            // reset question index in case restarting game
+            this.$el.data('state', 'game');
+            this.current_index = 0;
+            //set $el data-state to game, used in handle input to know if game is on going.
+            //send start screen message,
+            this.appendMessage(this._screens.start, 'bot');
+            
+            //send first question after some seconds
+            setTimeout(function(){
+                self.appendMessage(self._questions[self.current_index].question, 'bot');        
+            }, 1200);
+            
+            this.$wrapper.animate(
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         },
         nextQuestion: function(){
             //increase index
@@ -957,8 +1119,17 @@ if( !array_key_exists('ajax', $_POST)){
                 this.$el.data('state','');
             }
             this.$wrapper.animate(
+<<<<<<< HEAD
                     {scrollTop: $('.chat-list__item').last().offset().top+900 },
                      1000);
+=======
+                {scrollTop: '+=1000',},
+                {duration: 700,
+                easing: 'swing',
+                duration: 600
+                }
+            );
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         },
         gameOver: function(){
             this.appendMessage(`Thanks for playing you scored ${this._score} points type #game to play again or type a message to chat`, 'bot');

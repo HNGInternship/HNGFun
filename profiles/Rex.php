@@ -1,5 +1,10 @@
 
 <?php
+<<<<<<< HEAD
+=======
+   
+require '../db.php'; 
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 //query to select intern data
     $userrow = "SELECT * FROM interns_data WHERE username='Rex'" ; 
@@ -52,12 +57,20 @@
       border-radius: 4px;
       border: solid coral;
     }
+<<<<<<< HEAD
     .img-container {
+=======
+    .container {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     width: 350px;
     height: 700px;
 
     }
+<<<<<<< HEAD
     .img-container img {
+=======
+    .container img {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     width: 100%;
     border: solid 4px coral;
     height: auto;
@@ -93,7 +106,11 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
     <div class="container img-container">
+=======
+    <div class="container">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         <img src="<?php echo $image_file ?>">
     </div>
     <div class="Wordings">
@@ -117,5 +134,9 @@
 </body>
 
 
+<<<<<<< HEAD
 </html>
+=======
+</html
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 

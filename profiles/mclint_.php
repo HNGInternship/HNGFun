@@ -35,6 +35,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     "Ugh. If only my creator trained me better I'd know what to say in reply to what you just said. Please train me?");
 
     function sendResponse($status, $answer){
+<<<<<<< HEAD
+=======
+      header('Content-Type: application/json');
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       echo json_encode([
         'status' => $status,
       'answer' => $answer]);
@@ -412,7 +416,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               params.append('password', 'trainpwforhng');
               params.append('question', query);
 
+<<<<<<< HEAD
               axios.post('/profiles/mclint_.php', params)
+=======
+              axios.post('profiles/mclint_.php', params)
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 .then(response => {
                   console.log(response);
                   this.messages.pop();

@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 <?php
 if(!defined('DB_USER')){
     require "../../config.php";   //change config details when pushing
+=======
+
+<?php
+if(!defined('DB_USER')){
+    require "../config.php";   //change config details when pushing
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     try {
         $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
     } catch (PDOException $pe) {
@@ -28,14 +35,23 @@ if(!defined('DB_USER')){
       throw $e;
   }
   $secret_word =  $resultData['secret_word'];
+<<<<<<< HEAD
 
  
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ?>
 
 
 <?php
+<<<<<<< HEAD
 if (isset($_GET['input_text'])) {
   $question = $_GET['input_text'];
+=======
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $question = $_POST['input_text'];
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   $question = preg_replace('([\s]+)', ' ', trim($question));
   $question = preg_replace("([?.])", "", $question); 
     if(preg_replace('([\s]+)', ' ', trim(strtolower($question))) === 'aboutbot'){
@@ -149,14 +165,24 @@ if (isset($_GET['input_text'])) {
 
 <head>
   
+<<<<<<< HEAD
   <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
   
   <style>
+=======
+	<link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
+	
+	<style>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
      
       body{
         background-image: url('http://res.cloudinary.com/devplus-devmm/image/upload/v1524619646/apple_imac_201705_thumb800_ualczl.webp');
          background-repeat: no-repeat;
           background-size: cover;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       }
       .circle-img{
         height: 200px;
@@ -237,6 +263,10 @@ if (isset($_GET['input_text'])) {
       padding-bottom: 5px;
       height: 54px;
       border-radius: 0 0 10px 10px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     .input-text-container{
       margin-left: 20px;
@@ -262,7 +292,11 @@ if (isset($_GET['input_text'])) {
       background-color: #34495E;
     }
    
+<<<<<<< HEAD
   </style>
+=======
+	</style>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </head>
 <body> <br><br><br>
   <div class="container">
@@ -341,6 +375,10 @@ if (isset($_GET['input_text'])) {
     <div class="oj-md-4 oj-flex-item">
     </div>
         <div class="oj-md-4 oj-flex-item" style="margin-top: 100px; background: rgb(43, 108, 167);">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
           <div class="align-w">
               <img src="<?php echo $user->image_filename; ?>" height="250" width="250" style="margin-top:-90px;"><br><br>
               <hr style="background: #f0f0f0; width: 300px; height: 1px;">
@@ -352,6 +390,10 @@ if (isset($_GET['input_text'])) {
                 <i class="fa fa-slack"></i>
                 <span style="color: #ffffff;"> @<?php echo $user->username; ?></span>
             </h3>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <p align="center" style="color: #ffffff;">
                 Web developer, Skilled in HTML, CSS, JS, PHP
             </p><br><br><br>
@@ -370,7 +412,11 @@ if (isset($_GET['input_text'])) {
       //send question to server
       $.ajax({
         url: 'profiles/iamdevmm.php', //i will need to change this when pushing
+<<<<<<< HEAD
         type: 'GET',
+=======
+        type: 'POST',
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         data: {input_text: input_text},
         dataType: 'json',
         success: (response) => {
@@ -391,4 +437,8 @@ if (isset($_GET['input_text'])) {
 
 </html>
 
+<<<<<<< HEAD
 <?php }?>
+=======
+<?php }?>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

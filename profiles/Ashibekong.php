@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 
 
@@ -13,6 +14,29 @@
 ?>
 <html>
 	<head>
+=======
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+
+ <?php
+
+
+   try {
+   $sql = 'SELECT * FROM secret_word';
+       $q = $conn->query($sql);
+       $q->setFetchMode(PDO::FETCH_ASSOC);
+   } catch (PDOException $e) {
+       die("Could not query the database:" . $e->getMessage());
+     }
+   $result = $q->fetch();
+   $secret_word = $result['secret_word'];
+
+   ?>
+ 
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 		<title>Ashibekong John Ishado</title>
 		<meta charset="utf-8" />

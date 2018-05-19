@@ -207,7 +207,11 @@ body.fullsingle p {
 
 .skills {
     text-align: right; 
+<<<<<<< HEAD
     padding-right: 40px; 
+=======
+    padding-right: 20px; 
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     line-height: 40px; 
     color: white; 
 }
@@ -217,6 +221,7 @@ body.fullsingle p {
 .js {width: 75%; background-color: #f44336; height: 5px;} /* Red */
 .php {width: 30%; background-color: #808080; height: 5px;} /* Dark Grey */
 
+<<<<<<< HEAD
 
 /* ---------- chat-bot ---------- */
 
@@ -324,6 +329,8 @@ body.fullsingle p {
       font-size: 10px;
     }
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </style>
 
 
@@ -347,7 +354,11 @@ body.fullsingle p {
 				
 				<h1>Elekwa Solomon U.</h1>
 
+<<<<<<< HEAD
 				<span class="tagline">Developer. Accountant. Poet.</span>
+=======
+				<span class="tagline">Developer. Accountant. Nomad.</span>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 			</div>
 
@@ -422,6 +433,7 @@ body.fullsingle p {
 
 </div>
 
+<<<<<<< HEAD
 <div id="chat-box"> 
     <header class="clearfix" onclick="change()">
       <h4>Online</h4>
@@ -539,5 +551,7 @@ body.fullsingle p {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 </html>

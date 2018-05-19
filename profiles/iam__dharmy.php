@@ -8,6 +8,10 @@
 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 			}
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     try {
         $q = 'SELECT * FROM secret_word';
         $sql = $conn->query($q);
@@ -19,11 +23,23 @@
     }?>
 	
 <?php
+<<<<<<< HEAD
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		
 		require "../answers.php";
 		date_default_timezone_set("Africa/Lagos");
 		// header('Content-Type: application/json');
+=======
+
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		
+		require "../answers.php";
+
+		date_default_timezone_set("Africa/Lagos");
+
+		// header('Content-Type: application/json');
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		if(!isset($_POST['question'])){
 			echo json_encode([
 				'status' => 1,
@@ -31,24 +47,42 @@
 			]);
 			return;
 		}
+<<<<<<< HEAD
 		$question = $_POST['question']; //get the entry into the chatbot text field
+=======
+
+		$question = $_POST['question']; //get the entry into the chatbot text field
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		//check if in training mode
 		$index_of_train = stripos($question, "train:");
 		if($index_of_train === false){//then in question mode
 			$question = preg_replace('([\s]+)', ' ', trim($question)); //remove extra white space from question
 			$question = preg_replace("([?.])", "", $question); //remove ? and .
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			//check if answer already exists in database
 			$question = "%$question%";
 			$sql = "select * from chatbot where question like :question";
 			$stmt = $conn->prepare($sql);
 			$stmt->bindParam(':question', $question);
 			$stmt->execute();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			$rows = $stmt->fetchAll();
 			if(count($rows)>0){
 				$index = rand(0, count($rows)-1);
 				$row = $rows[$index];
 				$answer = $row['answer'];	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 				//check if the answer is to call a function
 				$index_of_parentheses = stripos($answer, "((");
 				if($index_of_parentheses === false){ //then the answer is not to call a function
@@ -107,6 +141,10 @@
 			}
 			$que = trim($split_string[0]);
 			$ans = trim($split_string[1]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			if(count($split_string) < 3){
 				echo json_encode([
 					'status' => 0,
@@ -114,6 +152,10 @@
 				]);
 				return;
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			$password = trim($split_string[2]);
 			//verify if training password is correct
 			define('TRAINING_PASSWORD', 'password');
@@ -124,6 +166,7 @@
 				]);
 				return;
 			}
+<<<<<<< HEAD
 			//insert into database
 			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
 			$stmt = $conn->prepare($sql);
@@ -151,6 +194,37 @@
 <html lang="en">
 <head>
 
+=======
+
+
+			//insert into database
+			$sql = "insert into chatbot (question, answer) values (:question, :answer)";
+			$stmt = $conn->prepare($sql);
+			$stmt->bindParam(':question', $que);
+			$stmt->bindParam(':answer', $ans);
+			$stmt->execute();
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			echo json_encode([
+				'status' => 1,
+				'answer' => "Yipeee, I have been trained"
+			]);
+			return;
+		}
+
+		echo json_encode([
+			'status' => 0,
+			'answer' => "Sorry I cannot answer that question, please train me"
+		]);
+		
+	}
+	else{
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
@@ -347,8 +421,15 @@
 						'</div>'+
 					'</div>';
 			
+<<<<<<< HEAD
 			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+=======
+
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			//send question to server
 			$.ajax({
 				url: "/profiles/iam__dharmy.php",
@@ -362,6 +443,10 @@
 										'<h5>'+response.answer+'</h5>'+
 									'</div>'+
 								'</div>';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 						questionBox.val("");	
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
@@ -371,6 +456,10 @@
 										'<h5>'+response.answer+'</h5>'+
 									'</div>'+
 								'</div>';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
 						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 					}
@@ -379,9 +468,17 @@
 					console.log(error);
 				}
 			})
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		});
 	});
 </script>	
 </body>
 </html>
+<<<<<<< HEAD
 <?php } ?>
+=======
+<?php } ?>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

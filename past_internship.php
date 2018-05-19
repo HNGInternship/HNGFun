@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,6 +12,24 @@
     body {
       font-family: lato, sans-serif;
     }
+=======
+<?php
+include_once("header.php");
+?>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- styles link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <!-- font-awesome -->
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     main {
       margin-top: 50px;
     }
@@ -45,9 +64,12 @@
     }
   </style>
 </head>
+<<<<<<< HEAD
 <?php
 include_once("header.php");
 ?>
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <main>
   <div class="container" style="padding-top: 20px">
     <div class="row">
@@ -65,6 +87,7 @@ include_once("header.php");
         <div class="tab-content" id="v-pills-tabContent">
           <!-- hng 3.0 -->
           <div class="tab-pane fade show active" id="v-pills-tab-1-label" role="tabpanel" aria-labelledby="v-pills-tab-1">
+<<<<<<< HEAD
             <img class="img-fluid" src="http://res.cloudinary.com/somiari/image/upload/v1525520338/3_zqwis4.jpg" width="100%" style="margin-bottom:20px;">
             <h3 style='padding: 40px 0px 30px 0px'>About HNG 3.0</h3>
             <p style="text-align: justify; font-size: 1rem; line-height: 170%" class="text-muted">Sept 1, 2017, the third edition of the prestigious hotels.ng remote internship started with over 1000 remote
@@ -76,6 +99,13 @@ include_once("header.php");
               tool for Hotels.ng, etc.) and a lot of lessons were learnt. The third edition of the hotels.ng internship consolidated
               the hng internship as the best remote software internship in the world, and as a favourite for all junior developers
               and designers.</p>
+=======
+            <img class="img-fluid" src="http://res.cloudinary.com/somiari/image/upload/v1525520338/3_zqwis4.jpg"
+              width="100%" style="margin-bottom:20px;">
+
+            <h3 style='padding: 40px 0px 30px 0px'>About HNG 3.0</h3>
+            <p style="text-align: justify; font-size: 1rem; line-height: 170%" class="text-muted">Sept 1, 2017, the third edition of the prestigious hotels.ng remote internship started with over 1000 remote interns. This time the Akwa Ibom State Government supported the internship and promised that the Ibom e-library in Akwa Ibom state would be available for all interns within the region to use. This move ameliorated the issues of lack of power and internet for interns in that region and led to an increase in the levels of productivity of interns in that region. Of the over 1000 remote interns that signed up, only 100 actually made it to the finals. A lot of tools were built during the internship (e.g. Hotels.ng Android App, an Internal Financial tool for Hotels.ng, etc.) and a lot of lessons were learnt. The third edition of the hotels.ng internship consolidated the hng internship as the best remote software internship in the world, and as a favourite for all junior developers and designers.</p>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <div class="row" style='padding: 40px 0px 30px 0px'>
               <div class="col-6">
                 <h4 style="padding-bottom: 20px">Duration</h4>
@@ -90,12 +120,17 @@ include_once("header.php");
             </div>
             <h4 style="padding-bottom: 20px">Partners</h4>
             <img class="img-fluid rounded" src="img/hng-square.png" width="100" style="margin-right: 50px;">
+<<<<<<< HEAD
             <img class="img-fluid rounded" src="http://res.cloudinary.com/somiari/image/upload/v1525524191/aks_logo_hvncqt.png" width="100"
               style="margin-right: 50px;">
+=======
+            <img class="img-fluid rounded" src="http://res.cloudinary.com/somiari/image/upload/v1525524191/aks_logo_hvncqt.png" width="100" style="margin-right: 50px;">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
           </div>
           <!-- end of hng 3.0 -->
           <!-- hng 2.0 -->
           <div class="tab-pane fade" id="v-pills-tab-2-label" role="tabpanel" aria-labelledby="v-pills-tab-2">
+<<<<<<< HEAD
             <img class="img-fluid" src="https://res.cloudinary.com/somiari/image/upload/v1525526412/2.0_real_gkkbzs.jpg" width="100%"
               style="margin-bottom:20px;">
             <h3 style='padding: 40px 0px 30px 0px'>About HNG 2.0</h3>
@@ -108,6 +143,11 @@ include_once("header.php");
               themselves. Following the same strategy used in the previous one, interns were dropped weekly until they finally
               arrived at the final 30 (who are all doing wonders in their various fields now). As part of their projects
               during the internship, they built a Project Management Tool (Factory).</p>
+=======
+            <img class="img-fluid" src="https://res.cloudinary.com/somiari/image/upload/v1525526412/2.0_real_gkkbzs.jpg" width="100%" style="margin-bottom:20px;">
+            <h3 style='padding: 40px 0px 30px 0px'>About HNG 2.0</h3>
+            <p style="text-align: justify; font-size: 1rem; line-height: 170%" class="text-muted">January 3, 2017, Mark Essien (CEO, Hotels.ng) hinted the commencement of Hotels.ng remote internship programme in a tweet. That tweet fulfilled the promise of continuity and growth, and the pledge to help develop the Nigerian tech community, it opened up doors once more to people eager to learn and develop themselves, and set up the remote internship as a hotels.ng tradition. Not look after that tweet, the second edition of Hotels.ng Internship started, this time with over 800 remote interns on the Slack Workspace. It was as exciting and educative as the first edition and people that did not make it to the end of the first edition had another chance to prove themselves. Following the same strategy used in the previous one, interns were dropped weekly until they finally arrived at the final 30 (who are all doing wonders in their various fields now). As part of their projects during the internship, they built a Project Management Tool (Factory).</p>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <div class="row" style='padding: 40px 0px 30px 0px'>
               <div class="col-6">
                 <h4 style="padding-bottom: 20px">Duration</h4>
@@ -154,7 +194,11 @@ include_once("header.php");
             </div>
             <h4 style="padding-bottom: 20px">Partners</h4>
             <img class="img-fluid rounded" src="img/hng-square.png" width="100" style="margin-right: 50px;">
+<<<<<<< HEAD
             <!--
+=======
+            <!-- 
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <img class="img-fluid rounded" src="img/oracle-red.png" width="100" style="margin-right: 50px;">
           <img class="img-fluid rounded" src="img/figma-dark.png" width="100" style="margin-right: 50px;">
           <img class="img-fluid rounded" src="img/bluechips.png" width="100" style="margin-right: 20px;">
@@ -166,7 +210,14 @@ include_once("header.php");
   </div>
 </main>
 <div style='color: #3D3D3D; padding-bottom: 80px'>
+<<<<<<< HEAD
 </div>
+=======
+
+</div>
+
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <?php
     include_once("footer.php");
 ?>

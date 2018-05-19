@@ -3,6 +3,7 @@
       <div class="row">
          <div class="col-lg-8 col-md-10 mx-auto">
             <ul class="list-inline text-center">
+<<<<<<< HEAD
 
                <li class="list-inline-item contact-icon">
                   <!-- <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
@@ -25,20 +26,34 @@
 
                <!-- <li class="list-inline-item footer-li">
                   <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
+=======
+               <li class="list-inline-item">
+                  <a id="twitter" href="https://twitter.com/abayomijohn273" target="_blank">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-twitter fa-stack-1x"></i>
                      </span>
                   </a>
                </li>
+<<<<<<< HEAD
                <li class="list-inline-item footer-li">
                   <a id="facebook" href="https://web.facebook.com/hotelsng/" target="_blank">
+=======
+               <li class="list-inline-item">
+                  <a id="facebook" href="https://www.facebook.com/abayomijohn1670" target="_blank">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-facebook fa-stack-1x"></i>
                      </span>
                   </a>
                </li>
+<<<<<<< HEAD
                <li class="list-inline-item footer-li">
                   <a id="github" href="https://github.com/HNGInternship/" target="_blank">
+=======
+               <li class="list-inline-item">
+                  <a id="github" href="https://github.com/abayomijohn273" target="_blank">
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-github fa-stack-1x"></i> -->
 

@@ -1,13 +1,31 @@
+<<<<<<< HEAD
 /.ssh
 .ssh/
+=======
+
+db.php
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 docker-compose.yml
 config.php
 .phpintel/
 .vscode/
 .idea/
 phpmyadmin/
+<<<<<<< HEAD
 bower_components/
 vendor/
 db.php
 config_slayers.php
 .DS_Store
+=======
+.DS_Store
+._.DS_Store
+/deploy
+.idea/
+config.php
+
+.travis.yml
+push.sh
+/vendor/
+disruption.png
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

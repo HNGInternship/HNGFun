@@ -1,7 +1,11 @@
 <?php
 
 if (!defined('DB_USER')) {
+<<<<<<< HEAD
    require "../config.php";
+=======
+    // require "../config.php";
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 try {
     $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE, DB_USER, DB_PASSWORD);

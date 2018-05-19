@@ -84,12 +84,20 @@ function test_input($data) {
                     //saving to database ends here
                     
                 }else{
+<<<<<<< HEAD
                     $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+=======
+                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question # answer # password";
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
             }else{
+<<<<<<< HEAD
                     $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+=======
+                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question # answer # password";
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
@@ -480,7 +488,11 @@ button{
             $("#chatMessages").append('<div id="messageSent">' + message + '</div>');
 
             $.ajax({
+<<<<<<< HEAD
                 url: "/profiles/pearl",
+=======
+                url: "/profiles/pearl.php",
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 type: "POST",
                 data: {displayMessage: message},
                 dataType: "json"

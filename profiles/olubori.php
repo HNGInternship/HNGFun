@@ -1,7 +1,21 @@
 <?php 
    if(isset($_GET['answer'])){
+<<<<<<< HEAD
 		require_once '../db.php';
 
+=======
+
+		require_once '../../config.php';
+    
+       try {
+		    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+		    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+		
+		
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		$question = safeInput($_GET['question']);
 		$answer = safeInput($_GET['answer']);
 
@@ -26,8 +40,13 @@
 		    throw $e;
 		}
         return;
+<<<<<<< HEAD
 	}else if(isset($_GET['question'])){
 
+=======
+
+	}else if($_GET['question']){
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	   require_once '../../config.php';
 
 	   	$question = safeInput($_GET['question']);
@@ -38,7 +57,11 @@
 		}
 		$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
+<<<<<<< HEAD
         $answer = $result->answer;
+=======
+        $answer = $result->answer;//bot_answer($_GET['question']);
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		if($answer === false){
 		  $data = ['answer'=>null];
 		}else
@@ -80,7 +103,10 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
+<<<<<<< HEAD
 			align-items: center;
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		  }
 		  #main > div {
 		  	/*border: 1px solid red;*/
@@ -92,6 +118,10 @@
 		  	position: relative;
 		  	background: url('../img/banner-image-1.png');
 		  	background-repeat: no-repeat;
+<<<<<<< HEAD
+=======
+	        background-attachment: fixed;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	        background-position: center;
 	        background-size: cover;
 		  }
@@ -181,7 +211,11 @@
 	      #profile-box a {
 	      	color: #0085A1;
 	      }
+<<<<<<< HEAD
 	      #img-container img {
+=======
+	      #profile-box img {
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	      	border-radius: 2rem;
 	      }
 		  @media only screen and (min-width: 993px) {
@@ -197,6 +231,7 @@
 		  }
 		</style>
 
+<<<<<<< HEAD
 <section id="app" class="mt-4 d-flex flex-column align-items-center">
 	<!--<div id="menu">
 		<a href="#">Profile</a>
@@ -223,6 +258,21 @@
   <div id="main" class="container row flex-wrap">
 
   	<div id="profile-box" class="px-4 col-md-6">
+=======
+<section id="app" class="mt-4">
+	<div id="menu">
+		<a href="#">Profile</a>
+		<a href="#">Chat Bot</a>
+	</div>
+  <div id="main">
+  	<div id="profile-box" class="px-4">
+
+  	   <span  id="img-container">
+  	   <img src="https://res.cloudinary.com/naera/image/upload/v1525932431/Photo_on_1-26-18_at_2.57_PM_2_xpnojm.jpg" class="img-fluid">
+  	</span>
+  		<h3 class="mt-4"><?= $user->name ?></h3>
+  		<p class="mt-0 text-primary"><strong>Laravel and VueJS fanatic</strong></p>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		<h4 style="align-self: flex-start;" class="mt-3">Links to some of my works</h4>
     <div class="w-100">
   		<ol>
@@ -250,18 +300,31 @@
   		</ol>
   	</div>
   	</div>
+<<<<<<< HEAD
   	<div id="chat-box" class="col-md-5">
+=======
+  	<div id="chat-box" >
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		<header>
   			<h4 class="text-center text-success">BORI BOT</h4>
   		</header>
   		<main ref="chat-msgs" id="chat-msgs">
   			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'" v-html="msg.text"></p>
+<<<<<<< HEAD
+=======
+
+  			<div class="mx-auto bg-info w-50 text-white rounded" v-show="zoneList == null" v-html="info"></div>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
   			<p class="my-0">Available commands <small>Click on any to choose</small></p>
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
+<<<<<<< HEAD
   		<input type="text" v-model="humanMessage" class="border" placeholder="Type / followed by command you want to give e.g. /train" id="human-text" @keyup.enter="handleSubmit" />
+=======
+  		<input type="text" v-model="humanMessage" :disabled="zoneList == null" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" @keyup.enter="handleSubmit" />
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   	</div>
   </div>
   
@@ -273,27 +336,49 @@
 	  el: '#app',
 	  data: {
 	    commands: [
+<<<<<<< HEAD
 	               {key: 'train', description: 'You can train me with this', format: '[question] [answer] [password]'}, 
 	               {key: 'currenttime', description: 'I will get the current time in any location in this world', format: '[location]'},
 	               {key: 'dayofweek', description: 'I will tell you the day of the week a date falls on', format: '[yyyy-mm-dd]'},
 	               {key: 'aboutbot', description: 'I will tell you about me', format: ''}
 	              ],
         humanMessage: '',
+=======
+	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
+	               {key: 'currenttime', description: 'This command is to get the current time in any of the location of the world', format: '[location]'},
+	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
+	               {key: 'aboutbot', description: 'This command is tells you about me', format: ''},
+	               {key: 'popularcities', description: 'Show all popular city that starts with an alphabet', format: '[a], or [b],... [z]'}
+	              ],
+        humanMessage: '',
+        zoneList: null,
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         choice: {command: '', message:''},
         messages: [
                     {
                     	human: false, 
+<<<<<<< HEAD
                     	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type / in the textbox`
                     }
                   ],
         info: '<h4 class="text-center">Bot is currently preparing data</h4><p class="text-center">Please wait...</p>',
         googlekey: 'AIzaSyA0W2GMiWvp-Jm7ZbpthWIoyamHpJFarts',
+=======
+                    	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type # in the textbox`
+                    }
+                  ],
+        info: '<h4 class="text-center">Bot is currently preparing data</h4><p class="text-center">Please wait...</p>'
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       },
 	  computed: {
 	  	suggestedCommands: function(){
 	  	  let command;
 	  	  let suggestion = null;  
+<<<<<<< HEAD
 	  	  if(this.humanMessage.startsWith('/')){
+=======
+	  	  if(this.humanMessage.startsWith('#')){
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	        command = this.humanMessage.substr(1).toLowerCase();
 	        if(command.length > 0){
   	          suggestion = this.commands.filter(function(cmd){
@@ -314,7 +399,11 @@
 	  	  	        return cmd.key === item
 	  	          });
 	  	  this.choice.command = c.key;
+<<<<<<< HEAD
 	  	  this.humanMessage = '/' + c.key + ' ' + c.format;
+=======
+	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	},
 	  	handleSubmit: function(){
 	  	  this.choice.message = this.humanMessage;
@@ -333,18 +422,31 @@
 	  		  this.processUnexpectedInput();
 	  		}
 
+<<<<<<< HEAD
 	  		if(this.choice.message.indexOf('/') == 0 && !this.choice.command){
+=======
+	  		if(this.choice.message.indexOf('#') == 0 && !this.choice.command){
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
               return "I can't help with that please, give me a correct command";
 	  		}
 			switch(this.choice.command){
 			  case 'aboutbot':
 			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
 			  case 'dayofweek':
+<<<<<<< HEAD
 			    return this.getDayFromDate();
+=======
+			    return this.getDayOfWeek();
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			  case 'currenttime':
 			    return this.getCurrentTime();
 			  case 'train':
 			    return this.doTrainBot();
+<<<<<<< HEAD
+=======
+			  case 'popularcities':
+			    return this.getAllCities();
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			  default:
 			    return this.doChat();
 			}
@@ -352,11 +454,16 @@
 
             
 	  	},
+<<<<<<< HEAD
 	  	getDayFromDate: function(){
+=======
+	  	getDayOfWeek: function(){
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  		var date;
 	  		try{
 	          date = this.choice['message'].match(/\[(\d{4}-\d{2}-\d{2})\]/)[1];
 	  		}catch(ex){
+<<<<<<< HEAD
 	  		  return "Follow the correct syntax /dayofweek [yyyy-mm-dd]";
 	  		}
 
@@ -444,6 +551,56 @@
 	  	    .then(function (response) {
 
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use /train [question] [answer] [password]';
+=======
+	  		  return "Follow the correct syntax #dayofweek [yyyy-mm-dd]";
+	  		}
+
+	  		date = new Date(date);
+            let days = ['Sunday', 'Monday', 'Tuesday', 'Wednessday', 'Thursday', 'Friday', 'Saturday'];
+            return `${date} - <strong>${days[date.getDay()]}</strong>`;
+
+
+	  	},
+	  	getCurrentTime: async function(){
+	  		var location;
+	  		try{
+              location = this.choice['message'].match(/\[(.*?)\]/)[1];
+	  		}catch(ex){
+	  		  return "Follow the correct syntax #timeofday [location]";
+	  		}
+	  	    let zones = this.zoneList.filter(function(zone){
+                          location = location.charAt(0).toUpperCase() + location.slice(1);
+                          return zone.zoneName.indexOf(location) != -1
+	  	                });
+	  	    if(zones.length < 1){
+	  	      return `Time can not be found for your location can you use a popular city around that location. For example for Nigeria use #timeofday [Lagos]<br /><span class="text-success">Tip: Use <strong>#popularcities [${location.charAt(0)}]</strong> to check correct spelling for ${location}</span>`;
+	  	    }
+	  	    let output = '<h4>Time for ' + location + '</h4>';
+	  	    for (zone of zones) {
+	  	      const response = await fetch(`http://api.timezonedb.com/v2/get-time-zone?key=DXHGYWUAFA3S&format=json&by=zone&zone=${zone.zoneName}`);
+	  	      const json = await response.json();
+
+	  	      const formatted = json.formatted;
+	  	      
+	  	      const splitted = formatted.split(' ');
+        	  output += `${zone.zoneName} <strong>${zone.countryName}</strong><ul><li>Time: ${splitted[1]}</li><li>Date: ${splitted[0]}</li></ul>`;
+	  	    }
+
+	  	    return output;
+
+	  	},
+	  	doChat: function(){
+          let question = this.choice['message']; /*.match(/\[(.*?)\]/)[1];
+	  	  }catch(ex){
+            return "Follow the correct syntax #chitchat [question]";
+	  	  } */
+	  	  
+
+	  	  return axios.get('profiles/olubori.php?question='+ question)
+	  	    .then(function (response) {
+
+	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	      return chatResponse;
 	  	    })
 	  	    .catch(function (error) {
@@ -458,7 +615,11 @@
 	  	  	params = this.choice['message'].match(/\[(.*?)\] \[(.*?)\] \[(.*?)\]/);
 	  	  	password = params[3];
 	  	  }catch(ex){
+<<<<<<< HEAD
 	  	  	return "Follow the correct syntax /train [question] [answer] [password]";
+=======
+	  	  	return "Follow the correct syntax #train [question] [answer] [password]";
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	  }
 
 	  	  if(password != 'password')
@@ -477,8 +638,36 @@
 	  	  
 	  	  
 	  	},
+<<<<<<< HEAD
 	  	processUnexpectedInput: function(){
 	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train'];
+=======
+	  	getAllCities: function(){
+	  		let char;
+	  	  try{
+            char = this.choice['message'].match(/\[[a-zA-Z]{1}\]/)[0];
+            
+	  	  }catch(ex){
+            return "Follow the correct syntax #popularcities [a], or #popularcities [b], ... #popularcities [z]";
+	  	  }
+	  		char = char.charAt(1).toUpperCase();
+	  		let cities = [];
+            
+            val = `<p>Cities that starts with <strong>${char}</strong></p><ul>`;
+	  	    for (zone of this.zoneList) {
+	  	      const arr = zone.zoneName.split('/');
+	  		  city = arr[arr.length-1];
+              if(city.indexOf(char) === 0)
+              	val += `<li><strong>${city}</strong> - ${zone.countryName}</li>`;
+	  	    }
+
+	  		val += `</ul>`;
+
+	  		return val;
+	  	},
+	  	processUnexpectedInput: function(){
+	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train', 'popularcities'];
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  		mycommand = this.choice.message.split(' ')[0];
 	  		mycommand = mycommand.substring(1);
 	  		for(cmd of commands){
@@ -487,6 +676,19 @@
 	  		  }
 	  		}
 	  	}
+<<<<<<< HEAD
+=======
+	  },
+	  created: async function(){
+	  	try{
+	  	  const response = await fetch('http://api.timezonedb.com/v2/list-time-zone?key=DXHGYWUAFA3S&format=json');
+	  	  const json = await response.json();
+	  	  this.zoneList = json.zones;
+	  	}catch(ex){
+	  	  this.info = '<h4 class="text-center text-danger">OOPS!!! APOLOGY</h4><p class="text-center">Something went wrong while I was trying to get data, Please reload your page and check your internet connection and firewall.</p>'
+	  	}
+	  	
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  }
 	})
 
@@ -498,7 +700,11 @@
 	    }
 	  },
 	  template: `<li class="my-2 px-2" @click="onItemClick(command.key)">
+<<<<<<< HEAD
 			       <span class="title">/{{command.key}}</span> <span class="format">{{command.format}}</span>
+=======
+			       <span class="title">#{{command.key}}</span> <span class="format">{{command.format}}</span>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			       <span class="description d-block">{{command.description}}</span>	
 		        </li>`
 	})

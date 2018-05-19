@@ -1,6 +1,9 @@
 <?php
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 if(!defined('DB_USER')){
     require "../../config.php";   
     try {
@@ -22,6 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
      $message = trim(strtolower($_POST['message']));
      $botversion = 'drugAbuse2020 V2.1';
 
+<<<<<<< HEAD
+=======
+    
+
+  // $message = trim(strtolower($_POST['message']));
+
+    //step 1: Figure out the intent of the message
+    //intents: Greeting, Find the current time, Ask about the HNG Programme
+    //Train the bot
+    //Provide directions for HNG Stage completions
+    //check the db
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     $intent = 'unrecognized';
     $unrecognizedAnswers = [

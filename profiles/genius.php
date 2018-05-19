@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
+=======
+<?php  include('../config.php'); ?>
+<?php  include('header.php');  ?>
+<?php  include('../db.php'); ?>
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 <?php

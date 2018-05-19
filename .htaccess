@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 Options +MultiViews
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+=======
+Options -MultiViews
+
+RewriteEngine On    # Turn on the rewriting engine
+# not rewrite css, js and images
+#RewriteCond %{REQUEST_URI} !\.(?:css|js|jpg|gif|png)$ [NC]
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule  ^profile/(.*)$/?$     profile.php?id=$1   [NC,L]
+
+>>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
