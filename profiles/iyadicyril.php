@@ -549,7 +549,7 @@ hr{
 					<div class="col-md-12 col-sm-12 col-12">
 						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
 					</div>
-					<div class=" " style="margin-top: 20px; width:350px;">
+					<div class=" " style="margin-top: 20px; width:350px;" id="form">
 						<button type="submit" class="btn btn-info" style="width:70px;border-left-width:0px;border-right-width:0px;padding-left:10px;padding-right:10px;margin-left:140px;margin-right:140px">DM</button>
 					</div>
 				</form>	
@@ -560,7 +560,7 @@ hr{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script src="../js/jquery.min.js"></script>
 <script>	
-	$(document).ready(function(){
+	$("#form").submit(function(){
 		var questionForm = $('#question-form');
 		questionForm.submit(function(event){
 			event.preventDefault();
@@ -580,7 +580,7 @@ hr{
 			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
 			//send question to server
 			$.ajax({
-				url: "/profiles?id=iyadicyril",
+				url: "/profiles/iyadicyril.php",
 				type: "post",
 				data: {question: question},
 				dataType: "json",
