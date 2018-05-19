@@ -162,7 +162,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Work+Sans:Regular|Lato:regular" rel="stylesheet"> 
 
- <style>
+ <style type="text/css">
 
 
   body
@@ -662,7 +662,7 @@ hr{
 					<div class="col-md-2 col-sm-1"></div>
 				</div>
 		</div>
-<script>
+<script  type="text/javascript">
   window.addEventListener("keydown", function(e){
 	    		if (e.keyCode == 13){
 	    			//check is input for is empty
