@@ -558,6 +558,7 @@ hr{
 	</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script src="../vendor/jquery/jquery.min.js"></script>
 <script>	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
