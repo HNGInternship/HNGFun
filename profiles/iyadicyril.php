@@ -21,140 +21,107 @@
 	}
 }
 ?>
-
 <?php
-  function validateinput($input) {
-	$input = trim($input);
-	$input = chop($input);
-	$input = trim($input, "?");
-	$input = stripslashes($input);
-	$input = htmlspecialchars($input);
-  return $input;
-  }
- 
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	require "../answers.php";
-	date_default_timezone_set("Africa/Lagos");
+if($_SERVER['REQUEST_METHOD']==='POST'){
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer =test_input($questionAndAnswer); 
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
 
-		
-	if(empty($_POST['question'])){
-		$reply = "You have to enter a question.";
-		$response =array('status' => 0,'answer' => $reply);
-		echo json_encode($response); 
+                return;
+            }else{ 
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
 
-		return;		
-	}
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+
        
-	$question = validateinput($_POST['question']);
-    
-	//display bot version
-	if($question == "about bot" ||$question == "aboutbot" ){
-		$reply = "Andy bot v1.0";
-				   $response = array('status'=>1,'answer'=> $reply);
-				   echo json_encode($response); 
-				   return;
-	}else{
-	
-	//check for train
-	$train = explode(':', $question);
-	if($train[0] == 'train'){
-		$inputQuestion = explode('#', $train[1]);
-		$password = 'password';
-		if(!count($inputQuestion)<3 && validateinput($password) === validateinput($inputQuestion[2])){
-			if (validateinput($inputQuestion[0]) && validateinput($inputQuestion[1]) != " "){
-				$dataQuestion = validateinput($inputQuestion[0]);
-				$dataAnswer = validateinput($inputQuestion[1]);
-				
-				//is the question or answer already in the database
-				$select = $conn->query("Select * from chatbot where question LIKE '%$question%'");
-				$select->bindParam(':question', $question);
-				$select->execute();
-				$select ->setFetchMode(PDO::FETCH_ASSOC);
-				$fetch = $select->fetchAll();
-				if($fetch){
-					$reply = "I already know that fam!";
-				   $response = array('status'=>0,'answer'=> $reply);
-				   echo json_encode($response); 
-				}
-				else{
-					//save into the database as a new question
-					$insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
-					
-					if($conn->query($insert)){
-						$reply = "Thanks alot, i feel smarter already.";
-						$response = array('status'=>1, 'answer'=>$reply);
-						echo json_encode($response);
-					}else{
-						$reply = "Sorry i didn't get that </br> i need you to repeat that lesson.";
-						$response = array('status'=>0, 'answer'=>$reply);
-						echo json_encode($response);
-					}
-				}
-				//saving to database ends here
-				
-			}else{
-				$reply = "Sorry fam, i only learn this way =><br> Training Format: train:question#answer#password";
-						$response = array('status'=>0, 'answer'=>$reply);
-						echo json_encode($response);
-			}
-		}else{
-				$reply = "Thats not how to train buddy.<br> Training Format: train:question#answer#password";
-						$response = array('status'=>0, 'answer'=>$reply);
-						echo json_encode($response);
-			}
-	}else{
-  //retrieving answers to questions from the database 
-	 $question = validateinput($_POST['question']);
-	 $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
-	
-	 $answer ->setFetchMode(PDO::FETCH_ASSOC);
-	 $ans = $answer->fetchAll();
-	 if (count($ans) > 0) {
-
-	   $choseRandom = rand(0, count($ans)-1);
-	   $response = $ans[$choseRandom]['answer'];
-	   $response = array('status'=>1,'answer'=> $response);
-	   echo json_encode($response);
-
-	 }
-	 else{
-		$index_of_parentheses_closing = stripos($answer, "))");
-					if($index_of_parentheses_closing !== false){
-						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
-						$function_name = trim($function_name);
-						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
-							echo json_encode([
-								'status' => 0,
-								'answer' => "No white spaces allowed in function name"
-							]);
-							return;
-						}
-						if(!function_exists($function_name)){
-							echo json_encode([
-								'status' => 0,
-								'answer' => "Function not found"
-							]);
-						}else{
-							echo json_encode([
-								'status' => 1,
-								'answer' => str_replace("(($function_name))", $function_name(), $answer)
-							]);
-						}
-						return;
-					}
-					else{
-						$error = "I don't seem to understand you <br> You can train me on that.";
-						$response = array('status'=>2, 'answer'=> $error);
-						echo json_encode($response); 
-					}
-				}
-			}
-			
-		}
-			
-
-	} 
-  
+        return;
+    }
+ 
 ?>
 
 <title>Iyadi Cyril</title> 	
