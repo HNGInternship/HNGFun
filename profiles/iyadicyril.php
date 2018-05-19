@@ -631,7 +631,7 @@ hr{
 					<div class="chat-bot-title">
 						AndyBot v2.0
 					</div>
-					<div class="message-area">
+					<div class="message-area" id="message_area">
 						<div class="received-message">
 							<p class="message sent">
 								Hi i'm Andy,how can i help you?.
@@ -756,7 +756,7 @@ hr{
 	    		//join/append all the element together
 	    		div.appendChild(par);
 	    		messageArea.appendChild(div);
-				$(".message-area").scrollTop($(".message-area")[0].scrollHeight);
+				$("#message_area").scrollTop($("#message_area")[0].scrollHeight);
 	    		//add autoscroll function
 	    	}
 	    	
