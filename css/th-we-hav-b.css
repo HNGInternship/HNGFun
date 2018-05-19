@@ -1,0 +1,42 @@
+.jHeader{
+	color: #fff;
+	height:400px;
+	overflow:none;
+	background-color:#666;
+	text-align:center;
+	background: url(../images/header.jpg) no-repeat top center;
+}
+
+.jtxt{
+	background:#ffffff;
+	text-align: center;
+	width:100%;
+}
+
+.p-txt{
+	background-color:blue;
+	border-radius: 10px;
+	box-shadow: 5px 10px #666666;
+	width:100%;
+}
+.card-header{
+	background:#2196F3;
+	font-weight: bolder; 
+	ssfont-weight: 900; 
+	color:#ffffff;
+}
+.cbb{
+		border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 5px 15px #888888;
+	border: none;
+	border: 0;
+}
+.cbody{
+	font-weight: bolder; 
+	color:#666666;
+	background:#F4F4F4;
+}
+.cardImg{
+	ccbackground:#2196F3;
+}

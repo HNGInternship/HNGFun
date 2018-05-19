@@ -1,0 +1,230 @@
+<<<<<<< HEAD
+/*
+ * @author Shahrukh Khan
+ * @website http://www.thesoftwareguy.in
+ * @facebook https://www.facebook.com/Thesoftwareguy7
+ * @twitter https://twitter.com/thesoftwareguy7
+ * @googleplus https://plus.google.com/+thesoftwareguyIn
+ */
+
+* {
+    margin: 0;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+body {
+    border: 0;
+    font: 12px "Trebuchet MS";
+    color: #000;
+    background:#fff;
+}
+a{ text-decoration: none; color:#000; }
+a:hover { color: #8D8D8D; text-decoration:underline; }
+a:visited { color: #000; }
+.height10{clear:both;height:10px;}
+.height20{clear:both;height:20px;}
+.height30{clear:both;height:30px;}
+
+#body{ 
+    width: 1004px;
+    margin: 0 auto;
+    max-width: 100%;
+    padding:20px 0 70px 0;
+    height: 100%;
+}
+
+#container {
+    min-height:100%;
+    position:relative;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left:0;
+    height: 70px;
+    width: 100%;
+    background:#f7f7f7;
+    color:#000;
+}
+.copyright{float:left;padding:10px 0 0 20px; }
+.footerlogo{float:right;padding:10px 20px 0 0;}
+.resultRow{width:100%; margin:2px 0; border:1px solid #8D8D8D;padding:2px; color:#000;}
+
+.mainTitle{ font-size:35px; text-align:center; padding-bottom:20px;text-decoration:underline;}
+.title{ font-size:20px; padding:10px; text-align:center;}
+
+.links{border:1px solid #000; padding:5px; text-decoration:none;color:#000;}
+.links:hover{text-decoration:underline;color:#fff; background:#6D37B0;}
+.selected{border:1px solid #000; padding:5px; text-decoration:none;color:#fff; background:#6D37B0;}
+
+nav{ margin:0 auto; width:100%;text-align:center; margin-bottom:80px;}
+.menus{padding:2px; margin:0 6px; border:1px solid #000;text-decoration:none;}
+
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.bordered td, .bordered th {
+    padding: 10px;
+    border-bottom: 1px solid #f2f2f2;    
+}
+
+.bordered th {
+    background-color: #eee;
+    border-top: none;
+    text-align:left;
+}
+
+.bordered tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    border:1px solid #000;
+
+}
+
+.bordered tbody tr:hover td {
+    background: #d0dafd;
+    color: #339;
+}
+
+.bordered tbody tr td a:hover{
+    color:#EB028F;
+    text-decoration:underline;
+}
+
+
+#tableForm {border:1px solid #999999; margin:0 auto;width:80%; margin-top:20px; padding:10px;}
+#tableForm td{ padding:5px 0; } /*odd*/
+.formLeft{width:120px; text-align:left;}
+.textboxes{ width:280px; border:1px solid #000; height:20px; }
+=======
+/*
+ * @author Shahrukh Khan
+ * @website http://www.thesoftwareguy.in
+ * @facebook https://www.facebook.com/Thesoftwareguy7
+ * @twitter https://twitter.com/thesoftwareguy7
+ * @googleplus https://plus.google.com/+thesoftwareguyIn
+ */
+
+* {
+    margin: 0;
+}
+
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+body {
+    border: 0;
+    font: 12px "Trebuchet MS";
+    color: #000;
+    background:#fff;
+}
+a{ text-decoration: none; color:#000; }
+a:hover { color: #8D8D8D; text-decoration:underline; }
+a:visited { color: #000; }
+.height10{clear:both;height:10px;}
+.height20{clear:both;height:20px;}
+.height30{clear:both;height:30px;}
+
+#body{ 
+    width: 1004px;
+    margin: 0 auto;
+    max-width: 100%;
+    padding:20px 0 70px 0;
+    height: 100%;
+}
+
+#container {
+    min-height:100%;
+    position:relative;
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left:0;
+    height: 70px;
+    width: 100%;
+    background:#f7f7f7;
+    color:#000;
+}
+.copyright{float:left;padding:10px 0 0 20px; }
+.footerlogo{float:right;padding:10px 20px 0 0;}
+.resultRow{width:100%; margin:2px 0; border:1px solid #8D8D8D;padding:2px; color:#000;}
+
+.mainTitle{ font-size:35px; text-align:center; padding-bottom:20px;text-decoration:underline;}
+.title{ font-size:20px; padding:10px; text-align:center;}
+
+.links{border:1px solid #000; padding:5px; text-decoration:none;color:#000;}
+.links:hover{text-decoration:underline;color:#fff; background:#6D37B0;}
+.selected{border:1px solid #000; padding:5px; text-decoration:none;color:#fff; background:#6D37B0;}
+
+nav{ margin:0 auto; width:100%;text-align:center; margin-bottom:80px;}
+.menus{padding:2px; margin:0 6px; border:1px solid #000;text-decoration:none;}
+
+
+table {
+    *border-collapse: collapse; /* IE7 and lower */
+    border-spacing: 0;
+    width: 100%;    
+}
+
+.bordered {
+    border: solid #ccc 1px;
+    -webkit-box-shadow: 0 1px 1px #ccc; 
+    -moz-box-shadow: 0 1px 1px #ccc; 
+    box-shadow: 0 1px 1px #ccc;         
+}
+
+.bordered td, .bordered th {
+    padding: 10px;
+    border-bottom: 1px solid #f2f2f2;    
+}
+
+.bordered th {
+    background-color: #eee;
+    border-top: none;
+    text-align:left;
+}
+
+.bordered tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    border:1px solid #000;
+
+}
+
+.bordered tbody tr:hover td {
+    background: #d0dafd;
+    color: #339;
+}
+
+.bordered tbody tr td a:hover{
+    color:#EB028F;
+    text-decoration:underline;
+}
+
+
+#tableForm {border:1px solid #999999; margin:0 auto;width:80%; margin-top:20px; padding:10px;}
+#tableForm td{ padding:5px 0; } /*odd*/
+.formLeft{width:120px; text-align:left;}
+.textboxes{ width:280px; border:1px solid #000; height:20px; }
+>>>>>>> aca03ae9fbd8ae27fe330a2c33c832630d7e8199
+.required{color:#F00;}

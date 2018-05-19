@@ -1,0 +1,65 @@
+ 
+
+ body, html {
+    height: 100%;
+
+    }
+
+    .z-index-pic{
+      position: relative;
+      bottom: 150px;
+      z-index: 2;
+    }
+
+    p {
+       font-size: 14px; 
+    }
+
+    .small-text-table{
+      font-size: 14px;
+    }
+
+    .banner {
+    /* The image used */
+    background-image: url("../img/page-title.jpg");
+    height: 300px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    }
+
+
+    .banner-text{
+      font-family: Lato;
+      font-style: bold;
+      font-size: 24px;
+      line-height: 56px;
+      color: #FFFFFF;
+
+    }
+
+    .rightColumn {
+        padding: 100px 5px 5px 80px;
+    }
+
+    ul {
+    list-style-type: circle;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: DodgerBlue;
+    }
+
+    .flex-container > div {
+      background-color: #f1f1f1;
+      width: 100px;
+      margin: 10px;
+      text-align: center;
+      line-height: 75px;
+      font-size: 30px;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }

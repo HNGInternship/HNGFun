@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.shield-invite-head{
+    font-size: 42px;
+    font-family: 'Work Sans';
+    font-weight: bold;
+    color: #3D3D3D;
+    margin-top: 30%;
+}
+.shield-invite-text{
+    font-family: 'Lato';
+    color: #828282;
+    font-size: 18px;
+}
+.shield-invite-btn{
+    font-family: 'Lato';
+    background: #2196F3;
+    color: #FAFAFA;
+    border-radius: 5px; 
+    font-size: 20px;
+    font-weight: normal;
+    text-transform: initial;
+    margin-top: 40px;
+    margin-bottom: 80px;
+}
+#left-pan{
+    flex: 0 0 60%;
+    max-width: 60% !important;    
+}
+#right-pan{
+    max-width: 40% !important;
+    background: #2196F3;
+}
+#shield-invite-lpanel{
+    margin: 0 auto;
+    max-width: 500px;
+}
+#shield-envelope{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.shield-circle{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+#shield-lg-env{
+    margin: 75px 0 0 50px;
+}
+#shield-sm-env{
+    margin: -10px 0 0 -60px;
+}

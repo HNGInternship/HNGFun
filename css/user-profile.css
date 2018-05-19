@@ -1,0 +1,62 @@
+
+
+.sect{
+	padding:50px;
+}
+.container-main{
+	background: #fff;
+	margin-top: 80px;
+	padding:0 0px 50px 0px;
+	box-shadow: 5px 5px 15px #888888;
+	width: 100%;
+	 font-size: 20px;
+  color: #212529;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+
+}
+.img{
+	padding: 10px;
+}
+.hh {
+	color:#2196F3;
+	font-weight: 700;
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.btn{
+	background:#2196F3;
+	color:#ffffff;
+	
+}
+.dropdownBirth{
+	width: 100px;
+}
+.profile-img{
+	width:160px;
+	display: block;
+	margin: auto;
+	margin-top:-80px;
+}
+
+.btn-change{
+	width:200px;
+	margin-left: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

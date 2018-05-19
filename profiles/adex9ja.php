@@ -1,6 +1,6 @@
 <?php 
 try {
-     $profile = 'SELECT * FROM interns_data_ WHERE username="adex9ja"';
+     $profile = 'SELECT * FROM interns_data WHERE username="adex9ja"';
     $select = 'SELECT * FROM secret_word';
 
     $query = $conn->query($select);

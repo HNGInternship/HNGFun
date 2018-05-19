@@ -1,0 +1,46 @@
+body{
+            background-color: #fff !important;
+        }
+        .overlay{
+             background-color: #56CCF2 !important;
+            background-image: url('img/core-value.png') !important;
+            background-repeat: no-repeat;
+    background-position: 50% 0;
+    -ms-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+        }
+           
+        .overlay:after{
+            background-color: rgba(0, 200, 253, 1) !important;
+           
+        } 
+        h3{
+            color: #56CCF2 !important;
+            font-size: 25px !important;
+        }
+        .content{
+            margin-top: -100px !important;
+        }
+        .under-line{
+             background-color: #56CCF2; height: 2px; border: 0;
+        } 
+        .brief{
+            font-size: 20px;
+
+        }
+        .page-heading  h1{
+            margin-top: -250px !important;
+            font-size: 150px !important;
+            color: black;
+        }
+        h2{
+            font-size: 63px !important;
+        }
+         .subheading{
+            font-size: 26px !important;
+        }  
+        p {margin-left: 50px !important;
+        }

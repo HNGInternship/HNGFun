@@ -1,0 +1,19 @@
+
+			.container{
+				  padding:50px;
+				  width:80%;
+				  
+			}
+	.txt{
+		width: 300px;
+	}
+
+.btn{
+			width:300px;
+			background:#2196F3;
+	}
+	p, label{
+		font-size: 15px;
+		color:#5F5F5F;
+	}
+	

@@ -1,9 +1,20 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html>
     <head>
+	<?php 
+		require 'db.php';
+
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+
+		$result2 = $conn->query("Select * from interns_data where username = 'olawalle'");
+		$user = $result2->fetch(PDO::FETCH_OBJ);
+	?>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Olawalle's</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1">
        
         <!-- Bootstrap -->
@@ -105,21 +116,7 @@ body{
     font-size:30px;
     color: #fff;
 }
-#f1_container {
-  position: relative;
-  z-index: 1;
-}
-#f1_container {
-  perspective: 1000;
-  margin-left: -20px
-}
-#f1_card {
-  transform-style: preserve-3d;
-  transition: all 1.0s linear;
-}
-#f1_container:hover #f1_card {
-  transform: rotateY(180deg);
-}
+
 .face {
   position: absolute;
   width: 100%;
@@ -253,12 +250,9 @@ body{
     </style>
    </head>
     <body onload="typeWriter()">
-        <nav>
+	        <nav>
             <span class="top-text">Olawalle</span>
-            <div class="loo">
-                    <img src="https://image.ibb.co/fkMC7S/me.jpg"/>    
-                      </div>
-                 <div class="links">
+                <div class="links">
                     <a href="https://www.behance.net/olawalle94c375"><i class="fa fa-behance"></i></a>
                     <a href="https://github.com/olawalle/"><i class="fa fa-github"></i></a>
                     <a href="https://www.twitter.com/im_whaley"><i class="fa fa-twitter"></i></a>             
@@ -270,9 +264,6 @@ body{
                       <div class="front face">
                         <img src="https://image.ibb.co/fkMC7S/meee.jpg" alt="meee" border="0"/>
                       </div>
-                      <div class="back face center">
-                        <img src="https://image.ibb.co/cvqiE7/me.jpg"  alt="me" border="0"/>
-                      </div>
                     </div>
                  </div>
             </div> 
@@ -282,17 +273,11 @@ body{
                     <p id="demo"> </p>
                     <p class="innerText"> I design cool user interfaces and I code .
                     I am proficient with <span>HTML5</span>, <span>CSS3</span>, <span>Bootstrap</span>, <span>javascript</span>, <span>JQuery</span> and <span>Angular4</span> .<br>
-                    I love <span class="tint">artworks</span>, <span class="tint">movies</span>  , <span class="tint">puzzles </span>& <span class="tint"> music </span><br>( I play the piano,violin & the guitar <a href="#">#OliverTwist</a>) <br>
-                    if you want to know more,<i class="em em-call_me_hand"></i>
-                    </p>
+                    I love <span class="tint">artworks</span>, <span class="tint">movies</span>  , <span class="tint">puzzles </span>& <span class="tint"> music </span><br>
+                    if you want to know more,<i class="em em-call_me_hand"></i><br>
+					<?php echo $user->username ?>                    </p>
+					
                 </div>
-                    <!-- <div class="dropdown">
-                        <button class="top-btn"><p>Projects  <span class="caret"></span></p> </button>
-                            <div class="dropdown-content2">
-                                <a href="ernest.html">Ernest Oje clone</a>
-                                <a href="flutter.html">Flutterwave clone</a>
-                            </div>
-                        </div> -->
                 </div>  
             </div>  
     
@@ -308,19 +293,6 @@ body{
         setTimeout(typeWriter, 120);
       }
     }
-    </script>
-    <script>
-    $("img").mouseenter(function(){
-        $(".wrapper").css({"background-color": "#000"});
-        $("nav").css({"background-color": "#07021d"});
-        $(".top-text").css({"color": "#000"});
-    });
-    $("img").mouseleave(function(){
-        $(".wrapper").css({"background-color": "#000024"});
-        $("nav").css({"background-color": "#000"});
-        $(".top-text").css({"color": "#fff"});
-
-    });
     </script>
     
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>

@@ -1,0 +1,160 @@
+
+
+
+.btn{
+		margin-top: 452px;
+		background-color: #ffffff;
+		border-radius: 50px;
+		color: #48BBFC;
+		margin-left: 100px;
+		width: 180px;
+		height: 39px;
+		font-weight: 700;
+		position:absolute;
+	}
+	.head1{
+		sstop: -70px;
+	}
+	
+	.headImg{
+		background-image: url('../img/overlay.jpg'); 
+		background-repeat: no-repeat center; 
+		background-size:cover; 
+		height: 500px;"
+		
+	}
+	.oralImg{
+		background-image: url('../img/overlay7.jpg'); 
+		background-repeat: no-repeat center; 
+		background-size:cover; 
+		height: 500px;"
+		
+	}
+	.figmaImg{
+		background-image: url('../img/figma-overlay.jpg'); 
+		background-repeat: no-repeat center; 
+		background-size:cover; 
+		height: 500px;"
+		
+	}
+	
+	.bluechipImg{
+		background-image: url('../img/overlay0.jpg'); 
+		background-repeat: no-repeat center; 
+		background-size:cover; 
+		height: 500px;"
+		
+	}
+	
+	.headTxt{
+		color: #ffffff;
+		font-size: 330px;
+		font-weight: 700;
+		margin-top: 60px;
+	}
+	.head2{
+		top: -50px;
+	}
+	
+	hr.style1{
+		border-top: 1px solid #8c8b8b;
+	}
+	
+	.cont1{
+		padding-top: 20px;
+		padding-left: 10px;
+		padding-bottom: 10px;
+		background-color: #ffffff;
+		width: 100%;
+	
+		
+	}
+	
+	.bder{
+		border: 0;
+	}
+	 p {
+       padding:10px;
+    }
+	.cont{
+		
+		padding-top: 20px;
+		padding-left: 10px;
+		padding-bottom: 10px;
+		background-color: #ffffff;
+		width: 100%;
+		
+	}
+	
+	 ul {
+	  list-style: none; /* no default bullets */
+		}
+
+	.listStyle  li { 
+	  
+	  text-align: justify;
+	}
+
+	
+	.listStyle li:before { /* the custom styled bullets */
+	  background-color: #2196F3;
+	  border-radius: 50%;
+	  content: "";
+	  display: inline-block;
+	  margin-right: 20px;
+	  margin-bottom: 2px;
+	  height: 10px;
+	  width: 10px;
+	}
+	
+	
+	
+	/* MEDIA QUERIES */
+	
+	@media(max-width:1200px){
+		
+	}
+	@media(max-width:991px){
+		
+	}
+	@media(min-width:768px) and (max-width: 990px){
+		.headImg{
+			swidth: 390px;
+		}
+	
+	}
+	@media(max-width:768px){
+		.headImg{
+			swidth: 390px;
+		}
+		.headTxt{
+			text-align: center;
+			color: #ffffff;
+			font-size: 330px;
+			font-weight: 700;
+			margin-top: -400px;
+		}
+		
+
+	
+	}
+	@media(max-width:500px){
+		.headTxt{
+			text-align: center;
+			color: #ffffff;
+			font-size: 330px;
+			font-weight: 700;
+			margin-top: -400px;
+		}
+		.btn{
+			margin-top: 442px;
+			background-color: #ffffff;
+			border-radius: 50px;
+			color: #48BBFC;
+			margin-left: 98px;
+			width: 180px;
+			height: 39px;
+			font-weight: 700;
+		}
+		
+	}

@@ -1,0 +1,74 @@
+.login-container,
+.inner-login-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    margin-top: 50px;
+}
+
+.inner-login-container {
+    flex-direction: column;
+    width: 422px;
+}
+
+.form-container {
+    width: 100% !important;
+}
+
+.login-input {
+    height: 56px;
+    width: 100%;
+    margin-bottom: 36px;
+}
+
+.btn-blue {
+    background: #2196F3 !important;
+    margin-bottom: 27px !important;
+}
+
+.checkbox {
+    align-self: flex-start;
+}
+
+.remember-label {
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.remember-div {
+    width: 100%;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 28px;
+}
+
+.login-btn {
+    font-size: 14px;
+}
+
+.forgot-password {
+    margin-bottom: 49px;
+    font-size: 14px;
+}
+
+.signup {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 470px) {
+    .inner-login-container {
+        flex-direction: column;
+        width: 90vw;
+        padding: 0 10vw;
+    }
+    
+    .form-container {
+        width: 100% !important;
+    }
+}

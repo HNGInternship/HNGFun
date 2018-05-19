@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Work+Sans:400,900&subset=latin-ext');
+ 
+.hero-div, .hero-text{
+	font-family: 'Work Sans', sans-serif;
+}
+.hero-main-text{
+	font-size: 800%;
+	text-transform: uppercase;
+	margin: 0!important;
+	padding: 0!important;
+}
+.hero-sub-text-1{
+	font-size: 400%;
+	text-transform: capitalize;
+	margin: -6% 0 0 0;
+	padding: 0!important;
+}
+.hero-sub-text-2{
+	font-size: 200%;
+	/*text-transform: capitalize;*/
+	margin: -1% 0 0 0;
+	padding: 0!important;
+	font-weight: lighter!important;
+}
+.font-icon{
+	font-size: 200%;
+}
+.w-80{
+	width: 80%!important;
+}
+a{
+	text-decoration: none;
+}
+.btn-blue{
+	background-color: blue;
+	color: #fff;
+}
+.f-2{
+	font-size: 70%;
+}
+.f-4{
+	font-size: 200%;
+}
+.f-1{
+	font-size: 90%;
+}
+.ml-10{
+	margin-left: 22%;
+}
+.text-lighter{
+	color: #fafafa;
+}
+.font-icon, .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+color: #c4c4c4!important;
+opacity: 1 !important; /* Firefox */
+font-family: Lato;
+}
+
+.font-icon, input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+color: #FFFFFF !important;
+}
+
+.bd-top{
+	border-top: 2px solid #000;
+	width:5%;
+}

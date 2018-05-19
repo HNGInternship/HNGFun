@@ -1,0 +1,24 @@
+.headText{
+	background:#FFF8F8;
+	padding:40px 10px 3px 40px;
+	font-family:Arial, Helvetica, sans-serif;
+	width:100%;
+	height:85%;
+	margin-top:25px; 
+	margin-left:10px;
+	
+}
+.con-header{
+	background:#ffffff;
+}
+.cardBd{
+	background:#FBF6F6;
+	height: 250px;
+}
+
+h1, h3{
+	font-weight: bold;
+	font-size: 30px;
+	line-height:50px; 
+	letter-spacing:10%;
+}

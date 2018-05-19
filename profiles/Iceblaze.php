@@ -1,23 +1,31 @@
 <?php
+if(!defined('DB_USER')){
+  require "../../config.php";		
+	try {
+	    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+	}catch (PDOException $pe) {
+	   die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+	}
+}
 
-// Fetch profile details from database using USERNAME as the unique identifier
-$profile_details_query = "SELECT name, username, image_filename FROM interns_data where username = '$profile_name' LIMIT 1";
-$profile_details_result = $conn->query($profile_details_query);
 
-// Assign the data to a variable
+	// Fetch profile details from database using USERNAME as the unique identifier
+    
+	$profile_details_query = "SELECT name, username, image_filename FROM interns_data where username = '$profile_name' LIMIT 1";
+	$profile_details_result = $conn->query($profile_details_query);
+
+	// Assign the data to a variable
 
     $profile_details_result->setFetchMode(PDO::FETCH_ASSOC);
-        $profile_details = $profile_details_result->fetch();
+    $profile_details = $profile_details_result->fetch();
 
-    
-
-// Fetch single secret word from database
-$secret_word_query = "SELECT secret_word FROM secret_word LIMIT 1";
-$secret_word_result = $conn->query($secret_word_query);
+	// Fetch single secret word from database
+	$secret_word_query = "SELECT secret_word FROM secret_word LIMIT 1";
+	$secret_word_result = $conn->query($secret_word_query);
 
     $secret_word_result->setFetchMode(PDO::FETCH_ASSOC);
-        $secret = $secret_word_result->fetch();
-        $secret_word = $secret['secret_word'];
+    $secret = $secret_word_result->fetch();
+    $secret_word = $secret['secret_word'];
 ?>
 
 <head>

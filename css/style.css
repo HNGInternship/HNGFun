@@ -1,6 +1,3 @@
-body {
-	background-color: rgba(184, 196, 196, 0.5);
-}
 #container {
 	padding: 10px;
 	border: 1px solid rgba(85, 83, 83, 0.7);
@@ -21,10 +18,179 @@ h2 {
 	color: rgb(34, 33, 33);
 }
 
-.card-body {
-	height: 500px;
-}
-
 .rounded-circle {
 	object-fit: cover;
+}
+
+/* NAVBAR HEADER */
+#navbar {
+	margin-left: 10px !important;
+}
+
+.navbar-brand {
+	width: 300px !important;
+}
+
+.navbar-logo {
+	height: 40px !important;
+	width: auto !important;
+}
+
+/* FOOTER */
+footer {
+	margin-top: 50px !important;
+}
+
+.footer-li {
+	border-right: 1px solid #3D3D3D !important;
+	margin-right: 0 !important;
+}
+
+.footer-li:last-child {
+	border: none !important;
+}
+
+i {
+	color: #3D3D3D;
+}
+
+.copyright {
+	text-align: center;
+}
+
+button.home-signup {
+	height: 72px !important;
+	width: 300px !important;
+	border-radius: 5px !important;
+	color: white !important;
+	background: #48BBFC !important;
+	margin: 0 auto;
+	border: none;
+	align-self: center;
+	cursor: pointer !important;
+}
+
+div#navbar {
+	padding-top: 0;
+	margin-left: 0 !important;
+}
+
+ul.navbar-nav {
+	height: 100% !important;
+}
+
+li.nav-item {
+	text-align: center;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav.navbar {
+	box-sizing: border-box !important;
+	padding: 0 16px 0 50px !important;
+}
+
+form.home-signup-form {
+	height: 111px;
+	width: 905px;
+}
+
+input.home-signup-email,
+span.home-signup-email,
+a.home-signup-email-btn {
+	height: 80px;
+	font-size: 18px;
+}
+
+span.home-signup-email {
+	width: 91px;
+	padding: 0px !important;
+	justify-content: center;
+	font-size: 35px;
+}
+
+a.home-signup-email-btn {
+	font-size: 28px !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a.home-signup-email-btn>p {
+	border: 0 !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+div.learn-container,
+div.resources-container {
+	width: 80vw;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+div.learn-item {
+	height: 350px;
+	width: 300px;
+	border-radius: 10px;
+	border: none;
+	background: white;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	box-shadow: 0 0 10px 1px grey;
+}
+
+div.learn-image {
+	height: 150px;
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 100px;
+}
+
+div.learn-description {
+	text-align: center;
+}
+
+div.resources-item {
+	height: 350px;
+	width: 380px;
+	border-radius: 10px;
+	border: none;
+	background: white;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	box-shadow: 0 0 10px 1px grey;
+	padding: 10px;
+}
+
+div.resources-head {
+	height: 150px;
+	width: 150px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 100px;
+}
+
+div.resources-body {
+	text-align: center;
+	word-wrap: break-word;
+	font-size: 12px;
+}
+
+.resources-head>img {
+	height: 150px;
+	width: auto;
 }

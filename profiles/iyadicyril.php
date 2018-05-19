@@ -1,71 +1,216 @@
 <?php 
+	
+	if(!defined('DB_USER')){
+		require "/config.example.php";		
+		try {
+			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+		} catch (PDOException $pe) {
+			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+		}
+	}
 
     try {
-
         $q = 'SELECT * FROM secret_word';
-
         $sql = $conn->query($q);
-
         $sql->setFetchMode(PDO::FETCH_ASSOC);
-
         $data = $sql->fetch();
-
         $secret_word = $data["secret_word"];
-
     } catch (PDOException $err) {
-
         throw $err;
+	}
+?>
 
-    }?>
+<?php
+  function validateinput($input) {
+	$input = trim($input);
+	$input = chop($input);
+	$input = trim($input, "?");
+	$input = stripslashes($input);
+	$input = htmlspecialchars($input);
+  return $input;
+  }
+ 
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	require "../answers.php";
+	date_default_timezone_set("Africa/Lagos");
+
+		
+	if(empty($_POST['question'])){
+		$reply = "You have to enter a question.";
+		$response =array('status' => 0,'answer' => $reply);
+		echo json_encode($response); 
+
+		return;		
+	}
+       
+	$question = validateinput($_POST['question']);
+    
+	//display bot version
+	if($question == "about bot" ||$question == "aboutbot" ){
+		$reply = "Andy bot v1.0";
+				   $response = array('status'=>1,'answer'=> $reply);
+				   echo json_encode($response); 
+				   return;
+	}else{
+	
+	//check for train
+	$train = explode(':', $question);
+	if($train[0] == 'train'){
+		$inputQuestion = explode('#', $train[1]);
+		$password = 'password';
+		if(!count($inputQuestion)<3 && validateinput($password) === validateinput($inputQuestion[2])){
+			if (validateinput($inputQuestion[0]) && validateinput($inputQuestion[1]) != " "){
+				$dataQuestion = validateinput($inputQuestion[0]);
+				$dataAnswer = validateinput($inputQuestion[1]);
+				
+				//is the question or answer already in the database
+				$select = $conn->query("Select * from chatbot where question LIKE '%$question%'");
+				$select->bindParam(':question', $question);
+				$select->execute();
+				$select ->setFetchMode(PDO::FETCH_ASSOC);
+				$fetch = $select->fetchAll();
+				if($fetch){
+					$reply = "I already know that fam!";
+				   $response = array('status'=>0,'answer'=> $reply);
+				   echo json_encode($response); 
+				}
+				else{
+					//save into the database as a new question
+					$insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
+					
+					if($conn->query($insert)){
+						$reply = "Thanks alot, i feel smarter already.";
+						$response = array('status'=>1, 'answer'=>$reply);
+						echo json_encode($response);
+					}else{
+						$reply = "Sorry i didn't get that </br> i need you to repeat that lesson.";
+						$response = array('status'=>0, 'answer'=>$reply);
+						echo json_encode($response);
+					}
+				}
+				//saving to database ends here
+				
+			}else{
+				$reply = "Sorry fam, i only learn this way =><br> Training Format: train:question#answer#password";
+						$response = array('status'=>0, 'answer'=>$reply);
+						echo json_encode($response);
+			}
+		}else{
+				$reply = "Thats not how to train buddy.<br> Training Format: train:question#answer#password";
+						$response = array('status'=>0, 'answer'=>$reply);
+						echo json_encode($response);
+			}
+	}else{
+  //retrieving answers to questions from the database 
+	 $question = validateinput($_POST['question']);
+	 $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
+	
+	 $answer ->setFetchMode(PDO::FETCH_ASSOC);
+	 $ans = $answer->fetchAll();
+	 if (count($ans) > 0) {
+
+	   $choseRandom = rand(0, count($ans)-1);
+	   $response = $ans[$choseRandom]['answer'];
+	   $response = array('status'=>1,'answer'=> $response);
+	   echo json_encode($response);
+
+	 }
+	 else{
+		$index_of_parentheses_closing = stripos($answer, "))");
+					if($index_of_parentheses_closing !== false){
+						$function_name = substr($answer, $index_of_parentheses+2, $index_of_parentheses_closing-$index_of_parentheses-2);
+						$function_name = trim($function_name);
+						if(stripos($function_name, ' ') !== false){ //if method name contains spaces, do not invoke method
+							echo json_encode([
+								'status' => 0,
+								'answer' => "No white spaces allowed in function name"
+							]);
+							return;
+						}
+						if(!function_exists($function_name)){
+							echo json_encode([
+								'status' => 0,
+								'answer' => "Function not found"
+							]);
+						}else{
+							echo json_encode([
+								'status' => 1,
+								'answer' => str_replace("(($function_name))", $function_name(), $answer)
+							]);
+						}
+						return;
+					}
+					else{
+						$error = "I don't seem to understand you <br> You can train me on that.";
+						$response = array('status'=>2, 'answer'=> $error);
+						echo json_encode($response); 
+					}
+				}
+			}
+			
+		}
+			
+
+	} 
+  else {
+?>
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+ <html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+ <title>Iyadi Cyril</title>
+ <meta name="keywords" content="">
+ <meta name="description" content="">
+ <link href="http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css">
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ <!--[if IE 6]>
+ <link href="default_ie6.css" rel="stylesheet" type="text/css" />
+ <![endif]-->
+ <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+ <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+ <script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+
+ 	
+ </head>
+ <body>
+
+ <style>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Iyadi Cyril</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<link href="http://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css">
-
-<!--[if IE 6]>
-<link href="default_ie6.css" rel="stylesheet" type="text/css" />
-<![endif]-->
-</head>
-<body>
-
-<style>
-
-
-html, body
-{
+ html, body
+ {
 	height: 100%;
-}
+ }
 
-body
-{
+ body
+ {
 	margin-top: 50px;
 	padding: 0px;
 	background:#7f7fff;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 10pt;
 	color: #737373;
-}
+ }
 
-h1, h2, h3
-{
+ h1, h2, h3
+ {
 	margin: 0;
 	padding: 0;
 	font-family: 'Englebert', sans-serif;
 	color: #74C5F2;
-}
+ }
 
-h2
-{
+ h2
+ {
 	font-weight: 400;
 	font-size: 2.00em;
 	color: #8B2287;
-}
+ }
 
 p, ol, ul
 {
@@ -109,8 +254,7 @@ img.aligncenter
 	margin: 0px auto;
 }
 
-hr
-{
+hr{
 	display: none;
 }
 
@@ -349,6 +493,28 @@ hr
 	color: #FFFFFF;
 }
 
+.chat-messages {
+			background-color: lightblue;
+			padding: 5px;
+			height: 300px;
+			overflow-y: auto;
+			margin-left: 15px;
+			margin-right: 15px;
+			border-radius: 6px;
+			
+	
+}
+
+#chatMessages{ 
+    width: 100%;
+    overflow-x: hidden;
+    max-height: 250px;
+	margin-top: 20px;
+}
+
+#chat_message{
+    height: 40px;
+}
 
 </style>
 <div id="header" class="container">
@@ -359,9 +525,104 @@ hr
 <div id="wrapper" class="container">
 	<div id="page" style="width: 350px;">
 		<div id="content"> <a href="#" class="image-style" style="padding-right: 40px;padding-left: 30px;width: 370.797px;"><img src="http://res.cloudinary.com/dj7y9zirl/image/upload/v1523825090/IMG_20180411_111139_1.jpg" width="300" height="200" alt=""></a>
-			<h2>Software developer</h2>					
-					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">The only edge i have is my ever in-depth desire to learn.</p>				
+			<h2 class="text-center">Software developer</h2>					
+					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">The only edge i have is my ever in-depth desire to learn. </br> Have fun with my bot...He's name is Andy.</p>										
 	</div>
 </div>
+
+ <!--Andy Bot-->
+ <div class="col-md-4 offset-md-1 chat-frame" style="width:350px;height:457px">
+			<h2 class="text-center"><u>CHATBOT</u></h2>
+			<div class="row chat-messages" id="chat-messages">
+				<div class="col-md-12" id="message-frame">
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>Hey there!<span style="font-weight: bold"> My name's Andy</span></h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							<h5>I'm social, chat me up. </h5>
+						</div>
+					</div>
+					<div class="row single-message">
+						<div class="col-md-12 single-message-bg">
+							
+							<h5>To teach me a resonse use: <br/><b>train: question # answer # password</b><h5>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row" style="margin-top: 40px;">
+				<form class="form-inline col-md-12 col-sm-12" id="question-form">
+					<div class="col-md-12 col-sm-12 col-12">
+						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+					</div>
+					<div class="col-md-12 col-sm-12 col-12" style="margin-top: 20px">
+						<button type="submit" class="btn btn-info float-right w-100" style="width:70px;border-left-width:0px;border-right-width:0px;padding-left:10px;padding-right:10px;margin-left:90px;margin-right:90px">DM</button>
+					</div>
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>
+<script>	
+	$(document).ready(function(){
+		var questionForm = $('#question-form');
+		questionForm.submit(function(e){
+			e.preventDefault();
+			var questionBox = $('input[name=question]');
+			var question = questionBox.val();
+			//var question = $('#question-form').val();
+			
+			//display question in the message frame as a chat entry
+			var messageFrame = $('#message-frame');
+			var chatToBeDisplayed = '<div class="row single-message">'+
+						'<div class="col-md-12 offset-md-2 single-message-bg2">'+
+							'<h5>You:'+question+'</h5>'+
+						'</div>'+
+					'</div>';
+			
+			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+			//send question to server
+			$.ajax({
+				url: "../profiles/iyadicyril.php",
+				type: "post",
+				data: {question: question},
+				dataType: "json",
+				success: function(response){
+					if(response.status == 1){
+						var chatToBeDisplayed = '<div class="row single-message" style=" text-align: right;">'+
+									'<div class="col-md-12 single-message-bg">'+
+										'<h5>'+response.answer+':Me</h5>'+
+									'</div>'+
+								'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						questionBox.val("");	
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}else if(response.status == 0){
+						var chatToBeDisplayed = '<div class="row single-message" style=" text-align: right;">'+
+									'<div class="col-md-12 single-message-bg">'+
+										'<h5>'+response.answer+' :Me</h5>'+
+									'</div>'+
+								'</div>';
+						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
+						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
+					}
+				},
+				error: function(error){
+					console.log(error);
+				}
+			})
+		});
+	});
+</script>
+
 </body>
 </html>
+
+<?php } ?>
+

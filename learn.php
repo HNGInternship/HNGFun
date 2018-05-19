@@ -3,174 +3,206 @@
 include_once("header.php");
 ?>
 <!-- head ends -->
-<!-- Page Header -->
-<header class="masthead" style="background-image: url('img/about-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading">
-                    <h1>Learn</h1>
-                    <span class="subheading">Learning Resources Center </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 
-<!-- Main Content -->
+<style>
+    /* card */
+    .learn-card {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: auto;
+        margin: 2em 0em;
+    }
+    .learn-icon {
+        background: #E1E1E1;
+        border: none;
+        flex: 1 1 20%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        padding: 1em;
+    }
+    .learn-icon:hover {
+        background: #48BBFC;
+    }
+    .learn-desc {
+        border: 1px solid #E1E1E1;
+        flex: 1 1 60%;
+        padding: 0.4em 1em;
+    }
+    .learn-desc p {
+        margin: 5px 0;
+    }
+    .learn-desc a {
+        font-size: 0.6em;
+        color: #48BBFC;
+        text-decoration: underline;
+    }
+    .title {
+        font-weight: 600;
+        font-size: 0.7em;
+    }
+    .brief {
+        font-size: 0.6em;
+    }
+    /* media queries */
+    @media (min-width: 900px) {
+        .learn-card {
+            flex-direction: row;
+        }
+    }
+    /* .align{
+        text-align:center;
+        width: 800px ;
+        margin-left: auto ;
+        margin-right: auto ;
+    } */
+</style>
+
 <div class="container">
-    <div class="row">
-        <div class="col-lg-10 col-md-10 mx-auto">
-            <h3>We Maintain Standard Industry Practices</h3>
-            <p>Along with different tech career paths for our different interns who come from different tech background and skill levels.</p>
-            <p>We also try to provide support for the interns that finish in the top category and give recommendations so that recruiting tech companies can easily reach out to them.</p>
+    <div class="align"> 
+       <div class="row justify-content-md-center text-center">
+       	<div class="col"></div>
+        <div class="col-8" style="margin-top: 1em;">
+            <h1 class="sponsorsbg-text pt-5 text-center hero-text">What Interns Learn</h1>
+            <hr class="under-line">
+            <span>
+                In HNG 4.0, Interns get to learn important concepts quickly, they are introduced to
+                complex programming frameworks alongside important collaborative tools.
+            </span>
+        </div>
+        <div class="col"></div>
+
         </div>
     </div>
 </div>
 
-<hr>
+<!-- <hr> -->
 <!-- courses -->
-<section>
-    <div class="container">
-        <div class="sec-title-two centered">
-            <h2 style="margin-bottom:30px">What We Learn</h2>
-        </div>
-        <div class="row" style="margin-bottom: 20px;">
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span>UI/UX</span>
-                </button>
-                <h4>PRICIPLES OF PRODUCT DESIGN</h4>
-            </div>
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span class="">HTML/CSS/ <br> SASS/VUE</span>
-                </button>
-                <h4>FRONT-END WEB DEVELOPMENT</h4>
-            </div>
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span>PHP/LARAVEL</span>
-                </button>
-                <h4>BACK-END WEB DEVELOPMENT</h4>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span>UBUNTU/<br>NGINX/<br>DOCKER</span>
-                </button>
-                <h4>DEV OPS</h4>
+    <div class="row justify-content-md-center">
+        <div class="col"></div>
+        <div class="col-8">
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-1.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                            Principles of Product Design (UI/UX)
+                        </span><br>
+                        <span class="brief">
+                        Introducing you to a world of interface design with real-time collaboration using figma.
+                        First of it's kind, Figma enables teams carry outprojects in one page,
+                        while keeping all feedback changes and updates constantly in sync.
+                        </span>
+                    </p>
+
+                    <p>
+                        <span class="title">
+                        An Introduction to User Experience Design
+                        </span><br>
+                        <span class="brief">
+                        <a href="https://hackdesign.org/" style="font-size:1em;">See Learning Resources <i class="fa fa-chevron-right"></i></a>                        User Experience Design Resources - Prototype blog.prototypr.io/user...
+                        </span>
+                    </p>
+                </div>
             </div>
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span>MYSQL</span>
-                </button>
-                <h4>DATABASES</h4>
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-2.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                        Front-End Development (HTML/CSS/SASS/Vue)
+                        </span><br>
+                        <span class="brief">
+                        Front-end web development is the practice of converting data to graphical
+                            interface for user to view and interact with data through digital interaction using HTML,
+                            CSS and Javascript.
+                        </span>
+                    </p>
+                </div>
             </div>
-            <div class="col-md-4 text-center">
-                <button class="btn btn-info btn-circle btn-xl">
-                    <span>GIT</span>
-                </button>
-                <h4>VERSION CONTROL</h4>
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-3.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                        Back-End Development (PHP/Laravel)
+                        </span><br>
+                        <span class="brief">
+                        The backend of a web application is an enabler for a frontend experience. ...
+                        Backend code is run on the server, as opposed to the client.
+                            This means that backend developers not only need to understand programming languages
+                            and databases, but they must have an understanding of server architecture as well.
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-4.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                        Dev-Ops (Ubuntu, Nginx, Docker)
+                        </span><br>
+                        <span class="brief">
+                        Apply DevOps in your team; Understand Continuous Delivery; Automate the Software Development
+                            Lifecycle (SDLC); Automate the deployment process; Reduce release time; Release better software;
+                            Build a highly available and fully scalable application; Deploy microservices using Docker and
+                            Kubernetes.
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-5.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                        Databases(MySQL)
+                        </span><br>
+                        <span class="brief">
+                         MySQL is a database system used on the web.
+                        MySQL is a database system that runs on a server.
+                        MySQL is ideal for both small and large applications.
+                        MySQL is very fast, reliable, and easy to use.
+                        MySQL uses standard SQL.
+                        MySQL compiles on a number of platforms.
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="learn-card">
+                <div class="learn-icon">
+                    <img alt="learn-icon" src="svg/learn-6.svg">
+                </div>
+                <div class="learn-desc">
+                    <p>
+                        <span class="title">
+                        Version Control (GIT)
+                        </span><br>
+                        <span class="brief">
+                        GitHub is a development platform inspired by the way you work.
+                            From open source to business, you can host and review code, manage projects,
+                            and build software alongside millions of other developers.
+                        </span>
+                    </p>
+                </div>
             </div>
         </div>
+        <div class="col"></div>
     </div>
-</section>
-
-
-<hr>
-<!--resources Section-->
-<section class="blog-section">
-    <div class="container">
-        <!--Heading-->
-        <div class="sec-title-two centered">
-            <h2 style="margin-bottom: 20px;">Learning Resources</h2>
-        </div>
-
-        <div class="row" style="margin-bottom: 20px;">
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-15.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">Figma</a></h3>
-                    <div class="lower-content">
-                        <div class="text">Introducing you to a world of interface design with real-time collaboration using figma. First of it's kind, Figma enables teams carry out projects in one page, while keeping all feedback changes and updates constantly in sync.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-27.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">GIT</a></h3>
-                    <div class="lower-content">
-                        <div class="text">
-                            Git is the most commonly used version control system today. It is a free open source distributed version control system designed to help developers keep track of changes made to their projects. With git, team members can contribute to the copy project while keeping the original copy free from changes.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="600ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/android-icon.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">Android</a></h3>
-                    <div class="lower-content">
-                        <div class="text">A mobile operating system developed by google designed primarily for smartphones and tablet computers.</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-14.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">Trello</a></h3>
-                    <div class="lower-content">
-                        <div class="text">Trello is a collaboration tool used to organise projects into boards.
-                            It gives you a visual overview of what id bring worked on, who is working on it, and how far they have gone.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-23.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">Slack</a></h3>
-                    <div class="lower-content">
-                        <div class="text">
-                            A team messaging app, slack is a digital workspace that powers yourorganization. It is a cloud-based set of proprietary team and collaboration tools and service.
-                            Slack is where the people you need, the information you share and the tools you use come together to get things done. Slack is basically where the work flows.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!--News Block-->
-            <div class="news-style-one col-md-4 col-sm-6 col-xs-12">
-                <div class="inner-box wow fadeInLeft" data-wow-delay="600ms" data-wow-duration="1500ms">
-                    <figure class="image-box"><a href="blog-single.html"><img src="img/icons/icon-17.png" alt=""></a></figure>
-                    <h3 class="resources"><a href="#">Docker</a></h3>
-                    <div class="lower-content">
-                        <div class="text">Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications, whether on laptops, data center VMs, or the cloud. It is designed to make it easier to create, deploy, and run applications by using containers.</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
+</div>
 
 <!-- Footer -->
 <?php

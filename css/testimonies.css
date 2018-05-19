@@ -1,0 +1,134 @@
+.carousel-control-prev,
+.carousel-control-next {
+    width:5%;
+     
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+   border-radius: 50%;
+   height: 47px;
+   width: 47px;
+   box-shadow: 0px 0px 3px #333333;
+   margin-top:-125px;
+   background-color:#ffffff; 
+    
+}
+
+.carousel-control-next-icon:after
+{
+    content: '>';
+    font-size: 27px;
+    color: black;
+}
+
+.carousel-control-prev-icon:after {
+    content: '<';
+    font-size: 27px;
+    color: black;
+}
+
+.testimonial{
+    height: 400px;
+}
+@media(max-width: 780px){
+    .testimonial{
+        height: 585px;
+    }
+}
+
+.testimonial-avatar {
+    vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+    left: 35%;
+    /*top:300%*/
+}
+
+.testimonial-name {
+    position: absolute;
+    left: 55%;
+    width: 10px;
+}
+@media (max-width: 780px) {
+    .testimonial-name{
+        position: absolute;
+        left: 64%;
+        width:6px;
+        font-size: 10px;
+    }
+    
+}
+.header {
+    padding: 50px 50px 0 50px;
+}
+.head-hr{
+    background: black;
+    height: 1px;
+}
+
+.bottom-hr {
+    background: #c4c4c4;
+    height: 1px;
+}
+
+.chat-history {
+    padding: 30px 30px 20px;
+    /*max-height: 700px;*/
+}
+
+.chat-history .message {
+    color: black;
+    background: white;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: solid #C4C4C4;
+    border-width: thin;
+    /*margin-right: 20px;*/
+    margin-left: 20px;
+    margin-bottom: 30px;
+    min-height: 250px;
+    /*width: 309px*/
+    position: relative;
+
+}
+/*.chat-history .message:after {*/
+/*top: 91%;*/
+/*left: 15%;*/
+/*border: solid transparent;*/
+/*box-shadow: 1px 1px 0px 0px #C4C4C4;*/
+/*content: " ";*/
+/*position: absolute;*/
+/*border-bottom-color: white;*/
+/*border-right-color: white;*/
+/*border-width: 20px;*/
+/*margin-left: -15px;*/
+/*transform: rotate(45deg);*/
+/*}*/
+
+.chat-history .message:before {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 15%;
+    top: 100%;
+    border: 20px solid;
+    border-color: #C4C4C4 #C4C4C4 transparent transparent;
+}
+
+.chat-history .message:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 15.3%;
+    top: 100%;
+    border: 19px solid;
+    border-color: #fff #fff transparent transparent;
+}
+
+

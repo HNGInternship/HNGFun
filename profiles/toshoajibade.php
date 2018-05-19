@@ -25,6 +25,7 @@
         padding: none;
         margin: none;
         background-color: #DEF1FF;
+        flex-wrap: wrap;
     }
 
     .content {
@@ -103,13 +104,19 @@
         font-size: 1.2rem;
         font-style: normal;
     }
+    nav.navbar.navbar-expand-lg.navbar-light {
+        width:  100%;
+    }
+    footer {
+        width:  100%;
+    }
 </style>
 
 <body>
     <div class='content'>
         <div class='user'>
             <div class='user-info'>
-                <img src="http://res.cloudinary.com/toshoajibade/image/upload/v1523826074/photo5951734494048398166.jpg" alt="Profile Picture"
+                <img src="https://res.cloudinary.com/toshoajibade/image/upload/v1523826074/photo5951734494048398166.jpg" alt="Profile Picture"
                     class="profile-pic" srcset="">
                 <p class="user-name">Tosho Ajibade</p>
                 <p>Entrepreneur</p>

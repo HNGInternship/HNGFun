@@ -5,28 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>HNG FUN</title>
     <!-- Bootstrap core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
     <!-- Custom fonts for this template -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <!-- <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <!-- Custom styles for this template -->
-    <link href="../css/style2.css" rel="stylesheet">
-    <link href="../css/style1.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../css/carousel.css" rel="stylesheet">
+    Custom styles for this template  -->
     <style>
             body{
                 margin: 0;
                 padding: 0;
-                background-color: #eeeeee;
+                background-color: #fff;
             }
 
             .heading{
                 background-color: #2773ae;
                 height: 150px;
                 padding-top: 10px;
-                
+                width:100%;
             }
 
             .image{
@@ -48,24 +43,23 @@
             }
 
             .big{
-                font-size: 24px;    
+                font-size: 1.3em;    
             }
 
             .small{
-                font-size: 16px;
+                font-size: 0.9em;
                 
             }
 
             a{
                 text-decoration: none;
-                font-size: 20px;
                 padding: 10px 20px;
                 color: #ffffff;
                 border-radius: 5px;
             }
 
             .links{
-                background-color: #ffffff;
+                background-color: #eee;
                 margin: 120px auto 0 auto;
                 text-align: center;
                 width: 75%;
@@ -78,7 +72,8 @@
             }
 
             .warning{
-                background-color: #ffd54f;
+                background-color: #ffd54f;                
+                font-size: 1em;
             }
 
             .content{
@@ -101,68 +96,42 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand" href="index.php">HNG FUN</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          Menu
-          <i class="fa fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../learn.php">Learn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../listing.php">Interns</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../admin.php">Register</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../testimonies.php">Testimonies</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+   
         
     <div class="heading">
         <img src="http://res.cloudinary.com/dikethelma/image/upload/a_0/v1503494405/profile_rpbema.jpg" alt="profile-image" class="image">
     </div>
     
-    <div class="details">
+    
+   <div class="details">
         <p class="big"> Dike, Thelma Kelechi</p>
         <p class="small"> UI/UX Designer | Web Developer</p>
         <p class="small"> @dikethelmak</p>
     </div>
     
     <div class="links">
-        <a href="#" class="warning" onclick="sayHi()">Say Hi</a>
+        <a href="#" class="info" onclick="sayHi()">Say Hi</a>
     </div>
+    
 
     <script>
         function sayHi() {
-            alert('Hi,Hope to see you in the next meet up.');
+            alert('Hi,Hope to see you next time.');
         }
     </script>
     
      <?php
 
-
-try {
-    $select = 'SELECT * FROM secret_word';
-    $query = $conn->query($select);
-    $query->setFetchMode(PDO::FETCH_ASSOC);
-    $get = $query->fetch();
-} catch (PDOException $e) {
-    throw $e;
-}
-$secret_word = $get['secret_word'];
+        require_once '../db.php';
+        try {
+            $select = 'SELECT * FROM secret_word';
+            $query = $conn->query($select);
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            $data = $query->fetch();
+        } catch (PDOException $e) {
+            throw $e;
+        }
+        $secret_word = $data['secret_word'];        
 ?>
 
 </body>
