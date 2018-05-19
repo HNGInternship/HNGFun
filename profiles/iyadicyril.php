@@ -511,7 +511,7 @@ hr{
 <style type="text/css">
 					.chat-bot {
 						background-color: #fff;
-						margin: 10px 5px 10px 5px;
+						margin: 10px 0px 0px 5px;
 						border-radius: 5px 5px 0px 0px;
 						padding-bottom: 40px;
 						position: relative; 
