@@ -1,4 +1,87 @@
-﻿<!DOCTYPE html>
+﻿<?php
+
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q = $conn->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetch();
+} catch (PDOException $e) {
+    throw $e;
+}
+$secret_word = $data['secret_word'];
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST['input_text'];
+  //  $data = preg_replace('/\s+/', '', $data);
+    $temp = explode(':', $data);
+    $temp2 = preg_replace('/\s+/', '', $temp[0]);
+    
+    if($temp2 === 'train'){
+        train($temp[1]);
+    }elseif($temp2 === 'aboutbot') {
+        aboutbot();
+    }else{
+        getAnswer($temp[0]);
+    }
+}
+
+function aboutbot() {
+    echo "<div id='result'>My  name is davbot v1.0 - I'm a chatbot, I get input and process it in other to display the result, if there is no result you can instruct me on how to get such result!</div>";
+}
+function train($input) {
+    $input = explode('#', $input);
+    $question = trim($input[0]);
+    $answer = trim($input[1]);
+    $password = trim($input[2]);
+    if($password == 'password') {
+        $sql = 'SELECT * FROM chatbot WHERE question = "'. $question .'" and answer = "'. $answer .'" LIMIT 1';
+        $q = $GLOBALS['conn']->query($sql);
+        $q->setFetchMode(PDO::FETCH_ASSOC);
+        $data = $q->fetch();
+
+        if(empty($data)) {
+            $training_data = array(':question' => $question,
+                ':answer' => $answer);
+
+            $sql = 'INSERT INTO chatbot ( question, answer)
+          VALUES (
+              :question,
+              :answer
+          );';
+
+            try {
+                $q = $GLOBALS['conn']->prepare($sql);
+                if ($q->execute($training_data) == true) {
+                    echo "<div id='result'>Thank you for teaching me new words, it seem you are very good in lecturing. I will like you to teach me more next time!</div>";
+                };
+            } catch (PDOException $e) {
+                throw $e;
+            }
+        }else{
+            echo "<div id='result'>I already understand this. Teach me something new!</div>";
+        }
+    }else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+
+    }
+}
+
+function getAnswer($input) {
+    $question = $input;
+    $sql = 'SELECT * FROM chatbot WHERE question = "'. $question . '"';
+    $q = $GLOBALS['conn']->query($sql);
+    $q->setFetchMode(PDO::FETCH_ASSOC);
+    $data = $q->fetchAll();
+    if(empty($data)){
+        echo "<div id='result'>Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote)</div>";
+    }else {
+        $rand_keys = array_rand($data);
+        echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
+    }
+}
+?>
+
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -6,7 +89,104 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Ubuntu" rel="stylesheet">
     <style media="screen">
+
+    .chatbot-container{
+      background-color: #F3F3F3;
+      width: 400px;
+      height: 500px;
+      margin: 10px;
+      box-sizing: border-box;
+      box-shadow: -3px 3px 5px gray;
+    }
+    .chat-header{
+      width: 400px;
+      height: 50px;
+      background-color: #000;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 1.5em;
+    }
+    #chat-body{     
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px 20px 20px;
+        background: white;           
+        overflow-y: scroll;
+        height: 395px;
+        max-height: 395px;
+    }
+    .message{
+      background-color: #000;
+      color: white;
+      font-size: 0.8em;
+      width: 250px;
+      display: inline-block;
+              padding: 10px;
+      margin: 5px;
+              border-radius: 10px;
+                line-height: 18px;
+    }
+    .bot_chat{
+      text-align: left;
+
+    }
+    .bot_chat .message{
+      background-color: #000;
+      color: white;
+      opacity: 0.9;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .user_chat{
+      text-align: right;
+    }
+    .user_chat .message{
+      background-color: #E0E0E0;
+      color: black;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .chat-footer{
+      background-color: #F3F3F3;
+    }
+    .input-text-container{
+      margin-left: 20px;
+    }
+    .input_text{      
+      width: 370px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      border: 0.5px solid #000;
+      border-radius: 5px;
+    }
+    .send_button{
+      width: 75px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      color: white;
+      border:none;
+      border-radius: 5px;
+      background-color: #000;
+    }.myfooter{
+      margin: 100px 0px 50px 0px;
+      font-size: 0.9em;
+    }.footer_line{
+      padding: 0px;
+      margin-bottom: 20px;
+      border: 0.5px solid #34495E;
+      background-color: #34495E;
+      width: 100%;
+    }
+    .grey-text{
+      text-decoration: none;
+    }
+    /**/
     .mytext{
     border:0;padding:10px;background:whitesmoke;
 }
@@ -220,8 +400,102 @@ font-family: verdana;
 color: #fff;
 left: 30%; 
 right: 30%;
-
 }
+/*legend*/
+
+.chatbot-container{
+      background-color: #F3F3F3;
+      width: 500px;
+      height: 500px;
+      margin: 10px;
+      box-sizing: border-box;
+      box-shadow: -3px 3px 5px gray;
+    }
+    .chat-header{
+      width: 500px;
+      height: 50px;
+      background-color: #1380FA;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 1.5em;
+    }
+    #chat-body{     
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px 20px 20px;
+        background: white;           
+        overflow-y: scroll;
+        height: 395px;
+        max-height: 395px;
+    }
+    .message{
+      background-color: #1380FA;
+      color: white;
+      font-size: 0.8em;
+      width: 300px;
+      display: inline-block;
+              padding: 10px;
+      margin: 5px;
+              border-radius: 10px;
+                line-height: 18px;
+    }
+    .bot_chat{
+      text-align: left;
+
+    }
+    .bot_chat .message{
+      background-color: #1380FA;
+      color: white;
+      opacity: 0.9;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .user_chat{
+      text-align: right;
+    }
+    .user_chat .message{
+      background-color: #E0E0E0;
+      color: black;
+      box-shadow: 3px 3px 5px gray;
+    }
+    .chat-footer{
+      background-color: #F3F3F3;
+    }
+    .input-text-container{
+      margin-left: 20px;
+    }
+    .input_text{      
+      width: 370px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      border: 0.5px solid #1380FA;
+      border-radius: 5px;
+    }
+    .send_button{
+      width: 75px;
+      height: 35px;
+      padding: 5px;
+      margin-top: 8px;
+      color: white;
+      border:none;
+      border-radius: 5px;
+      background-color: #1380FA;
+    }.myfooter{
+      margin: 100px 0px 50px 0px;
+      font-size: 0.9em;
+    }.footer_line{
+      padding: 0px;
+      margin-bottom: 20px;
+      border: 0.5px solid #34495E;
+      background-color: #34495E;
+      width: 100%;
+    }
+    .grey-text{
+      text-decoration: none;
+    }
+
+/**/
 </style>
   </head>
   <body>
@@ -237,215 +511,84 @@ right: 30%;
           <a href="https://www.linkedin.com/in/david-ozokoye"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526051162/link.jpg" ></a>
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
+ <div class="chatbot-container">
+<!-- CHAT BOT HERE -->
+<div class="chat-header">
+<span>davBot UI</span>
+</div>
+<div id="chat-body">
+<div class="bot_chat">
+<div class="message">Hello! My name is davbot.<br>I'm able to attend to any of your question, so feel free to ask me anything!.<br>Type <span style="color: #FABF4B;"><strong> aboutbot</strong></span> to know more about me.
+</div>
+
+</div>
+</div>
+<div class="chat-footer">
+<div class="input-text-container">
+<form action="" method="post" id="chat-input-form">
+<input type="text" name="input_text" id="input_text" required class="input_text" placeholder="Type your question here...">
+<button type="submit" class="send_button" id="send">Send</button>
+</form>
+</div>        
+</div>
+</div>
+</div>  
+<!---->
+
       </div><br><br>
 
-<div class="col-sm-3 col-sm-offset-4 frame">
-            <ul></ul>
-            <div>
-                <div class="msj-rta macro">                        
-                    <div class="text text-r" style="background:whitesmoke !important">
-                        <input class="mytext" placeholder="Type a message"/>
-                    </div> 
+<!--My script here-->
+<script>
+    var outputArea = $("#chat-body");
 
-                </div>
-                <div style="padding:10px;">
-                    <span class="glyphicon glyphicon-share-alt"></span>
-                </div>                
-            </div>
-        </div>       
+    $("#chat-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#input_text").val();
+
+        outputArea.append(`<div class='user_chat'><div class='message'>${message}</div></div>`);
 
 
-<script type="text/javascript">
-var me = {};
-me.avatar = "https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg";
-
-var you = {};
-you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
-
-function formatAMPM(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
-}            
-
-//-- No use time. It is a javaScript effect.
-function insertChat(who, text, time){
-    if (time === undefined){
-        time = 0;
-    }
-    var control = "";
-    var date = formatAMPM(new Date());
-    
-    if (who == "me"){
-        control = '<li style="width:100%">' +
-                        '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
-                            '<div class="text text-l">' +
-                                '<p>'+ text +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</li>';                    
-    }else{
-        control = '<li style="width:100%;">' +
-                        '<div class="msj-rta macro">' +
-                            '<div class="text text-r">' +
-                                '<p>'+text+'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
-                  '</li>';
-    }
-    setTimeout(
-        function(){                        
-            $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
-        }, time);
-    
-}
-
-function resetChat(){
-    $("ul").empty();
-}
-
-$(".mytext").on("keydown", function(e){
-    if (e.which == 13){
-        var text = $(this).val();
-        if (text !== ""){
-            insertChat("me", text);              
-            $(this).val('');
-        }
-    }
-});
-
-$('body > div > div > div:nth-child(2) > span').click(function(){
-    $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
-})
-
-//-- Clear Chat
-resetChat();
-
-//-- Print Messages
-insertChat("me", "Hello, My name is DavBot. You can ask me any question tech related", 0);  
-//insertChat("you", "Hi, Pablo", 1500);
-//insertChat("me", "What would you like to talk about today?", 3500);
-//insertChat("you", "Tell me a joke",7000);
-//insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
-//insertChat("you", "LOL", 12000);
+        $.ajax({
+            url: 'profile.php?id=david',
+            type: 'POST',
+            data:  'input_text=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='bot-chat'><div class='message'>" + result + "</div></div>");
+                    $('#chat-body').animate({
+                        scrollTop: $('#chat-body').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
 
 
-//-- NOTE: No use time on insertChat.
+        $("#input_text").val("");
+
+    });
 </script>
-<?php
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'david'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-  function davBot($data) {
-    $data = trim($data);
-    $data = chop($data);
-    $data = trim($data, "?");
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
-      if ($_SERVER['REQUEST_METHOD'] === "POST") {
-         
-          $question =davBot($_POST["displayMessage"]);
-          //bot version
-          if($question == "aboutbot"){
-              $reply = "davBot v1.0";
-                         $response = array('status'=>3,'answer'=> $reply);
-                         echo json_encode($response); 
-          }else{
-          
-          //check if pearbot is to be trained
-          $train = explode(':', $question);
-          if($train[0] == 'train'){
-              $inputQuestion = explode('#', $train[1]);
-              $password = 'password';
-              if(!count($inputQuestion)<3 && test_input($password) === test_input($inputQuestion[2])){
-                  if (test_input($inputQuestion[0]) && test_input($inputQuestion[1]) != " "){
-                      $dataQuestion = test_input($inputQuestion[0]);
-                      $dataAnswer = test_input($inputQuestion[1]);
-                      
-                      //is the question or answer already in the database
-                      $select = $conn->query("Select * from chatbot where question LIKE '%$dataQuestion%'");
-                      $select ->setFetchMode(PDO::FETCH_ASSOC);
-                      $fetch = $select->fetchAll();
-                      if($fetch){
-                          $reply = "Do you want to overwrite my knowledge. <br /> Sorry only my creator can";
-                         $response = array('status'=>3,'answer'=> $reply);
-                         echo json_encode($response); 
-                      }
-                      else{
-                          //save into the database as a new question
-                          $insert = "Insert into chatbot (question, answer) values ('$dataQuestion', '$dataAnswer')";
-                          
-                          if($conn->query($insert)){
-                              $reply = "Thanks for your help, I appreciate";
-                              $response = array('status'=>4, 'answer'=>$reply);
-                              echo json_encode($response);
-                          }else{
-                              $reply = "Something went wrong please try again";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                          }
-                      }
-                      //saving to database ends here
-                      
-                  }else{
-                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                  }
-              }else{
-                      $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
-                              $response = array('status'=>5, 'answer'=>$reply);
-                              echo json_encode($response);
-                  }
-          }else{
-        //retrieving answers to questions from the database 
-          $question = davBot($_POST["displayMessage"]);
-          $answer = $conn->query("Select * from chatbot where question LIKE '%$question%'");
-          
-          $answer ->setFetchMode(PDO::FETCH_ASSOC);
-          $ans = $answer->fetchAll();
-          if (count($ans) > 0) {
-      
-            $choseRandom = rand(0, count($ans)-1);
-            $response = $ans[$choseRandom]['answer'];
-            $response = array('status'=>1,'answer'=> $response);
-            echo json_encode($response);
-      
-          }
-          else{
-              $error = "I'm not understanding you\' <br> \'You can train me on that.";
-              $response = array('status'=>2, 'answer'=> $error);
-              echo json_encode($response); 
-          }
-       
-      }
-    }
-  }else{
-  ?>
-
 </body>
 </html>
+<?php
+
+    if(!defined('DB_USER')){
+    require "../../config.php"; 
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+  }
+
+    try {
+        $sql2 = 'SELECT * FROM interns_data WHERE username="david"';
+        $q2 = $conn->query($sql2);
+        $q2->setFetchMode(PDO::FETCH_ASSOC);
+        $my_data = $q2->fetch();
+    } catch (PDOException $e) {
+        throw $e;
+    }
+    ?>
