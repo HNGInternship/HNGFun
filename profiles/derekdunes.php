@@ -1,6 +1,5 @@
 <?php
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-
+if($_SERVER['REQUEST_METHOD'] === "GET"){
     try {
         $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'derekdunes'");
         $intern_data->execute();
@@ -18,135 +17,111 @@
      }
      date_default_timezone_set("Africa/Lagos");
      $today = date("H:i:s");
+}
 
+ ?>
+ <?php 
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = preg_replace("([?.!])", "", $data);
+            $data = preg_replace("(['])", "\'", $data);
+            return $data;
+        }
+        function chatMode($ques){
+            require '../../config.php';
+            $ques = test_input($ques);
+            $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+            if(!$conn){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                ]);
+                return;
+            }
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $result = $conn->query($query)->fetch_all();
+            echo json_encode([
+                'status' => 1,
+                'response' => $result
+            ]);
+            return;
+        }
+        function trainerMode($ques){
+            require '../../config.php';
+            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer =test_input($questionAndAnswer); 
+            $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
+            $questionAndAnswer = explode("#",$questionAndAnswer);
+            if((count($questionAndAnswer)==3)){
+                $question = $questionAndAnswer[0];
+                $answer = $questionAndAnswer[1];
+                $password = test_input($questionAndAnswer[2]);
+            }
+            if(!(isset($password))|| $password !== 'password'){
+                echo json_encode([
+                    'status'    => 1,
+                    'response'    => "Please insert the correct training password"
+                ]);
+                return;
+            }
+            if(isset($question) && isset($answer)){
+                $question = test_input($question);
+                $answer = test_input($answer);
+                if($question == "" ||$answer ==""){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "empty question or response"
+                    ]);
+                    return;
+                }
+                $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+                if(!$conn){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
+                    ]);
+                    return;
+                }
+                $query = "INSERT INTO `chatbot` (`question`, `answer`) VALUES  ('$question', '$answer')";
+                if($conn->query($query) ===true){
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "trained successfully"
+                    ]);
+                }else{
+                    echo json_encode([
+                        'status'    => 1,
+                        'response'    => "Error training me: ".$conn->error
+                    ]);
+                }
+                
+
+                return;
+            }else{ 
+            echo json_encode([
+                'status'    => 0,
+                'response'    => "Wrong training pattern<br> PLease use this<br>train: question # answer"
+            ]);
+            return;
+            }
+        }
+
+        
+        $ques = test_input($_POST['ques']);
+        if(strpos($ques, "train:") !== false){
+            trainerMode($ques);
+        }else{
+            chatMode($ques);
+        }
+
+       
+        return;
     }
-?>
-<?php
-	if($_SERVER['REQUEST_METHOD'] === 'POST'){
-		
-		$messageToBot = test_input($_POST['ques']);
+ 
 
-		//if train: starts the message then trainBot
-		if (strpos($messageToBot, "train:") !== false){
-			# code...
-			trainerMode($messageToBot);
-		}else{
-			chatMode($messageToBot);
-		}
-
-		function chatMode($messageToBot){
-			require '../../config.php';
-
-			$messageToBot = test_input($messageToBot);
-			
-			$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-			if (!conn) {
-				# code...
-				echo json_encode([
-					'status' => 1,
-					'response' => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-				]);
-				return;
-			}
-
-			$query = "SELECT answer FROM chatbot WHERE question LIKE '$messageToBot'";
-			$result = $conn->query($query)->fetch_all();
-			echo json_encode([
-				'status' => 1,
-				'response' => $result
-			]);
-
-			return;
-		}
-
-		function trainerMode($messageToBot){
-			require '../../config.php';
-			//remove the "train:" attached at the beginning
-			$messageToBot = substr($messageToBot, 6);
-
-			$messageToBot = test_input($messageToBot);
-
-			//remove any question mark(?) or fullstop(.)
-			$messageToBot = preg_replace("([?.])", "", $question);
-			
-			//split the message wherever it sees hash(#)
-			$messageToBotArray = explode("#", $messageToBot);
-			
-			if (count($messageToBot) == 3) {
-				# code...
-				$question = $messageToBot[0];
-				$answer = $messageToBot[1];
-				$password = test_input($messageToBot[2]);
-			}
-
-			
-			if (!(isset($password)) || $password !== 'password') {
-				# code...
-				echo json_encode([
-					'status' => 1,
-					'response' => "Please insert the correct training password"
-				]);
-				return;
-			}
-
-			if (isset($question) && isset($answer)) {
-				# code...
-				$question = test_input($question);
-				$answer = test_input($answer);
-				if ($question == "" || $answer == "") {
-					# code...
-					echo json_encode([
-						'status' => 1,
-						'response' => "Please insert the correct training password"
-					]);
-					return;
-				}
-
-				$conn = mysql_connect( DB_HOST, DB_USER,DB_PASSWORD, DB_DATABASE);
-				if (!conn) {
-					# code...
-					echo json_encode([
-						'status' => 1,
-						'response' => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
-					]);
-					return;
-				}
-				$query = "INSERT INTO `chatbot` (`question`,`answer`) VALUES (`$question`,`$answer')";
-				if($conn->query($query) === true){
-					echo json_encode([
-						'status' => 1,
-						'response' => "Trained successfully"
-					]);
-				}else{
-					echo json_encode([
-						'status' => 1,
-						'response' => "Error training me: ".$conn->error
-					]);
-				}
-
-				return;
-			}else{
-
-				echo json_encode([
-					'status' => 0,
-					'response' => "Wrong training pattern<br> Please use this<br>train:question # answer"
-				]);
-
-				return;
-			}
-
-		}
-
-		function test_input($data){
-			$data = trim($data);
-			$data = stripslashes($data);
-			$data = htmlspecialchars($data);
-			$data = preg_replace("([?.!]))", "", $data);
-			$data = preg_replace("([']))", "\'", $data);
-		}
-
-		return;
-	}
 ?>
 
     	<title>Mbah Derek</title>
@@ -413,7 +388,7 @@
 						<div class="received-message">
 							<p class="message received">
 								Ask me anything and if i can't answer train me with the format
-								train:question#answer#learn
+								train:question#answer#password
 							</p>	
 						</div>
 											
@@ -464,38 +439,36 @@
 	    		var inputForm = document.querySelector("#user-message");
 	    		var messageToBot = inputForm.value;
 
+	    		dispMessage(messageToBot,'sent');
+	    		
+	    		//clear the form
+		    	inputForm.value = "";
+
 	    		if (messageToBot == "" || messageToBot == null) {
 	    			var replyFromBot = 'Please enter a command or type HELP to see my command list';
 	    			dispMessage(replyFromBot, 'received');
-	    		}else{
-	    			console.log(messageToBot);
 
-		    		//clear the form
-		    		inputForm.value = "";
+	    			return;
+	    		}
+		    		
+		    	if (messageToBot == 'aboutbot' || messageToBot == 'Aboutbot' || messageToBot == 'about bot' || messageToBot == 'About bot') {
+		    		var replyFromBot = 'Name: DunesBot<br>Version: 1.0.1';
+		    		dispMessage(replyFromBot, 'received');
 
-		    		//display message
-		    		dispMessage(messageToBot, 'sent');
-
-		    		if (messageToBot == 'aboutbot') {
-		    			var replyFromBot = 'Name: DunesBot<br>Version: 1.0.1';
-		    			dispMessage(replyFromBot, 'received');
-
-		    			return;
-		    		}
+		    		return;
+		   		}
 
 		    		//send message
 		    		var xhttp = new XMLHttpRequest();
 		    		xhttp.onreadystatechange = function(){
-		    			if(xhttp.readyState == 4 && xhttp.status == 200){
-		    				console.log(xhttp.responseText);
-		    				processData(xhttp.responseText);
-		    			}
+		    			if(xhttp.readyState ==4 && xhttp.status ==200){
+				            processData(xhttp.responseText);
+				        }
 		    		};
 
-		    		xhttp.open("POST", "/profiles/derekdunes.php", true);
-		    		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		    		xhttp.send("ques="+messageToBot);
-				}
+		    		    xhttp.open("POST", "/profiles/derekdunes.php", true);
+						xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						xhttp.send("ques="+messageToBot);
 	    	}
 
 	    	function processData(data){
@@ -508,7 +481,7 @@
     					var res = Math.floor(Math.random()*answer.length);
     					dispMessage(answer[res][0], "received");
     				}else{
-    					dispMessage("Hey Wdup, sorry but i don't understand what you just saif<br>To teach me use this format<br>train: question#answer#password","received");
+    					dispMessage("Hey Wdup, sorry but i don't understand what you just said<br>To teach me use this format<br>train: question#answer#password","received");
       				}
     			}else{
     				dispMessage(answer,"received");
