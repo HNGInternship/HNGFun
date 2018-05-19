@@ -1,7 +1,24 @@
 <<<<<<< HEAD
 =======
 <?php
-require ('../db.php');
+if(!defined('DB_USER')){
+    require "../../config.php";
+    try {
+      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+  try {
+      $secret_word_db = $conn->query("SELECT * FROM secret_word LIMIT 1");
+      $secret_word_db = $secret_word_db->fetch(PDO::FETCH_OBJ);
+      $secret_word = $secret_word_db->secret_word;
+      $my_data = $conn->query("SELECT * FROM interns_data WHERE username = 'esther'");
+      $user = $my_data->fetch(PDO::FETCH_OBJ);
+    }
+    catch (PDOException $pe) {
+      die("Could not connect to the database " . $pe->getMessage());
+    }
 ?>
 >>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
