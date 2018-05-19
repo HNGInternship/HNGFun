@@ -308,7 +308,7 @@ input[type=text] {
 			</section>		
 		</div>
 <?php
-		try {
+	try {
 	$sql = 'SELECT * FROM secret_word';
 	$q = $conn->query($sql);
 	$q->setFetchMode(PDO::FETCH_ASSOC);
@@ -319,7 +319,7 @@ input[type=text] {
 $secret_word = $data['secret_word'];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$data = $_POST['input-input'];
+	$data = $_POST['input-text'];
   //  $data = preg_replace('/\s+/', '', $data);
 	$temp = explode(':', $data);
 	$temp2 = preg_replace('/\s+/', '', $temp[0]);

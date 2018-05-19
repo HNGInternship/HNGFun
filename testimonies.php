@@ -65,6 +65,22 @@ include_once("header.php");
                                         Isn't this internship just amazing. I can't wait to learn more...
                                     </p>
                                 </div>
+                                <!--Grid column-->
+                            <div class="col-md-4 clearfix d-none d-md-block">
+                                <div class="testimonial">
+                                    <!--Avatar-->
+                                    <div class="avatar mx-auto">
+                                        <img src="images/Digital4us.jpg" class="rounded-circle img-fluid">
+                                    </div>
+                                    <!--Content-->
+                                    <h4>Didicodes</h4>
+                                    <h6 class="blue-text font-weight-bold">Intern - HNG Internship 4.0</h6>
+                                    <p>
+                                        <i class="fa fa-quote-right"></i> I learnt how to design a web page, login page, sign-up page with Figma, implemented the designs with HTML5,CSS3 and PHP, also about quering the database.
+                                        I also learnt about the usage of teamviewer to access another desktop remotely and now I just had a better understanding about Github.
+                                        In fact, this internship is indeed mindblowing, can't wait to learn more...
+                                    </p>
+                                </div>
 
                             </div>
                             <!--Grid column-->

@@ -1,285 +1,401 @@
-<!DOCTYPE>
+<?php
+if(!defined('DB_USER')){
+    require "../../config.php";		
+    try {
+        $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+    } catch (PDOException $pe) {
+        die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+    }
+}
+global $conn;
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $result = $conn->query("select * from secret_word LIMIT 1");
+    $result = $result->fetch(PDO::FETCH_OBJ);
+    $secret_word = $result->secret_word;
+    $result2 = $conn->query("Select * from interns_data where username = 'davidstick766'");
+    $user = $result2->fetch(PDO::FETCH_OBJ);
+} else {
+    //require '../answers.php';
+    $message = trim(strtolower($_POST['message']));
+    $version = '1.0';
+    //step 1: Figure out the intent of the message
+    //intents: Greeting, Find the current time, Ask about the HNG Programme
+    //Train the bot
+    //Provide directions for HNG Stage completions
+    //check the db
+    $intent = 'unrecognized';
+    $unrecognizedAnswers = [
+        'My Oga na better empty head. i will love it if you can train me. just  type: <b>#train: Question | Answer.</b>',
+        'i didnt understand kindly teach me . Just type: <b>#train: Question | Answer.</b>',
+        "hmmm this is serious you need to teach me just type: <b>#train: Question | Answer.</b>"
+    ];
+    if (strpos($message, 'aboutbot') !== false) {
+        $intent = 'aboutbot';
+        $response = 'david' . $version;
+    }
+    //check for a function call
+    if (($startIndex = strpos($message, '((')) !== false && ($endIndex = strpos($message, '))')) !== false) {
+        if ($startIndex < $endIndex) {
+            $message = trim($_POST["message"]);
+            $funcName = substr($message, $startIndex + 2, $endIndex - $startIndex - 2);
+            $funcName = trim($funcName);
+            
+            if(!function_exists($funcName)){
+                $intent = 'confusion';
+                $response = 'You been try call "function" wey no dey exist. Try again';
+            } else {
+                $intent = 'function_call';
+                $response = $funcName();
+            }
+        }
+    }
+    //check for bot training
+    $trainingData = '';
+    if (strpos($message, '#train:') !== false) {
+        $intent = 'training';
+        $parts = explode('#train:', $message);
+        if (count($parts) > 1) {
+            $trainingData = $parts[1];
+        }
+    } else if (strpos($message, '# train:') !== false) {
+        $intent = 'training';
+        $parts = explode('# train:', $message);
+        if (count($parts) > 1) {
+            $trainingData = $parts[1];
+        }
+    } else if (strpos($message, '#train :') !== false) {
+        $intent = 'training';
+        $parts = explode('#train :', $message);
+        if (count($parts) > 1) {
+            $trainingData = $parts[1];
+        }
+    }
+    if ($intent === 'training' && $trainingData === '') {
+        $response = 'oops!, you are not training me well. Use this format >>> "#train: Question | Answer"';
+    } else if ($trainingData !== '') {
+        $intent = 'training';
+        $parts = explode('|', $trainingData);
+        if (count($parts) > 1) {
+            $question = trim($parts[0]);
+            $answer = trim($parts[1]);
+            //save in db
+            $sql = "insert into chatbot (question, answer) values (:question, :answer)";
+            $query = $conn->prepare($sql);
+            $query->bindParam(':question', $question);
+            $query->bindParam(':answer', $answer);
+            $query->execute();
+            $query->setFetchMode(PDO::FETCH_ASSOC);
+            
+            $response = 'Awesome! i am happy you could teach me. Thank u';
+        } else {
+            $response = 'oops!, you are not training me well. Use this format >>> "#train: Question | Answer"';
+        }
+    }
+    if ($intent === 'unrecognized') {
+        $answer = '';
+        $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE '$message' ORDER BY rand() LIMIT 1");
+        $stmt->execute();
+        if($stmt->rowCount() > 0) {
+            $intent = 'db_question';
+            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $answer = $row["answer"];
+            }
+        }
+    }
+    switch($intent) {
+        case 'aboutbot':
+        case 'function_call':
+        case 'training':
+            echo $response;
+            break;
+        case 'db_question':
+            echo $answer;
+            break;
+        case 'confusion':
+            echo $response;
+            break;
+        case 'unrecognized':
+        default:
+            echo $unrecognizedAnswers[rand(0, count($unrecognizedAnswers) - 1)];
+            break;
+    }
+    exit;
+}
+  
+?>
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <script src="https://use.fontawesome.com/d1341f9b7a.js"></script>
-    
-    </head>
-    
-    
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JEGEDE DAVID</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        body{
-            margin:0;
-            padding:0;
-            background-color: lightgrey;
-            background-size:cover;
-        }
-        
-        
-        .box{
-            width: 450px;
-            background: rgba(0,0,0,0.4);
-            padding: 40px;
-            text-align:center;
-            margin:auto;
-            margin-top: 5%;
-            color:white;
-        }
-        
-        .box-img{
-            border-radius: 50%;
-            width: 200px;
-            height:200px;
-            
-        }
-        .box h1{
-            font-size: 40px;
-            letter-spacing: 4px;
-            font-weight: 100;
-        }
-        
-        .box h5{
-            font-size: 25px;
-            letter-spacing: 3px;
-            font-weight: 100;
-        }
-        
-        ul{
-            margin: 0;
+        html, body {
             padding: 0;
-            
+            margin: 0;
+            height: 100%;
         }
-        
-        .box li{
-            display: inline-block;
-            margin: 6px;
-            list-style: none;
+        body {
+            background-color: #800080;
+            font-family: 'Gothic', sans-serif;
         }
-        
-        .box li a{
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+        nav {
+            padding: 2em 3em;
+            display: flex;
+        }
+        .nav-header {
             color: white;
-            text-decoration:none;
-            font-size: 60px;
-            transition: all ease-in-out 250ms;
-            
+            flex: 3;
+        }
+        .content {
+            display: flex;
         }
         
-        .box li a:hover{
-            color:cornflowerblue;
+        .desc {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .avatar {
+            width: 15em;
+            border: 1px solid #333;
+            border-radius: 50%;
+        }
+        .data {
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+        }
+        .data p {
+            font-size: .5em;
+            margin-top: -2px;
+        }
+        .contact {
+            display: flex;
+        }
+        .contact a {
+            padding: .5em;
+            height: 50px;
+            width: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #333;
+            margin: .5em;
+        }
+        .contact a > i {
+            color: #fff;
+        }
+        .contact a:hover {
+            background-color: #fff;
+        }
+        .contact a:hover i {
+            color: #333;
+        }
+        .chat-window {
+            flex: 1;
+            background-color: #444;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            margin-top: 1.5em;
+            /* display: none; */
+        }
+        
+        .chats {
+            flex: 1;
+            padding: .5em;
+            max-height: 65vh;
+            overflow-y: scroll;
+        }
+        .chat {
+            font-size: 80%;
+            position: relative;
+            padding: 8px;
+            margin: .5em 0 2em;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+        }
+        .received {
+            color: #fff;
+            background: #075698;
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+            background: -moz-linear-gradient(#2e88c4, #075698);
+            background: -o-linear-gradient(#2e88c4, #075698);
+            background: linear-gradient(#2e88c4, #075698);
             
         }
+        .sent {
+            color: #075698;
+            background: #fff;
+            /* background: -webkit-gradient(linear, 0 0, 0 100%, from(#2e88c4), to(#075698));
+            background: -moz-linear-gradient(#2e88c4, #075698);
+            background: -o-linear-gradient(#2e88c4, #075698);
+            background: linear-gradient(#2e88c4, #075698); */
+        }
+        .sent:after {
+            content: "";
+            position: absolute;
+            top: -20px;
+            right: 50px;
+            bottom: auto;
+            left: auto;
+            /* border-width: 20px 20px 0 0; */
+            border-width: 20px 0 0 20px;
+            border-style: solid;
+            border-color: transparent #fff;
+            display: block;
+            width: 0;
+        }
+        .received:after {
+            content: "";
+            position: absolute;
+            bottom: -20px;
+            left: 50px;
+            border-width: 20px 0 0 20px;
+            border-style: solid;
+            border-color: #075698 transparent;
+            display: block;
+            width: 0;
+        }
+        #chat-input {
+            width: 100%;
+            margin-top: .5em;
+            padding: .5em 1em;
+            font-size: 80%;
+            color: #444;
+        }
+        .chat-trigger {
+            position: absolute;
+            bottom: 2em;
+            right: 2em;
+            background-color: white;
+            border-radius: 50%;
+            padding: .5em .7em;
+            box-shadow: 2px 2px 1px #222;
+            border-width: 0px;
+            color: #222;
+        }
+        .chat-trigger:hover {
+            background-color: #222;
+            color: white;
+        }
+        @media screen and (max-width: 360px) {
+            .content {
+                flex-direction: column;
+            }
+            .avatar {
+                width: 8em;
+                border: 1px solid #800080;
+                border-radius: 50%;
+            }
+            .chat-trigger {
+                position: fixed;
+                bottom: 0em;
+                right: 0em;
+                margin-top: 2em;
+            }
+        }
     </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="nav-header">
+                Welcome to David's Profile
+            </div>
+        </nav>
+    
+        <section class="content">
+            <div class="desc">
+                <image class="avatar" src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg"/>
+                <div class="data">
+                    <h3>JEGEDE DAVID</h3>
+                    <p><em>Web Developer</em></p>
+                </div>        
+                <div class="contact">
+                    <a href="https://www.facebook.com/jegededavid" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
+                    <a href="https://github.com/" target="_blank"><i class="fa fa-github"></i></a>        
+                </div>
+            </div>
+            <div class="chat-window" id="chat-window">
+                <div class="chats" id="chats">
+                    <p class="chat received">hello, i am david's Bot</p>
+                </div>
+                <input type="text" id="chat-input" placeholder="Type and hit enter to send a message"/>
+            </div>
+            <button class="chat-trigger" id="chat-trigger"><i class="fa fa-comments"></i></button>
+        </section>
         
-        <style>
-        
-       body {
-  font: 15px arial, sans-serif;
-  background-color: #d9d9d9;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
+    </div>
 
-#bodybox {
-  margin: auto;
-  max-width: 550px;
-  font: 15px arial, sans-serif;
-  background-color: white;
-  border-style: solid;
-  border-width: 1px;
-  padding-top: 20px;
-  padding-bottom: 25px;
-  padding-right: 25px;
-  padding-left: 25px;
-  box-shadow: 5px 5px 5px grey;
-  border-radius: 15px;
-}
-
-#chatborder {
-  border-style: solid;
-  background-color: #f6f9f6;
-  border-width: 3px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-right: 20px;
-  padding-left: 15px;
-  border-radius: 15px;
-}
-
-.chatlog {
-   font: 15px arial, sans-serif;
-}
-
-#chatbox {
-  font: 17px arial, sans-serif;
-  height: 22px;
-  width: 100%;
-}
-
-h1 {
-  margin: auto;
-}
-
-pre {
-  background-color: #f0f0f0;
-  margin-left: 20px;
-}
-        
-        
-    </style>
-    
-    
-    
-    
-    
-    <body>
-        <div class="box">
-            <img src="http://res.cloudinary.com/hng4-0/image/upload/v1523637470/dav.jpg" class="box-img">
-            <h1>JEGEDE DAVID</h1>
-            <h5>Web Developer-Web Designer</h5>
-            <ul>
-                <li><a href=""><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
-                <li><a href=""><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
-                <li><a href=""><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
-            </ul>
-        </div>
-        
-        <div id='bodybox'>
-  <div id='chatborder'>
-    <p id="chatlog7" class="chatlog">Hello! this is David's Bot</p>
-    <p id="chatlog6" class="chatlog">Happy meeting you to chat with you</p>
-    <p id="chatlog5" class="chatlog">You can teach me by using</p>
-    <p id="chatlog4" class="chatlog">type:#train:Question|Answer.</p>
-    <p id="chatlog3" class="chatlog"></p>
-    <p id="chatlog2" class="chatlog">&nbsp;</p>
-    <p id="chatlog1" class="chatlog">&nbsp;</p>
-    <input type="text" name="chat" id="chatbox" placeholder="Hi there! Type here to talk to me." onfocus="placeHolder()">
-    
-  </div>
-        </div>
-    </body>
-    
-   
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $("#chat-window").toggle();
+            var chatTrigger = $("#chat-trigger");
+            chatTrigger.on('click', function() {
+                $("#chat-window").toggle(1000);
+            });
+            $('#chat-input').on('keypress', function (e) {
+                if(e.which === 13){
+                    //Disable textbox to prevent multiple submit
+                    $(this).attr("disabled", "disabled");
+                    if(this.value !== '') {
+                        //send message
+                        $("#chats").append(`<p class="chat sent">${this.value}</p>`);
+                        $('#chats').animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
+                        sendMessage(this.value);
+                        this.value = '';
+                        
+                    }
+                    //Enable the textbox again if needed.
+                    $(this).removeAttr("disabled");
+                }
+            });
+            function sendMessage(message) {
+                $.ajax({
+                    method: 'POST',
+                    url: 'profiles/jegededavid.php',
+                    data: {message: message},
+                    success: function(response) {
+                        $("#chats").append(`<p class="chat received">${response}</p>`);
+                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
+                    },
+                    error: function(error) {
+                        $("#chats").append(`<p class="chat received">Sorry, I cannot give you a response at this time.</p>`);
+                        $("#chats").animate({scrollTop: $('#chats').prop("scrollHeight")}, 1000);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
 </html>
 
 
-<script>
-//links
-//http://eloquentjavascript.net/09_regexp.html
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-nlp = window.nlp_compromise;
 
-var messages = [], //array that hold the record of each string in chat
-  lastUserMessage = "", //keeps track of the most recent input string from the user
-  botMessage = "", //var keeps track of what the chatbot is going to say
-  botName = 'Chatbot', //name of the chatbot
-  talking = true; //when false the speach function doesn't work
-//
-//
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//edit this function to change what the chatbot says
-function chatbotResponse() {
-  talking = true;
-  botMessage = "I'm confused you can train me when you do #train:Question|Answer"; //the default message
 
-  if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
-    const hi = ['how are you doing today?','how are you doing today?','how are you doing today?']
-    botMessage = hi[Math.floor(Math.random()*(hi.length))];;
-  }
-    
-    if (lastUserMessage === 'fine' || lastUserMessage =='cool' || lastUserMessage == 'great' || lastUserMessage == 'splendid' || lastUserMessage == 'awesome' || lastUserMessage == '#train:Question|Answer') {
-    const hi = ['awesome','awesome','awesome']
-    botMessage = hi[Math.floor(Math.random()*(hi.length))];;
-  }
-    
-    
 
-  if (lastUserMessage === 'name' || lastUserMessage == '#train:Question|Answer') {
-    botMessage = 'Awesome ';
-  }
-}
-    
-  
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//****************************************************************
-//
-//
-//
-//this runs each time enter is pressed.
-//It controls the overall input and output
-function newEntry() {
-  //if the message from the user isn't empty then run 
-  if (document.getElementById("chatbox").value != "") {
-    //pulls the value from the chatbox ands sets it to lastUserMessage
-    lastUserMessage = document.getElementById("chatbox").value;
-    //sets the chat box to be clear
-    document.getElementById("chatbox").value = "";
-    //adds the value of the chatbox to the array messages
-    messages.push(lastUserMessage);
-    //Speech(lastUserMessage);  //says what the user typed outloud
-    //sets the variable botMessage in response to lastUserMessage
-    chatbotResponse();
-    //add the chatbot's name and message to the array messages
-    messages.push("<b>" + botName + ":</b> " + botMessage);
-    // says the message using the text to speech function written below
-    Speech(botMessage);
-    //outputs the last few array elements of messages to html
-    for (var i = 1; i < 8; i++) {
-      if (messages[messages.length - i])
-        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
-    }
-  }
-}
 
-//text to Speech
-//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
-function Speech(say) {
-  if ('speechSynthesis' in window && talking) {
-    var utterance = new SpeechSynthesisUtterance(say);
-    //msg.voice = voices[10]; // Note: some voices don't support altering params
-    //msg.voiceURI = 'native';
-    //utterance.volume = 1; // 0 to 1
-    //utterance.rate = 0.1; // 0.1 to 10
-    //utterance.pitch = 1; //0 to 2
-    //utterance.text = 'Hello World';
-    //utterance.lang = 'en-US';
-    speechSynthesis.speak(utterance);
-  }
-}
 
-//runs the keypress() function when a key is pressed
-document.onkeypress = keyPress;
-//if the key pressed is 'enter' runs the function newEntry()
-function keyPress(e) {
-  var x = e || window.event;
-  var key = (x.keyCode || x.which);
-  if (key == 13 || key == 3) {
-    //runs this function when enter is pressed
-    newEntry();
-  }
-  if (key == 38) {
-    console.log('hi')
-      //document.getElementById("chatbox").value = lastUserMessage;
-  }
-}
 
-//clears the placeholder text ion the chatbox
-//this function is set to run when the users brings focus to the chatbox, by clicking on it
-function placeHolder() {
-  document.getElementById("chatbox").placeholder = "";
-}
-</script>
+
+

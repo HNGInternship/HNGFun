@@ -1,6 +1,10 @@
 <?php
 //error_reporting(E_ALL);
   //require '../db.php';
+//header('Content-Type: text/plain; charset=UTF-8;');
+  if(!defined('DB_USER')){
+    require "../../config.php";
+  }
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -325,7 +329,6 @@ h5{
 
 
 
-
 <!--script type="text/javascript">
   $(function() {
     $('#box')
@@ -364,17 +367,21 @@ h5{
                     return false;
                     } else{
                         $.ajax({
-                        url: 'profiles/Damilola.php',
-                        type: 'POST',
-                        cache: 'false',
-                        data: {
-                            msg: message
-                        },
+                       url: 'profiles/Damilola', //This is the current doc
+                          type: "POST",
+                          //dataType:'json', // add json datatype to get json
+                          data: ({msg: message}),
                         success: function(data){
                             bot_chat(data);
                             reset;
                         }
-                    });
+                    }) .done(function(data,textStatus,jqXHR){
+                        alert("response with: " + data);
+                        })
+                        .fail(function(data,textStatus,errorThrown){ alert("Request failed!"); console.log('FAILURE: ' + textStatus); })
+                        .always(function(data,textStatus,errorThrown){});
+
+
 
 
                     return false;

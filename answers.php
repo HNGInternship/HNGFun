@@ -1175,7 +1175,7 @@ function getLatestNews() {
 //    }
 //}
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 ////////////////JONAH VICTOR VICTOR//////////////////
 ////////////////                    /////////////////
 ///////////////                     /////////////////
@@ -1233,7 +1233,7 @@ function get_client_ip() {
 ///////////////////////////////////////////////////////////////////
 
 //Yeah
-=======
+//=======
 
 /*******************************************************************************************
 ****************************START OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
@@ -1259,12 +1259,22 @@ function
  
  return $zodiac; 
 } 
->>>>>>> e0ad1d08330b21b3ecf050998fddf139f9faf69a
+//>>>>>>> e0ad1d08330b21b3ecf050998fddf139f9faf69a
 
 /*************************************************************************************************
 ****************************END OF KINGSLEY67'S HOROSCOPE FUNCTION*********************************
 ******************************88PLEASE DO NOT EDIT OR REMOVE**************************************/
 
+//////////////////////////////////////////////	Iyadi Cyril////////////////////////////////////////////////
+function getReviews(){
+	$curl = curl_init();
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $query = array( "api-key" => "9ecd2e12bc244c42a684f37df0d21443");
+    curl_setopt($curl, CURLOPT_URL,  "https://api.nytimes.com/svc/movies/v2/reviews/search.json" . "?" . http_build_query($query));
+    $result = json_decode(curl_exec($curl));
+    echo json_encode($result);
+	
+}
 
 ?>
 
