@@ -1,5 +1,5 @@
 <?php 
-	 
+	 if($_SERVER['REQUEST_METHOD'] === "GET"){
 	if(!defined('DB_USER')){
 		require "/config.example.php";	
 	   
@@ -19,6 +19,7 @@
     } catch (PDOException $err) {
         throw $err;
 	}
+}
 ?>
 
 <?php
@@ -164,12 +165,7 @@
  <style>
 
 
- html, body
- {
-	height: 100%;
- }
-
- body
+  body
  {
 	margin-top: 50px;
 	padding: 0px;
