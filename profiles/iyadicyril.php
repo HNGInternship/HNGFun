@@ -165,16 +165,6 @@
  <style type="text/css">
 
 
-  body
- {
-	margin-top: 50px;
-	padding: 0px;
-	background:#7f7fff;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 10pt;
-	color: #737373;
- }
-
  h1, h2, h3
  {
 	margin: 0;
