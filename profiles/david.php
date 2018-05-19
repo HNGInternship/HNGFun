@@ -84,6 +84,24 @@ function getAnswer($input) {
 <!DOCTYPE html>
 <html>
   <head>
+  <script >
+  window.Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote) = function(a){
+    a.init({
+      appUISetting:"%7B%22openMode%22%3A%7B%22text%22%3A%22davBot%20UI%22%2C%22height%22%3A390%2C%22width%22%3A320%7D%2C%22closeMode%22%3A%7B%22text%22%3A%22davBot%20UI%22%2C%22width%22%3A200%2C%22displayType%22%3A%22rectangular%22%7D%2C%22common%22%3A%7B%22logo%22%3A%22https%3A//www.gupshup.io/images/botwidget/ic_dummy_chat_g.png%22%2C%22imgDispType%22%3A%22circular%22%2C%22bgColor%22%3A%22%23090909%22%2C%22fontSize%22%3A16%2C%22fontColor%22%3A%22%23ffffff%22%7D%2C%22content%22%3A%7B%22bot%22%3A%22//www.buildquickbots.com/widget/bots/9f2b71f6e25b5651172f3fb230f1f952/8c85312b892047b9a7f4ae7d905cefa0/bot.png%22%2C%22botBubbleColor%22%3A%22%23161212%22%2C%22botFontColor%22%3A%22%23e7dfdf%22%2C%22user%22%3A%22https%3A//www.gupshup.io/images/botwidget/ic_user.png%22%2C%22userBubbleColor%22%3A%22%23232dd2%22%2C%22userFontColor%22%3A%22%23ffffff%22%2C%22pageTitle%22%3A%22davBot%20UI%22%2C%22fontSize%22%3A14%2C%22fontFamily%22%3A%22sans-serif%22%7D%2C%22config%22%3A%7B%22persistenceMenu%22%3A%22%7B%5C%22disableinput%5C%22%3Afalse%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level1%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element2%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level3%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element4%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level3%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element5%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element4.1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%22%2C%22perMenuImg%22%3A%22%22%2C%22attachment%22%3A%22Yes%22%2C%22widgetType%22%3A%22Text%22%2C%22msgEnc%22%3A%22No%22%2C%22webView%22%3A%22Yes%22%2C%22RDStatus%22%3A%22No%22%2C%22isResponsive%22%3A%22Yes%22%2C%22allowHtmlFromBot%22%3A%22Yes%22%2C%22callback%22%3A%22Sorry%2C%20I%20am%20not%20understanding%20you.%20I%20am%20a%20currently%20developing%2C%20to%20train%20me%2C%20simply%20type%20-%20%27train%3A%20question%20%23%20answer%20%23%20password%27%20%28without%20quote%29%22%7D%7D",
+      version: "3"
+    });
+  };
+  (function(d, s, id){
+    var js, tjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    var ts = new Date().getTime();
+    js.src = '//www.buildquickbots.com/botwidget/v3/demo/static/js/sdk.js?v=3&ts='+ts;
+    js.setAttribute("callback","Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote)");
+    js.setAttribute("key","98f4afed-4433-43d6-ad8f-4fc7673c4ab6");
+    tjs.parentNode.insertBefore(js, tjs);
+  }(document, 'script', 'gs-sdk'));
+</script>
     <meta charset="utf-8">
     <title>Profile page</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
