@@ -5,7 +5,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         //die('Hi');
           require('../db.php');
-        // $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+        $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
 
        // $conn = new mysqli('localhost', 'root', 'root', 'hng_fun');    
 
@@ -130,7 +130,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			float: right;
 			width: 400px;
 			height: 500px;
-			margin-top: 10rem;
+			margin-top: 7rem;
 
 		}
 

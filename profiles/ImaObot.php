@@ -12,6 +12,7 @@
 
         if($pos === false){
             $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
+            // $sql = "SELECT answer FROM chatbot WHERE question = ' ".$question." ' ";
             $query = $conn->query($sql);
             if($query){
                 echo json_encode([
