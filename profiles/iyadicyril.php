@@ -246,8 +246,9 @@ hr{
 	border-radius: 40px;	
 }
 
-.container
+.containers
 {
+	width: 380px;
 	margin: 0px auto;
 	height: 950px;	
 }
@@ -495,12 +496,12 @@ hr{
 }
 
 </style>
-<div id="header" class="container" style="height:100px">
+<div id="header" class="containers" style="height:100px">
 	<div id="logo">
 		<h1><a href="#">@IyadiCyril</a></h1>
 	</div>	
 </div>
-<div id="wrapper" class="container">
+<div id="wrapper" class="containers">
 	<div id="page" style="width: 350px;">
 		<div id="content"> <a href="#" class="image-style" style="padding-right: 40px;padding-left: 30px;width: 370.797px;"><img src="https://res.cloudinary.com/dj7y9zirl/image/upload/v1523825090/IMG_20180411_111139_1.jpg" width="300" height="200" alt=""></a>
 			<h2 class="text-center">Software developer</h2>					
