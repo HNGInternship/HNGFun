@@ -696,16 +696,16 @@ hr{
 	    			dispMessage(replyFromBot, 'received');
 
 	    			return;
-	    		}
-		    		
-		    	if (messageToBot == 'aboutbot' || messageToBot == 'Aboutbot' || messageToBot == 'about bot' || messageToBot == 'About bot') {
+	    		}		    		
+		    	
+				if (messageToBot == 'aboutbot' || messageToBot == 'Aboutbot' || messageToBot == 'about bot' || messageToBot == 'About bot') {
 		    		var replyFromBot = 'Name: AndyBot<br>Version: 2.0';
 		    		dispMessage(replyFromBot, 'received');
 
 		    		return;
 		   		}
 
-		    		//send message
+		    	else{	//send message
 		    		var xhttp = new XMLHttpRequest();
 		    		xhttp.onreadystatechange = function(){
 		    			if(xhttp.readyState ==4 && xhttp.status ==200){
@@ -716,6 +716,7 @@ hr{
 		    		    xhttp.open("POST", "/profiles/iyadicyril.php", true);
 						xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 						xhttp.send("question="+messageToBot);
+				}
 	    	}
 
 	    	function processData(data){
