@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-	<?php 
-		require 'db.php';
-
-		$result = $conn->query("Select * from secret_word LIMIT 1");
-		$result = $result->fetch(PDO::FETCH_OBJ);
-		$secret_word = $result->secret_word;
-
-		$result2 = $conn->query("Select * from interns_data where username = 'Sarge'");
-		$user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
-=======
 <?php 
 
 		if(!isset($conn)) {
@@ -121,18 +109,13 @@
 	}
 }
 ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
 <html>
 <head>
   <title>Sarge | HNG Profile</title>
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css">
   <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<<<<<<< HEAD
-  <style>
-=======
  <style>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   	#hero{
 		background: linear-gradient(rgba(26,26,26,0.7),rgba(26,26,26,0.7)), url(http://res.cloudinary.com/de31wg5rr/image/upload/v1524655744/bg_djwtwt.jpg);
 		background-size: cover;
@@ -205,11 +188,7 @@
 
 	.about-me-title{
 		height: 40px;
-<<<<<<< HEAD
-		box-shadow: rgba(0, 0, 0, 0.3) 12px 15px 20px;
-=======
 		box-shadow: rgba(0, 0, 0, 0.1) 12px 15px 20px;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		margin:-20px 9px;
 		left: 27%;
 		width: 140px;
@@ -228,8 +207,6 @@
 		border-radius: 0 0 10px 10px; 
 	}
 
-<<<<<<< HEAD
-=======
 .chatbox{
 	height: 23.54em;
 	width: 19em;
@@ -282,25 +259,10 @@
 
 
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 @media (min-width:320px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
 	/* smartphones, iPhone, portrait 480x320 phones */
 .profile{
 		
-<<<<<<< HEAD
-		width: 17em;
-		margin: auto;
-		font-size: 1em;
-	}
-
-.profile-social{
-	margin-left: -40px;
-}
-
-	.about-me-title{
-		left: 21%;
-	}
-=======
 	width: 17em;
 	margin: auto;
 	font-size: 1em;
@@ -313,7 +275,6 @@
 		.about-me-title{
 			left: 21%;
 		}
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 
 @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
@@ -349,30 +310,19 @@
 }
 @media (min-width:1281px) { /* hi-res laptops and desktops */ }
 
-<<<<<<< HEAD
-  </style>
-=======
 </style>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </head>
 <body id="hero">
     <div class="cover-cap">
       <div class="container">
       	<div class="row">
-<<<<<<< HEAD
-        <div class="col-sm-12 col-md-12 col-lg-12">
-=======
         <div class="col-sm-12 col-md-7 col-lg-">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			<div class="profile-box">
 				<div class="profile">
 				  <div class="profile-meta-container">
 					<div class="profile-meta">
-<<<<<<< HEAD
-=======
 						 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 						<img src="<?php echo $user->image_filename; ?>" alt="" class="">
 						<h5 class="name"><?php echo $user->name; ?></h5>
 						<p class="title">Web Developer</p>
@@ -403,17 +353,11 @@
 				  </div>
 				  <div class="about-me-title">ABOUT ME</div>
 				  <div class="about-me-text">	
-<<<<<<< HEAD
-				    <p>I am a tech enthusiast and a lover of code. I do freelance projects and I'm conversant with PHP and Javascript. I've got Laravel and React queued up as my next challenge.</p>
-=======
 				    <p>I am a tech enthusiast and a lover of code. I do freelance projects and I'm conversant with PHP and Javascript. .</p>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 				  </div>
 				  
 				</div>
 			</div>
-<<<<<<< HEAD
-=======
 			
         </div>
         <div class="col-sm-12 col-md-5 col-lg-5">
@@ -433,14 +377,10 @@
         		</div>
 
 			</div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         </div>
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-
-=======
 <script type="text/javascript">
 	//Script to process the input and submit for processing
 	var messageflow = document.getElementById('message-flow');
@@ -471,6 +411,5 @@
 		messageflow.innerHTML += '<div class="bot-message">'+ ans +'</div>';
 	}
 </script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 </html>

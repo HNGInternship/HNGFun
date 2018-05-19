@@ -40,11 +40,7 @@ try {
 			
 			<li class="list-group-item">
 				<i class="fa fa-user"></i>
-<<<<<<< HEAD
-				
-=======
 				&emsp;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 				<strong>
 					<?php echo $user->name; ?>
 				</strong>
@@ -52,11 +48,7 @@ try {
 
 			<li class="list-group-item">
 				<i class="fa fa-info"></i>
-<<<<<<< HEAD
-				
-=======
 				&emsp;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     <p>I am a Software Developer and an Android Enthusiast. You can follow me on twitter <a target="_blank" href="https://twitter.com/dfrank300/"><i class="fa fa-twitter"></i></a> </p>
 			</li>
 			

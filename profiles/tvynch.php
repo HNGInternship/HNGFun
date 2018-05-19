@@ -1,6 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
 ini_set("display_errors",1);
 if(!defined('DB_USER')){
   require_once('../config.php');
@@ -13,7 +11,6 @@ try {
 } catch (PDOException $pe) {
     die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
   $result = $conn->query("Select * from secret_word LIMIT 1");
   $result = $result->fetch(PDO::FETCH_OBJ);
@@ -21,8 +18,6 @@ try {
 
   $result2 = $conn->query("Select * from interns_data WHERE username = 'tvynch'");
   $user = $result2->fetch(PDO::FETCH_OBJ);
-<<<<<<< HEAD
-=======
 
 // for jacz chatbot
 
@@ -362,7 +357,6 @@ try {
   }
 // end of chatbot
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   ?>
 
 <!DOCTYPE html>
@@ -371,37 +365,6 @@ try {
     <meta charset="utf-8">
     <title>@tvynch</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<<<<<<< HEAD
-  </head>
-  <style media="screen">
-      .page-header {
-      padding-bottom: 9px;
-      margin: 40px 0 20px;
-      border-bottom: 1px solid #eee;
-      }
-      .small{
-          font-size: 0.35em;
-          border-top: 1px solid #eee;
-      }
-      .header{
-        font-weight: bold;
-        font-stretch: expanded;
-      }
-
-      li{
-        list-style: none;
-      }
-
-      section{
-        margin-top: 50px;
-      }
-
-  .footer{
-    margin-top: 15px;
-    padding-top: 25px;
-    border-top: 1px solid grey;
-  }
-=======
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-font-awesome.min.css">
   </head>
   <style media="screen">
@@ -646,17 +609,12 @@ try {
     .footer li{
 
     }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   </style>
   <body>
     <div class="container">
       <div class="row">
           <header class="col-md-12">
-<<<<<<< HEAD
-            <h1 class="page-header"> <?php echo $user->username;?>'s Profile <span class="small"> George Jacob T.</span></h1>
-=======
             <h1 class="page-header"> tvynch's Profile <span class="small"> George Jacob T.</span></h1>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
             <div class="text-center header">
               <h3>Major >> Web Developer</h3>
@@ -683,8 +641,6 @@ try {
             <img src="images/tvynch.jpg" alt="tvynch">
           </section>
 
-<<<<<<< HEAD
-=======
           <section class="chatbot col-md-6 col-md-offset-3">
             <!-- chatbot -->
             <button class="collapsible"> <i class="fa fa-paper-plane-o" style="font-size:36px"></i></button>
@@ -716,16 +672,10 @@ try {
                </div>
           </section>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
           <footer class="footer text-center col-md-12">
             <div class="col-12">
             <h6>I can be reached for contracts and just to say hi with the contacts below</h6>
                 <ul>
-<<<<<<< HEAD
-                  <li><a href="https://web.facebook.com/tammvynch">Facebook</a></li>
-                  <li>08058957387 For mobile contact</li>
-                  <li><a href="https://twitter.com/tvynch">Twitter</a></li>
-=======
                   <li><a href="https://web.facebook.com/tammvynch" >
                     tvynch &trade;
                     <span class="fa-stack fa-lg">
@@ -745,16 +695,12 @@ try {
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                      </span>
                   </a></li>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 </ul>
               </div>
           </footer>
 
         </div>
     </div>
-<<<<<<< HEAD
-    <script src="../vendor/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-=======
     <script
         src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -855,6 +801,5 @@ try {
             });
     </script>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   </body>
 </html>

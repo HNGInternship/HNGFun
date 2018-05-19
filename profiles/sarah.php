@@ -1,14 +1,4 @@
 <?php
-<<<<<<< HEAD
-  date_default_timezone_set('Africa/Lagos');
-  $result = $conn->query("SELECT * FROM secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'sarah'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-?>
-=======
 	header("Access-Control-Allow-Origin: *");
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 		if(!defined('DB_USER')){
@@ -166,7 +156,6 @@
 
 	?>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
 <html lang="en">
 
@@ -190,22 +179,14 @@
     html {
       font-size: 100%;
       box-sizing: border-box;
-<<<<<<< HEAD
-      height: 100%;
-=======
       height: auto !important;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
 
     body {
       font-family: Roboto, sans-serif;
       font-size: 1.4rem;
       line-height: 1;
-<<<<<<< HEAD
-      height: 100%;
-=======
       height: auto !important;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       background: lightsmoke;
     }
 
@@ -273,10 +254,6 @@
 
     .profile-dp {
       border-radius: 50%;
-<<<<<<< HEAD
-    }
-
-=======
       margin-top: 150px;
     }
 
@@ -374,7 +351,6 @@
         color: rgba(219, 10, 91);
       }
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     @media only screen and (min-width: 600px) {
       .socials .fa-icon {
         flex-basis: 0;
@@ -386,8 +362,6 @@
       .labels {
         font-size: 1.4rem;
       }
-<<<<<<< HEAD
-=======
       .guest,
 				.temipet {
 					width: auto;
@@ -427,7 +401,6 @@
 				.chat-box .chat-box-header {
 					font-size: 24px;
 				}
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
 
     @media only screen and (min-width: 700px) {
@@ -465,19 +438,7 @@
 <body>
 
     <div class="constrain">
-<<<<<<< HEAD
-      <header class="header">
-        <span class="date">
-          <?php echo date("D M d, Y"); ?>
-        </span> |
-        <span class="time">
-          <?php echo date("g:i a"); ?>
-        </span>
-      </header>
-      <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A really fine pic of Sarah" class="profile-dp">
-=======
       <img src="https://res.cloudinary.com/temipet/image/upload/c_scale,w_300/v1523998638/fine_sarah.jpg" alt="A fine pic of Sarah" class="profile-dp">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       <section class="title">
         <h1 class="name">Sarah Temitope</h1>
         <p class="labels">Budding Designer ✿ Lover of Life</p>
@@ -502,12 +463,6 @@
           <i class="fa fa-fw fa-envelope"></i>
         </a>
       </section>
-<<<<<<< HEAD
-    </div>
-</body>
-
-</html>
-=======
 
       <form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Let's talk!</span>
@@ -585,4 +540,3 @@
 
 </html>
 <?php // } ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

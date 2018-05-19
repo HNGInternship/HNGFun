@@ -215,15 +215,11 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 		a:hover{
 		  text-decoration: none;
 		}
-		.body{
-			background-color:#3f4447;
-			padding-bottom: 20px;
-		}
 	</style>
 </head>
-<body>
+<body style='background-color:#3f4447;'>
 	
-<div class='container body'>
+<div class='container'>
 	<br><br>
 	<div class='row'>
 		<div class='col-sm-6' >
@@ -333,17 +329,6 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
             this.reset()
         });
 	});
-<<<<<<< HEAD
-	
-</script>	
-</div>
-</body>
-</html>
-<?php 
-	}
-?>
-
-=======
 </script>	
 </body>
 </html>
@@ -351,4 +336,3 @@ $user = $result2->fetch(PDO::FETCH_OBJ);
 <?php 
 	}
 ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

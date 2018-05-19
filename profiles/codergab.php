@@ -20,11 +20,8 @@
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <title></title>
        <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-=======
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
        <link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css">
        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
@@ -43,8 +40,6 @@
        </style>
    </head>
    <body>
-<<<<<<< HEAD
-=======
 
 <!-- Bot -->
 <div class="modal fade" id="bot" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -84,7 +79,6 @@
     </div>
 </div>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <div class="jumbotron">
 
         <div class="row">
@@ -141,23 +135,16 @@
                             <i class="fab fa-github fa-2x" style="color: #34465d"></i>
                         </a>
                     </div>
-<<<<<<< HEAD
-=======
                     <div class="col-9">
                         <span class="lead">OR</span>
                         <button class="btn btn-primary ml-3" data-toggle="modal" data-target="#bot">Talk to my BORT</button>
                     </div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 </div>
             </div>
         </div>
     </div>
         <script>
             var documentHead = document.querySelector('title');
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             documentHead.innerHTML = "Adewumi Gabriel's Profile";
         </script>
    </body>

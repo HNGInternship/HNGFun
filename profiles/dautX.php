@@ -1,17 +1,11 @@
 <?php
 
     if(!defined('DB_USER')){
-<<<<<<< HEAD
-        require "../../config.php";     
-        try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-=======
         require "../../config.php"; 
             
         try {
             $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
             $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         } catch (PDOException $pe) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
         }
@@ -33,11 +27,7 @@
             $bot -> setName($input);
 
         //get the time for user
-<<<<<<< HEAD
-        else if(strpos($input, 'time') || $input == 'time')
-=======
         else if(strpos($input, 'time') !== false )
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             $bot -> getTime($input);
 
         //train the bot
@@ -49,11 +39,7 @@
         else if($input == 'aboutbot')
             $bot -> getBotData();
 
-<<<<<<< HEAD
-        else if( strpos($input, 'date') || $input == 'date'){
-=======
         else if( strpos($input, 'date') !== false){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             echo 'Today is '.date('D.').' the '.date('jS M, ').date('Y');
             exit();
         }
@@ -90,19 +76,12 @@
         }
 
         function showHelp(){
-<<<<<<< HEAD
-            echo 'Here\'s a few stuff I could do for you right now:'.'<br>'.
-                 '\'aboutbot\' gives you a bit about me. '.'<br>'.
-                 'I could tell you the time if you do \'what is the time\' '.'<br>'.
-                 'I could tell you the time in a few cities too. Just do `what is the time in ``your city`` '.'<br>'.
-=======
             echo 'Here\'s a few stuff I could do for you right now:'.'<br><br />'.
                  '<strong>aboutbot: </strong> gives you a bit about me. '.'<br>'.
                  '<strong>what is the date | date: </strong> gives the current date'.'<br />'.
                  '<strong>what is the time | time: </strong> gives the current time  '.'<br>'.
                  '<strong>what is the time in `city` | time `city`: </strong> gives time in select cities '.'<br>'.
                  'You could train me using the format: '.'<span><h4>train: question # answer # password</h4></span>'.'<br />'.
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                  'Don\'t forget to leave out the quotes.';
 
             exit();           
@@ -151,11 +130,7 @@
 
         function welcomeUser($user_name){
             $this -> greetUser($user_name);
-<<<<<<< HEAD
-            echo "Now we are great friends. See?";
-=======
             echo '<br />'."Now we are great friends. See?";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             exit();
         }   //end function welcome_user
 
@@ -164,39 +139,6 @@
         }
 
         function respondToQuestion($conn, $input){
-<<<<<<< HEAD
-            if( $this -> searchInDB($conn, $input ) == true){                   //perform a search on database for question
-                $sql = "SELECT `answer` FROM chatbot WHERE `question` LIKE :qstn";
-                $stmt = $conn -> prepare($sql);
-                $stmt -> bindValue(':qstn', '%'.$input.'%');
-
-                if( $stmt -> execute() ){
-                    $row = $stmt  -> fetch();
-                    if ($row) {
-                        echo $row['answer'];
-                        exit();
-                    } 
-                }
-                else {
-                    echo 'Oops! Something seems to have gone wrong';
-                    exit();
-                }
-            }
-            else{
-                echo "Sorry, I've got no idea what that's about. Mind training me on it?";
-                exit();
-            }
-        }
-
-        //training area
-        function trainBot($conn, $command){
-            $trainingString = substr($command, 7, strlen($command));
-            $str_ex = explode('#', trim($trainingString));
-
-            $question = $str_ex[0];
-            $answer = $str_ex[1];
-            $password = $str_ex[2];
-=======
         if( $this -> searchInDB($conn, $input ) == true){                   //perform a search on database for question
             $sql = "SELECT `answer` FROM chatbot WHERE `question` LIKE :qstn";
             $stmt = $conn -> prepare($sql);
@@ -247,7 +189,6 @@
             $question = trim($str_ex[0]);
             $answer = trim($str_ex[1]);
             $password = trim($str_ex[2]);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
             if ($password != 'password') {
                 echo "The password you entered is not correct.".'<br>'. ' Use \'password\' without the quotes';
@@ -264,28 +205,16 @@
                     if( $qexists == false ){
                         $query =  $conn -> prepare("INSERT INTO chatbot (question, answer) VALUES (:qtn, :ans)");
                         $query -> bindParam(':qtn', $question, PDO::PARAM_STR);
-<<<<<<< HEAD
-                        $query -> bindParam(':ans', $answer, PDO::PARAM_STR);
-
-                        if($query -> execute()){
-                        	$replies = array( 'Training successful!', 'Dat one enter. U try!', 'Got it! Thanks', 'Oboy ee! Book too sweet' );
-=======
                         $query -> bindValue(':ans', '#@'.$answer.'@#', PDO::PARAM_STR);
 
                         if($query -> execute()){
                             $replies = array( 'Training successful!', 'Dat one enter. U try!', 'Got it! Thanks', 'Oboy ee! Book too sweet' );
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                             echo $replies[mt_rand(0, sizeof($replies) - 1)];
                             exit();
                         }
                         else {
-<<<<<<< HEAD
-                        	$replies = array( 'Oops! Something went wrong!', 'E no enter o. I no sabi why', 'Didn\'t work pal. Can\'t help ya. Try again', 
-                        		              'Di thing no work o. Just try another time.' );
-=======
                             $replies = array( 'Oops! Something went wrong!', 'E no enter o. I no sabi why', 'Didn\'t work pal. Can\'t help ya. Try again', 
                                               'Di thing no work o. Just try another time.' );
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                             echo $replies[mt_rand(0, sizeof($replies) - 1)];
                             exit();
                         }   //end inner else
@@ -293,13 +222,6 @@
 
                     //execute if question already exists
                     else {
-<<<<<<< HEAD
-                    	$replies = array('Question already exists. Try something different', 'Already got that. Gimme something new',
-                    					 'Dat one dey my head already. Teach me another thing', 'I sabi that one. Tell me another one');
-
-                        echo $replies[mt_rand(0, sizeof($replies) - 1)];
-                        exit();
-=======
                         $msg_id;    //message id of question
 
                         $sql = "SELECT msg_id FROM chatbot WHERE question LIKE :qstn";
@@ -332,7 +254,6 @@
                             echo "New answer could not be added"; 
                             exit();
                         }  
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     }
                 }   //end outer if
             }   //end outer else
@@ -447,10 +368,6 @@
         <meta charset="utf-8">
         <title>dautX | Profile</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
-<<<<<<< HEAD
-        <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Junge' rel='stylesheet'>
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
@@ -593,11 +510,7 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
                 float: right;
-<<<<<<< HEAD
-                font-family: 'Junge', sans-serif;
-=======
                 font-family: 'Andika', sans-serif;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 display: block;
                 clear: both;
             }
@@ -681,13 +594,8 @@
 
             <div id="msg_box">
                 <ul id="message_list">
-<<<<<<< HEAD
-                    <li class="bot_msg">Hi, I'm tokr-Bot<br>You can say your name if you preceed it with '!'<br>'Help' shows commands I can process.
-                                        <br>Wanna make me smarter? Train me using the format;<br>train: question#answer#password<br>
-=======
                     <li class="bot_msg">Hi, I'm tokr-Bot<br />You can say your name if you preceed it with '!'<br />'Help' shows commands I can process.
                                         <br>Wanna make me smarter? Train me using the format;<br /><span><strong>train: question#answer#password</span></strong><br />
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                                         The password is 'password'. No quotes ofcourse.<br>Or just ask me something...I might just know it.</li>
                 </ul>
             </div>
@@ -813,10 +721,7 @@
                 }   //end function ajaxify
 
                 xmlhttp.open('POST', 'profiles/dautX.php', true);
-<<<<<<< HEAD
-=======
                 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xmlhttp.send('message=' + data);
             }

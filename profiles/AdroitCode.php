@@ -254,9 +254,6 @@
   section {
     display: block;
   }
-  footer{
-    display: none;
-  }
   
   /**
    * Correct the font size and margin on `h1` elements within `section` and

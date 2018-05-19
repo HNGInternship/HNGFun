@@ -227,11 +227,7 @@ body {
 .clear {
     *zoom: 1;
 }
-<<<<<<< HEAD
-.dimg {
-=======
 img {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   width: 100%;
   vertical-align: bottom;
 }
@@ -527,11 +523,7 @@ a:focus {
 
                    <li class="person">
                           <span class="avatar">
-<<<<<<< HEAD
-                            <img class="dimg" src="http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg" alt="Sacha Griffin" />
-=======
                             <img src="http://res.cloudinary.com/devgeaks/image/upload/v1523731563/2017-03-02_08.30.03.jpg" alt="Sacha Griffin" />
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                             <span class="status online"></span>
                           </span>
                           <span class="info">

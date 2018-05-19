@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-Options +MultiViews
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
-=======
 Options -MultiViews
 
 RewriteEngine On    # Turn on the rewriting engine
@@ -15,4 +8,3 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 
 RewriteRule  ^profile/(.*)$/?$     profile.php?id=$1   [NC,L]
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

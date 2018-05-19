@@ -1,10 +1,6 @@
 <?php 
 try {
-<<<<<<< HEAD
-      
-=======
        global $conn;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
     $sql ="SELECT * FROM interns_data WHERE username = 'Kruga' LIMIT 1";
@@ -41,11 +37,7 @@ padding-bottom: 0;
 .img-circle{border-radius: 15%;
 }
 h1{font-family: Dotum;
-<<<<<<< HEAD
-font size: 400px;
-=======
 font size: 500px;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 padding-top: 50px;
 padding-left: 350px;
 font-color: white;
@@ -54,15 +46,9 @@ line-height: 1.0;
 margin-bottom: 0;
 }
 h2{font-family: Dotum;
-<<<<<<< HEAD
-font size: 350px;
-margin-top: 0;
-padding-left: 50px;
-=======
 font size: 500px;
 margin-top: 0;
 padding-left: 250px;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 font-color: white;
 }
 

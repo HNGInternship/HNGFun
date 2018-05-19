@@ -1,10 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-include_once("../answers.php"); 
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 if(!defined('DB_USER')){
      require "../../config.php";
      try {
@@ -17,7 +12,6 @@ $query = $conn->query("SELECT * FROM secret_word");
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $secret_word = $result['secret_word'];
 $question;
-<<<<<<< HEAD
 
 global $pass;
 	$pass = "password";
@@ -33,23 +27,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	}
 
 
-=======
-
-global $pass;
-	$pass = "password";
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){ 
-	
-	function botAnswer($message){
-		$botAnswer = '<div class="chat bot chat-message">
-					<img src="http://gravatar.com/avatar/2c0ad52fc5943b78d6abe069cc08f320?s=32" alt="" width="32" height="32">
-					<div class="chat-message-content clearfix">
-						<p>' . $message . '</p>';
-			return $botAnswer;
-	}
-
-
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	function train($dbcon, $data){
 		$trainCheck = $dbcon->prepare("SELECT * FROM chatbot WHERE question LIKE :question and answer LIKE :answer");
 		$trainCheck->bindParam(':question', $data['question']);
@@ -183,15 +160,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			
 
 		#abt-me-div{
-<<<<<<< HEAD
-			width: 70%;
-			height: auto;
-			/*margin:  70px auto;*/
-=======
 			width: 60%;
 			height: auto;
 			margin:  70px auto;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			margin-bottom: 70px;
 			padding: 100px 100px 0px 100px;
 			background-color: rgba(239, 239, 239, 0.6);
@@ -333,7 +304,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			padding: 8px;
 			outline: none;
 			width: 234px;
-<<<<<<< HEAD
 		}
 
 		header h4{
@@ -362,36 +332,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			border-radius: 50%;
 			float: left;
 		}
-=======
-		}
-
-		header h4{
-			color: #fff;
-		}
-
-		.chat {
-			background: #fff;
-					
-		}
-			.hide{
-			display: none;
-		}
-
-		.chatlogs {
-			height: 252px;
-			padding: 8px 24px;
-			overflow-y: scroll;
-		}
-
-		.chat-message {
-			margin: 16px 0;
-		}
-
-		.bot img {
-			border-radius: 50%;
-			float: left;
-		}
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		.bot .chat-message-content{
 			margin-left: 40px;
 			border-radius:0  15px 15px 15px;
@@ -553,11 +493,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	            question.value = '';
 	          }
       	    }
-<<<<<<< HEAD
-        xhttp.open('POST', 'profiles/Abigail', true);
-=======
         xhttp.open('POST', 'profiles/Abigail.php', true);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send('question='+ question.value);
         e.preventDefault();

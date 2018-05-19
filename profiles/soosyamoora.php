@@ -1,6 +1,7 @@
 <?php
+require_once 'db.php';
 try {
-    $sql = "SELECT * FROM interns_data WHERE username ='soosyamoora'";
+    $sql = "SELECT * FROM interns_data_ WHERE username ='soosyamoora'";
     $q = $conn->query($sql);
     $q->setFetchMode(PDO::FETCH_ASSOC);
     $data = $q->fetch();

@@ -1,18 +1,5 @@
 <?php 
 
-<<<<<<< HEAD
-$result = $conn->query("SELECT * FROM secret_word LIMIT 1");
-$result = $result->fetch(PDO::FETCH_OBJ);
-$secret_word = $result->secret_word;
-
-$result2 = $conn->query("SELECT * FROM interns_data where username = 'Adebayo'");
-$user = $result2->fetch(PDO::FETCH_ASSOC);
-
-$username = $user['username'];
-$name = $user['name'];
-$image_filename = $user['image_filename'];
-?>
-=======
 if (!defined('DB_USER')){
             
     require_once "../config.php";
@@ -111,25 +98,11 @@ function getAnswer($input) {
 ?>
 
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Adebayo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Over+the+Rainbow" rel="stylesheet">
-    <style>
-        /* Desktop */
-        html {
-            height: 100%;
-        }
-
-        body {
-=======
     <meta name="viewport" content="width=device-width" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Adebayo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -142,31 +115,10 @@ function getAnswer($input) {
         /* Desktop */
 
         .oj-web-applayout-body {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             margin: 0;
             padding: 0;
             border: 0;
             height: 100%;
-<<<<<<< HEAD
-            background: #000000;
-        }
-
-        /* DAST */
-
-        h1.logo {
-            margin: 0px;
-            font-family: 'Over the Rainbow', cursive;
-            font-size: 36px;
-            color: #000000;
-            text-shadow: 2px 2px 3px #cccccc;
-        }
-
-        /* Profile */
-
-        main {
-            box-shadow: 0 4px 6px 0 #cccccc;
-            max-width: 400px;
-=======
             background-color: #000000;
         }
 
@@ -176,22 +128,11 @@ function getAnswer($input) {
         .oj-web-applayout-page {
             box-shadow: 0 4px 6px 0 #cccccc;
             max-width: 500px;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             max-height: auto;
             margin: auto;
             text-align: center;
             font-family: cursive;
             background: #70BBD9;
-<<<<<<< HEAD
-            margin-top: 65px;
-        }
-
-
-
-        /* Image */
-
-        .dimg {
-=======
             margin-top: 5px;
         }
 
@@ -199,7 +140,6 @@ function getAnswer($input) {
         /* Image */
 
         img {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
             width: 200px;
             height: 200px;
@@ -210,10 +150,7 @@ function getAnswer($input) {
         }
 
         /* DARAMOLA ADEBAYO STEVE */
-<<<<<<< HEAD
-=======
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         h1.name {
             font-weight: bold;
             font-size: 24px;
@@ -223,17 +160,10 @@ function getAnswer($input) {
 
         /* Vector 3 */
 
-<<<<<<< HEAD
-        .linebreak {
-            height: 0px;
-            border: 1px inset;
-            width: 300px;
-=======
         hr.linebreak {
             height: 0px;
             border: 1px inset;
             width: 100%;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
 
         /* WEB DEVELOPER - UI/UX DESIGNER - HNG INTERN */
@@ -271,11 +201,7 @@ function getAnswer($input) {
         }
 
         .fa-twitter {
-<<<<<<< HEAD
-           background: #000000;
-=======
             background: #000000;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             color: rgb(255, 0, 0);
         }
 
@@ -289,15 +215,11 @@ function getAnswer($input) {
             color: rgb(255, 0, 0);
         }
 
-<<<<<<< HEAD
-        button {
-=======
         #icons a {
             text-decoration: none;
         }
 
         div.contactMe button {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             border: none;
             outline: 0;
             display: inline-block;
@@ -308,8 +230,6 @@ function getAnswer($input) {
             cursor: pointer;
             width: 100%;
             font-size: 18px;
-<<<<<<< HEAD
-=======
 
         }
 
@@ -437,47 +357,10 @@ function getAnswer($input) {
 
         .grey-text {
             text-decoration: none;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
     </style>
 </head>
 
-<<<<<<< HEAD
-<body>
-
-    <main>
-    <header class="header">
-            <h1 class="logo">DAST</h1>
-        </header>
-        <img src="<?php echo $image_filename;?>" alt="Me" class="dimg">
-        
-        
-        <h1 class="name"><?php echo $name;?></h1>
-        <hr class="linebreak" />
-       
-        <p class="skill">ui/ux DESIGNER 
-            <br/> Web DESIGNER | HNG INTERN</p>
-            <h5 style="font-family:cursive;">Slack:@<?php echo $username;?></h5>
-
-<div id="icons">
-            <a href="https://www.facebook.com/daramola.adebayo">
-                <i class="fa fa-facebook"></i>
-            </a>
-            <a href="https://www.twitter.com/baystizzle">
-                <i class="fa fa-twitter"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/adebayo-daramola-31b852b3">
-                <i class="fa fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/Baystef">
-                <i class="fa fa-github"></i>
-            </a>
-        </div>
-        <p>
-            <button>Contact Me</button>
-        </p>
-    </main>
-=======
 <body class="oj-web-applayout-body">
 
     <div id="pageContent" class="oj-web-applayout-page">
@@ -606,13 +489,8 @@ function getAnswer($input) {
         });
     </script>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

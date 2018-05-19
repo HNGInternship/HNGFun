@@ -259,11 +259,7 @@
       </p>
     </div>
     <div class="row wow fadeInLeft" data-wow-delay=".3s">
-<<<<<<< HEAD
-      <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5"><img class="img-fluid rounded z-depth-2" height="5" src="<?=$my_data['image_filename'] ?>"/></div>
-=======
       <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5"><img class="img-fluid rounded z-depth-2" height="5" src="http://res.cloudinary.com/uyo-obong/image/upload/c_scale,h_576,w_864/v1524810634/legend.jpg" alt="Legendary" /></div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       <div class="col-lg-6 col-xl-7 pl-lg-5 pb-4">
         <div class="row mb-3">
           <div class="col-1 mr-1"><i class="fa fa-book fa-2x cyan-text"></i></div>
@@ -306,11 +302,7 @@
 
                 <!-- CHAT BOT HERE -->
       <div class="chat-header">
-<<<<<<< HEAD
-        <span>Le-Bot Chatbot</span>
-=======
         <span>Le-Bot</span>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       </div>
       <div id="chat-body">
         <div class="bot_chat">
@@ -376,11 +368,7 @@
 
     </footer>
    
-<<<<<<< HEAD
- <?php include 'footer.php'; ?>
-=======
  
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
    
 </body>
 </html>

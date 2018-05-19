@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <?php
 error_reporting(0);
 if (empty($_SESSION)) {
@@ -751,4 +748,3 @@ if (!empty($_POST['bot_query']) or !empty($_POST['bot_train']) or !empty($_POST[
     }
 }
 ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

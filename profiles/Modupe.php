@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
-// require 'db.php';
-=======
 require 'db.php';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 $username = "Modupe";
 
@@ -37,22 +33,10 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
  
     <title>My Portfolio</title>
     <style>
-<<<<<<< HEAD
-        body{
-            margin: 0;
-            padding: 0;  
-        }
-        
-        .mycard{
-            position: absolute;
-            top:50%;
-            left: 70%;
-=======
         .mycard{
             position: absolute;
             top:50%;
             left: 60%;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             transform: translate(-50%, -50%);
             width: 500px;
             height: 430px;
@@ -61,21 +45,13 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 20px 20px rgba(0,0,0,0.2);
-<<<<<<< HEAD
-            /*display: none;*/
-=======
             
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
         }
         .myprofile{
             position: absolute;
             top:45%;
-<<<<<<< HEAD
-            left: 50%;
-=======
             left: 40%;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             transform: translate(-50%, -50%);
             width: 300px;
             height: 410px;
@@ -88,47 +64,9 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
-<<<<<<< HEAD
-        }
-       
-     
-       button{
-           margin-top: 110%;
-           width: 40%;
-           height: 50px;
-           padding: 10px;
-           font-size: 14px;
-           text-align: center;
-           margin-left: 25%;
-           border-radius: 10px;
-           background-color:#008ed6;
-           color:white;
-           box-shadow: 2px 2px 5px #000;
-           -webkit-transition: -webkit-transform ease-out 0.1s, background 0.2s;
-          -moz-transition: -moz-transform ease-out 0.1s, background 0.2s;
-           transition: transform ease-out 0.1s, background 0.2s; 
-        }
-
-        button:active {
-        background: black;
-        opacity: .6;
-        transform: translateY(9px);
-        }
-
-        button:hover{
-            background: rgba(255, 255, 255, 0.05);
-            -webkit-transform: scale(0.93);
-            -moz-transform: scale(0.93);
-            -ms-transform: scale(0.93);
-            transform: scale(0.93);
-            color: #fff;
-        }
-
-=======
             display:block;
         }
   
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         #name{
            left:35%;
            position: absolute;
@@ -136,11 +74,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
 
-<<<<<<< HEAD
-        .about{
-=======
         .aboutMe{
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
            margin-top: 20%;
            margin-left: 100px; 
            text-decoration: underline;
@@ -164,18 +98,10 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
             position: relative;
             list-style: none;
             text-align: center;
-<<<<<<< HEAD
-         
-            cursor: pointer;
-        }
-        
-        .ulListl li .text {
-=======
             cursor: pointer;
         }
         
         .ulList li .text {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             position: absolute;
             width: 0;
             left: 50%;
@@ -202,30 +128,18 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     </style>
 </head>
-<<<<<<< HEAD
-<body>
-=======
 <body onload="typeWriter()">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 <div class="mycard"> 
         
 <h1 id="name"></h1>
-<<<<<<< HEAD
-<h3 class="about">About Me</h3>
-=======
 <h3 class="aboutMe">About Me</h3>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <p class="paragraph">I am a full-stack web developer/designer in the making. MERN(Mongo, Express, React and Node) to be precise.
     Comfortable with HTML5, CSS3, BOOTSTRAP and JavaScript. I've got great communication skills, attention to detail,
     ability to work independently and in mixed teams . 
  </p>
 <div class="container">
-<<<<<<< HEAD
-        <ul>
-=======
         <ul class="ulList">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <li><a href="https://www.facebook.com/dupsy.dby"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                 <div class="text">facebook</div>
             </li>
@@ -245,11 +159,6 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
 </div>
-<<<<<<< HEAD
-
-
-
-=======
 <div class="myprofile" id="pic">
 </div>
 
@@ -264,7 +173,6 @@ function typeWriter() {
     setTimeout(typeWriter, speed);
   }
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 </script>

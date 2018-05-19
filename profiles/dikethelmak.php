@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>HNG FUN</title>
     <!-- Bootstrap core CSS -->
-    <!-- <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"-->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
-    <!-- <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-    Custom styles for this template  -->
+    <!-- Custom styles for this template -->
+    <link href="../css/style2.css" rel="stylesheet">
+    <link href="../css/style1.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/carousel.css" rel="stylesheet">
     <style>
             body{
                 margin: 0;
                 padding: 0;
-                background-color: #fff;
+                background-color: #eeeeee;
             }
 
             .heading{
@@ -43,23 +48,24 @@
             }
 
             .big{
-                font-size: 1.3em;    
+                font-size: 24px;    
             }
 
             .small{
-                font-size: 0.9em;
+                font-size: 16px;
                 
             }
 
             a{
                 text-decoration: none;
+                font-size: 20px;
                 padding: 10px 20px;
                 color: #ffffff;
                 border-radius: 5px;
             }
 
             .links{
-                background-color: #eee;
+                background-color: #ffffff;
                 margin: 120px auto 0 auto;
                 text-align: center;
                 width: 75%;
@@ -72,8 +78,7 @@
             }
 
             .warning{
-                background-color: #ffd54f;                
-                font-size: 1em;
+                background-color: #ffd54f;
             }
 
             .content{
@@ -110,7 +115,7 @@
     </div>
     
     <div class="links">
-        <a href="#" class="info" onclick="sayHi()">Say Hi</a>
+        <a href="#" class="warning" onclick="sayHi()">Say Hi</a>
     </div>
     
 

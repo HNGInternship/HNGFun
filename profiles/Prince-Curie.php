@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-=======
 <!doctype html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <html>
 	<head>
 	<meta charset="utf-8">
@@ -12,11 +8,7 @@
       rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 
-<<<<<<< HEAD
-<style>
-=======
 		<style>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 *{
 box-sizing: border-box !important;
 }		
@@ -31,10 +23,6 @@ color: rgba(0,0,0,1);
 border-radius: 50%;
 display: block;
 margin: auto;
-<<<<<<< HEAD
-width: 100%;
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 main{
 margin: 0 !important;
@@ -97,13 +85,6 @@ width: 30%;
 		<main>
  <?php 
  try { 
-<<<<<<< HEAD
- $pdo = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD); 
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
-$sql = "SELECT * FROM interns_data WHERE username = 'Prince-Curie' LIMIT 1"; 
-$result = $pdo->query($sql);
-foreach ($result as $row) {
-=======
  //$pdo = new PDO('mysql:host=127.0.0.1:3306;dbname=hng_fun;
  //charset=utf8', 'root', ''); 
 // $pdo->setAttribute(PDO::ATTR_ERRMODE, 
@@ -111,7 +92,6 @@ foreach ($result as $row) {
  $sql = "SELECT * FROM interns_data WHERE username = 'Prince-Curie' LIMIT 1"; 
  $result = $pdo->query($sql);
  foreach ($result as $row) {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
  # code...
  $name = $row['name'];
  $username = $row['username'];
@@ -144,9 +124,6 @@ foreach ($result2 as $row) {
 			 			echo $username;
 			 			?>
 			 		</p>
-<<<<<<< HEAD
-					<img class="myimage" src="<?php echo $image_filename; ?>" alt="a picture of chibuike">
-=======
 					<img class="myimage" 
 					src="<?php
 							echo $image_filename;
@@ -155,7 +132,6 @@ foreach ($result2 as $row) {
 					srcset="http://res.cloudinary.com/prince-curie/image/upload/c_scale,q_100,w_200/v1522472475/chibuike_msblqx.jpg 1x,
 					http://res.cloudinary.com/prince-curie/image/upload/v1522472475/chibuike_msblqx.jpg 2x,
 					http://res.cloudinary.com/prince-curie/image/upload/v1522472475/chibuike_msblqx.jpg 3x">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 				</div>
 				<div class="me design" >
 					<p>I am a budding frontend web developer who likes to learn and loves to write codes, always practicing, loves responsive and interactive designs, traveling and meeting with people.</p>

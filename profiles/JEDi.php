@@ -207,11 +207,7 @@ body.fullsingle p {
 
 .skills {
     text-align: right; 
-<<<<<<< HEAD
-    padding-right: 40px; 
-=======
     padding-right: 20px; 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     line-height: 40px; 
     color: white; 
 }
@@ -221,116 +217,6 @@ body.fullsingle p {
 .js {width: 75%; background-color: #f44336; height: 5px;} /* Red */
 .php {width: 30%; background-color: #808080; height: 5px;} /* Dark Grey */
 
-<<<<<<< HEAD
-
-/* ---------- chat-bot ---------- */
-
-    #chat-box {
-      bottom: 0;
-      font-size: 12px;
-      right: 24px;
-      position: fixed;
-      width: 300px;
-
-    }
-
-    #chat-box header {
-      background: #293239;
-      border-radius: 5px 5px 0 0;
-      color: #fff;
-      cursor: pointer;
-      padding: 16px 24px;
-    }
-
-    #chat-box h4, #chat-box h5{
-      line-height: 1.5em;
-      margin: 0;
-
-    }
-    #chat-box h4:before {
-      background: #1a8a34;
-      border-radius: 50%;
-      content: "";
-      display: inline-block;
-      height: 8px;
-      margin: 0 8px 0 0;
-      width: 8px;
-
-    }
-
-    #chat-box h4 {
-      font-size: 12px;
-    }
-
-    #chat-box h5 {
-      font-size: 10px;
-    }
-
-    #chat-box form {
-      padding: 24px;
-    }
-
-    #chat-box input[type="text"] {
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 8px;
-      outline: none;
-      width: 234px;
-    }
-
-    .chat {
-      background: #fff;
-          
-    }
-      .hide{
-      display: none;
-    }
-
-    .chatlogs {
-      height: 252px;
-      padding: 8px 24px;
-      overflow-y: scroll;
-    }
-
-    .chat-message {
-      margin: 16px 0;
-    }
-
-    .bot img {
-      border-radius: 50%;
-      float: left;
-    }
-    .bot .chat-message-content{
-      margin-left: 40px;
-      border-radius:0  10px 10px 10px;
-      background: #e4e4e4;
-      padding: 10px 10px;
-    }
-    .user .chat-message-content{
-      margin-right: 40px;
-      border-radius: 0px 10px 10px 10px;
-      background: #e4e4e4;
-      padding: 10px 10px;
-    }
-    .user img{
-      border-radius: 50%;
-      float: right;
-    }
-    .chat-message-content {
-      /*margin-left: 56px;*/
-    }
-
-    .bot .chat-time {
-      float: right;
-      font-size: 10px;
-    }
-    .user .chat-time {
-      float: right;
-      font-size: 10px;
-    }
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </style>
 
 
@@ -354,11 +240,7 @@ body.fullsingle p {
 				
 				<h1>Elekwa Solomon U.</h1>
 
-<<<<<<< HEAD
-				<span class="tagline">Developer. Accountant. Poet.</span>
-=======
 				<span class="tagline">Developer. Accountant. Nomad.</span>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 			</div>
 
@@ -433,125 +315,5 @@ body.fullsingle p {
 
 </div>
 
-<<<<<<< HEAD
-<div id="chat-box"> 
-    <header class="clearfix" onclick="change()">
-      <h4>Online</h4>
-    </header>
-    <div class="chat hide" id="chat">
-      <div class="chatlogs" id="chatlogs">
-        <div class="chat bot chat-message">
-          <img src="https://res.cloudinary.com/cupidy28/image/upload/v1526227579/Profile.jpg" alt="" width="32" height="32">
-          <div class="chat-message-content clearfix">
-            <p>Hello.</p>
-            <span class="chat-time"> </span>
-          </div> 
-        </div>
-        <div class="chat bot chat-message">
-          <img src="https://res.cloudinary.com/cupidy28/image/upload/v1526227579/Profile.jpg" alt="" width="32" height="32">
-          <div class="chat-message-content clearfix">
-            <p>I'm JEDiBot, here to help you.</p>
-            <span class="chat-time"></span>
-          </div> 
-        </div>
-        <div class="chat bot chat-message">
-          <img src="https://res.cloudinary.com/cupidy28/image/upload/v1526227579/Profile.jpg" alt="" width="32" height="32">
-          <div class="chat-message-content clearfix">
-            <p>You can ask me any question, and I'll do my best to answer. You can also train me to answer specific questions
-            using the format train: question # answer # password.</p>
-            <span class="chat-time"></span>
-          </div> 
-        </div>
-
-        
-         
-        <div id="chat-content"></div>
-        
-      </div> <!-- end chat-history -->
-      <form action="#" method="post" class="form-data">
-        <fieldset>
-          <input type="text" placeholder="Type your message…" name="question" id="question" autofocus>
-          <input type="submit" name="bot-interface" value="SEND"/>
-        </fieldset>
-      </form>
-    </div> <!-- end chat -->
-  </div> <!-- end chat-box -->
-
-
-  <script >
-    
-    
-    function change(){
-      document.getElementById("chat").classList.toggle('hide');
-      
-    }
-     var btn = document.getElementsByClassName('form-data')[0];
-    var question = document.getElementById("question");
-    var chatLog = document.getElementById("chatlogs");
-    var chatContent = document.getElementById("chat-content");
-    var myTime = new Date().toLocaleTimeString(); 
-    document.getElementsByClassName('chat-time')[0].innerHTML = myTime;
-    document.getElementsByClassName('chat-time')[1].innerHTML = myTime;
-    document.getElementsByClassName('chat-time')[2].innerHTML = myTime;
-    btn.addEventListener("submit", chat);
-
-
-    function chat(e){
-        if (window.XMLHttpRequest) { // Mozilla, Safari, IE7+ ...
-           var xhttp = new XMLHttpRequest();
-      } else if (window.ActiveXObject) { // IE 6 and older
-        var  xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-      }
-       
-      xhttp.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-              // console.log(this.response);
-               userChat(question.value, this.response);
-          e.preventDefault();
-              question.value = '';
-            }
-            }
-        xhttp.open('POST', 'profiles/Abigail', true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send('question='+ question.value);
-        e.preventDefault();
-    }
-
-    function userChat(chats, reply){
-      if(question.value !== ''){
-        var chat = `<div class="chat user chat-message">
-          <img src="https://res.cloudinary.com/cupidy28/image/upload/v1526232716/user.jpg" alt="" width="32" height="32">
-          <div class="chat-message-content clearfix">
-            <p>` + chats + `</p>
-            <span class="chat-time">` + new Date().toLocaleTimeString(); + `</span>
-           </div>
-        </div>`;
-      }
-      chatContent.innerHTML += chat;
-         
-        setTimeout(function() {
-          chatContent.innerHTML += reply + `<span class="chat-time">`+ new Date().toLocaleTimeString(); +` </span>
-          </div> 
-        </div>`;
-        document.getElementById('chatlogs').scrollTop = document.getElementById('chatlogs').scrollHeight; 
-      }, 1000);
-    }
-  </script>
-
-  <!-- Bootstrap core JavaScript -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="js/jquery.form.min.js"></script>
-    <script type="text/javascript" src="js/mail.js"></script>
-    <!--script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script-->
-
-    <!-- Custom scripts for this template -->
-    <script src="js/hng.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 </html>

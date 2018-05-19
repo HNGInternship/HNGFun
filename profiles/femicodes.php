@@ -987,10 +987,6 @@
 			padding: 0 1em;
 		} }
 
-		footer{
-			display: none;
-		}
-
 
 </style>
 	</head>

@@ -1,11 +1,12 @@
 
 <?php 
+		require 'db.php';
 
-	$result = $conn->query("Select * from secret_word LIMIT 1");
-	$result = $result->fetch(PDO::FETCH_OBJ);
-	$secret_word = $result->secret_word;
-	$result2 = $conn->query("Select * from interns_data where username = 'lekan.koku'");
-	$user = $result2->fetch(PDO::FETCH_OBJ);
+		$result = $conn->query("Select * from secret_word LIMIT 1");
+		$result = $result->fetch(PDO::FETCH_OBJ);
+		$secret_word = $result->secret_word;
+		$result2 = $conn->query("Select * from interns_data_ where username = 'lekan.koku'");
+        $user = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,18 +22,20 @@
   -o-background-size: cover;
   background-size: cover;
 }
-.lekan-koku {
+div{
 	margin-top: 250px;
 	text-align: center;
 	color: red;
 	font-size: 50px;
+
 }
-..lekan-koku {
+div p{
 	font-family: 'Roboto', sans-serif;
+    
 }
 </style>
 <body>
-    <div class="lekan-koku">
+    <div>
     	<p>Hello Code Reviewer,My name is <?php echo $user->name ?></p><br>
     	<p>My username is <?php echo $user->username ?></p><br>
     	<p>The time <?php echo date("l h:i  d F o");?></p>

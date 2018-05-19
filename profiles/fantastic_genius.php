@@ -307,11 +307,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
     <meta charset="utf-8" />
     <title>Fantastic Genius Profile</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
-<<<<<<< HEAD
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" >
-    
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     
 
     <style>
@@ -322,11 +317,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
             min-height: 600px;
         }
 
-<<<<<<< HEAD
-        .gen-overlay{
-=======
         .overlay{
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             background: rgb(51, 51, 51, 0.59) ;
             background-size: cover;
             min-height: 600px;
@@ -426,10 +417,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
         .skills-item li .fa{
             margin-right: 10px;
-<<<<<<< HEAD
-            color: 	#990000 !important;
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
 
         .social-link{
@@ -443,11 +430,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
             padding: 0 5px;
         }
         .social-link li .fa{
-<<<<<<< HEAD
-            color: #2A32F4 !important;
-=======
             color: #2A32F4;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             font-size: 20px;
         }
 
@@ -474,12 +457,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
             border-radius: 10px 10px 0 0;
             cursor: pointer;
         }
-<<<<<<< HEAD
-        .chatbot-head .fa{
-            color: #000080 !important;
-        }
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         .chat-message{
             background: #ffffff;
             display: none;
@@ -562,11 +539,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 </head>
 <body>
     <div class="main">
-<<<<<<< HEAD
-        <div class="gen-overlay">
-=======
         <div class="overlay">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 order-md-2">

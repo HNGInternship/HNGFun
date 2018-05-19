@@ -1,14 +1,8 @@
 
 
 <?php
-<<<<<<< HEAD
-   // error_reporting(E_ALL);
-  //  ini_set("display_errors", 1);
-//header('Access-Control-Allow-Origin: *'); 
-=======
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 if($_SERVER['REQUEST_METHOD'] === "POST"){
 
 
@@ -65,18 +59,10 @@ catch(PDOException $pe)
 
 try {
     
-<<<<<<< HEAD
-    $sql = "insert into chatbot (question, answer) values (:question, :answer)";
-				$stmt = $conn->prepare($sql);
-				$stmt->bindParam(':question', $question);
-				$stmt->bindParam(':answer', $answer);
-				$stmt->execute();
-=======
     $sql = "INSERT INTO chatbot (id, question, answer)
 VALUES ('', '$question', '$answer')";
     // use exec() because no results are returned
     $conn->exec($sql);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     
     echo "Thank you! i just learnt something new, my master would be proud of me.";
 	
@@ -121,11 +107,7 @@ catch(PDOException $pe)
 
 $check = $_POST['opheuscheck'];
 
-<<<<<<< HEAD
-$stmt = $conn->prepare("SELECT * FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
-=======
 $stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question='$check' ORDER BY rand() LIMIT 1");
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 $stmt->execute();
 if($stmt->rowCount() > 0)
 {
@@ -156,127 +138,6 @@ if($stmt->rowCount() > 0)
 
 //}
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-//function train_bot ($train) {
-
-
-
-//And output will be like this:
-// Array
-// (
-//    [0] => here is a sample
-//    [1] =>  this text
-//    [2] =>  and this will be exploded
-//    [3] =>  this also 
-//    [4] =>  this one too 
-//    [5] => )
-// )
-
-//}
-
-elseif(isset($_POST['timing'])) {
-	
-	$string = $_POST['timing'];
-	$keyworded = 'in';
-	$finder    = strpos($string, $keyworded) + strlen($keyworded);
-	$cityplace = substr($string, $finder);
-	$city = rawurlencode(trim($cityplace));
-	//$map_address = "new york";
-	$url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=$city";
-	$lat_long = get_object_vars(json_decode(file_get_contents($url)));
-	// pick out what we need (lat,lng)
-	//$lat_long = $lat_long['results'][0]->geometry->location->lat . "," . $lat_long['results'][0]->geometry->location->lng;
-	$latitude = $lat_long['results'][0]->geometry->location->lat;
-	$longitude = $lat_long['results'][0]->geometry->location->lng;
-
-	
-	
-	$url2 = 'https://maps.googleapis.com/maps/api/timezone/json?location='.$latitude.','.$longitude.'&timestamp='.time().'&sensor=false';
-	$ch = curl_init();  
-	curl_setopt($ch, CURLOPT_URL, $url2);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
-	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-	$json_string = curl_exec($ch);
-	$parsed_json = json_decode($json_string);
-	$timezoneid = $parsed_json->timeZoneId;
-	
-	date_default_timezone_set("$timezoneid");
-	$datenew = date('h:i:s A d-m-Y') ;
-	
-	echo "The current time and date in $cityplace is $datenew";
-
-}
-
-elseif(isset($_POST['weather'])) {
-	
-	
-	$string = $_POST['weather'];
-	$keyworded = 'in';
-	$finder    = strpos($string, $keyworded) + strlen($keyworded);
-	$cityplace = substr($string, $finder);
-	$city = rawurlencode(trim($cityplace));
- 
-	#Find latitude and longitude
-	 
-	//$map_address = "new york";
-	$url = "http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=$city";
-	$lat_long = get_object_vars(json_decode(file_get_contents($url)));
-	// pick out what we need (lat,lng)
-	//$lat_long = $lat_long['results'][0]->geometry->location->lat . "," . $lat_long['results'][0]->geometry->location->lng;
-	$latitude = $lat_long['results'][0]->geometry->location->lat;
-	$longitude = $lat_long['results'][0]->geometry->location->lng;
-
-
-
-
-	$url2 = "https://www.amdoren.com/api/weather.php?api_key=N5ePG6a2yFTcT4bABY83xuGfSnbd7v&lat=$latitude&lon=$longitude";
-		
-		$ch = curl_init();  
-		curl_setopt($ch, CURLOPT_URL, $url2);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-		$json_string = curl_exec($ch);
-		$parsed_json = json_decode($json_string);
-		$forecasts = $parsed_json->forecast;
-		
-		foreach ($forecasts as $forecast) {
-			$summary = $forecast->summary;
-			$date = $forecast->date;
-			$icon = $forecast->icon;
-			echo "<br><img src='https://www.amdoren.com/media/$icon' title='$summary'></img><br/><strong>$date is going to be $summary  </strong>";
-
-		}
-}
-
-
-
-
-
-
-
-
-
-}
-
-//else {
-
-
-
-
-if($_SERVER['REQUEST_METHOD'] === "GET"){
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 
@@ -341,13 +202,6 @@ if($_SERVER['REQUEST_METHOD'] === "GET"){
 <html>
 <head>
 <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-<<<<<<< HEAD
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <style>
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -382,13 +236,8 @@ a {
   color: black;
 }
 
-
 button:hover, a:hover {
   opacity: 0.7;
-}
-
-#i {
-    color: #28da5f !important;
 }
 </style>
 <style type="text/css">
@@ -461,27 +310,7 @@ button:hover, a:hover {
     margin: 0 5px;
 }
 
-<<<<<<< HEAD
-.opheuscont {
-	  margin: 0 auto;
-	  background-color: white;
-	  border: 0.1px solid #333;
-	  border-radius: 2px;
-	  height: 500px;
-	  margin-top: 15px;
-}
 .portlet .portlet-body {
-	  width: 350px;
-	  margin: 0 auto;
-	  background-color: white;
-	  border: 0.1px solid #333;
-	  border-radius: 2px;
-	  height: 500px;
-	  margin-top: 15px;
-	  overflow: scroll;
-=======
-.portlet .portlet-body {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     padding: 15px;
     background: #fff;
 }
@@ -595,13 +424,7 @@ button:hover, a:hover {
   color: green;
   font-weight: bold;
 }
-<<<<<<< HEAD
-.i {
-	color: #ffffff !important;
-}
-=======
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   
      
     </style>
@@ -634,11 +457,7 @@ button:hover, a:hover {
             <div class="portlet portlet-blue">
                 <div class="portlet-heading">
                     <div class="portlet-title">
-<<<<<<< HEAD
-                        <h4><i class="fa fa-circle text-green"></i>&nbsp;OPHEUS BOT - Customer Service</h4>
-=======
                         <h4><i class="fa fa-circle text-green"></i> Opheus Bot- Customer Service</h4>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     </div><br>
                     <div class="portlet-widgets">
                         <div class="btn-group">
@@ -653,22 +472,14 @@ button:hover, a:hover {
                 </div>
                 <div id="chat" class="panel-collapse collapse in">
                     <div>
-<<<<<<< HEAD
-                    <div class="portlet-body"  id="scrollbody">
-=======
                     <div class="portlet-body chat-widget" style="overflow-y: auto; width: 400px; height: 500px;">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                         <div class="row">
                             <div class="col-lg-12">
                                 <p class="text-center text-muted small"><?php $date = date("Y-m-d h:i:sa"); echo $date;?></p>
                             </div>
                         </div>
                      
-<<<<<<< HEAD
-                       <div id="opheuscont" class="opheuscont">
-=======
                        <div id="opheuscont">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 						
 						</div>
                     </div>
@@ -754,9 +565,6 @@ function get_device_name($user_agent)
 //$sha1     = sha1($date); 
 
 
-<<<<<<< HEAD
-
-=======
 function get_time($city)
 {
 
@@ -804,7 +612,6 @@ $url2 = "https://www.amdoren.com/api/weather.php?api_key=u3YfnHN8xmibFPbxAjRhtWY
 
 	}
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 // Usage:
 
@@ -850,11 +657,7 @@ function send_message(message){
         prevSms = prevSms + '<br>'
         }
       $('#opheuscont').html(prevSms + '<span class="cureent_sms">' + '<span class="bot">opheusbot: </span>' + message + '</span>');
-<<<<<<< HEAD
-	  $('.portlet-body').scrollTop($('.portlet-body').prop('scrollHeight'));
-=======
 	  $('#opheuscont').scrollTop($('#opheuscont').height());
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       $('.cureent_sms').hide();
       $('.cureent_sms').delay(50).fadeIn();
       $('.cureent_sms').removeClass("current_sms");
@@ -875,11 +678,7 @@ function ai(message){
 		  responsiveVoice.speak('Hi, nice to meet you ' + username + '. Would you like to train me? If yes please use the format. train: this is a question | this is an answer.','UK English Male');
         }
 
-<<<<<<< HEAD
-        else if ((message.indexOf('what is the time now') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
-=======
         else if ((message.indexOf('what is the time') >= 0) || (message.indexOf('what is my time') >= 0) || (message.indexOf('what time is it') >= 0)){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         var date = new Date();
         var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
         var am_pm = date.getHours() >= 12 ? "PM" : "AM";
@@ -894,13 +693,6 @@ function ai(message){
           send_message('you are currently in '+ state +','+ country + '.');
           responsiveVoice.speak('you are currently in '+ state +','+ country + '.','UK English Male');
         }
-<<<<<<< HEAD
-		 else if ((message.indexOf('who am i') >= 0)|| (message.indexOf('what am i') >= 0)){
-          send_message('A human from '+ state +','+ country + '&nbsp;currently using a '+ browser +'&nbsp;on a '+ device + '&nbsp;Device with ip address '+ ip +'.' );
-          responsiveVoice.speak('You are human from '+ state +','+ country + 'currently using a '+ browser +'on a '+ device + 'Device with ip address '+ ip +'.','UK English Male');
-        }
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		 else if ((message.indexOf('what browser am i using') >= 0) || (message.indexOf('what device am i using') >= 0) || (message.indexOf('what is my device') >= 0) || (message.indexOf('what is my browser') >= 0)){
 			send_message('you are currently using a&nbsp;'+ browser +'&nbsp;on a '+ device + '&nbsp;Device');
           responsiveVoice.speak('you are currently using a '+ browser +'on a '+ device + 'Device','UK English Male');
@@ -911,22 +703,13 @@ function ai(message){
 		  }
 		  else if ((message.indexOf('aboutbot') >= 0) || (message.indexOf('aboutBot') >= 0) || (message.indexOf('About Bot') >= 0) || (message.indexOf('botAbout') >= 0)){
 			send_message('Opheus-B0t v1.0');
-<<<<<<< HEAD
-          responsiveVoice.speak('i am an opheus bot and i am currently at version 1.0.','UK English Male');
-=======
           responsiveVoice.speak('i am an opheus bot and i am currently version 1.0.');
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		  }
 		else if (message.indexOf('train:') >= 0){
 		trainer = message;
 		$.ajax({
-<<<<<<< HEAD
-			method: "POST",
-			url: 'profiles/opheus.php/',
-=======
 			type: "POST",
 			url: 'profiles/opheus.php',
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			data: {opheustrain: trainer },
 			success: function(data){
 				send_message(data);
@@ -934,43 +717,11 @@ function ai(message){
 				
 			}
 		 });}
-<<<<<<< HEAD
-		else if (message.indexOf('time in') >= 0){
-		citytime = message;
-		$.ajax({
-			method: "POST",
-			url: 'profiles/opheus.php/',
-			data: {timing: citytime },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak(data ,'UK English Male');
-				
-			}
-		 });}
-		else if (message.indexOf('weather in') >= 0){
-		forecast = message;
-		$.ajax({
-			method: "POST",
-			url: 'profiles/opheus.php/',
-			data: {weather: forecast },
-			success: function(data){
-				send_message(data);
-				responsiveVoice.speak('Here are the current weather conditions for five days including today' ,'UK English Male');
-				
-			}
-		 });}
-		else{
-		elses = message;
-		$.ajax({
-			method: "POST",
-			url: 'profiles/opheus.php/',
-=======
 		else{
 		elses = message;
 		$.ajax({
 			type: "POST",
 			url: 'profiles/opheus.php',
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			data: {opheuscheck: elses },
 			success: function(data){
 				send_message(data);
@@ -1009,22 +760,13 @@ $(function() {
         //show the sms to the opheuscont div
         $('#opheuscont').html(prevSms + username + sms);
 
-<<<<<<< HEAD
-        $('.portlet-body').scrollTop($('.portlet-body').prop('scrollHeight'));
-
-=======
         $('#opheuscont').scrollTop($('#opheuscont').prop('scrollHeight'));
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
         ai(sms);
       });
 });
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </script>
  <?php
     try {

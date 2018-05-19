@@ -4,12 +4,8 @@
   // var_dump($_POST);
 
 
-<<<<<<< HEAD
-  if(!isset($_GET['question_sent'])){
-=======
   if(!isset($_POST['question_sent'])){
     include "../db.php";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     $result = $conn->query("Select * from secret_word LIMIT 1");
     $result = $result->fetch(PDO::FETCH_OBJ);
     $secret_word = $result->secret_word;
@@ -17,38 +13,6 @@
     $result2 = $conn->query("Select * from interns_data where username = 'vewere'");
     $user = $result2->fetch(PDO::FETCH_OBJ);
 
-<<<<<<< HEAD
-  }else{
-    if (!defined('DB_USER')){
-      require "../../config.php";
-    }
-    try {
-      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-    } catch (PDOException $pe) {
-      die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-    }
-    if (substr($_GET['question'], 0, 5) == 'train'){
-      
-      $input = preg_replace('/\s*#\s*/', '#', $_GET['question']);
-
-      $indexof1 = strpos($input, '#');
-      $indexof2 = strpos($input, '#', 6);
-      $indexof3 = strpos($input, '#', $indexof2+1);
-
-      $new_question = substr($input, $indexof1+1, $indexof2-$indexof1-1);
-      $new_answer = substr($input, $indexof2+1, $indexof3-$indexof2-1);
-      $password = substr($input, $indexof3+1);
-
-      if ($password == "password"){
-        $sql = "INSERT INTO chatbot (question, answer) VALUES ('$new_question', '$new_answer')";
-        $conn->exec($sql);
-
-        $response = "Training Successful";
-      } else {
-        $response = "Training was not successful. Please use the correct training password.";
-      }
-      
-=======
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -67,21 +31,10 @@
       $conn->exec($sql);
 
       $response = "Training Successful";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       echo $response;
       exit();
     }
     
-<<<<<<< HEAD
-    if (isset($_GET['question'], $_GET['question_sent'])){
-      $question = $_GET['question'];
-      $result3 = $conn->query("Select answer from chatbot where question LIKE '$question' ORDER BY rand() LIMIT 1");
-      $result3 && ($answer = $result3->fetch(PDO::FETCH_OBJ));
-      if (isset($answer) && $answer){
-        $response = $answer->answer;
-      } else {
-        $response = "Well, this is embarrassing. I don't know what to say. You can teach me by entering the question and answer in this format: train#your-question#your-answer#training-password";
-=======
     if (isset($_POST['question'], $_POST['question_sent'])){
       include "../db.php";
       $question = $_POST['question'];
@@ -95,7 +48,6 @@
       } else {
         $index = rand(0, count($answer)-1);
         $response = $answer[$index]->answer;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       }
 
       echo $response;
@@ -115,11 +67,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Victor's Profile</title>
   <link href="https://static.oracle.com/cdn/jet/v4.0.0/default/css/alta/oj-alta-min.css" rel="stylesheet" type="text/css">
-<<<<<<< HEAD
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-=======
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   <link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	
@@ -134,13 +82,10 @@
 			height: 100%;
 		}
 
-<<<<<<< HEAD
-=======
     div .hidden {
       display: none;
     }
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     .text {
       font-family: "Rajdhani", sans-serif;
       color: #ffffff;
@@ -194,17 +139,6 @@
 
 
     /* Chat Styles */
-<<<<<<< HEAD
-    
-    #outer-chat {
-      display: none;
-    }
-
-    #outer-profile {
-
-    }
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     #chat {
       margin-left: auto;
@@ -291,26 +225,12 @@
   </style>
   <script>
     var outer_profile = true;
-<<<<<<< HEAD
-    var version = "Bot v1.0.24";
-=======
     var version = "Bot v1.0.18";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     $(function (){    
       
       // Switch between Profile and Chat screens
       $("#toggle-visibility").click(function (){
         if (outer_profile) {
-<<<<<<< HEAD
-          $("#outer-profile").css('display', 'none');
-          $("#outer-chat").css('display', 'block');
-          $("#toggle-text").html("VIEW PROFILE")
-          outer_profile = false;
-        } else {
-          $("#outer-chat").css('display', 'none');
-          $("#outer-profile").css('display', 'block');
-          $("#toggle-text").html("TEST BOT")
-=======
           $("#outer-profile").attr('class', 'hidden');
           $("#outer-chat").removeAttr('class', 'hidden');
           $("#toggle-text").html("VIEW PROFILE")
@@ -319,43 +239,25 @@
           $("#outer-chat").attr('class', 'hidden');
           $("#outer-profile").removeAttr('class', 'hidden');
           $("#toggle-text").html("TEST MY BOT")
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
           outer_profile = true;
         }
       });
 
       // Add user's request and bot's response to chat interface
       $("#send").click(function() {
-<<<<<<< HEAD
-=======
         // alert("it got here");
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         var input = $("#request").val();        
         if ($.trim(input)) {
           $("#chat-area table").append("<tr><td><div class='user-bubble'><p>"+input+"</p></div></td></tr>");
           
           $("#request").val("");
 
-<<<<<<< HEAD
-          if (input.toLowerCase() == 'aboutbot'){
-=======
           if (input == 'aboutbot'){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             $("#chat-area table").append("<tr><td><div class='bot-bubble'><p>"+version+"</p></div></td></tr>");
           } else {
             formdata = new FormData();
             formdata.append("question", input);
             formdata.append("question_sent", 1);
-<<<<<<< HEAD
-            $.ajax({
-              type: "GET",
-              url: "profiles/vewere.php",
-              data: {question: input, question_sent: 1},
-              success: function(data){
-                console.log(data);
-               $("#chat-area table").append("<tr><td><div class='bot-bubble'><p>"+data+"</p></div></td></tr>");
-              $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
-=======
 
             $.ajax({
               type: "POST",
@@ -368,16 +270,12 @@
                 console.log(data);
                 $("#chat-area table").append("<tr><td><div class='bot-bubble'><p>"+data+"</p></div></td></tr>");
                 $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
               }
             });
           }
-<<<<<<< HEAD
-=======
           
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
         }
         $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
@@ -390,10 +288,7 @@
         } 
       });
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     });
   </script>
 
@@ -438,21 +333,9 @@
           </tr></td>
           <tr><td>
             <div class="bot-bubble">
-<<<<<<< HEAD
-              <p>My name is Bot</p>
-            </div>
-          </tr></td>
-          <tr><td>
-            <div class="bot-bubble">
-              <p>Ask me a question or teach me something new by entering the question and answer in this format: train#your-question#your-answer#training-password</p>
-            </div>
-          </tr></td>
-          
-=======
               <p>My name is Bot :p</p>
             </div>
           </tr></td>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         </table>
       </div>
       <div id="input-area"> 
@@ -471,8 +354,4 @@
   </div>
 
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

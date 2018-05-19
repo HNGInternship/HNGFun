@@ -1,21 +1,11 @@
 <?php
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	try {
 		if (!defined('DB_USER')){
 			require "../../config.php";
 		}
 		try {
-<<<<<<< HEAD
-			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-=======
 			$conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);			} catch (PDOException $pe) {
 			die("Could not connect err: " . DB_DATABASE . ": " . $pe->getMessage());
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			}
 			global $conn;
 	}
@@ -44,13 +34,9 @@
 	    	return false;
     	}
 
-<<<<<<< HEAD
-    	$question = $_POST['text'];
-=======
 		$question = $_POST['text'];
 		$question = trim($question);
 		$question = preg_replace('/\s+/', ' ', $question);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     	// check it is not a train question
     	$tQuest = isTrainQuestion($question);
     	if($tQuest === false || $tQuest == false) {
@@ -61,28 +47,6 @@
 				return;
 			}
     		// query dbase for a similar questions and return a randomly selected single closest response attached to it.
-<<<<<<< HEAD
-			$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
-			$result = $result->fetch(PDO::FETCH_ASSOC);
-			$respond = $result['answer'];
-			// there's a matching result return to user
-    		if($respond !== " ") {
-				$result = $stmt->fetch();		  
-				echo json_encode([
-		        	'status' => 1,
-		       		'answer' => $respond
-	     		]);
-	           return;
-    		}
-    		// if no result for query, then output i don't understand this please train me to know with train format.			
-    		else {
-				echo json_encode([
-        			'status' => 1,
-       				'answer' =>  "I don't understand, Please train me by typing  train: your question # your answer # password"
-				]);
-	            return;
-    		}
-=======
 			try {
 				$stmt = $conn->prepare("SELECT answer FROM chatbot WHERE question LIKE :question ORDER BY rand() LIMIT 1");
 				$term = "%$question%";
@@ -107,7 +71,6 @@
 				}
 			} catch(PDOExcetion $pe) { throw $pe;}
     		// if no result for query, then output i don't understand this please train me to know with train format.			
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     	}
 
@@ -141,27 +104,6 @@
 				return;
 			}
 			
-<<<<<<< HEAD
-    		$sql = "INSERT INTO chat (question, answer) VALUES( :question, :answer);";
-    		$tmt = $conn->prepare($sql);
-    		$tmt->bindParam(':question', $trainQuestion);
-    		$tmt->bindParam(':answer', $trainAnswer);
-    		if($tmt->execute() === true) {
-				//$stmt->setFetchMode(PDO::FETCH_ASSOC);
-				echo json_encode([
-					'status' => 1,
-					'answer' => " I've learnt something new, you can test me now!"
-				]);
-				return;
-			}
-			else {
-				echo json_encode([
-					'status' => 1,
-					'answer' => "couldn't insert into db"
-				]);
-				return;
-			}
-=======
     		try {
 				$sql = "INSERT INTO chatbot (question, answer) VALUES( :question, :answer);";
 				$stmt = $conn->prepare($sql);
@@ -185,7 +127,6 @@
 					return;
 				}
 			} catch (PDOException $pe) { throw $pe; }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     	}
     }
 ?>
@@ -198,13 +139,8 @@
 		body { justify-content: center; }
 		.card {	height: 80vh; width: 300px; border: 1px groove #ccc; border-radius: 3px; }
 		.dp { padding: 2px;	height: 300px;	}
-<<<<<<< HEAD
-		span { font-size: 18px;	}
-		.chart-box{ font-size:20px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
-=======
 		span { font-size: 16px;	}
 		.chart-box{ margin-bottom: 8px; font-size:17px; width: 300px; height: 80vh; border: 2px solid #000; overflow:auto; padding-top: 90px; }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		.chart-input{ position: relative;}
 		.chart-input-box{ position: absolute; bottom: 0px; }
 		.chart-input-box input{ font-size:18px; padding: 10px 0 10px 0; width: 300px; border: 2px solid #000; }
@@ -248,11 +184,7 @@
 	function doChat() {
 		var text = $('#text').val();
 
-<<<<<<< HEAD
-		$('#chat-area').append("<p style='text-align:right; font-size:20px;'>"+text+"</p>");
-=======
 		$('#chat-area').append("<p style='text-align:right; font-size:17px;'>"+text+"</p>");
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		$('#text').val('');
 		//$('#chat-area').append("from db by bot");
 

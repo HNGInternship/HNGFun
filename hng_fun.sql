@@ -1,26 +1,10 @@
-<<<<<<< HEAD
-
--- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Apr 23, 2018 at 04:29 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 /*
 SQLyog Ultimate v9.02 
 MySQL - 5.5.5-10.1.31-MariaDB : Database - hng_fun
 *********************************************************************
 */
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
@@ -33,29 +17,10 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`hng_fun` /*!40100 DEFAULT CHARACTER SET
 
 USE `hng_fun`;
 
-<<<<<<< HEAD
-DROP TABLE IF EXISTS `users`;
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(100) NOT NULL,
-  `lastname` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  
-  
-
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
 /*Table structure for table `chatbot` */
 
 DROP TABLE IF EXISTS `chatbot`;
 
-=======
-/*Table structure for table `chatbot` */
-
-DROP TABLE IF EXISTS `chatbot`;
-
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 CREATE TABLE `chatbot` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
@@ -72,11 +37,6 @@ insert  into `chatbot`(`id`,`question`,`answer`) values (1,'i deserve','some acc
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -144,11 +104,7 @@ INSERT INTO `secret_word` (`id`, `secret_word`) VALUES
 --
 -- AUTO_INCREMENT for table `interns_data`
 --
-<<<<<<< HEAD
-
-=======
  
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ALTER TABLE `interns_data`
 MODIFY `intern_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 
@@ -164,10 +120,6 @@ ALTER TABLE `secret_word`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 -- phpMyAdmin SQL Dump
 -- version 4.7.2
 -- https://www.phpmyadmin.net/

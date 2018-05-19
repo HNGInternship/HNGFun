@@ -29,19 +29,10 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     
   <style type="text/css">
-<<<<<<< HEAD
-    
-    * {
-    margin: 0;
-    padding: 0;
-}
-    
-=======
         * {
     margin: 0;
     padding: 0;
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 body {
     font-family: "Georgia";
@@ -55,11 +46,7 @@ body {
         }
 
          .card {
-<<<<<<< HEAD
-           
-=======
             position: relative;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     margin-top: 20px;
     padding: 30px;
     background-color: rgba(214, 224, 226, 0.2);
@@ -84,17 +71,9 @@ body {
 }
 .card.hovercard .card-background {
     height: 130px;
-<<<<<<< HEAD
-    width: 800%
 }
 .card-background img {
     position: relative;
-    width: 
-=======
-}
-.card-background img {
-    position: relative;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     background: url(); no-repeat center;
     -webkit-filter: blur(25px);
     -moz-filter: blur(25px);
@@ -159,11 +138,7 @@ body {
 
     </style>
 </head>
-<<<<<<< HEAD
-<body>
-=======
 <body class="no-go area">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -215,16 +190,10 @@ $(".btn-pref .btn").click(function () {
                 <div class="hidden-xs">Hobbies</div>
             </button>
         </div>
-<<<<<<< HEAD
-        <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                <div class="hidden-xs">Bot</div>
-=======
         <br>
         <div class="btn-group" role="group">
             <button type="button" id="favorites" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                 <div class="hidden-xs">bot</div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             </button>
         </div>
         <div class="btn-group" role="group">
@@ -240,8 +209,3 @@ $(".btn-pref .btn").click(function () {
     </div>
 
    </div>
-<<<<<<< HEAD
-</body>
-</html>
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

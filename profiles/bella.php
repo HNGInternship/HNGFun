@@ -1,9 +1,6 @@
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
  <!-- <?php
 =======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,10 +87,7 @@
             justify-content: flex-end;
             margin: 0 0 4px;
         }
-<<<<<<< HEAD
-=======
 >>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
         .received-message {
             display: flex;
@@ -165,13 +159,10 @@
     margin-left:27%;
 }
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
 $secret_word = $get['secret_word'];
 ?> -->
 =======
 >>>>>>> 0666a979f477c620f8719af8ba7c8704aef96707
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 .mro{
     margin-right: 10%;

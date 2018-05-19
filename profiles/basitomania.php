@@ -1,9 +1,5 @@
 <?php
-<<<<<<< HEAD
-  /*$result = $conn->query("Select * from secret_word LIMIT 1");
-=======
   $result = $conn->query("Select * from secret_word LIMIT 1");
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   $result = $result->fetch(PDO::FETCH_ASSOC);
   $secret_word = $result['secret_word'];
 
@@ -12,11 +8,7 @@
   
   $username = $user['username'];
   $name = $user['name'];
-<<<<<<< HEAD
-  $image_filename = $user['image_filename'];*/
-=======
   $image_filename = $user['image_filename'];
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ?>   
 
 <!DOCTYPE html>
@@ -28,10 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="css/responsive.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Changa+One|Open+Sans" rel="stylesheet">
-<<<<<<< HEAD
-=======
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         <style>
         /********************
 GENERAL
@@ -215,12 +204,9 @@ a {
         	border-radius: 10px;
     		line-height: 18px;
 		}
-<<<<<<< HEAD
-=======
 .bot-chat .bot-message {
             text-align: right;
         }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .bot-chat{
 			text-align: left;
 		}
@@ -244,15 +230,12 @@ a {
 			color: black;
 			box-shadow: 3px 3px 5px gray;
 		}
-<<<<<<< HEAD
-=======
 .chat-output .bot-message {
             text-align: right;
         }
 .chat-output .bot-message .message {
             background: #eee;
         }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 button{
       border:none;
@@ -324,8 +307,6 @@ input[type=text] {
 				</div>
 			</section>		
 		</div>
-<<<<<<< HEAD
-=======
 <?php
 	try {
 	$sql = 'SELECT * FROM secret_word';
@@ -407,7 +388,6 @@ function getAnswer($input) {
 	}
 }
 ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 		<footer>
 			<p>&copy; 2017 Maniaweb.</p>
@@ -415,11 +395,7 @@ function getAnswer($input) {
 			<script type = text/javascript>
 				var outputArea = $("#user-output");
 
-<<<<<<< HEAD
-				$("input-form").on("submit", function(e) {
-=======
 				$("#input-form").on("submit", function(e) {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 					e.preventDefault();
 
@@ -448,10 +424,6 @@ function getAnswer($input) {
 
 				});
 			</script>
-<<<<<<< HEAD
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		</div>
 	</body>
 </html>

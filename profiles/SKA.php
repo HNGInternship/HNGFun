@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<?php
-
-	// if(!defined('DB_USER')){
-     // require "../../config.php";
-     // try {
-         // $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-     // } catch (PDOException $pe) {
-         // die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-     // }
-   // }
-=======
 <?php
 
 	if(!defined('DB_USER')){
@@ -149,7 +136,6 @@
 		return;
 	}
 		
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	
 	// $sql = "SELECT * FROM secret_word LIMIT 1";
     // $q = $conn->query($sql);
@@ -171,11 +157,7 @@
         $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
         $query_result = $secret_word_query->fetch();
 
-<<<<<<< HEAD
-        $sql_queryname = 'SELECT * FROM interns_data WHERE username="Dan"';
-=======
         $sql_queryname = 'SELECT * FROM interns_data WHERE username="SKA"';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         $query_my_intern_db = $conn->query($sql_queryname);
         $query_my_intern_db->setFetchMode(PDO::FETCH_ASSOC);
         $intern_db_result = $query_my_intern_db->fetch();
@@ -189,36 +171,22 @@
         $username = $intern_db_result['username'];
         $imageUrl = $intern_db_result['image_filename'];
 ?>
-<<<<<<< HEAD
-=======
 <!DOCTYPE html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <html>
     <head>
         <title>STAGE 1</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-        <style type="text/css">
-            html{height: 95%}
-            body { height: 100%; display: flex; flex-flow: column nowrap;   }
-            #header, #footer{ height: 50px; flex:0 0 auto;  display: flex; flex-flow: row nowrap; justify-content: center; }
-            #middle{ width: 300px; height: auto; margin-right: auto; margin-left: auto; }
-=======
         
 		<style type="text/css">
             html{height: 95%}
             body { height: 100%; display: flex; flex-flow: column nowrap;   }
             #header, #footer{ height: 110px; flex:0 0 auto; padding-top: 60px;  display: flex; flex-flow: row nowrap; justify-content: center; }
             #middle{ width: 100%;}
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             #image{ width: 300px; height: 250px; flex:1 1 auto; }
 			.flex{display: flex; flex-flow: row nowrap; justify-content: space-between; width: 100%}
 			.label{width: 40%;}
 			.value{width: 60%;}
-<<<<<<< HEAD
-		</style>
-=======
 			.msgDiv{display: flex; flex-flow: row nowrap; margin-bottom: 2px;}
 			.msgText{float: left; width:350px; margin-right: 10px}
 			.msgTime{float: right; min-width: 100px; max-width: 100px; font-style: italic; text-align: right;}
@@ -306,36 +274,10 @@
 			}
 		
 		</script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     </head>
     <body>
 		<br/>
         <div id="header">
-<<<<<<< HEAD
-            <h3 style="">WELCOME TO HNG INTERNSHIP 4</h3>              
-        </div>
-		<div id="middle">
-			<div id="image"  style="background-image: URL(<? echo $imageUrl; ?>); background-size: cover; background-repeat:   no-repeat;
-                     background-position: center center; -webkit-background-size: cover; -moz-background-size: cover;
-                     -o-background-size: cover;"  >           
-			</div>
-			<br/>
-			<div class="flex">
-				<div class="label">NameNew:</div>
-				<div class="value"><? echo $name; ?></div>
-			</div>
-			<div class="flex">
-				<div class="label">Username:</div>
-				<div class="value"><? echo $username; ?></div>
-			</div>
-			<div class="flex">
-				<div class="label">Root:</div>
-				<div class="value"><? echo $_SERVER["DOCUMENT_ROOT"]; ?></div>
-			</div>
-			<div class="flex">
-				<div class="label">Dir:</div>
-				<div class="value"><? echo __DIR__; ?></div>
-=======
             <h3 style="">HNG INTERNSHIP 4</h3>              
         </div>
 		<div id="middle">
@@ -363,15 +305,11 @@
 
 					</input>
 				</div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			</div>
 		</div>        		
 			
         <div id="footer">
             
-<<<<<<< HEAD
-        </div>        
-=======
 		</div> 
 		<script type="text/javascript">
 			inputFld = document.getElementById("inputFld");
@@ -381,6 +319,5 @@
             " to find the location of the IP Address provided.<br/>Train me using <span style=\"color: blue\">train:question#answer#password</span>";
 			addMsg(welcome, 1);
 		</script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     </body>
 </html>

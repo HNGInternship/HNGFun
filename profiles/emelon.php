@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <?php 
 #########################################################
 #  __                     __          __    _
@@ -78,7 +75,6 @@ $_SERVER['REQUEST_METHOD']
 <html>
 <head>
 	<title>My Site</title>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	<meta name="author" content="Emmanuel-Melon">
 	<link href="https://fonts.googleapis.com/css?family=Orbitron|Ubuntu" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -94,15 +90,6 @@ $_SERVER['REQUEST_METHOD']
 			padding-left: 0.3em;
 			border-radius: 0.2em;
 		}
-<<<<<<< HEAD
-		.emphasized {
-			background: #fff;
-			color: #D13525; /* apple red */
-			width: 170px;
-			padding-left: 0.5em;
-			border-radius: 0.3em;
-		}
-=======
 
 		.container {
 			margin: 1.5em;
@@ -120,53 +107,37 @@ $_SERVER['REQUEST_METHOD']
 			border-radius: 0.3em;
 			font-size: 0.5em;
 		}
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		p, li {
 			font-family: 'Ubuntu', sans-serif;
 		}
 		ul {
 			list-style-type: none;
 		}
-<<<<<<< HEAD
-		ul li {
-=======
 
 		ul li {
 			padding: 0.3em;
 			margin: 0.1em;
 		}
 		ul li:nth-child(even) {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			border-left: solid #4C3F54 0.2em; /* fig */
 			padding-left: 0.5em;
 			color: #4C3F54; /* fig */
 		}
-<<<<<<< HEAD
-=======
 		ul li:nth-child(odd) {
 			border-left: solid #D13525 0.2em; /* apple red */
 			padding-left: 0.5em;
 			color: #4C3F54; /* fig */
 		}
 		/* font-awesome icons */
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		.fas {
 			color: #D13525; /* apple red */
 		}
 		/* general styles */
-<<<<<<< HEAD
-		.card, .social, .para {
-			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-		}
-		.card:hover, .social:hover, .para:hover {
-=======
 		.card, .para {
 			box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 			transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 		}
 		.card:hover, .para:hover {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 		}
 		.card-title {
@@ -175,12 +146,7 @@ $_SERVER['REQUEST_METHOD']
 
 		}
 		.social {
-<<<<<<< HEAD
-			background: #fff; /* white */
-			padding: 2.5em;
-=======
 			padding: 1.5em;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			width: 50%;
 			margin: 0 auto;
 			text-align: center;
@@ -196,15 +162,6 @@ $_SERVER['REQUEST_METHOD']
 		}
 		.header h1 {
 			background: #fff;
-<<<<<<< HEAD
-			color: #4C3F54;
-			padding-left: 0.5em;
-			border-left: solid #4C3F54 0.3em;
-		}
-		.header h3 {
-			color:  #D13525;
-		}
-=======
 			color: #4C3F54; /* fig */
 			padding-left: 0.5em;
 			border-left: solid #4C3F54 0.3em; /* fig */
@@ -276,7 +233,6 @@ $_SERVER['REQUEST_METHOD']
 			color: #fff;
 		}
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	</style>
 </head>
 <body>
@@ -308,13 +264,6 @@ $_SERVER['REQUEST_METHOD']
 
 ?>
 
-<<<<<<< HEAD
-		<div class="row">
-			<div class="col-md-5">
-				<div id="profile">
-					<div class="card" style="width: 18rem;">
-						<img class="card-img-top" src="http://res.cloudinary.com/dwacr3zpp/image/upload/v1525132727/QVmkcjuT_400x400.jpg" alt="Card image cap">
-=======
 <?php 
 //chatbot logic
 //we'll recieve an ajax call from the client containing the message
@@ -326,7 +275,6 @@ $_SERVER['REQUEST_METHOD']
 				<div id="profile">
 					<div class="card" style="width: 18rem;">
 						<img class="card-img-top" src="http://res.cloudinary.com/dwacr3zpp/image/upload/v1525132727/QVmkcjuT_400x400.jpg" alt="Emmanuel-Melonn" class="img-fluid">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 						<div class="card-body">
 							<h5 class="card-title"><?php echo "$name"; ?></h5>
 							<ul class="list-group list-group-flush">
@@ -338,60 +286,6 @@ $_SERVER['REQUEST_METHOD']
 					</div>
 				</div>
 			</div>
-<<<<<<< HEAD
-			<div class="col-md-7">
-				<div class="header">
-					<h1>Hi, my name is <?php echo "$username"; ?></h1> <hr>
-				</div>
-				<p class="emphasized"><strong>&amp; I love to code...</strong></p>
-
-				<h3 class="emphasized">I do...</h3> <hr>
-				<ul class="list-group list-group-flush">
-					<li>Web application development,</li>
-					<li>HTML5 games,</li>
-					<li>Software design and architecture,</li>
-					<li>API design,</li>
-					<li>&amp; I also build mobile apps</li>
-				</ul> <hr>
-
-				<h3 class="emphasized">Find me...</h3>
-				<div class="social">
-					<p>
-						<a href="https://www.facebook.com/profile.php?id=100000674982505" target="_blank"><i class="fab fa-facebook-f fa-3x" ></i></a>
-						<a href="https://twitter.com/JunubiMan" target="_blank"><i class="fab fa-twitter fa-3x"></i></a>
-						<a href="https://github.com/Emmanuel-Melon/" target="_blank"><i class="fab fa-github fa-3x"></i></a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-</body>
-</html>
-
-<!-- 
-Color Scheme 
-
-
-BOLD AND CULTURED
-
-#4C3F54 FIG
-#D13525 APPLE RED
-#F2C057 SWISS CHEESE
-#486824 BASIL
-
-POLISH AND INVITING 
-
-#EAE2D6 LINEN
-#D5C3AA OYSTER 
-#867666 PEWER
-#E1B80D LEMON TEA
-
-
--->
-=======
 			<div class="col-md-8">
 				<div class="header">
 					<h1>Hi, my name is <?php echo "$username"; ?></h1> <hr>
@@ -567,4 +461,3 @@ $(function() {
 	</script>
 </body>
 </html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

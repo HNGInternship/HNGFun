@@ -38,11 +38,7 @@ CREATE TABLE `interns_data` (
 --
 
 INSERT INTO `interns_data` (`intern_id`, `name`, `username`, `image_filename`) VALUES
-<<<<<<< HEAD
-(15, 'Balogun Ridwan', 'ridbay', 'http://res.cloudinary.com/ridbay/image/upload/v1523716115/profile.jpg');
-=======
 (15, 'Balogun Ridwan', 'ridbay', 'https://res.cloudinary.com/kasboi16/image/upload/v1525037362/C360_2015-12-13-12-02-10-241.jpg');
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 -- --------------------------------------------------------
 
@@ -101,11 +97,6 @@ INSERT INTO `interns_data`(`name`, `username`, `image_filename`) VALUES
 ('ikpe mercy michael',	'mercyikpe',	'IMG-20180322-WA0010.jpg'),
 ('Mbah Clinton', 'mclint_', 'mclint_.jpg'),
 ('John Olubori David', 'olubori', 'http://res.cloudinary.com/naera/image/upload/v1518079662/d4wgdlou4n4mnc1meumf.jpg'),
-<<<<<<< HEAD
-('Sampson Joshua Monday', 'jozy', 'jozy.png'),
-('John Odey', 'john', 'http://res.cloudinary.com/digitalstead/image/upload/v1523614823/john.jpg');
-=======
 ('Sampson Joshua Monday', 'jozy', 'jozy.png');
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 

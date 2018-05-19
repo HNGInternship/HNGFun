@@ -1,14 +1,10 @@
 <?php
-<<<<<<< HEAD
-  //require '../db.php';
-=======
 //error_reporting(E_ALL);
   //require '../db.php';
 //header('Content-Type: text/plain; charset=UTF-8;');
   if(!defined('DB_USER')){
     require "../../config.php";
   }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   $res = $conn->query("SELECT * FROM  interns_data WHERE username = 'Damilola' ");
   $row = $res->fetch(PDO::FETCH_BOTH);
   $name = $row['name'];
@@ -20,8 +16,6 @@
   $res1 = $conn->query("SELECT * FROM secret_word");
   $res2 = $res1->fetch(PDO::FETCH_ASSOC);
   $secret_word = $res2['secret_word'];
-<<<<<<< HEAD
-=======
 
 
 
@@ -87,7 +81,6 @@ function fetchans($msg){
         echo $ans2;
         exit();
     }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ?>
 
 
@@ -98,11 +91,8 @@ function fetchans($msg){
 <title>Stage 1</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel">
-<<<<<<< HEAD
-=======
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
    
 
     
@@ -124,10 +114,6 @@ function fetchans($msg){
   #cover{
     width: 100%;
     /*background: rgba(0,0,0,.95);*/
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     height: 100vh;
     text-align: center;
   }
@@ -139,13 +125,8 @@ function fetchans($msg){
     width: 100%;
     text-align: center;
     position:;
-<<<<<<< HEAD
-    padding-top: 80px;
-
-=======
     padding: 0;
     min-height: 100vh;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     
   }
 
@@ -155,12 +136,6 @@ function fetchans($msg){
 
   #box img{
     width: 200px;
-<<<<<<< HEAD
-    /*transform: rotate(360deg);*/
-  }
-
-    
-=======
     border-radius: 5px;
     /*transform: rotate(360deg);*/
   }
@@ -284,13 +259,10 @@ h4{
 h5{
   font-size: 20px;
 }    
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 
 
 </style>
-<<<<<<< HEAD
-=======
 
 
 <!--script language="javascript">
@@ -299,31 +271,10 @@ h5{
             document.getElementById('cbox').innerHTML +="<div class='output'>" + data + "</div>" + "<br/>";
         }
     </script-->
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </head>
 
 <body>
 
-<<<<<<< HEAD
-    <div id="cover">
-      <div id="box">
-       <img src="http://res.cloudinary.com/damilola/image/upload/v1524350063/me.jpg" alt="Damilola" class="img-rounded">
-
-        <p><?php echo $name; ?></p>
-        <h4>Because i'm Batman (In Batman's voice)</h4>
-        <h5>Username: @<?php echo $username; ?></h5>
-        <h5>Phone: 08023975087</h5> 
-        <h5>Email: dhamie.soyemi@gmail.com</h5> 
-        <h5>Skills: Css,Bootstrap, Javascript, PHP</h5>
-        
-
-     </div>
-    </div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-<script type="text/javascript">
-=======
 
     <div id="cover">
       <div id="box">
@@ -379,7 +330,6 @@ h5{
 
 
 <!--script type="text/javascript">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   $(function() {
     $('#box')
   .css('opacity', 0)
@@ -389,12 +339,6 @@ h5{
     { queue: false, duration: 1500 }
   );
 });
-<<<<<<< HEAD
-</script>
-
-</body>
-</html>
-=======
 </script-->
 
 
@@ -449,4 +393,3 @@ h5{
 
 </body>
 </html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

@@ -393,7 +393,7 @@ footer .copyright {
   text-align: center;
 }
 
-/*.btn {
+.btn {
   font-size: 14px;
   font-weight: 800;
   padding: 15px 25px;
@@ -401,17 +401,17 @@ footer .copyright {
   text-transform: uppercase;
   border-radius: 0;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}*/
+}
 
 .btn-primary {
-  background-color: #2196F3;
-  border-color: #2196F3;
+  background-color: #0085A1;
+  border-color: #0085A1;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   color: #fff;
-  background-color: #0475CE !important;
-  border-color: #0475CE !important;
+  background-color: #00657b !important;
+  border-color: #00657b !important;
 }
 
 .btn-lg {

@@ -22,9 +22,6 @@
     }
 
 <<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     if (strpos($question, 'location') !== false){
       if (isset($_POST['lat'])) {
         $lat=$_POST['lat'];
@@ -60,11 +57,7 @@
 
       $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
       $json = @file_get_contents($url);
-<<<<<<< HEAD
-
 =======
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     // return user location (this is set on page load/reload)
     // if (strpos($question, 'location') !== false){
     //   $lat=$_POST['lat'];
@@ -91,10 +84,7 @@
 
     //   $url = 'https://api.darksky.net/forecast/d7ed37fea08e4f43c8e50182ba936c59/'.$lat.','.$long.'?units=si';
     //   $json = @file_get_contents($url);
-<<<<<<< HEAD
-=======
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       
     //   if ($json != false) {
     //     $data = json_decode($json);
@@ -180,10 +170,6 @@
       return;
     }
 
-<<<<<<< HEAD
-    }
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   }
 ?>
 
@@ -215,10 +201,6 @@
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300i,400,700" rel="stylesheet">
   <script type="text/javascript" src="https://use.fontawesome.com/8ad6e47973.js"></script>
 <<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   <script type="text/javascript">
     var options = {
       enableHighAccuracy: true,
@@ -239,20 +221,12 @@
     navigator.geolocation.getCurrentPosition(success, error, options);
 
   </script>
-<<<<<<< HEAD
-
 =======
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!--   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script> -->
-<<<<<<< HEAD
-
-=======
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   <style type="text/css">
 
     body {
@@ -295,11 +269,7 @@
 
     }
 
-<<<<<<< HEAD
-    .main img {
-=======
     img {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       width: 450px;
       max-height: 450px;
       float: left;
@@ -310,11 +280,7 @@
       list-style: none;
     }
 
-<<<<<<< HEAD
-    .main a {
-=======
     a {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       color: #fff !important;
     }
 
@@ -379,11 +345,7 @@
       border: 5px solid rgba(0, 200, 240, 0.7);
       border-bottom: none;
       height: 0px;
-<<<<<<< HEAD
-      max-height: 400px;
-=======
       max-height: 600px;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       width: 100%;
       box-sizing: border-box !important;
       transition: height 1s;
@@ -421,13 +383,6 @@
     #text_input {
       vertical-align: baseline;
       padding: 0;
-<<<<<<< HEAD
-      background: #fff;
-      border-left: 5px solid rgba(0, 200, 240, 0.7);
-      border-bottom: 5px solid rgba(0, 200, 240, 0.7);
-      border-right: none;
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
 
     #chat_area::-webkit-scrollbar {
@@ -550,13 +505,10 @@
   </body>
 <<<<<<< HEAD
 =======
-<<<<<<< HEAD
-=======
 
 
 
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
   <script type="text/javascript">
     var newQuestion = "";
@@ -577,9 +529,6 @@
       if (textArea.value != "") {
         parent.insertAdjacentHTML('beforeend',msg);
 <<<<<<< HEAD
-          $message = {question: textArea.value};
-=======
-<<<<<<< HEAD
         if (typeof $lat !== 'undefined'){
           $message = {question: textArea.value, lat: $lat, lon: $lon};
         }
@@ -589,7 +538,6 @@
 =======
         $message = {question: textArea.value};
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         textArea.value = ("");
         parent.scrollTop = parent.scrollHeight;
         spinner.style.display = 'block';
@@ -605,13 +553,6 @@
             },
             error: function(){
 <<<<<<< HEAD
-              spinner.style.display = 'none';
-              alert("Unable to retrieve answer. Please try again");
-            }
-          });
-        },1000);
-=======
-<<<<<<< HEAD
               alert("Unable to retrieve answer!");
 =======
               spinner.style.display = 'none';
@@ -620,7 +561,6 @@
             }
           });
         },1000)
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       }
     }
 
@@ -639,21 +579,13 @@
         window.setTimeout(function(){
           button.style.display = 'none';
           textArea.style.display = 'none';
-<<<<<<< HEAD
-        },700);
-=======
         },700)
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       }
     }
 
     function openChatBox(){
       if (chatBoxState == 'close') {
-<<<<<<< HEAD
-        parent.style.height = '400px';
-=======
         parent.style.height = '600px';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         textArea.style.height = '55px';
         button.style.height = '55px';
         button.style.display = 'block';
@@ -669,11 +601,7 @@
 
     button.addEventListener("click", function(){
       askQuestion();
-<<<<<<< HEAD
-    });
-=======
     })
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     textArea.addEventListener("keydown", function(event){
       if (textArea.value == "") {
@@ -685,25 +613,6 @@
         break;
       }
       
-<<<<<<< HEAD
-    });
-
-    min.addEventListener('click', function(){
-      closeChatBox();
-    });
-
-    max.addEventListener('click', function(){
-      openChatBox();
-    });
-
-    window.setTimeout(function(){
-      openChatBox();
-    },1000);
-
-
-  </script>
-<?php } ?>
-=======
     })
 
     min.addEventListener('click', function(){
@@ -725,4 +634,3 @@
 =======
 <?php } ?>
 >>>>>>> 6b14b11843aade32f1a22dd411259d2b04d4fc3d
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

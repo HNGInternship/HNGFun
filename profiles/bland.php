@@ -2,18 +2,10 @@
 
         $secret = $conn->query("SELECT * FROM secret_word   LIMIT 1");
         $secret->execute();
-<<<<<<< HEAD
-        $secret_arr = $secret->fetch(PDO::FETCH_ASSOC);
-        $secret_word = $secret_arr['secret_word']; 
-
-        $intern = $conn->query("SELECT * FROM interns_data WHERE username='bland' LIMIT 1");
-        $intern->execute();
-=======
         $intern = $conn->query("SELECT * FROM interns_data WHERE username='bland' LIMIT 1");
         $intern->execute();
 
         $secret_word = $secret->fetch(PDO::FETCH_ASSOC);          
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         $interns_data = $intern->fetch(PDO::FETCH_ASSOC);
         
         $name = $interns_data['name'];

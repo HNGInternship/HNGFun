@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-
-<?php
-
-
-
-
-$query = $conn->query("SELECT * FROM secret_word");
-$result = $query->fetch(PDO::FETCH_ASSOC);
-$secret_word = $result['secret_word'];
-
-
-
-
-?>
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-
-=======
 <?php
 	$query = $conn->query("SELECT * FROM secret_word");
 	$result = $query->fetch(PDO::FETCH_ASSOC);
@@ -31,7 +6,6 @@ $secret_word = $result['secret_word'];
 <!DOCTYPE html>
 <html>
 <head>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,11 +13,6 @@ $secret_word = $result['secret_word'];
 	<title>Portfolio | Tobi Ayanwola</title>
 	<style type="text/css">
 	 @import url('https://fonts.googleapis.com/css?family=Tangerine:bold,bolditalic|Inconsolata:italic|Droid+Sans');
-<<<<<<< HEAD
-	
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 	#name-div::after{
 		 content: "";
@@ -64,26 +33,11 @@ $secret_word = $result['secret_word'];
     -webkit-background-size: cover;
     background-size: cover;
     position: fixed;
-<<<<<<< HEAD
-		height: 100%;
-				width: 100%;
-				background-image : url(http://res.cloudinary.com/tobividz/image/upload/v1525350131/pexels-photo-273222.jpg);
-				
-	}
-
-
-
-
-
-
-
-=======
 	height: 100%;
 	width: 100%;
 	background-image : url(http://res.cloudinary.com/tobividz/image/upload/v1525350131/pexels-photo-273222.jpg);				
 	}
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			#name-div{
 				
 
@@ -130,20 +84,6 @@ $secret_word = $result['secret_word'];
 			background-color: white;
 			align-items: center;
 			margin-left: -20px;
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		}
 		#about-me p{
 			margin: 30px 22px 20px 22px;
@@ -219,54 +159,6 @@ $secret_word = $result['secret_word'];
 	$name = $my_data['name'];
 	$src = $my_data[ 'image_filename' ];
 	$username =$my_data['username'];
-<<<<<<< HEAD
-	
-
-?>
-	<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
-  
-    <div id="name-div">
-    <h1><?php echo $name;?></h1>
-    <h2 >Software Engineer</h2>
-	
-	
-  </div>
-</div>
-<div id="abt-me-div" align="center">
-<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
- <div class="oj-sm-flex-1 oj-xl-web-padding-top oj-sm-web-padding-bottom oj-md-down-web-padding-start oj-lg-padding-2x-start oj-sm-web-padding-end oj-xl-6 oj-flex-item ">
-       <div id="pic" ><img onload="this.width/=(2.5);this.onload=null;" src= "<?php echo $src;?>"alt="<?php echo $name;?>"></div>
-    
-    </div>
-    <div class="oj-sm-flex-2  oj-xl-web-padding-bottom  oj-md-down-web-padding-start oj-lg-down-web-padding-end oj-xl-padding-2x-end oj-xl-6 oj-flex-item">
-      <div id="about-div">
-
-  <div id="about-me">
-    <div id="social-media">
-        <ul>
-       <div> <li><a href="https://github.com/tobividz"><i class="fa fa-github"></i></a></li> </div>
-		<li> &nbsp&nbsp&nbsp&nbsp</li>
-       <div> <li><a href="https://twitter.com/hnginternship"><i class="fa fa-twitter"></i></a></li> </div>
-
-                </ul>
-      </div>
-    <p>Newbie programmer,student and eager learner. Seeking projects to collaboraytye, please feel free to contact me.</p>
-    <div id="contact" align="center"><a href="mailto:tobividz150@gmail.com">CONTACT</a></div>
-
-      
-
-                          
-  </div>
- 
-</div>
-</div>
-    </div>
-    
-
-</div>
-</body>
-</html>
-=======
 	?>
 	<div class="ot oj-flex oj-flex-item oj-sm-only-flex-direction-column oj-md-only-flex-direction-column">
 		<div id="name-div">
@@ -302,4 +194,3 @@ $secret_word = $result['secret_word'];
 		</div>
 	</body>
 </html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

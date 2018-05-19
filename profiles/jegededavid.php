@@ -31,11 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     ];
     if (strpos($message, 'aboutbot') !== false) {
         $intent = 'aboutbot';
-<<<<<<< HEAD
-        $response = 'jegededavid' . $version;
-=======
         $response = 'david' . $version;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     }
     //check for a function call
     if (($startIndex = strpos($message, '((')) !== false && ($endIndex = strpos($message, '))')) !== false) {
@@ -303,11 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             .avatar {
                 width: 8em;
-<<<<<<< HEAD
-                border: 1px solid #333;
-=======
                 border: 1px solid #800080;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 border-radius: 50%;
             }
             .chat-trigger {
@@ -335,22 +327,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <p><em>Web Developer</em></p>
                 </div>        
                 <div class="contact">
-<<<<<<< HEAD
-                    <a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook"></i></a>
-=======
                     <a href="https://www.facebook.com/jegededavid" target="_blank"><i class="fa fa-facebook"></i></a>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     <a href="https://twitter.com/" target="_blank"><i class="fa fa-twitter"></i></a>
                     <a href="https://github.com/" target="_blank"><i class="fa fa-github"></i></a>        
                 </div>
             </div>
             <div class="chat-window" id="chat-window">
                 <div class="chats" id="chats">
-<<<<<<< HEAD
-                    <p class="chat received">Hello, I am david's Bot</p>
-=======
                     <p class="chat received">hello, i am david's Bot</p>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                 </div>
                 <input type="text" id="chat-input" placeholder="Type and hit enter to send a message"/>
             </div>
@@ -408,8 +392,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -417,4 +399,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-﻿<!DOCTYPE html>
-=======
 ﻿<?php
 
 try {
@@ -85,14 +82,10 @@ function getAnswer($input) {
 ?>
 
 <!DOCTYPE html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <html>
   <head>
     <meta charset="utf-8">
     <title>Profile page</title>
-<<<<<<< HEAD
-    <style media="screen">
-=======
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -292,7 +285,6 @@ input:focus{
 :-moz-placeholder { /* Firefox 18- */
     color: #d4d4d4;
 }  
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     body{
   background-image: url("https://res.cloudinary.com/gyrationtechs/image/upload/v1526053526/bg.jpg");
   
@@ -408,10 +400,6 @@ font-family: verdana;
 color: #fff;
 left: 30%; 
 right: 30%;
-<<<<<<< HEAD
-
-}
-=======
 }
 /*legend*/
 
@@ -508,7 +496,6 @@ right: 30%;
     }
 
 /**/
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </style>
   </head>
   <body>
@@ -524,32 +511,6 @@ right: 30%;
           <a href="https://www.linkedin.com/in/david-ozokoye"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526051162/link.jpg" ></a>
           <a href="https://www.github.com/gyrationtechs"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526052030/git.png"></a>
  </div>
-<<<<<<< HEAD
-      </div>
-<?php
-
-$result = $conn->query("Select * from secret_word LIMIT 1");
-  $result = $result->fetch(PDO::FETCH_OBJ);
-  $secret_word = $result->secret_word;
-
-  $result2 = $conn->query("Select * from interns_data where username = 'david'");
-  $user = $result2->fetch(PDO::FETCH_OBJ);
-
-  try {
-      $sql = "SELECT secret_word FROM secret_word";
-      $q = $conn->query($sql);
-      $q->setFetchMode(PDO::FETCH_ASSOC);
-      $data = $q->fetch();
-      $secret_word = $data['secret_word'];
-  } catch (PDOException $e) {
-      throw $e;
-  }
-
-?>
-
-</body>
-</html>
-=======
  <div class="chatbot-container">
 <!-- CHAT BOT HERE -->
 <div class="chat-header">
@@ -631,4 +592,3 @@ $result = $conn->query("Select * from secret_word LIMIT 1");
         throw $e;
     }
     ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

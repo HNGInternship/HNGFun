@@ -20,14 +20,6 @@
         $name = $intern_db_result['name'];
         $username = $intern_db_result['username'];
         $image_addr = $intern_db_result['image_filename'];
-<<<<<<< HEAD
-?>
-<html>
-<style>
-.card {
-  margin-top: 50px;
-    text-align: center;
-=======
 
 
           function checkDatabase($question){
@@ -131,14 +123,11 @@
     content: "";
     display: table;
     clear: both;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 .title {
     color: grey;
     font-size: 18px;
 }
-<<<<<<< HEAD
-=======
 .customchat {
     width: auto;
     max-width: 60%;
@@ -168,7 +157,6 @@
       border-radius: 10px;
       font-size: 18px;
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 button {
     border: none;
     outline: 0;
@@ -194,22 +182,6 @@ button:hover, a:hover {
   <title>My Profile</title>
  </head>
 <body>
-<<<<<<< HEAD
- <div class="card">
-  <?php
-  echo "<h1>" .$name. "</h1>";
-  ?>
-  <div class="title">Web and Mobile Developer</div>
-  <div>Hotels.ng Internship</div>
-  <div align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></div>
-  <?php
-  echo "<div> Username :" .$username. "<div>";
-  ?>
-  <div>Slack: @Dan</div>
-  <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
-  <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
-</div>
-=======
   <div id="mypage" class="row">
     <div class="column left">
       <div>
@@ -303,6 +275,5 @@ button:hover, a:hover {
 
     
   </script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </body>
 </html>

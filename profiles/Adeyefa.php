@@ -18,11 +18,7 @@ if(!defined('DB_USER')){
 
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-<<<<<<< HEAD
-	    include "../answers.php";
-=======
 		include '../answers.php';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	    
 	    try{
 
@@ -124,14 +120,6 @@ if(!defined('DB_USER')){
 
 		        $stat->setFetchMode(PDO::FETCH_ASSOC);
 		        $rows = $stat->fetchAll();
-<<<<<<< HEAD
-		        if(count($rows)>0){
-			        $index = rand(0, count($rows)-1);
-			        $row = $rows[$index];
-			        $answer = $row['answer'];
-			        // check if answer is a function.
-			        $index_of_parentheses = stripos($answer, "((");
-=======
 		        if(empty($rows)){
 		        	echo json_encode([
 			    		'status' => 0,
@@ -143,7 +131,6 @@ if(!defined('DB_USER')){
 			    	$answer = $rows[$rand]['answer'];
 
 			    	$index_of_parentheses = stripos($answer, "((");
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			        if($index_of_parentheses === false){// if answer is not to call a function
 			        	echo json_encode([
 				        	'status' => 1,
@@ -175,20 +162,8 @@ if(!defined('DB_USER')){
 				            }
 				            return;
 			            }
-<<<<<<< HEAD
-			        }    
-			    }else{
-
-			    	echo json_encode([
-			    		'status' => 0,
-			    		'answer' => "I am sorry, I cannot answer your question now. You could offer to train me."
-			    	]);
-			    	return;
-			    }
-=======
 			        }
 			    }       
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		    }
 		}catch (Exception $e){
 			return $e->message ;

@@ -170,11 +170,7 @@ echo json_encode([
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-<<<<<<< HEAD
-    .img{   
-=======
     img{   
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
      width:250px;
     height:250px
     }
@@ -338,11 +334,7 @@ echo json_encode([
         <div id='credentials'><h2>Name:<?php echo $name ?> </h2>
      <h2>Username: <?php echo $user?> </h2>
        </div>
-<<<<<<< HEAD
-      <div><img class="img" src="
-=======
       <div><img src="
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 https://res.cloudinary.com/dyngnvcre/image/upload/v1524083992/king.jpg" alt="king.jpg"></div>
  
        

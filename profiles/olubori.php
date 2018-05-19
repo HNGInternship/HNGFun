@@ -1,9 +1,5 @@
 <?php 
    if(isset($_GET['answer'])){
-<<<<<<< HEAD
-		require_once '../db.php';
-
-=======
 
 		require_once '../../config.php';
     
@@ -15,7 +11,6 @@
 		
 		
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		$question = safeInput($_GET['question']);
 		$answer = safeInput($_GET['answer']);
 
@@ -40,13 +35,8 @@
 		    throw $e;
 		}
         return;
-<<<<<<< HEAD
-	}else if(isset($_GET['question'])){
-
-=======
 
 	}else if($_GET['question']){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	   require_once '../../config.php';
 
 	   	$question = safeInput($_GET['question']);
@@ -57,11 +47,7 @@
 		}
 		$result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$question}%' ORDER BY rand() LIMIT 1");
 		$result = $result->fetch(PDO::FETCH_OBJ);
-<<<<<<< HEAD
-        $answer = $result->answer;
-=======
         $answer = $result->answer;//bot_answer($_GET['question']);
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		if($answer === false){
 		  $data = ['answer'=>null];
 		}else
@@ -103,10 +89,6 @@
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: space-between;
-<<<<<<< HEAD
-			align-items: center;
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 		  }
 		  #main > div {
 		  	/*border: 1px solid red;*/
@@ -118,10 +100,7 @@
 		  	position: relative;
 		  	background: url('../img/banner-image-1.png');
 		  	background-repeat: no-repeat;
-<<<<<<< HEAD
-=======
 	        background-attachment: fixed;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	        background-position: center;
 	        background-size: cover;
 		  }
@@ -211,11 +190,7 @@
 	      #profile-box a {
 	      	color: #0085A1;
 	      }
-<<<<<<< HEAD
-	      #img-container img {
-=======
 	      #profile-box img {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	      	border-radius: 2rem;
 	      }
 		  @media only screen and (min-width: 993px) {
@@ -231,34 +206,6 @@
 		  }
 		</style>
 
-<<<<<<< HEAD
-<section id="app" class="mt-4 d-flex flex-column align-items-center">
-	<!--<div id="menu">
-		<a href="#">Profile</a>
-		<a href="#">Chat Bot</a>
-	</div>-->
-     <span  id="img-container" class="col-md-5 col-sm-8 col-xs-10">
-     		<img src="https://res.cloudinary.com/naera/image/upload/v1525932431/Photo_on_1-26-18_at_2.57_PM_2_xpnojm.jpg" class="img-fluid">
-  	</span>
-  	<h2 class="mt-4"><?= $user->name ?></h2>
-  	<ul class="row justify-content-between col-md-5 col-sm-6 col-xs-9">
-  		<li>
-  			I KNOW GOD
-  		</li>
-
-  		<li>
-  			I LOVE HUMANITY
-  		</li>
-
-  		<li>
-  			I INSTRUCT COMPUTERS
-  		</li>
-  	</ul>
-  	<p class="mt-0 text-primary"><strong>Laravel and VueJS fanatic</strong></p>
-  <div id="main" class="container row flex-wrap">
-
-  	<div id="profile-box" class="px-4 col-md-6">
-=======
 <section id="app" class="mt-4">
 	<div id="menu">
 		<a href="#">Profile</a>
@@ -272,7 +219,6 @@
   	</span>
   		<h3 class="mt-4"><?= $user->name ?></h3>
   		<p class="mt-0 text-primary"><strong>Laravel and VueJS fanatic</strong></p>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		<h4 style="align-self: flex-start;" class="mt-3">Links to some of my works</h4>
     <div class="w-100">
   		<ol>
@@ -300,31 +246,20 @@
   		</ol>
   	</div>
   	</div>
-<<<<<<< HEAD
-  	<div id="chat-box" class="col-md-5">
-=======
   	<div id="chat-box" >
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		<header>
   			<h4 class="text-center text-success">BORI BOT</h4>
   		</header>
   		<main ref="chat-msgs" id="chat-msgs">
   			<p v-for="msg in messages" :class="msg.human ? 'human-msg': 'bot-msg'" v-html="msg.text"></p>
-<<<<<<< HEAD
-=======
 
   			<div class="mx-auto bg-info w-50 text-white rounded" v-show="zoneList == null" v-html="info"></div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   		</main>
   		<ul class="suggestion" v-show="suggestedCommands" ref="list">
   			<p class="my-0">Available commands <small>Click on any to choose</small></p>
   			<command-item v-for="(command, index) in suggestedCommands" :command="command" :key="command.key" :on-item-click="handleCommandClick"></command-item>
   		</ul>
-<<<<<<< HEAD
-  		<input type="text" v-model="humanMessage" class="border" placeholder="Type / followed by command you want to give e.g. /train" id="human-text" @keyup.enter="handleSubmit" />
-=======
   		<input type="text" v-model="humanMessage" :disabled="zoneList == null" placeholder="Type # followed by command you want to give e.g. #train" id="human-text" @keyup.enter="handleSubmit" />
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   	</div>
   </div>
   
@@ -336,14 +271,6 @@
 	  el: '#app',
 	  data: {
 	    commands: [
-<<<<<<< HEAD
-	               {key: 'train', description: 'You can train me with this', format: '[question] [answer] [password]'}, 
-	               {key: 'currenttime', description: 'I will get the current time in any location in this world', format: '[location]'},
-	               {key: 'dayofweek', description: 'I will tell you the day of the week a date falls on', format: '[yyyy-mm-dd]'},
-	               {key: 'aboutbot', description: 'I will tell you about me', format: ''}
-	              ],
-        humanMessage: '',
-=======
 	               {key: 'train', description: 'This command is to train the bot', format: '[question] [answer] [password]'}, 
 	               {key: 'currenttime', description: 'This command is to get the current time in any of the location of the world', format: '[location]'},
 	               {key: 'dayofweek', description: 'This command is get the day of the weeks a date falls on', format: '[yyyy-mm-dd]'},
@@ -352,33 +279,20 @@
 	              ],
         humanMessage: '',
         zoneList: null,
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         choice: {command: '', message:''},
         messages: [
                     {
                     	human: false, 
-<<<<<<< HEAD
-                    	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type / in the textbox`
-                    }
-                  ],
-        info: '<h4 class="text-center">Bot is currently preparing data</h4><p class="text-center">Please wait...</p>',
-        googlekey: 'AIzaSyA0W2GMiWvp-Jm7ZbpthWIoyamHpJFarts',
-=======
                     	text: `Hi, I am Bori Bot, I can do many things. To get list of commands you can use on me just type # in the textbox`
                     }
                   ],
         info: '<h4 class="text-center">Bot is currently preparing data</h4><p class="text-center">Please wait...</p>'
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       },
 	  computed: {
 	  	suggestedCommands: function(){
 	  	  let command;
 	  	  let suggestion = null;  
-<<<<<<< HEAD
-	  	  if(this.humanMessage.startsWith('/')){
-=======
 	  	  if(this.humanMessage.startsWith('#')){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	        command = this.humanMessage.substr(1).toLowerCase();
 	        if(command.length > 0){
   	          suggestion = this.commands.filter(function(cmd){
@@ -399,11 +313,7 @@
 	  	  	        return cmd.key === item
 	  	          });
 	  	  this.choice.command = c.key;
-<<<<<<< HEAD
-	  	  this.humanMessage = '/' + c.key + ' ' + c.format;
-=======
 	  	  this.humanMessage = '#' + c.key + ' ' + c.format;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	},
 	  	handleSubmit: function(){
 	  	  this.choice.message = this.humanMessage;
@@ -422,31 +332,20 @@
 	  		  this.processUnexpectedInput();
 	  		}
 
-<<<<<<< HEAD
-	  		if(this.choice.message.indexOf('/') == 0 && !this.choice.command){
-=======
 	  		if(this.choice.message.indexOf('#') == 0 && !this.choice.command){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
               return "I can't help with that please, give me a correct command";
 	  		}
 			switch(this.choice.command){
 			  case 'aboutbot':
 			    return 'Bori Bot Version 1.0, I tell day of the week from date, and I can tell time in any location too.';
 			  case 'dayofweek':
-<<<<<<< HEAD
-			    return this.getDayFromDate();
-=======
 			    return this.getDayOfWeek();
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			  case 'currenttime':
 			    return this.getCurrentTime();
 			  case 'train':
 			    return this.doTrainBot();
-<<<<<<< HEAD
-=======
 			  case 'popularcities':
 			    return this.getAllCities();
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			  default:
 			    return this.doChat();
 			}
@@ -454,104 +353,11 @@
 
             
 	  	},
-<<<<<<< HEAD
-	  	getDayFromDate: function(){
-=======
 	  	getDayOfWeek: function(){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  		var date;
 	  		try{
 	          date = this.choice['message'].match(/\[(\d{4}-\d{2}-\d{2})\]/)[1];
 	  		}catch(ex){
-<<<<<<< HEAD
-	  		  return "Follow the correct syntax /dayofweek [yyyy-mm-dd]";
-	  		}
-
-	  		date = new Date(date);
-	      
-	      	return `<h4>${this.getDayOfWeek(date.getDay())}</h4><p class="my-0">${this.getMonthOfYear(date.getMonth())} ${date.getDate()},  ${date.getFullYear()}</p>`;
-	  	},
-	  	getDayOfWeek: function(index){
-	  	  let days = ['Sunday', 'Monday', 'Tuesday', 'Wednessday', 'Thursday', 'Friday', 'Saturday'];
-	  	  return days[index];
-	  	},
-	  	getMonthOfYear: function(index){
-          let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-          return months[index];
-	  	},
-	  	formatAMPM: function(date) {
-	  	  let hours = date.getHours();
-	  	  let minutes = date.getMinutes();
-	  	  let ampm = hours >= 12 ? 'PM' : 'AM';
-	  	  hours %= 12;
-	  	  hours = hours ? hours : 12; // the hour '0' should be '12'
-	  	  minutes = minutes < 10 ? '0'+minutes : minutes;
-	  	  var strTime = hours + ':' + minutes + ' ' + ampm;
-	  	  return strTime;
-	  	},
-	  	getLocationFromAddress: async function(address){
-	  		
-	  		let url  = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + this.googlekey;
-	  		try {
-	  		  const response = await fetch(url);
-	  		  
-	  		  const json = await response.json();
-	  		  switch(json.status){
-	  		    case "OK":
-                  return json.results[0];
-                default:
-                  return {error: "Address not found"};
-	  		  }
-	  		}catch(ex){
-	  		  return {error: 'Sorry something went wrong in getting your address'};
-	  		}
-	  	},
-	  	getTimeFromLocation: async function(location){
-	  	  	let targetDate = new Date() // Current date/time of user computer
-	  	  	let timestamp = targetDate.getTime()/1000 + targetDate.getTimezoneOffset() * 60 // Current UTC date/time expressed as seconds since midnight, January 1, 1970 UTC
-	  	  	let url = `https://maps.googleapis.com/maps/api/timezone/json?location=${location.lat}, ${location.lng}&timestamp=${timestamp}&key=${this.googlekey}`;
-
-	  	  	try{
-	  	  	  const response = await fetch(url);
-	  	  	    
-	  	  	  const json = await response.json();
-	  	  	  let offsets = json.dstOffset * 1000 + json.rawOffset * 1000 // get DST and time zone offsets in milliseconds
-	  	  	  return new Date(timestamp * 1000 + offsets) // Date object containing current time of location (timestamp + dstOffset + rawOffset)
-	  	  	}catch(ex){
-	  	  	  return {error: true};
-	  	  	}
-	  	    
-	  	},
-	  	getCurrentTime: async function(){
-			let address, time, output;
-			try{
-	          address = this.choice['message'].match(/\[(.*?)\]/)[1];
-			}catch(ex){
-			  return "Follow the correct syntax /currenttime [location]";
-			}
-
-	  		output = await this.getLocationFromAddress(address);
-	  		if(output.error){
-	  		  return output.status;	
-	  		}
-
-            let { formatted_address } = output;
-            output = await this.getTimeFromLocation(output.geometry.location);
-
-            if(output.error){
-              return "Something went wrong while trying to get the time";
-            }
-            time = output;
-            return `<h4>${this.formatAMPM(time)}</h4><p class="my-0">${this.getDayOfWeek(time.getDay())}, ${time.getDate()} ${this.getMonthOfYear(time.getMonth())} ${time.getFullYear()}</p><p class="my-0">Time in ${formatted_address}</p>`;
-
-	  	},
-	  	doChat: function(){
-          let question = this.choice['message'];
-	  	  return axios.get('profiles/olubori.php?question='+ question)
-	  	    .then(function (response) {
-
-	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use /train [question] [answer] [password]';
-=======
 	  		  return "Follow the correct syntax #dayofweek [yyyy-mm-dd]";
 	  		}
 
@@ -600,7 +406,6 @@
 	  	    .then(function (response) {
 
 	  	      let chatResponse = response.data.answer || 'I cannot find you a valid answer, go ahead and train me. Use #train [question] [answer] [password]';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	      return chatResponse;
 	  	    })
 	  	    .catch(function (error) {
@@ -615,11 +420,7 @@
 	  	  	params = this.choice['message'].match(/\[(.*?)\] \[(.*?)\] \[(.*?)\]/);
 	  	  	password = params[3];
 	  	  }catch(ex){
-<<<<<<< HEAD
-	  	  	return "Follow the correct syntax /train [question] [answer] [password]";
-=======
 	  	  	return "Follow the correct syntax #train [question] [answer] [password]";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  	  }
 
 	  	  if(password != 'password')
@@ -638,10 +439,6 @@
 	  	  
 	  	  
 	  	},
-<<<<<<< HEAD
-	  	processUnexpectedInput: function(){
-	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train'];
-=======
 	  	getAllCities: function(){
 	  		let char;
 	  	  try{
@@ -667,7 +464,6 @@
 	  	},
 	  	processUnexpectedInput: function(){
 	  		commands = ['aboutbot', 'currenttime', 'dayofweek', 'train', 'popularcities'];
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  		mycommand = this.choice.message.split(' ')[0];
 	  		mycommand = mycommand.substring(1);
 	  		for(cmd of commands){
@@ -676,8 +472,6 @@
 	  		  }
 	  		}
 	  	}
-<<<<<<< HEAD
-=======
 	  },
 	  created: async function(){
 	  	try{
@@ -688,7 +482,6 @@
 	  	  this.info = '<h4 class="text-center text-danger">OOPS!!! APOLOGY</h4><p class="text-center">Something went wrong while I was trying to get data, Please reload your page and check your internet connection and firewall.</p>'
 	  	}
 	  	
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	  }
 	})
 
@@ -700,11 +493,7 @@
 	    }
 	  },
 	  template: `<li class="my-2 px-2" @click="onItemClick(command.key)">
-<<<<<<< HEAD
-			       <span class="title">/{{command.key}}</span> <span class="format">{{command.format}}</span>
-=======
 			       <span class="title">#{{command.key}}</span> <span class="format">{{command.format}}</span>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 			       <span class="description d-block">{{command.description}}</span>	
 		        </li>`
 	})

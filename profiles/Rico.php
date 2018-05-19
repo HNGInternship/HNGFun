@@ -1,11 +1,7 @@
 <<<<<<< HEAD
-<?php
-=======
-<<<<<<< HEAD
 <<<<<<< HEAD
 <?php
  require 'db.php';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 $username = "Rico";
  
 $sql = "SELECT `name`, `username`, `image_filename` FROM `interns_data` WHERE `username`='$username'";
@@ -103,8 +99,6 @@ $secret_word = $data['secret_word'];
 
 </body>
 </html>
-<<<<<<< HEAD
-=======
 
 =======
 <?php
@@ -413,4 +407,3 @@ $secret_word = $data['secret_word'];
 
 >>>>>>> 1ef5fcaa6524b8b4cd8e34b822125e3ea83031fe
 >>>>>>> 68dc670ae8cfe4c0d9a06ed93d0ba2f2745287bf
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

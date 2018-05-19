@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<?php
-=======
  <?php
     global $conn;
     try {
@@ -14,7 +11,6 @@
     ?>
 
  <?php
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     try {
         $sql = 'SELECT * FROM secret_word';
         $q = $conn->query($sql);
@@ -43,17 +39,10 @@
     }
   ##About Bot
     function aboutbot() {
-<<<<<<< HEAD
-        echo "<div id='result'><strong>hi my name is Jayo</strong></div>";
-    }
-   function help(){
-   echo "<div id ='result'>Type <b>about</b> i am a cool bot.<br/>Type <b>version</b> i love to learn.<br/>To train me,you can input:<b>train:question#answer#password</b> the password is password </div>";
-=======
         echo "<div id='result'><strong>hi my name na Jayo, my madam want you to teach me more about javascript </strong></div>";
     }
    function help(){
    echo "<div id ='result'>Type <b>about</b> to know about me.<br/>Type <b>version</b> to know my version.<br/>To train me,use this format:<b>train:question#answer#password</b> where password is password </div>";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
    
    }
   
@@ -79,29 +68,17 @@
                 try {
                     $q = $GLOBALS['conn']->prepare($sql);
                     if ($q->execute($training_data) == true) {
-<<<<<<< HEAD
-                        echo "<div id='result'>bravo!!1. </br>
-      Now you can ask me same question, and I will answer it correctly.</div>";
-=======
                         echo "<div id='result'>you do well to train me </br>
       i sabi HTML ask me anything wey you no sabi</div>";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
                     };
                 } catch (PDOException $e) {
                     throw $e;
                 }
             }else{
-<<<<<<< HEAD
-                echo "<div id='result'> i love to learn please train me!</div>";
-            }
-        }else {
-            echo "<div id='result'>your password is wrong. </br>Try Again!</div>";
-=======
                 echo "<div id='result'>I already sabi this one o!</div>";
             }
         }else {
             echo "<div id='result'>Ewo!! na wrong password you enter so o </br>Try Again!</div>";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
     }
     function getAnswer($input) {
@@ -111,42 +88,20 @@
         $q->setFetchMode(PDO::FETCH_ASSOC);
         $data = $q->fetchAll();
         if(empty($data)){
-<<<<<<< HEAD
-            echo "<div id='result'>Sorry! I've not been trained to learn that command. </br>Would you like to train me?
-</br>You can train me to answer any question at all using, train:question#answer#password
-</br>You can type in <b>help</b> to begin with.</div>";
-=======
             echo "<div id='result'>Sorry o! dem never train me to learn this one </br>Abeg i want you to train me
 </br>for me to answer your question well well make you type, train:question#answer#password
 </br>You fit type <b>help</b> to know more about me.</div>";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }else {
             $rand_keys = array_rand($data);
             echo "<div id='result'>". $data[$rand_keys]['answer'] ."</div>";
         }
     }
     ?>
-<<<<<<< HEAD
-<!DOCTYPE html>
-=======
     <!DOCTYPE html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>pueneh</title>
-<<<<<<< HEAD
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
-       <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-
-       <link rel="stylesheet" type="text/css" href="https://static.oracle.com/cdn/jet/v4.1.0/default/css/alta/oj-alta-min.css">
-       <script type="text/javascript" src="https://static.oracle.com/cdn/jet/v4.1.0/3rdparty/require/require.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"> </script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
-      <script src="../js/jquery.min.js"></script>
-      <script src="../js/bootstrap.min.js"></script>
-=======
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
         <!-- link to main stylesheet -->
@@ -158,7 +113,6 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         
         <style type="text/css"> 
  body{
@@ -261,12 +215,8 @@ h3{
   font: 10px arial, sans-serif;
   height: 15px;
   width: 100%;
-<<<<<<< HEAD
-.chat p.san{
-=======
 }
 .chat p.Jayo{
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
       float: left;
       font-size: 14px;
       padding: 20px;
@@ -274,13 +224,6 @@ h3{
       background-color: #b0bfff;
      max-width: 250px;
      clear: both;
-<<<<<<< HEAD
-      display: inline-block;
-      margin-bottom: 0px !important;
-      margin-top: 2px !important;
-    }
-    
-=======
     display: inline-block;
     margin-bottom: 0px !important;
       margin-top: 2px !important;
@@ -338,7 +281,6 @@ h3{
 .modal-content{
       background-color: #fff;
       }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 h5{
   background-color: #ffffff;
   margin-left: 15px;
@@ -404,82 +346,6 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
     Copyright &copy; 2018 Pueneh Faith. All rights reserved.<br/>
   </div>
 </div>
-<<<<<<< HEAD
-    <div id='bodybox'>
-  <div id='chatborder'
-    <h1 id="chatlog7" class="chatlog">HELLO AM JAYO can you train me?</h1> </div>
-  <button class="btn col-sm-offset-5 chat-btn" data-toggle='modal' data-target='#chatModal'><i class="fa fa-comment-alt">Chat</i></button>
-        <!--modal-->
-   <div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="chatModalLabel"><i class="fa fa-user"></i><b>Jayo</b></h5>
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body "  > 
-            <div class="chat" id="chat">
-                
-                  
-                    <p class="san">Hi! am Jayo.   </p>
-                    <p class="san">To train me, use - "train:question#answer#password".</p>
-                   <p class="san">The Password is: <b>password</b>. </p>
-                    <p class="san">type in here.</p>
-            </div>                
-          </div>  
-          <div class="clearfix"></div>
-                <div class="chat-input">
-                    <form action="" method="post" id="user-input-form">
-                      <div class="input-group">
-                        <input type="text" class="form-control" name="user-input" id="user-input" class="user-input" placeholder="chat me up...">
-                        <span class="input-group-addon"><button class="btn btn-primary" id="send"><i class="fa fa-send"></i></button></span>
-                        </div>
-                    </form>
-                </div>
-        </div>
-   
-<script>
-    var outputArea = $("#chat me up");
-    
-    
-    $("#send").on("submit", function(e) {
-        let userInput = document.getElementById("user-input");
-        let userText = userInput.val();     
-        
-        
-    }
-    
-    $("#user-input-form").on("submit", function(e) {
-        e.preventDefault();
-        document.getElementById("P class=san").innerHTML = "Hi! am Jayo.";
-        document.getElementById("p class=san").innerHTML = "To train me, use= train:question#answer#password.";
-        var message = $("#user-input").val();
-        
-        outputArea.append(`<p class='me'>${message}</p>`);
-        $.ajax({
-            url: 'profile.php?id=puenehfaith',
-            type: 'POST',
-            data:  'user-input=' + message,
-            success: function(response) {
-                var result = $($.parseHTML(response)).find("#result").text();
-                setTimeout(function() {
-                    outputArea.append("<p class='san'>" + result + "</p>");
-                    $('#chat').animate({
-                        scrollTop: $('#chat me up').get(0).scrollHeight
-                    }, 1500);
-                }, 250);
-            }
-        });
-        $("#user-input").val("");
-    });
-</script>
-</div>
-</body> 
-</html>
-
-=======
 
     <div>
   <div id='bodybox'>
@@ -538,4 +404,3 @@ $result2 = $conn->query("SELECT * FROM interns_data WHERE username = 'puenehfait
         </div> 
     </body>
 </html>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

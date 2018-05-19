@@ -2,13 +2,6 @@
    $result = $conn->query("Select * from secret_word LIMIT 1");
    $result = $result->fetch(PDO::FETCH_OBJ);
    $secret_word = $result->secret_word;
-<<<<<<< HEAD
-   $result2 = $conn->query("Select * from interns_data where username = 'somiari'");
-   $user = $result2->fetch(PDO::FETCH_OBJ);
-	?>
-<!DOCTYPE HTML>
-<html>
-=======
    $result2 = $conn->query("Select * from interns_data where username = 'Marvelous'");
    $user = $result2->fetch(PDO::FETCH_OBJ);
 ?> 
@@ -101,18 +94,10 @@
     ?>
 <!DOCTYPE HTML>
 <html
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<<<<<<< HEAD
-    <title>Username</title>
-<style>
-.img
-{
-   align ="center"; 
-=======
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">    
     <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/3.3.4/css/bootstrap.css">
@@ -127,7 +112,6 @@
 .img
 {
    align : "center";
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -137,18 +121,10 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   background: wheat;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 .title {
   color: grey;
   font-size: 18px;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 button {
   border: none;
   outline: 0;
@@ -161,19 +137,11 @@ button {
   width: 100%;
   font-size: 18px;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 a {
   text-decoration: none;
   font-size: 22px;
   color: black;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 button:hover, a:hover 
 {
   opacity: 0.7;
@@ -189,10 +157,6 @@ body
 {
   background-image: url("./images/back.jpg");
   text-align:center; font-family: Georgia, 'Times New Roman', Times, serif;
-<<<<<<< HEAD
-  
-}
-=======
   }
   #bodybox {
   margin: auto;
@@ -299,7 +263,6 @@ h5{
   background-color: #ffffff;
   margin-left: 15px;
    }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 </style>
 </head>
 <body>
@@ -320,13 +283,6 @@ h5{
   
  </div>
 
-<<<<<<< HEAD
-<p><button>Contact<a href="time.php"></a></button></p>
-
-</div>
-</body>
-</html>
-=======
 <p><button>Contact<a href="#"></a></button></p>
 </div>
   <div>
@@ -385,4 +341,3 @@ h5{
     </body>
 </html>
  
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

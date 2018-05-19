@@ -262,11 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             text-align: center;
             color: #000830;
         }
-<<<<<<< HEAD
-        .body {
-=======
         body, html {
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             margin: 0px;
             background-color: skyblue; !important;
             height: 100%;
@@ -287,11 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             font-style:bold;
             color:Coral;
         }
-<<<<<<< HEAD
-        .img{
-=======
         img{
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             border-radius: 10px;
             background-color: beige;
             width:350px;
@@ -335,11 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-<div class="container body">
-=======
 <div class="container">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <div class="oj-flex oj-flex-items-pad oj-contrast-marker">
 <div class="oj-sm-12 oj-md-6 oj-flex-item">
     <div class="oj-flex oj-sm-align-items-center oj-sm-margin-2x">
@@ -347,11 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
             <oj-avatar role="img" size="[[avatarSize]]" initials='[[initials]]'
             data-bind="attr:{'aria-label':'Avatar of Akpan, Blessing Michael'}">
             </oj-avatar>
-<<<<<<< HEAD
-            <img class="img-fluid img" onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg">
-=======
             <img class="img-fluid " onerror="this.src='images/default.jpg'" src="http://res.cloudinary.com/dlvlxep3r/image/upload/v1523715773/interactive_bee.jpg">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         </div>
     </div>
     <div class="body0">

@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-    <?php
-        $result = $conn->query("Select * from secret_word LIMIT 1");
-        $result = $result->fetch(PDO::FETCH_ASSOC);
-        $secret_word = $result['secret_word'];
-
-        $result2 = $conn->query("Select * from interns_data where username = 'abayomi'");
-        $user = $result2->fetch(PDO::FETCH_OBJ);
-    ?>
-=======
    <?php
 	if(!defined('DB_USER')){
             require "../config.php";
@@ -258,7 +248,6 @@ class DBHelper{
 ?>
 <?php if($_SERVER['REQUEST_METHOD'] === "GET"){ ?>
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -269,31 +258,17 @@ class DBHelper{
 	<!-- Custom fonts for this template -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="js/jScrollPane/jScrollPane.css">
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	<title>HNGFun | Abayomi</title>
 	
 	<style>
         body{
-<<<<<<< HEAD
-=======
             width: 100%;
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         background: #fff;
         padding: 0;
         margin: 0;
         font-family: 'Montserrat',sans-serif;
         }
-<<<<<<< HEAD
-        html{
-        box-sizing:border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        }
-=======
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         .main {
         width: 360px;
         height: 600px;
@@ -333,28 +308,16 @@ class DBHelper{
         width: 80%;
         text-align: center;
         line-height:1.4em;
-<<<<<<< HEAD
-        color: #fff;
-=======
         
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         }
         .connect_me {
         margin-bottom: 10px;
         font-weight: bold;
         font-size: 16px;
         }
-<<<<<<< HEAD
-/*
         #icons{
          margin-left: 50px;
         }
-*/
-=======
-        #icons{
-         margin-left: 50px;
-        }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         .fa {
             position: relative;
         padding: 20px;
@@ -387,8 +350,6 @@ class DBHelper{
         .date{
         margin-bottom: 10px;
         }
-<<<<<<< HEAD
-=======
         
         /* ChatBot section */
     .section-main{
@@ -500,7 +461,6 @@ class DBHelper{
                 margin: 180% auto 0px;
             }
         }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 	</style>
 </head>
 <body>
@@ -511,31 +471,6 @@ class DBHelper{
             <h3>Slack Username: @<?php echo $user->username; ?></h3>
             <p>Exceptionally well organised, self taught, self motivated and resourceful Professional with few years of experience in Website Development and Design using HTML, CSS, Bootstrap, JAVASCRIPT, JQuery, Laravel, PHP, MYSQL.  Excellent analytical and problem solving skills.</p>
             <p class="connect_me">Connect with me</p>
-<<<<<<< HEAD
-<!--
-        <div id="icons">
-            <a href="https://www.facebook.com/abayomijohn1670">
-                <i class="fa fa-facebook"></i>
-            </a>
-            <a href="https://www.twitter.com/abayomijohn273">
-                <i class="fa fa-twitter"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/abayomi-olatunji-a60766b2">
-                <i class="fa fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/abayomijohn273">
-                <i class="fa fa-github"></i>
-            </a>
-        </div>
--->
-            
-        </div>
-        <div class="date">
-        <p>Copyright &copy; HNG FUN <?php echo date("Y"); ?></p>
-        </div>
-    </div>
-</body>
-=======
 
 <!--
         <div id="icons">
@@ -729,4 +664,3 @@ class DBHelper{
     });
 </script>
 <?php } ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

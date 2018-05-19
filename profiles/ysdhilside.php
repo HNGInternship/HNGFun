@@ -28,8 +28,6 @@
     <title>HNG FUN | ysdhilside</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<<<<<<< HEAD
-=======
   <style type="text/css">
     .box{
     position: absolute;
@@ -55,7 +53,6 @@
     color: #eaeaea;
 }
   </style>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
   
  </head>
 
@@ -77,23 +74,13 @@
                 <li class="list-group-item"> <h5><?php echo $name ?></h5></li>
                 <li class="list-group-item">HNG - Intern, Web developer.</li>
                 <li class="list-group-item">Username: @<?php echo $username ?></li>
-<<<<<<< HEAD
-                <li class="list-group-item" style="padding:10px;"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
-                    <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email</a></li>
-=======
                 <li class="list-group-item" style="padding:30px;"><a href="https://facebook.com/yusufsd" class="btn btn-primary">Facebook</a>
                     <a href="mailto:ysdhilside@gmail.com" class="btn btn-danger">Email Me!</a></li>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
               </ul>
                 </div>
             
             </div>
         </div>
-<<<<<<< HEAD
-        <div class="col-lg-4"></div>
-        </div>
-
-=======
         <div class="col-lg-4">
           
           <div class="box">
@@ -110,7 +97,6 @@
 
 
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     
 </div>
 

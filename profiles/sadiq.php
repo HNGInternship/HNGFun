@@ -1,50 +1,6 @@
 <?php
 
 <<<<<<< HEAD
-
-    // Check if a get variable question isset. If not continue with page operation
-    if(isset($_GET['question']))
-     {
-          if (!defined('DB_USER')){
-            require "../../config.php";
-          }
-          try {
-            $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-          } catch (PDOException $pe) {
-            die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-          }
-          $mesuu = $_GET['question'];
-          $message=strtolower($mesuu);
-          $message = trim($message); // When you call trim(message) returns a trimmed message which should be reassigned back into message
-          $statusTrain = stripos($message, "train:");
-          if($statusTrain !== false) // Check for truthiness should be explicitly stated
-          {
-              $newstring=str_replace("train:","","$message");
-              $sets = explode("#", $newstring);
-              $mQuestion= $sets[0];
-              $mAns= $sets[1];
-              $mPwd= $sets[2];
-              
-              if( $mPwd === "password"){
-              $resultIns = $conn->query("insert into chatbot (`question`, `answer`) values ('$mQuestion','$mAns')" );
-                if($resultIns)
-                {
-                  echo json_encode([
-                   'status' => 1,
-                    'answer' => "thanks and noted."
-                  ]);
-                  return;
-                }
-                else {
-                  echo json_encode([
-                  'status' => 1,
-                  'answer' => "sorry something went wrong"
-                  ]);
-                  return;
-                  // code...
-                }
-=======
-<<<<<<< HEAD
   if($_SERVER['REQUEST_METHOD'] === 'POST')
  {
            if (!defined('DB_USER')){
@@ -118,7 +74,6 @@ echo json_encode([
 return;
   // code...
 }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
               }
               else {
 
@@ -128,42 +83,6 @@ return;
                  ]);
                 // code...
               }
-<<<<<<< HEAD
-              return;
-          }
-
-          if($message=='aboutbot'){
-            echo json_encode([
-               'status' => 1,
-               'answer' => "sasbot 1.0"
-             ]);
-            return;
-          }
-         if ($message!=''){
-              $result = $conn->query("SELECT answer FROM chatbot WHERE question LIKE '%{$message}%' ORDER BY rand() LIMIT 1"); // Set limit to 1, use LIKE instead of = for comparison
-              $result = $result->fetch(PDO::FETCH_OBJ); //fetch result for query
-              
-
-           if($result){ //Check if reult is null
-             $answer = $result->answer; // Get column anser value from result
-              echo json_encode([
-                'status' => 1,
-                'answer' => $answer
-              ]);
-              return;
-           }else{
-             echo json_encode([
-               'status' => 1,
-               'answer' =>"sorry i have no answer to that yet, but you can train me how to annswer questions "
-             ]);
-             return;
-           }
-         }
-         return;
-      }
-
-?>
-=======
 return;
       }if ($message==""){
   echo json_encode([
@@ -221,7 +140,6 @@ return;
  }
 
   ?>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 <head>
     <meta charset="UTF-8">
@@ -335,13 +253,8 @@ return;
 
 <body>
 <?php
-<<<<<<< HEAD
-    //require "../db.php";
-    if (!defined('DB_USER')){
-=======
 	//require "../db.php";
 	if (!defined('DB_USER')){
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
             require "../../config.php";
         }
         try {
@@ -349,21 +262,12 @@ return;
           } catch (PDOException $pe) {
             die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
           }  $result = $conn->query("Select * from secret_word LIMIT 1");
-<<<<<<< HEAD
-    $result = $result->fetch(PDO::FETCH_OBJ);
-    $secret_word = $result->secret_word;
-    $result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
-    $user = $result2->fetch(PDO::FETCH_OBJ);
-
-    $name = 'Sambo Abubakar'
-=======
 	$result = $result->fetch(PDO::FETCH_OBJ);
 	$secret_word = $result->secret_word;
  	$result2 = $conn->query("Select * from interns_data where username = 'sadiq'");
  	$user = $result2->fetch(PDO::FETCH_OBJ);
 
  	$name = 'Sambo Abubakar'
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 ?>
     <main>
 <!-- section starts -->
@@ -406,19 +310,11 @@ return;
     
         <div id="async"></div>
 
-<<<<<<< HEAD
-        <form id="myform" method="GET">
-            <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(220, 20, 60, 0.5); color: #fff; font-size: 16px;" placeholder="enter your message"></textarea> <br>
-           <button id="btn1" type="submit" class="button" >send</button>
-           <br><br>
-        </form></center></div>
-=======
         <form id="myform" method="POST">
 	        <textarea  sid="text" name="question" id="ter" rows="0" cols="0" class="textarea" style=" padding:2px; border-radius: 12px;width: 80%;background-color:rgba(220, 20, 60, 0.5); color: #fff; font-size: 16px;" placeholder="enter your message"></textarea> <br>
 	       <button id="btn1" type="submit" class="button" >send</button>
            <br><br>
 	    </form></center></div>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
     </main>
 
@@ -435,11 +331,7 @@ return;
     $("#async").append(resusr+" "+valnext2+" </p></div>");
       $.ajax({
         url: 'profiles/sadiq.php',
-<<<<<<< HEAD
-        type: 'GET',
-=======
         type: 'POST',
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
         data: {question: question},
         dataType: 'json',
         success: function(response){
@@ -455,21 +347,6 @@ return;
       })
 
     })
-<<<<<<< HEAD
-    
-    $("#ter").keyup(function(e){
-        if(e.which == 13){
-           $("#myform").trigger("submit")
-        }
-        else{
-           // Do Nothing 
-        }
-    });   
-    
-   });
-  </script>
-</body>
-=======
 	
 	$("#ter").keyup(function(e){
 		if(e.which == 13){
@@ -483,4 +360,3 @@ return;
    });
   </script>
 </body>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

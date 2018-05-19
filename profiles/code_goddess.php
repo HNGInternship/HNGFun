@@ -1,13 +1,10 @@
 <?php
-<<<<<<< HEAD
-=======
 
 if(isset($_GET['question'])) {
     echo $_GET['question'];
     return;
   }
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 if(!isset($conn)) {
         include '../../config.php';
 
@@ -35,13 +32,10 @@ if(!isset($conn)) {
 <html>
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     
     
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     <style>
     body {
 	background-color: lightblue;
@@ -79,8 +73,6 @@ if(!isset($conn)) {
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
-<<<<<<< HEAD
-=======
 
     /*Styling for the chatbot */
     .chatbox {
@@ -128,7 +120,6 @@ if(!isset($conn)) {
         background-color: lightpink;
         padding: 5px;
     }
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
     </style>
 </head>
 
@@ -166,9 +157,6 @@ if(!isset($conn)) {
 
     </table>
 
-<<<<<<< HEAD
-
-=======
      
     <!--Html for the chatbot -->
     <h2>The Storm bot</h2>
@@ -215,14 +203,10 @@ if(!isset($conn)) {
     });
      
     </script>
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 </body>
 
 </html>
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440

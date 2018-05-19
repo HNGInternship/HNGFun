@@ -1,11 +1,7 @@
 
  <?php
 
-<<<<<<< HEAD
- // require 'db.php';
-=======
  require 'db.php';
->>>>>>> 79349ab158576c0c603d15d180c4484b10aad440
 
 $query = "Select * from secret_word LIMIT 1";
 
