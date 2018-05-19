@@ -1,5 +1,5 @@
 <?php 
-	 
+	 if($_SERVER['REQUEST_METHOD'] === "GET"){
 	if(!defined('DB_USER')){
 		require "/config.example.php";	
 	   
@@ -19,6 +19,7 @@
     } catch (PDOException $err) {
         throw $err;
 	}
+}
 ?>
 
 <?php
@@ -153,29 +154,18 @@
 			
 
 	} 
-  else {
+  
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
- <head> 
- <link href="https://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css"> 
-  <script src="../js/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css"> 
+<script src="../js/jquery.min.js"></script>
 <script src="..js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
  	
- </head>
- <body>
-
  <style>
 
 
- html, body
- {
-	height: 100%;
- }
-
- body
+  body
  {
 	margin-top: 50px;
 	padding: 0px;
@@ -557,63 +547,105 @@ hr{
 		</div>
 	</div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <script src="../js/jquery.min.js"></script>
-<script>	
-	$("#form").submit(function(){
-		var questionForm = $('#question-form');
-		questionForm.submit(function(event){
-			event.preventDefault();
-			var questionBox = $('input[name=question]');
-			var question = questionBox.val();
-			//var question = $('#question-form').val();
-			
-			//display question in the message frame as a chat entry
-			var messageFrame = $('#message-frame');
-			var chatToBeDisplayed = '<div class="row single-message">'+
-						'<div class="col-md-12 offset-md-2 single-message-bg2">'+
-							'<h5>You:'+question+'</h5>'+
-						'</div>'+
-					'</div>';
-			
-			messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-			$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-			//send question to server
-			$.ajax({
-				url: "/profiles/iyadicyril.php",
-				type: "post",
-				data: {question: question},
-				dataType: "json",
-				success: function(response){
-					if(response.status == 1){
-						var chatToBeDisplayed = '<div class="row single-message" style=" text-align: right;">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+':Me</h5>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						questionBox.val("");	
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}else if(response.status == 0){
-						var chatToBeDisplayed = '<div class="row single-message" style=" text-align: right;">'+
-									'<div class="col-md-12 single-message-bg">'+
-										'<h5>'+response.answer+' :Me</h5>'+
-									'</div>'+
-								'</div>';
-						messageFrame.html(messageFrame.html()+chatToBeDisplayed);
-						$("#chat-messages").scrollTop($("#chat-messages")[0].scrollHeight);
-					}
-				},
-				error: function(error){
-					console.log(error);
-				}
-			})
-		});
-	});
+<script>
+  window.addEventListener("keydown", function(e){
+	    		if (e.keyCode == 13){
+	    			//check is input for is empty
+	    			if (document.querySelector('#question-form').value == "" || document.querySelector('#question-form').value == null){
+
+	    				var replyFromBot = 'You have to ask a question.';
+	    				dispMessage(replyFromBot, 'received');
+
+	    			}else{
+
+	    				sendMsg();
+	    				
+	    			}
+	    		}
+	    	});
+
+	    	//send message to bot 
+	    	function sendMsg(){
+	    		//get message
+	    		var inputForm = document.querySelector("#question-form");
+	    		var messageToBot = inputForm.value;
+
+	    		dispMessage(messageToBot,'sent');
+	    		
+	    		//clear the form
+		    	inputForm.value = "";
+
+	    		if (messageToBot == "" || messageToBot == null) {
+	    			var replyFromBot = 'Please enter a command or type HELP to see my command list';
+	    			dispMessage(replyFromBot, 'received');
+
+	    			return;
+	    		}
+		    		
+		    	if (messageToBot == 'aboutbot' || messageToBot == 'Aboutbot' || messageToBot == 'about bot' || messageToBot == 'About bot') {
+		    		var replyFromBot = 'AndyBot<br>Version: 2.0';
+		    		dispMessage(replyFromBot, 'received');
+
+		    		return;
+		   		}
+
+		    		//send message
+		    		var xhttp = new XMLHttpRequest();
+		    		xhttp.onreadystatechange = function(){
+		    			if(xhttp.readyState ==4 && xhttp.status ==200){
+				            processData(xhttp.responseText);
+				        }
+		    		};
+
+		    		    xhttp.open("POST", "/profiles/iyadicyril.php", true);
+						xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						xhttp.send("question="+messageToBot);
+	    	}
+
+	    	function processData(data){
+	    		data = JSON.parse(data);
+	    		console.log(data);
+	    		var answer = data.response;
+
+    			if(Array.isArray(answer)){
+    				if(answer.length != 0){
+    					var res = Math.floor(Math.random()*answer.length);
+    					dispMessage(answer[res][0], "received");
+    				}else{
+    					dispMessage("I'm literally lost<br>To teach me use this format<br>train: question#answer#password","received");
+      				}
+    			}else{
+    				dispMessage(answer,"received");
+	    		}
+	    	}
+
+	    	function dispMessage(data,position){
+	    		console.log(data + ' from dispMessage');
+
+	    		//generate inner chat element
+	    		var messageArea = document.querySelector("#chat-messages");
+	    		var div = document.createElement("div");
+	    		var par = document.createElement("p");
+
+	    		if (position == 'sent') {	    			
+	    			div.classList = position + "-message";
+	    		}else if (position == 'received'){
+	    			div.classList = position + "-message text-left"
+	    		}
+	    		
+	    		par.classList = "message " + position;
+	    		par.innerHTML = data;
+
+	    		//join/append all the element together
+	    		div.appendChild(par);
+	    		messageArea.appendChild(div);
+
+	    		//add autoscroll function
+	    	}
+	    	
 </script>
 
-</body>
-</html>
 
-<?php } ?>
 
