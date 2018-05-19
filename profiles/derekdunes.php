@@ -1,27 +1,25 @@
 <?php
 	if($_SERVER['REQUEST_METHOD'] === "GET"){
 
-		$user_name = "derekdunes";
+    try {
+        $intern_data = $conn->prepare("SELECT * FROM interns_data WHERE username = 'derekdunes'");
+        $intern_data->execute();
+        $result = $intern_data->setFetchMode(PDO::FETCH_ASSOC);
+        $result = $intern_data->fetch();
+    
+    
+        $secret_code = $conn->prepare("SELECT * FROM secret_word");
+        $secret_code->execute();
+        $code = $secret_code->setFetchMode(PDO::FETCH_ASSOC);
+        $code = $secret_code->fetch();
+        $secret_word = $code['secret_word'];
+     } catch (PDOException $e) {
+         throw $e;
+     }
+     date_default_timezone_set("Africa/Lagos");
+     $today = date("H:i:s");
 
-		try{
-
-			//secret key query
-			$query = $conn->query("SELECT * FROM secret_word");
-			$result = $query->fetch(PDO::FETCH_ASSOC);
-
-			//user data query
-			$stmt = $conn->query("SELECT * FROM interns_data WHERE username = '$user_name'");
-
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		}catch(PDOException $e){
-			throw $e;
-		}
-
-		date_default_timezone_get("Africa/Lagos");
-		$today = date("H:i:s");
-	}
-
+    }
 ?>
 <?php
 	if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -48,7 +46,7 @@
 					'status' => 1,
 					'response' => "Could not connect to the database " . DB_DATABASE . ": " . $conn->connect_error
 				]);
-				return
+				return;
 			}
 
 			$query = "SELECT answer FROM chatbot WHERE question LIKE '$messageToBot'";
@@ -57,6 +55,7 @@
 				'status' => 1,
 				'response' => $result
 			]);
+
 			return;
 		}
 
@@ -237,7 +236,7 @@
 					<div class="col-md-2 col-sm-12"></div>
 					<section class="col-md-4 col-sm-12">
 						<!-- image src and alt value from the database -->
-						<img class="img-responsive" src="passport_2.jpg" alt="derekdunes">
+						<img class="img-responsive" src="http://res.cloudinary.com/dunesart/image/upload/v1524437912/passport_2.jpg" alt="mbah derek">
 
 					</section>
 				
@@ -358,6 +357,7 @@
 
 
 					@media (min-width: 1200px) {
+						
 						.btn {
 							width: 10%;
 							height: 100%;
@@ -365,9 +365,11 @@
 							background-color: rgba(45,156,219,.75)
 							border: 1px solid #fff;
 						}
+
 					}
 
 					@media (min-width: 768px) and (max-width: 979px) {
+						
 						.btn {
 							width: 10%;
 							height: 100%;
@@ -375,9 +377,11 @@
 							background-color: rgba(45,156,219,.75)
 							border: 1px solid #fff;
 						}
+
 					}
 
 			        @media (max-width: 767px){
+			        	
 			        	.btn {
 							width: auto;
 							height: 100%;
@@ -385,6 +389,7 @@
 							background-color: rgba(45,156,219,.75)
 							border: 1px solid #fff;
 						}
+
 			        }
 
 				</style>
@@ -398,7 +403,7 @@
 						DunesBot v1.1
 					</div>
 					<div class="message-area">
-						<div class="sent-message text-left">
+						<div class="received-message">
 							<p class="message sent">
 								I am DunesBot how can i help you	
 							</p>
@@ -462,7 +467,6 @@
 	    		if (messageToBot == "" || messageToBot == null) {
 	    			var replyFromBot = 'Please enter a command or type HELP to see my command list';
 	    			dispMessage(replyFromBot, 'received');
-
 	    		}else{
 	    			console.log(messageToBot);
 
@@ -475,22 +479,23 @@
 		    		if (messageToBot == 'aboutbot') {
 		    			var replyFromBot = 'Name: DunesBot<br>Version: 1.0.1';
 		    			dispMessage(replyFromBot, 'received');
+
+		    			return;
 		    		}
 
 		    		//send message
 		    		var xhttp = new XMLHttpRequest();
 		    		xhttp.onreadystatechange = function(){
 		    			if(xhttp.readyState == 4 && xhttp.status == 200){
-		    				processData(xhhp.responseText);
+		    				console.log(xhttp.responseText);
+		    				processData(xhttp.responseText);
 		    			}
-		    		}
+		    		};
 
-		    		xhttp.open("POST", "/profiles/derekdunes.php",true);
+		    		xhttp.open("POST", "/profiles/derekdunes.php", true);
 		    		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		    		xhttp.send("ques="+messageToBot);
-	
-	    		}
-	    		
+				}
 	    	}
 
 	    	function processData(data){
