@@ -20,6 +20,7 @@
         throw $err;
 	}
 }
+?>
 
 <?php
   function validateinput($input) {
