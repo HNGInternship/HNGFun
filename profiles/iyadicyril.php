@@ -157,12 +157,12 @@
   
 ?>
 
-<link href="https://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css"> 
-<script src="../js/jquery.min.js"></script>
-<script src="..js/bootstrap.min.js"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
- 	
- <style>
+<title>Iyadi Cyril</title> 	
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:Regular|Lato:regular" rel="stylesheet"> 
+
+ <style type="text/css">
 
 
   body
@@ -508,54 +508,167 @@ hr{
 					<p style="margin-top: 0px;margin-left: 20px;border-right-width: 20px;margin-right: 20px;">The only edge i have is my ever in-depth desire to learn. </br> Have fun with my bot...He's name is Andy.</p>										
 	</div>
 </div>
+<style type="text/css">
+					.chat-bot {
+						background-color: #fff;
+						margin: 10px 5px 10px 5px;
+						border-radius: 5px 5px 0px 0px;
+						padding-bottom: 40px;
+						position: relative; 
+					}
 
+					.chat-bot-title {
+						width: 100%;
+						height: 50px;
+						padding-left: 10px;
+						border-radius: 5px 5px 0px 0px;
+						border: 1px solid #fff;
+						background: rgba(45,156,219,.75);
+						color: #fff;
+					}
+
+					.message-area {
+						max-height: 220px;
+						overflow: auto;
+						padding: 10px
+					}
+
+					.sent-message {
+						display: flex;
+						justify-content: flex-end;
+						margin: 0 0 4px;
+					}
+
+					.received-message {
+						display: flex;
+						justify-content: flex-start;
+						margin: 0 0 4px;
+					}
+
+					.message {
+						padding: 5px 15px;
+						background-color: rgba(45,156,219,.75);
+						line-height: 14px;
+						font-size: 12px;
+						font-weight: 600;
+						max-width: 50%
+					}
+
+					.sent {
+						border-radius: 10px 0px 10px 10px;
+						color: #fff;
+					}
+
+					.received {
+						border-radius: 0px 10px 10px 10px;
+						color: #fff;
+					}
+
+					.message-input-area {
+						position: absolute;
+						bottom: 0;
+						width: 100%;
+						display: flex;
+						background-color: #fff;
+						border: 1px solid rgba(45,156,219,.75);
+						align-items: center;
+						height: 40px
+					}
+
+					.message-input {
+						width: 90%;
+						height: 100%;
+						border: none;
+						background: transparent;
+						padding: 0 10px
+					}
+
+
+					@media (min-width: 1200px) {
+						
+						.btn {
+							width: 10%;
+							height: 100%;
+							color: #fff;
+							background-color: rgba(45,156,219,.75)
+							border: 1px solid #fff;
+						}
+
+					}
+
+					@media (min-width: 768px) and (max-width: 979px) {
+						
+						.btn {
+							width: 10%;
+							height: 100%;
+							color: #fff;
+							background-color: rgba(45,156,219,.75)
+							border: 1px solid #fff;
+						}
+
+					}
+
+			        @media (max-width: 767px){
+			        	
+			        	.btn {
+							width: auto;
+							height: 100%;
+							color: #fff;
+							background-color: rgba(45,156,219,.75)
+							border: 1px solid #fff;
+						}
+
+			        }
+
+				</style>
  <!--Andy Bot-->
- <div class=" " style="width:350px;height:457px">
-			<h2 class="text-center"><u>CHATBOT</u></h2>
-			<div class="row chat-messages" id="chat-messages">
-				<div class="col-md-12" id="message-frame">
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<h5>Hey there!<span style="font-weight: bold"> My name's Andy</span></h5>
-						</div>
+ <div class="row">
+					<div class="col-md-2 col-sm-1"></div>
+					<div class="col-md-8 col-sm-10">
+						<!-- chat bot -->
+				<div class="chat-bot">
+					<!-- chat title area -->
+					<div class="chat-bot-title">
+						AndyBot v2.0
 					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">
-							<h5>I'm social, chat me up. </h5>
-							<h5>To teach me a response use: <br/><b>train: question # answer # password</b><h5>
-						</div>
-					</div>
-					<div class="row single-message">
-						<div class="col-md-12 single-message-bg">							
+					<div class="message-area">
+						<div class="received-message">
+							<p class="message sent">
+								Hi i'm Andy,how can i help you?.
+							</p>
 							
 						</div>
+
+						<div class="received-message">
+							<p class="message received">
+								Ask me anything and if i can't answer train me with the format
+								train:question#answer#password
+							</p>	
+						</div>
+											
+
 					</div>
+					<div class="message-form">
+						<div class="message-input-area">
+							<label for="user-message"></label>
+							<input type="text" class="message-input" id="user-message" name="user-message" placeholder="Ask me anything" required>
+							<button class="btn btn-primary" type="button" onclick="sendMsg()">Send</button>
+						</div>
+					</div>
+
 				</div>
-			</div>
-			
-			
-			<div class="row" style="margin-top: 40px;">
-				<form class="form-inline col-md-12 col-sm-12" id="question-form">
-					<div class="col-md-12 col-sm-12 col-12">
-						<input class="form-control w-100" type="text" name="question" placeholder="Enter your message" />
+				<br>	
 					</div>
-					<div class=" " style="margin-top: 20px; width:350px;" id="form">
-						<button type="submit" class="btn btn-info" style="width:70px;border-left-width:0px;border-right-width:0px;padding-left:10px;padding-right:10px;margin-left:140px;margin-right:140px">DM</button>
-					</div>
-				</form>	
-			</div>
+					<div class="col-md-2 col-sm-1"></div>
+				</div>
 		</div>
-	</div>
-</div>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<script src="../js/jquery.min.js"></script>
-<script>
+<script  type="text/javascript">
   window.addEventListener("keydown", function(e){
 	    		if (e.keyCode == 13){
 	    			//check is input for is empty
-	    			if (document.querySelector('#question-form').value == "" || document.querySelector('#question-form').value == null){
+	    			if (document.querySelector("#user-message").value == "" || document.querySelector("#user-message").value == null){
 
-	    				var replyFromBot = 'You have to ask a question.';
+	    				var replyFromBot = 'Please enter a command or type HELP to see my command list';
 	    				dispMessage(replyFromBot, 'received');
 
 	    			}else{
@@ -569,7 +682,7 @@ hr{
 	    	//send message to bot 
 	    	function sendMsg(){
 	    		//get message
-	    		var inputForm = document.querySelector("#question-form");
+	    		var inputForm = document.querySelector("#user-message");
 	    		var messageToBot = inputForm.value;
 
 	    		dispMessage(messageToBot,'sent');
@@ -578,14 +691,14 @@ hr{
 		    	inputForm.value = "";
 
 	    		if (messageToBot == "" || messageToBot == null) {
-	    			var replyFromBot = 'Please enter a command or type HELP to see my command list';
+	    			var replyFromBot = 'You have to ask a question.';
 	    			dispMessage(replyFromBot, 'received');
 
 	    			return;
 	    		}
 		    		
 		    	if (messageToBot == 'aboutbot' || messageToBot == 'Aboutbot' || messageToBot == 'about bot' || messageToBot == 'About bot') {
-		    		var replyFromBot = 'AndyBot<br>Version: 2.0';
+		    		var replyFromBot = 'Name: AndyBot<br>Version: 2.0';
 		    		dispMessage(replyFromBot, 'received');
 
 		    		return;
@@ -614,7 +727,7 @@ hr{
     					var res = Math.floor(Math.random()*answer.length);
     					dispMessage(answer[res][0], "received");
     				}else{
-    					dispMessage("I'm literally lost<br>To teach me use this format<br>train: question#answer#password","received");
+    					dispMessage("Ok now i'm lost<br>To teach me use this format<br>train: question#answer#password","received");
       				}
     			}else{
     				dispMessage(answer,"received");
@@ -625,7 +738,7 @@ hr{
 	    		console.log(data + ' from dispMessage');
 
 	    		//generate inner chat element
-	    		var messageArea = document.querySelector("#chat-messages");
+	    		var messageArea = document.querySelector(".message-area");
 	    		var div = document.createElement("div");
 	    		var par = document.createElement("p");
 
@@ -645,7 +758,7 @@ hr{
 	    		//add autoscroll function
 	    	}
 	    	
-</script>
+		</script>
 
 
 
