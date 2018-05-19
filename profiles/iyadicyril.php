@@ -160,8 +160,8 @@
 <html lang="en">
  <head> 
  <link href="https://fonts.googleapis.com/css?family=Englebert|Open+Sans:400,600,700" rel="stylesheet" type="text/css"> 
-  <script src="../vendor/jquery/jquery.min.js"></script>
-<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../js/jquery.min.js"></script>
+<script src="..js/bootstrap.min.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
  	
  </head>
@@ -558,7 +558,7 @@ hr{
 	</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script src="../vendor/jquery/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 <script>	
 	$(document).ready(function(){
 		var questionForm = $('#question-form');
