@@ -1,6 +1,12 @@
-<?php 
 
-    try {
+<?php
+
+	if(!defined('DB_USER')){
+		require "../config.php";
+		
+	}
+
+	try {
 
         $q = 'SELECT * FROM secret_word';
 
@@ -16,8 +22,225 @@
 
         throw $err;
 
-    }?>
+    }
+	  /**
+ *  functions to define
+ *  -- check question
+ *  --check training
+ *  -- train
+ *  -- check pssword
+ *
+ *
+ */
+   function processedAnswer($answer){
+        $functionOpeningTag = '(';
+        $functionClosingTag = ')';
 
+
+
+        //find the function
+        //Find the start limiter's position
+        $functionStart = strpos($answer, $functionOpeningTag);
+
+        //Find the ending limiters position, relative to the start position
+        $functionEnd = strpos($answer, $functionClosingTag, $functionStart);
+
+        //  Extract the string between the starting position and ending position
+        $functionName = substr($answer, $functionStart+2, ($functionEnd-2)-$functionStart);
+
+        $response = stripTags($answer);
+
+        // interpolate the string, replace the function name with a function call
+        return str_replace($functionName, call_user_func($functionName), $response);
+
+    }
+    function stripTags($string){
+        return str_replace(['{{', '}}', '((', '))' ], '', $string);
+    }
+    function isTraining($question){
+        $pos = strpos($question,'train:');
+
+        if( $pos === false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+       function trainBot($trainingString, $conn){
+
+            //extract parts, first remove train:
+            $trainingString = str_replace('train:', '', $trainingString);
+
+            //ckeck presence of #
+            $pos = strpos($trainingString,'#');
+            if( $pos === false) {
+
+                return 'Oops! to train this bot please enter, <code>train: question # answer # password <code> ';
+            }
+            //check password
+            $pos = strpos($trainingString, 'password');
+            if( $pos === false) {
+
+                return 'Please enter a valid password. <strong>password </strong> is the password.';
+            } else {
+            //the training sting is well formated and has password go on and split the string into question and answer parts
+            //first get the question,  start from 0 to the first #
+            $questionPart = trim(substr($trainingString, 0, strpos($trainingString,'#')));
+
+            //get the answer, remove everything else from the training string
+            $answerPart = trim(str_replace(['#', 'password', $questionPart], '', $trainingString));
+
+            // Save it into db, use prepared statement to protect from security exploits
+            try{
+
+                $sql  = 'INSERT INTO chatbot (question, answer) VALUES (:question, :answer)';
+                $stmt = $conn->prepare($sql);
+                $stmt->execute(
+                    array(
+                    ':question' => stripTags($questionPart),
+                    ':answer' => $answerPart,
+                    )
+                );
+                return 'Thank you for training me';
+
+            } catch(PDOException $e){
+                throw $e;
+            }
+        }
+    }
+
+
+
+     //Bot Brain
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        //require "../answers.php";
+        if(isset($_POST['question'])){
+			
+		$question='%'.$_POST['question'].'%';
+			
+           
+           $stmt = $conn->prepare("select answer from chatbot where question like :question LIMIT 1");
+           $stmt->bindParam( ':question', $question);
+           $stmt->execute();
+
+           $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($rows){
+             // echo json_encode([
+                // 'status' => 1,
+                // 'answer' => "Please provide a question"
+            // ]);
+		echo json_encode (['answer'=>$rows['answer']]);
+
+              
+        }
+		else
+             echo json_encode([
+                'answer' => "I am afraid I do not have answer to your question but you can train me using the following format <strong>train: question # answer # password</strong>"
+            ]);
+		}
+
+        function answerHasFunction($answer){
+
+        $openingTags = strpos($answer,'((');
+        $closingTags = strpos($answer,'))');
+
+        if( $openingTags === false && $closingTags === false ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+        function getBotDetails(){
+        return "I am Sean and i love beautiful codes ";
+    }
+         function getHelpdetails(){
+        return "I am here to assist ask me any questions and I will answer if I can. You can also train me  to answer your questions by using the format <strong>train: question # answer # password</strong>";
+    }
+    //remove question mark and trim
+            $question = trim($question);
+            $question = str_replace('?', '', $question);
+
+            //check if the question is "aboutbot" in which case return info about the bot
+            if($question == "aboutbot"){
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => getBotDetails()
+
+                ]);
+                return;
+
+             //check if the question is "help" in which case return infoon help
+            if ($question == "help"){
+            echo json_encode([
+                 'status'=>1,
+                 'answer'=>getHelpdetails()
+                ]);
+                return;}
+
+             //check if the input is a training attempt
+            if(isTraining($question) ){
+                $trainingResult = trainBot($question, $conn);
+                //train the bot
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => $trainingResult
+                ]);
+                return;
+            }
+
+            //fetch the answer to the question
+            $answer = getAnswer($question, $conn);
+
+            //if the answer has ((<function_name>)) then parse it
+            if(answerHasFunction($answer)){
+                //send the parsed answer
+                echo json_encode([
+                    'status' => 1,
+                    'answer' => processedAnswer($answer)
+                ]);
+                return;
+            }
+
+            echo json_encode([
+                'status' => 1,
+                'answer' => $answer
+            ]);
+
+        } else{
+            //no question was typed
+            echo json_encode([
+                    'status' => 0,
+                    'answer' => "Please type a question"
+            ]);
+            return;
+        }
+
+    }
+
+
+//duplicated code
+           /* stmt=$conn->prepare("select*from chatbot where answer is like :'' " LIMIT 1);
+           $stmt =bindParam( :answer, `%`.$answer.`%`)
+           $stmt->execute();
+
+
+           $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetchAll();
+        if(count($rows)>0){
+
+             echo json_encode([
+                'status' => 1,
+                'answer' => "Please provide a question"
+            ]);
+
+             
+        }*/
+
+		
+		
+
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -31,47 +254,67 @@
 	
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	
 	<!------ Include the above in your HEAD tag ---------->
 	
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 	
-	<script type="text/javascript">
-		$(document).on('click', '.panel-heading span.icon_minim', function (e) {
-		var $this = $(this);
-		if (!$this.hasClass('panel-collapsed')) {
-			$this.parents('.panel').find('.panel-body').slideUp();
-			$this.addClass('panel-collapsed');
-			$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
-		} else {
-			$this.parents('.panel').find('.panel-body').slideDown();
-			$this.removeClass('panel-collapsed');
-			$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-		}
-	});
-	$(document).on('focus', '.panel-footer input.chat_input', function (e) {
-		var $this = $(this);
-		if ($('#minim_chat_window').hasClass('panel-collapsed')) {
-			$this.parents('.panel').find('.panel-body').slideDown();
-			$('#minim_chat_window').removeClass('panel-collapsed');
-			$('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-		}
-	});
-	$(document).on('click', '#new_chat', function (e) {
-		var size = $( ".chat-window:last-child" ).css("margin-left");
-		 size_total = parseInt(size) + 400;
-		alert(size_total);
-		var clone = $( "#chat_window_1" ).clone().appendTo( ".container" );
-		clone.css("margin-left", size_total);
-	});
-	$(document).on('click', '.icon_close', function (e) {
-		//$(this).parent().parent().parent().parent().remove();
-		$( "#chat_window_1" ).remove();
-	});
+	<script type="text/javascript">  
+            (function($) {
+                $(document).ready(function() {
+                    var $chatbox = $('.chatbox'),
+                        $chatboxTitle = $('.chatbox__title'),
+                        $chatboxTitleClose = $('.chatbox__title__close'),
+                        $chatboxCredentials = $('.chatbox__credentials');
+                    $chatboxTitle.on('click', function() {
+                        $chatbox.toggleClass('chatbox--tray');
+                    });
+                    $chatboxTitleClose.on('click', function(e) {
+                        e.stopPropagation();
+                        $chatbox.addClass('chatbox--closed');
+                    });
+                    $chatbox.on('transitionend', function() {
+                        if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
+                    });
+                    $chatboxCredentials.on('submit', function(e) {
+                        e.preventDefault();
+                        $chatbox.removeClass('chatbox--empty');
+                    });
+                    var msg =$('#quesform');
+            msg.submit(function(e){
+                e.preventDefault();
+                var msgBox = $('textarea[name=question]');
+                var question = msgBox.val();
+                $(".chatbox__body").append("<div class='chatbox__body__message chatbox__body__message--right'><p>" + question + "</p></div>");
+                    debugger;
+                $.ajax({
+                    url: 'profiles/sean.php',
+                    type: 'POST',
+                    data: {question: question},
+                    dataType: 'json',
+				}).done(function(response){
+                    $(".chatbox__body__message--right").append("<div id='cyclo'><img src='http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png'><p>" + response.answer + "</p></div>");
+                   // console.log(response.result);
+                    //alert(response.result.d);
+                    //alert(answer.result);
+                }).fail(function(error){
+                        //console.log(error);
+                        alert(JSON.stringify(error));
+                });  
+                $('.chatbox__body').scrollTop($('.chatbox__body')[0].scrollHeight);
+                $("#texts").empty();       
+            });
 
-	</script>
+
+                    });
+
+            })(jQuery);
+
+			
+		
+        </script>
 
 	<script type="text/javascript">
 		$(function() {
@@ -565,65 +808,331 @@ h1 a {
 CHATBOT CSS
 **************/
 
-.chat
-{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+.chatbox {
+                position: fixed;
+                bottom: 0;
+                right: 30px;
+                width: 300px;
+                height: 400px;
+                background-color: #fff;
+                font-family: 'Lato', sans-serif;
 
-.chat li
-{
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 1px dotted #B3A9A9;
-}
+                -webkit-transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
+                transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
 
-.chat li.left .chat-body
-{
-    margin-left: 60px;
-}
+                display: -webkit-flex;
+                display: flex;
 
-.chat li.right .chat-body
-{
-    margin-right: 60px;
-}
+                -webkit-flex-direction: column;
+                flex-direction: column;
+            }
+
+            .chatbox--tray {
+                bottom: -350px;
+            }
+
+            .chatbox--closed {
+                bottom: -400px;
+            }
+
+            .chatbox .form-control:focus {
+                border-color: #1f2836;
+            }
+
+            .chatbox__title,
+            .chatbox__body {
+                border-bottom: none;
+            }
+
+            .chatbox__title {
+                min-height: 50px;
+                padding-right: 10px;
+                background-color: #1f2836;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                cursor: pointer;
+
+                display: -webkit-flex;
+                display: flex;
+
+                -webkit-align-items: center;
+                align-items: center;
+            }
+
+            .chatbox button:hover{
+                cursor: pointer;
+
+            }
+
+            .chatbox button:active{
+                background-color: black;
+                
+            }
 
 
-.chat li .chat-body p
-{
-    margin: 0;
-    color: #777777;
-}
+            .chatbox__title h5 {
+                height: 50px;
+                margin: 0 0 0 15px;
+                line-height: 50px;
+                position: relative;
+                padding-left: 20px;
 
-.panel .slidedown .glyphicon, .chat .glyphicon
-{
-    margin-right: 5px;
-}
+                -webkit-flex-grow: 1;
+                flex-grow: 1;
+            }
 
-.panel-body
-{
-    overflow-y: scroll;
-    height: 250px;
-}
+            .chatbox__title h5 a {
+                color: #fff;
+                max-width: 195px;
+                display: inline-block;
+                text-decoration: none;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
 
-::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-}
+            .chatbox__title h5:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                width: 12px;
+                height: 12px;
+                background: #4CAF50;
+                border-radius: 6px;
 
-::-webkit-scrollbar
-{
-    width: 12px;
-    background-color: #F5F5F5;
-}
+                -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
 
-::-webkit-scrollbar-thumb
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: #555;
-}
+            .chatbox__title__tray,
+            .chatbox__title__close {
+                width: 24px;
+                height: 24px;
+                outline: 0;
+                border: none;
+                background-color: transparent;
+                opacity: 0.5;
+                cursor: pointer;
+
+                -webkit-transition: opacity 200ms;
+                transition: opacity 200ms;
+            }
+
+            .chatbox__title__tray:hover,
+            .chatbox__title__close:hover {
+                opacity: 1;
+            }
+
+            .chatbox__title__tray span {
+                width: 12px;
+                height: 12px;
+                display: inline-block;
+                border-bottom: 2px solid #fff
+            }
+
+            .chatbox__title__close svg {
+                vertical-align: middle;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                stroke-width: 1.2px;
+            }
+
+            .chatbox__body,
+            .chatbox__credentials {
+                padding: 15px;
+                border-top: 0;
+                background-image: linear-gradient(35deg, #64b5f6 36%, #536dfe 65%);
+                border-left: 1px solid #ddd;
+                border-right: 1px solid #ddd;
+
+                -webkit-flex-grow: 1;
+                flex-grow: 1;
+            }
+
+            .chatbox__credentials {
+                display: none;
+            }
+
+            .chatbox__credentials .form-control {
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            .chatbox__body {
+                overflow-y: auto;
+            }
+
+            .chatbox__body__message {
+                position: relative;
+                width: 80%;
+            }
+
+            .chatbox__body__message p {
+                padding: 15px;
+                border-radius: 4px;
+                font-size: 14px;
+                background-color: #fff;
+                -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+                box-shadow: 2px 2px black;
+            }
+
+            .chatbox__body__message img {
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                border: 2px solid #fcfcfc;
+                position: absolute;
+                bottom: 0px;
+            }
+
+            .chatbox__body__message--left p {
+                margin-left: 15px;
+                padding-left: 30px;
+                text-align: left;
+            }
+
+            .chatbox__body__message--left img {
+                left: -5px;
+            }
+            
+            #cyclo p{
+                border-radius: 4px;
+                font-size: 14px;
+                background-color: #fff;
+                -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+                box-shadow: 2px 2px black;
+                text-align: left;
+                padding-left:30px;
+                margin-left:10px;
+            }
+            
+            #cyclo{
+                position: relative;
+                left:-60px;
+                width: 109%;
+                
+                }
+            
+            #cyclo img{
+                left:-10px;
+            }
+            .chatbox__body__message--right {
+                float: right;
+                margin-right: -15px;
+            }
+
+            .chatbox__body__message--right p {
+                margin-right: 15px;
+                padding-right: 30px;
+                text-align: right;
+            }
+
+            .chatbox__body__message--right img {
+                right: -5px;
+            }
+
+            .chatbox__message {
+
+                min-height: 40px;
+                outline: 0;
+                resize: none;
+                border: none;
+                font-size: 12px;
+                border: 1px solid #ddd;
+                border-bottom: none;
+                background-color: #fefefe;
+                margin-left: 0px;
+            }
+
+            .chatbox__message button{
+                float: right;
+                padding-bottom: 10px;
+                padding-top: 10px;
+                border:none;
+                background-color: #1a237e;
+                color: white;
+                border-radius: 20px;
+                margin-right: 5px;
+            }
+
+
+
+            .chatbox__message textarea{
+                padding: 2px;
+                height: 20px;
+                margin-left: -20px;
+                margin-top: 7px;
+                width: 70%;
+                border: none;
+
+            }
+
+            .chatbox__message textarea{
+                padding: 2px;
+                height: 20px;
+                margin-left: -20px;
+                margin-top: 7px;
+                width: 70%;
+                border: none;
+
+            }
+
+            .chatbox--empty {
+                height: 262px;
+            }
+
+            .chatbox--empty.chatbox--tray {
+                bottom: -212px;
+            }
+
+            .chatbox--empty.chatbox--closed {
+                bottom: -262px;
+            }
+
+            .chatbox--empty .chatbox__body,
+            .chatbox--empty .chatbox__message {
+                display: none;
+            }
+
+            .chatbox--empty .chatbox__credentials {
+                display: block;
+            }
+
+            .form-group {
+                margin-left: 0px;
+                padding: 10px;
+                margin-top: 20px;
+                /*border: 2px red solid;*/
+            }
+
+            .form-control {
+                margin-left: 10px;
+                /*border: blue 2px solid;*/
+                width: 7y0%;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                border-radius: 10px;
+            }
+
+            .chatbox__credentials label{
+                margin-left: 0px;
+                /*border: 2px black solid;*/
+                padding-bottom: 10px;
+                padding-top: 10px;
+                color: white;
+            }
+
+            .chatbox__credentials button{
+                text-decoration: none;
+                background-color: #1a237e;
+                border:0px;
+                margin-top: 20px;
+                padding: 15px;
+                border-radius: 20px;
+                color: white;
+            }
 
 
 </style>
@@ -742,103 +1251,52 @@ CHATBOT CSS
 	</ul>
 	</div>
     
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span> Chat
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
-                        <ul class="dropdown-menu slidedown">
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
-                            </span>Refresh</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
-                            </span>Available</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
-                            </span>Busy</a></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
-                                Away</a></li>
-                            <li class="divider"></li>
-                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
-                                Sign Out</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <ul class="chat">
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                    dolor, quis ullamcorper ligula sodales.
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="chatbox chatbox--tray chatbox--empty">
+    <div class="chatbox__title">
+        <h5><a href="#">Cyclo Bot</a></h5>
+        <button class="chatbox__title__tray">
+            <span></span>
+        </button>
+        <button class="chatbox__title__close">
+            <span>
+                <svg viewBox="0 0 12 12" width="12px" height="12px">
+                    <line stroke="#FFFFFF" x1="11.75" y1="0.25" x2="0.25" y2="11.75"></line>
+                    <line stroke="#FFFFFF" x1="11.75" y1="11.75" x2="0.25" y2="0.25"></line>
+                </svg>
+            </span>
+        </button>
     </div>
-</div>        
+    <div class="chatbox__body">
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png" height="40px" width="40px" alt="Picture">
+            <p>Hello, I'm Sean. !</p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png" height="40px" width="40px" alt="Picture">
+            <p>I am here to assist you to the best of my ability. You can find out more about me by typing <strong>#About me</strong></p>
+        </div>
+        <div class="chatbox__body__message chatbox__body__message--left">
+            <img src="http://res.cloudinary.com/findseun/image/upload/v1526568848/TADLXHY5C-UALFCDWSY-ae04f7662e4c-512.png" height="40px" width="40px" alt="Picture">
+            <p> You can also train me  to answer your questions by using the format <strong>train: question # answer # password</strong>. </p>
+        </div>
+
+    </div>
+    <form action="#" method="post" class="chatbox__credentials">
+        <div class="form-group">
+            <label for="inputName">Name:</label>
+            <input type="text" class="form-control" id="inputName" placeholder="E.g John Smith" required>
+        </div>
+        <button type="submit" class="btn btn-success btn-block">Enter Chat</button>
+    </form>
+    <div class="chatbox__message">
+    <form id="quesform" method="post">
+            <textarea id='texts' name="question" placeholder="Enter message ..."></textarea>
+            <button type="submit" id="sendtxt">Send</button>
+    </form>
+    </div>
+        </div>
+        </div>
+
+        </section>
 </body
 </html>
