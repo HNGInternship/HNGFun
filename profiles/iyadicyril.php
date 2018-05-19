@@ -624,7 +624,7 @@ hr{
  <!--Andy Bot-->
  <div class="row">
 					<div class="col-md-2 col-sm-1"></div>
-					<div class="col-md-8 col-sm-10" style="padding-left: 0px;padding-right: 0px;">
+					<div class="col-md-8 col-sm-10" style="padding-left: 0px;padding-right: 0px;" >
 						<!-- chat bot -->
 				<div class="chat-bot">
 					<!-- chat title area -->
