@@ -248,7 +248,6 @@ hr{
 
 .container
 {
-	width: 380px;
 	margin: 0px auto;
 	height: 950px;	
 }
