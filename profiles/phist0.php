@@ -371,7 +371,7 @@ CHAT CSS
 
     .main-wrapper .vc_single_image-wrapper .vc_box_border_grey {
   position: relative;
-  left: 500px;
+  left: 100px;
 
 
 }
@@ -383,11 +383,6 @@ CHAT CSS
 } 
 
 
-html, body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
   </style>
   
 </head>
