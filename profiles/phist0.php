@@ -383,7 +383,7 @@ CHAT CSS
 } 
 body{
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
   </style>
