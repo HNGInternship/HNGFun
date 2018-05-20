@@ -372,7 +372,7 @@ CHAT CSS
     div.vc_single_image-wrapper  {
   position: relative;
   left: 300px;
-  bottom: 200px;
+  bottom: 150px;
 
 
 }
@@ -409,9 +409,9 @@ body{
                           </div>
  
                           <div class="hng_internship">
-                           <ul>   
-                             <li>&#8217; : HNG 4.0 Internship </li>
-			   </ul> 
+                           <p>   
+                              HNG 4.0 Internship 
+			   </p> 
                            </div>
                                 
                           <div class="need-info">
