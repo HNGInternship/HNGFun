@@ -188,103 +188,7 @@ function getAnswer($input) {
       text-decoration: none;
     }
     /**/
-    .mytext{
-    border:0;padding:10px;background:whitesmoke;
-}
-.text{
-    width:75%;display:flex;flex-direction:column;
-}
-.text > p:first-of-type{
-    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
-}
-.text > p:last-of-type{
-    width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
-}
-.text-l{
-    float:left;padding-right:10px;
-}        
-.text-r{
-    float:right;padding-left:10px;
-}
-.avatar{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:25%;
-    float:left;
-    padding-right:10px;
-}
-.macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
-}
-.msj-rta{
-    float:right;background:whitesmoke;
-}
-.msj{
-    float:left;background:white;
-}
-.frame{
-    background:#e0e0de;
-    height:450px;
-    overflow:hidden;
-    padding:0;
-}
-.frame > div:last-of-type{
-    position:absolute;bottom:0;width:100%;display:flex;
-}
-body > div > div > div:nth-child(2) > span{
-    background: whitesmoke;padding: 10px;font-size: 21px;border-radius: 50%;
-}
-body > div > div > div.msj-rta.macro{
-    margin:auto;margin-left:1%;
-}
-ul {
-    width:100%;
-    list-style-type: none;
-    padding:18px;
-    position:absolute;
-    bottom:47px;
-    display:flex;
-    flex-direction: column;
-    top:0;
-    overflow-y:scroll;
-}
-.msj:before{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-    left:-14px;
-    position:relative;
-    border-style: solid;
-    border-width: 0 13px 13px 0;
-    border-color: transparent #ffffff transparent transparent;            
-}
-.msj-rta:after{
-    width: 0;
-    height: 0;
-    content:"";
-    top:-5px;
-    left:14px;
-    position:relative;
-    border-style: solid;
-    border-width: 13px 13px 0 0;
-    border-color: whitesmoke transparent transparent transparent;           
-}  
-input:focus{
-    outline: none;
-}        
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #d4d4d4;
-}
-::-moz-placeholder { /* Firefox 19+ */
-    color: #d4d4d4;
-}
-:-ms-input-placeholder { /* IE 10+ */
-    color: #d4d4d4;
-}
-:-moz-placeholder { /* Firefox 18- */
-    color: #d4d4d4;
+ 
 }  
     body{
   background-image: url("https://res.cloudinary.com/gyrationtechs/image/upload/v1526053526/bg.jpg");
@@ -402,7 +306,138 @@ color: #fff;
 left: 30%; 
 right: 30%;
 }
-/*legend*/
+
+/*davbot*/
+
+   * {
+     margin: 0;
+     padding: 0;
+     font-family: tahoma, sans-serif;
+     box-sizing: border-box;
+   }
+
+.chatbox {
+
+width: 320px;
+height: 400px;
+background: #fff;
+min-width: 280px;
+padding: 25px;
+box-shadow: 0 3px #ccc;
+/*margin: 20px;*/
+float: right;
+margin-to: 20px;
+
+}
+
+.chatlogs {
+padding: 10px;
+width: 100%;
+height: 300px;
+background: #eee;
+overflow-x: hidden;
+overflow-y: scroll;
+}
+
+.chatlogs::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chatlogs::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.chat {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.chat .user-photo {
+  width: 40px;
+  height: 40px;
+  background: #ccc;
+border-radius: 50%;
+overflow: hidden;
+}
+
+.chat .user-photo img {
+  width: 100%;
+}
+
+.chat .chat-message {
+  width: 75%;
+  padding: 10px;
+  margin: 5px 10px 0;
+  background: #1ddced;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 10px;
+}
+
+.davbot .chat-message {
+  background: #161212;
+}
+
+.user .chat-message {
+  background: #232dd2;
+  order: -1;
+}
+
+.chat-form {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.chat-form textarea {
+  background: #fbfbfb;
+  width: 60%;
+  height: 45px;
+  border: 2px solid #eee;
+  resize: none;
+  padding: 8px;
+  font-size: 12px;
+  color: #333;
+}
+
+.chat-form textarea:focus {
+  background: #fff;
+}
+
+.chat-form textarea::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-form textarea::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, .1);
+}
+
+.chat-form button {
+  background: #161212;
+  padding: 10px 10px;
+  font-size: 16px;
+  border: none;
+  color: #fff;
+  margin: 0px 20px;
+  border-radius: 3px;
+  box-shadow: 0 3px 0 #555;
+  cursor: pointer;
+
+  -webkit-transition: background .2s ease;
+  -moz-transition: background .2s ease;
+  -o-transition: background .2s ease;
+}
+
+.chat-form button:hover{
+  background: #232dd2;
+}
+/*end*/
+
+/*legend
 
 .chatbot-container{
       background-color: #F3F3F3;
@@ -496,7 +531,7 @@ right: 30%;
       text-decoration: none;
     }
 
-/**/
+*/
 </style>
   </head>
   <body>
@@ -537,25 +572,7 @@ right: 30%;
 <!---->
 
       </div><br><br>
-      <script >
-  window.Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote) = function(a){
-    a.init({
-      appUISetting:"%7B%22openMode%22%3A%7B%22text%22%3A%22davBot%20UI%22%2C%22height%22%3A390%2C%22width%22%3A320%7D%2C%22closeMode%22%3A%7B%22text%22%3A%22davBot%20UI%22%2C%22width%22%3A200%2C%22displayType%22%3A%22rectangular%22%7D%2C%22common%22%3A%7B%22logo%22%3A%22https%3A//www.gupshup.io/images/botwidget/ic_dummy_chat_g.png%22%2C%22imgDispType%22%3A%22circular%22%2C%22bgColor%22%3A%22%23090909%22%2C%22fontSize%22%3A16%2C%22fontColor%22%3A%22%23ffffff%22%7D%2C%22content%22%3A%7B%22bot%22%3A%22//www.buildquickbots.com/widget/bots/9f2b71f6e25b5651172f3fb230f1f952/8c85312b892047b9a7f4ae7d905cefa0/bot.png%22%2C%22botBubbleColor%22%3A%22%23161212%22%2C%22botFontColor%22%3A%22%23e7dfdf%22%2C%22user%22%3A%22https%3A//www.gupshup.io/images/botwidget/ic_user.png%22%2C%22userBubbleColor%22%3A%22%23232dd2%22%2C%22userFontColor%22%3A%22%23ffffff%22%2C%22pageTitle%22%3A%22davBot%20UI%22%2C%22fontSize%22%3A14%2C%22fontFamily%22%3A%22sans-serif%22%7D%2C%22config%22%3A%7B%22persistenceMenu%22%3A%22%7B%5C%22disableinput%5C%22%3Afalse%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level1%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element2%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level3%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element4%5C%22%2C%5C%22type%5C%22%3A%5C%22nested%5C%22%2C%5C%22menu%5C%22%3A%5B%7B%5C%22title%5C%22%3A%5C%22Level3%20-%20Element1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element5%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%2C%7B%5C%22title%5C%22%3A%5C%22Level2%20-%20Element4.1%5C%22%2C%5C%22type%5C%22%3A%5C%22text%5C%22%7D%5D%7D%22%2C%22perMenuImg%22%3A%22%22%2C%22attachment%22%3A%22Yes%22%2C%22widgetType%22%3A%22Text%22%2C%22msgEnc%22%3A%22No%22%2C%22webView%22%3A%22Yes%22%2C%22RDStatus%22%3A%22No%22%2C%22isResponsive%22%3A%22Yes%22%2C%22allowHtmlFromBot%22%3A%22Yes%22%2C%22callback%22%3A%22Sorry%2C%20I%20am%20not%20understanding%20you.%20I%20am%20a%20currently%20developing%2C%20to%20train%20me%2C%20simply%20type%20-%20%27train%3A%20question%20%23%20answer%20%23%20password%27%20%28without%20quote%29%22%7D%7D",
-      version: "3"
-    });
-  };
-  (function(d, s, id){
-    var js, tjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    var ts = new Date().getTime();
-    js.src = '//www.buildquickbots.com/botwidget/v3/demo/static/js/sdk.js?v=3&ts='+ts;
-    js.setAttribute("callback","Sorry, I am not understanding you. I am a currently developing, to train me, simply type - 'train: question # answer # password' (without quote)");
-    js.setAttribute("key","98f4afed-4433-43d6-ad8f-4fc7673c4ab6");
-    tjs.parentNode.insertBefore(js, tjs);
-  }(document, 'script', 'gs-sdk'));
-</script>
-<!--My script here-->
+<!--My script here
 <script>
     var outputArea = $("#chat-body");
 
@@ -578,6 +595,63 @@ right: 30%;
                     outputArea.append("<div class='bot-chat'><div class='message'>" + result + "</div></div>");
                     $('#chat-body').animate({
                         scrollTop: $('#chat-body').get(0).scrollHeight
+                    }, 1500);
+                }, 250);
+            }
+        });
+
+
+        $("#input_text").val("");
+
+    });
+</script>-->
+
+<!--dav interface-->
+<div class="chatbox">
+  <div class="chatlogs">
+
+    <div class="chat davbot">
+      <div class="user-photo"><img src="https://res.cloudinary.com/gyrationtechs/image/upload/v1526012343/David.jpg"></div>
+      <p class="chat-message">Hello! My name is davbot.<br>
+I'm able to attend to any of your question, so feel free to ask me anything!.<br>
+Type aboutbot to know more about me.</p>
+    </div>
+   <div class="chat user">
+    <div class="user-photo"></div>
+    <p class="chat-message">aboutbot</p>
+   </div>
+
+  </div>
+
+  <div class="chat-form">
+    <form action="" method="post" id="chat-input-form">
+    <textarea type="text" name="input_text" id="input_text" required class="input_text" placeholder="Type your query here..."></textarea>
+    <button type="submit" id="send">Send</button>
+  </form>
+</div>
+
+<script>
+    var outputArea = $(".chatlogs");
+
+    $("#chat-input-form").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#input_text").val();
+
+        outputArea.append(`<div class='user_chat'><div class='message'>${message}</div></div>`);
+
+
+        $.ajax({
+            url: 'profile.php?id=david',
+            type: 'POST',
+            data:  'input_text=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='bot-chat'><div class='message'>" + result + "</div></div>");
+                    $('.chatlogs').animate({
+                        scrollTop: $('.chatlogs').get(0).scrollHeight
                     }, 1500);
                 }, 250);
             }
