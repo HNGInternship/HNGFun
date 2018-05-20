@@ -393,43 +393,34 @@ CHAT CSS
 
 <!-- Header Start -->
 
-  <div id="page" class="hfeed site">
-    <div id="main" class="wrapper">
-      <div class="vision-row clearfix">
-        <div id="primary" class="site-content col-md-12">
-          <article id="post-2" class="post-2 page type-page status-publish hentry">
-            <div class="entry-content">
-              <div id="home-page-row" class="vc_row wpb_row vc_row-fluid vc_custom_1489684063286 vc_row-o-full-height vc_row-o-columns-top vc_row-flex">
-                <div class="wpb_column vc_column_container vc_col-sm-6">
-                  <div class="vc_column-inner ">
-                    <div class="wpb_wrapper">
-                      <div class="wpb_text_column wpb_content_element ">
                         <div class="wpb_wrapper">
-                          <h1 class="red-title" style="color: #990000; font-size: 4em;">Papa Charlie </h1>
-                          <div style="font-size: 18px;">
-                           <p><a style="color: #990000;" href="https://www.linkedin.com/in/phist0">LinkedIn </a> | <a style="color: #990000;" href="https://twitter.com/phist0"> Twitter </a> | <a style="color: #990000;" href="https://www.facebook.com/phist0"> Facebook </a></p>
+			  <h1 class="red-title" style="color: #990000; font-size: 4em;">Papa Charlie </h1>
+                        </div>
+  
+
+
+                          <div class="social-media" style="font-size: 18px;">
+			   <p><a style="color: #990000;" href="https://www.linkedin.com/in/phist0">LinkedIn </a> | <a style="color: #990000;" href="https://twitter.com/phist0"> Twitter </a> | <a style="color: #990000;" href="https://www.facebook.com/phist0"> Facebook </a></p>
+                          </div>
+ 
+                          <div class="hng_internship">
                            <ul>   
                              <li>&#8217; : HNG 4.0 Internship </li>
-                           </ul>           
+			   </ul> 
+                           </div>
+                                
+                          <div class="need-info">
                            <p><a style="color: #990000;" href="#chat-box" onclick="change()">Need Information? Chat With The Bot Here &gt;&gt;</a></p>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="wpb_column vc_column_container vc_col-sm-6">
-                    <div class="vc_column-inner ">
-                      <div class="wpb_wrapper">
-                        <div class="vc_empty_space"  style="height: 60px" >
-                          <span class="vc_empty_space_inner"></span>
-                        </div>
-                        <div class="wpb_single_image wpb_content_element vc_align_center">
-                          <figure class="wpb_wrapper vc_figure">
+
+
                             <div class="vc_single_image-wrapper   vc_box_border_grey">
                               <img width="509" height="509" src="https://res.cloudinary.com/phisto/image/upload/v1526342621/26757b44659c7309fd0c152b1ed9ab64_400x400.jpg" class="vc_single_image-img attachment-full" alt="" srcset="https://res.cloudinary.com/phisto/image/upload/v1526342621/26757b44659c7309fd0c152b1ed9ab64_400x400.jpg 509w, http://https://res.cloudinary.com/phisto/image/upload/v1526342621/26757b44659c7309fd0c152b1ed9ab64_400x400.jpg 150w, http://https://res.cloudinary.com/phisto/image/upload/v1526342621/26757b44659c7309fd0c152b1ed9ab64_400x400.jpg 300w" sizes="(max-width: 509px) 100vw, 509px" />
                             </div>
-                          </figure>
-                        </div>
+			</div>
+
+
+
                         <div id="chat-box">
                           <header class="clearfix" onclick="change()">
                             <h4>ChatBot Online</h4>
