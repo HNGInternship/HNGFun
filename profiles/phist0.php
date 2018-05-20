@@ -372,7 +372,7 @@ CHAT CSS
     div.vc_single_image-wrapper  {
   position: relative;
   left: 300px;
-  bottom: 175px;
+  bottom: 195px;
 
 
 }
@@ -415,7 +415,7 @@ body{
                            </div>
                                 
                           <div class="need-info">
-                           <p><a style="color: #990000;" href="#chat-box" onclick="change()">Need Information? Chat With The Bot Here &gt;&gt;</a></p>
+                           <p><a style="color: #990000;" href="#chat-box" onclick="change()">  Need Information ? Chat With The Bot Here     &gt;&gt;</a></p>
                           </div>
 
 
