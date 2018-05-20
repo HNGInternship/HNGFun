@@ -387,6 +387,10 @@ body{
   overflow-y: hidden;
 }
 
+
+div.need-info {
+text-decoration: none;
+}
   </style>
   
 </head>
@@ -415,7 +419,7 @@ body{
                            </div>
                                 
                           <div class="need-info">
-                           <p><a style="color: #990000;" href="#chat-box" onclick="change()">  Need Information ? Chat With The Bot Here     &gt;&gt;</a></p>
+                           <p><a  style="color: #990000;" href="#chat-box" onclick="change()">  Need Information ? Chat With The Bot Here     &gt;&gt;</a></p>
                           </div>
 
 
