@@ -674,7 +674,7 @@ hr{
 		   		}
 
 		    	else{	//send message
-		    		var xhttp = new XMLHttpRequest();
+		    		var xhttp = new XMLHttpRequest() ;
 		    		xhttp.onreadystatechange = function(){
 		    			if(xhttp.readyState ==4 && xhttp.status ==200){
 				            processData(xhttp.responseText);
