@@ -1,5 +1,5 @@
 <?php 
-	 if($_SERVER['REquestionT_METHOD'] === "GET"){
+	 if($_SERVER['REQUEST_METHOD'] === "GET"){
 	if(!defined('DB_USER')){
 		require "/config.example.php";	
 	   
@@ -23,7 +23,7 @@
 ?>
 
 <?php
-if($_SERVER['REquestionT_METHOD']==='POST'){
+if($_SERVER['REQUEST_METHOD']==='POST'){
         function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
@@ -674,7 +674,7 @@ hr{
 		   		}
 
 		    	else{	//send message
-		    		var xhttp = new XMLHttpRequestiont();
+		    		var xhttp = new XMLHttpRequest();
 		    		xhttp.onreadystatechange = function(){
 		    			if(xhttp.readyState ==4 && xhttp.status ==200){
 				            processData(xhttp.responseText);
@@ -682,7 +682,7 @@ hr{
 		    		};
 
 		    		    xhttp.open("POST", "/profiles/iyadicyril.php", true);
-						xhttp.setRequestiontHeader("Content-type", "application/x-www-form-urlencoded");
+						xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 						xhttp.send("question="+messageToBot);
 				}
 	    	}
