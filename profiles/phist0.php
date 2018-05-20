@@ -369,6 +369,19 @@ CHAT CSS
                         font-size: 10px;
                 }
 
+    .vc_single_image-wrapper {
+  position: relative;
+  left: 200px
+
+
+}
+
+    .red-title {
+      position: relative;
+      left: 20px
+
+} 
+
   </style>
   
 </head>
