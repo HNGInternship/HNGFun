@@ -1,5 +1,5 @@
 <?php 
-	 if($_SERVER['REQUEST_METHOD'] === "GET"){
+	 if($_SERVER['REquestionT_METHOD'] === "GET"){
 	if(!defined('DB_USER')){
 		require "/config.example.php";	
 	   
@@ -23,7 +23,7 @@
 ?>
 
 <?php
-if($_SERVER['REQUEST_METHOD']==='POST'){
+if($_SERVER['REquestionT_METHOD']==='POST'){
         function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
@@ -32,9 +32,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             $data = preg_replace("(['])", "\'", $data);
             return $data;
         }
-        function chatMode($ques){
+        function chatMode($question){
             require '../../config.php';
-            $ques = test_input($ques);
+            $question = test_input($question);
             $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
             if(!$conn){
                 echo json_encode([
@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                 ]);
                 return;
             }
-            $query = "SELECT answer FROM chatbot WHERE question LIKE '$ques'";
+            $query = "SELECT answer FROM chatbot WHERE question LIKE '$question'";
             $result = $conn->query($query)->fetch_all();
             echo json_encode([
                 'status' => 1,
@@ -51,9 +51,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             ]);
             return;
         }
-        function trainerMode($ques){
+        function trainerMode($question){
             require '../../config.php';
-            $questionAndAnswer = substr($ques, 6); 
+            $questionAndAnswer = substr($question, 6); 
             $questionAndAnswer =test_input($questionAndAnswer); 
             $questionAndAnswer = preg_replace("([?.])", "", $questionAndAnswer);  
             $questionAndAnswer = explode("#",$questionAndAnswer);
@@ -112,11 +112,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         }
 
         
-        $ques = test_input($_POST['ques']);
-        if(strpos($ques, "train:") !== false){
-            trainerMode($ques);
+        $question = test_input($_POST['question']);
+        if(strpos($question, "train:") !== false){
+            trainerMode($question);
         }else{
-            chatMode($ques);
+            chatMode($question);
         }
 
        
@@ -674,7 +674,7 @@ hr{
 		   		}
 
 		    	else{	//send message
-		    		var xhttp = new XMLHttpRequest();
+		    		var xhttp = new XMLHttpRequestiont();
 		    		xhttp.onreadystatechange = function(){
 		    			if(xhttp.readyState ==4 && xhttp.status ==200){
 				            processData(xhttp.responseText);
@@ -682,7 +682,7 @@ hr{
 		    		};
 
 		    		    xhttp.open("POST", "/profiles/iyadicyril.php", true);
-						xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						xhttp.setRequestiontHeader("Content-type", "application/x-www-form-urlencoded");
 						xhttp.send("question="+messageToBot);
 				}
 	    	}
