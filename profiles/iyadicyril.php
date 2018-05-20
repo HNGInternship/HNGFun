@@ -674,10 +674,10 @@ hr{
 		   		}
 
 		    	else{	//send message
-		    		var xhttp = new XMLHttpRequest() ;
-		    		xhttp.onreadystatechange = function(){
-		    			if(xhttp.readyState ==4 && xhttp.status ==200){
-				            processData(xhttp.responseText);
+		    		var xhtttp = new XMLHttpRequest() ;
+		    		xhtttp.onreadystatechange = function(){
+		    			if(xhtttp.readyState ==4 && xhtttp.status ==200){
+				            processData(xhtttp.responseText);
 				        }
 		    		};
 
