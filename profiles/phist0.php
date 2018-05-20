@@ -381,7 +381,10 @@ CHAT CSS
       left: 200px;
 
 } 
-
+body{
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
   </style>
   
