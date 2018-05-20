@@ -369,7 +369,7 @@ CHAT CSS
                         font-size: 10px;
                 }
 
-    figure {
+    .vc_single_image-wrapper {
   position: relative;
   left: 500px
 
