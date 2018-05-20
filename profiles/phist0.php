@@ -369,7 +369,7 @@ CHAT CSS
                         font-size: 10px;
                 }
 
-    .vc_single_image-wrapper {
+    .main-wrapper .vc_single_image-wrapper {
   position: relative;
   left: 500px
 
@@ -389,7 +389,7 @@ CHAT CSS
 
 <!-- Main Wrapper Start -->
 
-<div id="main-wrapper">
+<div class="main-wrapper">
 
 <!-- Header Start -->
 
