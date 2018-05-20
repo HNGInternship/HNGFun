@@ -369,16 +369,16 @@ CHAT CSS
                         font-size: 10px;
                 }
 
-    .main-wrapper .vc_single_image-wrapper {
+    .main-wrapper .vc_single_image-wrapper .vc_box_border_grey {
   position: relative;
-  left: 500px
+  left: 500px;
 
 
 }
 
     .red-title {
       position: relative;
-      left: 200px
+      left: 200px;
 
 } 
 
