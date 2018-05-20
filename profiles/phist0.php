@@ -371,7 +371,7 @@ CHAT CSS
 
     div.vc_single_image-wrapper  {
   position: relative;
-  left: 100px;
+  left: 500px;
 
 
 }
