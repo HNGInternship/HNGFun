@@ -392,7 +392,7 @@ CHAT CSS
                     <div class="wpb_wrapper">
                       <div class="wpb_text_column wpb_content_element ">
                         <div class="wpb_wrapper">
-                          <h1 class="red-title" style="color: #990000; font-size: 6em;">Papa Charlie </h1>
+                          <h1 class="red-title" style="color: #990000; font-size: 4em;">Papa Charlie </h1>
                           <div style="font-size: 18px;">
                            <p><a style="color: #990000;" href="https://www.linkedin.com/in/phist0">LinkedIn </a> | <a style="color: #990000;" href="https://twitter.com/phist0"> Twitter </a> | <a style="color: #990000;" href="https://www.facebook.com/phist0"> Facebook </a></p>
                            <ul>   
