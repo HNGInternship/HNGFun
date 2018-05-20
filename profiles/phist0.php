@@ -113,7 +113,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+  <meta name="viewport" content="width=device-width" />
   <link rel="profile" href="http://gmpg.org/xfn/11" />
   <title>HNG Internship &#039;4.0&#039; - Papa Charlie</title>
   <meta property="og:locale" content="en_US" />
