@@ -7,28 +7,34 @@ $result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = '4
 if($result) $my_data = mysqli_fetch_assoc($result);
 else {echo "An error occored";}
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
 <head>
     <title>4th_clover</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src=
+    "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
+    type="text/javascript">
+</script>
+<!-- RequireJS bootstrap file -->
+
+
+
+
+
     <style>
         body{
-      		margin: 10px;
-      		background:rgba(186, 55, 181, 0.5);
-      		font-family:cursive;
+          margin: 10px;
+          background:rgba(186, 55, 181, 0.5);
+          font-family:cursive;
             }
 
-            .flip3d{
-              position: absolute;
-              top:50%;
-              left:50%;
-              bottom:50%;
-              transform:translate(-50%,-50%);
+            .card{
+              position: relative;
+              left:35%;
               width: 300px;
               height:1000px;
               background: #fff;
@@ -73,6 +79,7 @@ else {echo "An error occored";}
             color: #607d8b;
             font-size: 18px;
             text-transform: uppercase;
+            position: relative;
           }
       
           .details h2 span
@@ -99,10 +106,7 @@ else {echo "An error occored";}
 
 
           }
-          .form{
-            padding:20px;
-            text-align:left;
-          }
+       
           i {
             color: #607d8b;
            width:20px;
@@ -169,7 +173,7 @@ else {echo "An error occored";}
           height: 130px;
           width: 120px;
           z-index: +1000;
-          position: fixed;
+          position: relative;
           margin-top: -50px;
           background-size: contain;
           border: 5px solid  rgba(186, 55, 181, 0.5);
@@ -180,7 +184,7 @@ else {echo "An error occored";}
             height:140px;
           }
           .fish{
-            padding-bottom: 100px;
+            
             padding-left: 70px;
             padding-right: 60px;
           }
@@ -188,185 +192,189 @@ else {echo "An error occored";}
           .title{
             font-size:12px;
           }
-          /*3d transition for contact form*/
 
-    .flip3d > .front{
-    	position: absolute;
-    	transform: perspective(600px) rotateY(0deg);
-    	-webkit-transform: perspective(600px) rotateY(0deg);
+          .icons
+          {
+              position: relative;
+              bottom: 20;
+          }
+          .buttondesign
+          {
+
+            text-decoration: none;
+            padding:10px 20px 10px 20px;
+            border:1px solid purple;
+            background-color: transparent;
+          }
+          .buttondesign:hover
+          {
+            color: white;
+
+            background-color: rgba(186, 55, 181, 0.5);
+          }
+          .smbox
+          {
+            
+            height:200px;
+            position: relative;
+            margin-top: 70px;
+
+          }
+          .fwhite{
+            background-color: #dcd6d6;
+            margin:10px;
+            height: 150px;
+            overflow-y: scroll;
+          }
+          .dinput
+          {
+            width: 80%;
+
+          }
+          .myinput{
+            padding-top:10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+
+           
+          }
+          .myp
+          {
+            padding-left: 15px;
+          }
+          .mysend
+          {
+            float: right;
+          }
+          .bot-message {
+          float: right;
+          font-size: 14px;
+          background-color: grey;
+
+          width: 100%;
+          display: inline-block;
+          border-radius: 3px;
+          position: relative;
+          margin: 15px 1px 1px 0px;
+          }
+          .message {
+          float: left;
+          font-size: 14px;
+          background-color: #ffffff;
+          padding: 10px;
+          display: inline-block;
+          border-radius: 3px;
+          position: relative;
+          margin: 5px;    
+            
+                      
+            }
+         
+  </style>
 
 
-    	border-radius: 7px;
-    	transition: -webkit-transform .5s linear 0s;
-    	transition: transform .7s linear 0s;
-    	-webkit-backface-visibility:hidden;
-    	backface-visibility:hidden;
-    }
-/*	.flip3d >.front  {
-    	-webkit-transform: perspective(600px) rotateY(-180deg);
-    	transform: perspective(600px) rotateY(-180deg);
+<body>
+  <div class="card ">
 
-    }
-        .flip3d > .back{
-    	-webkit-transform: perspective(600px) rotateY(0deg);
-    	transform: perspective(600px) rotateY(0deg);
-
-    }*/
-    .card.flipped {
-    -webkit-transform: rotateY( 180deg );
-    -moz-transform: rotateY( 180deg );
-    -o-transform: rotateY( 180deg );
-    transform: rotateY( 180deg );
-	}
-
-    .flip3d > .back{
-    	position: absolute;
-    	-webkit-transform: perspective(600px) rotateY(180deg);
-
-
-    	border-radius: 7px;
-    	transition: -webkit-transform .5s linear 0s;
-    	transition: transform .7s linear 0s;
-    	backface-visibility:hidden;
-    	-webkit-backface-visibility:hidden;
-    }
-    .buttondesign
-    {
-
-    	text-decoration: none;
-    	padding:10px 20px 10px 20px;
-    	border:1px solid purple;
-    	background-color: transparent;
-    }
-    .buttondesign:hover
-    {
-    	color: white;
-
-    	background-color: rgba(186, 55, 181, 0.5);
-    }
-    .icons
-    {
-
-    }
-	</style>
-
-
-	<body>
-	<div class="flip3d flipped">
-
-		<div class= "front">
-			<div>
-     			<div class = "card-header">
-     				 <img src = " http://res.cloudinary.com/seyike/image/upload/v1505512043/love_uyn0wc.jpg" alt = "profile">
-    			</div>
-    			<div class = "fish">
-      				<img  class = ontop src= "http://res.cloudinary.com/seyike/image/upload/c_scale,e_sharpen:100,h_944,q_86,r_4,w_557/r_7/v1505062864/1_ljr5it.jpg" alt="Profile Picture">
-    			</div>
-  			</div>
+    <div class= "front">
+      <div>
+          <div class = "card-header">
+             <img src = " http://res.cloudinary.com/seyike/image/upload/v1505512043/love_uyn0wc.jpg" alt = "profile">
+          </div>
+          <div class = "fish">
+              <img  class = ontop src= "http://res.cloudinary.com/seyike/image/upload/c_scale,e_sharpen:100,h_944,q_86,r_4,w_557/r_7/v1505062864/1_ljr5it.jpg" alt="Profile Picture">
+          </div>
+        </div>
 
     <!-- image in front -->
 
-     		<div class="details">
-      			 <h2>Seyike Sojirin<br><span class = "dd">Front-end Developer and UI/UX designer</span></h2>
-			       <p> My name is Seyike Sojirin, A student of the University of Lagos; Computer science department.
-			 			I am a UI/UX designer , aspiring Full Stack web developer and IT enterpreneur.
-			 			I'm conversant with HTML, CSS ,MYSQL, PHP and JavaScript .
-			      </p>
-      		
-      			<div class ="icons">
-				    <ul>
+        <div class="details">
+             <h2>Seyike Sojirin<br><span class = "dd">Front-end Developer and UI/UX designer</span></h2>
+             <p> My name is Seyike Sojirin, A student of the University of Lagos; Computer science department.
+            I am a UI/UX designer , aspiring Full Stack web developer and IT enterpreneur.
+            I'm conversant with HTML, CSS ,MYSQL, PHP and JavaScript .
+            </p>
+          </div>
+          <div class ="icons">
+            <ul>
 
-					    <li>
-					     <a href = "https://github.com/seyike"><i class="fa fa-github ic" aria-hidden="true"></i></a>
+              <li>
+               <a href = "https://github.com/seyike"><i class="fa fa-github ic" aria-hidden="true"></i></a>
 
-					    </li>
-					    <li>
-					    <a href="https://hnginterns.slack.com/messages/@seyike" alt="slack"><i class="fa fa-slack ic" aria-hidden="true"></i></a>
-					     </li>
+              </li>
+              <li>
+              <a href="https://hnginterns.slack.com/messages/@seyike" alt="slack"><i class="fa fa-slack ic" aria-hidden="true"></i></a>
+               </li>
 
-					    <li>
-					    <a href="https://www.facebook.com/ssojirin" alt = "myprofile"><i class="fa fa-facebook-official ic" aria-hidden="true"></i></a>
-					     </li>
-					  </ul>
+              <li>
+              <a href="https://www.facebook.com/ssojirin" alt = "myprofile"><i class="fa fa-facebook-official ic" aria-hidden="true"></i></a>
+               </li>
+            </ul>
 
-				 </div>
-      		<!-- <div class = "buttonme">
-      			<a href="" class = "buttondesign" onclick="flip()">Send me a Message</a>
-     		 </div> -->
-		</div>
+         </div>
+        
+    </div>
+   
 
+    <div class = "smbox" id = "smbox">
+      <p class = "myp">My Chatbot <span>-- #Train #Question</span></p>
+      <div class = "fwhite" id = "chatwindow"> 
+        
+      </div>
+          <div class = "myinput" id= "myinput">
+            <form action="" method="post" name = "chatinput" id = "chatinput">
+              <input type="text" name="" placeholder="Ask me anything" class = "dinput" id ="user-input">
+               <button class="mysend" id = "chatinput" name = "chatinput">Send</button> 
+            </form>
+            
+          </div>
+     
+    </div>
 
+  </div>
 
-
-  <!-- contact us form -->
-
-	</div>
-
-
-
-
-
-
-	<div class= "back">
-
-
-       		<form class="form" action="../sendmail.php" method="GET">
-       			
-
-    			 <div  class = "contact">
-				    	<h4>Contact me</h4>
-				        <input type="hidden" name="password" value="<?= $password; ?>" />
-				 </div>
+  
 
 
-			    <div class = "formm" >
-
-			          <label class="title"> <i class="fa fa-user"></i>Your name</label>
-			          <br>
-			        <input type="text" class="form-control" required="">
-
-			    </div>
-
-			    <div class="">
-
-			          <label class="title"><i class="fa fa-envelope"></i>Your email</label>
-			          <br>
-
-			        <input type="text" name="to" class="form-control" required="">
-
-			    </div>
-
-			    <div class="">
-			       <label class="title"><i class="fa fa-tags"></i>Subject</label>
-			       <br>
-
-			        <input type="text" name="subject" class="form-control" required="">
-
-			    </div>
-
-			    <div>
-				     <label class="title"><i class="fa fa-pencil"></i>Your message</label>
-				     <br>
-
-				        <textarea type="text"  name="body" class="textt" placeholder="write your message" required=""></textarea>
-
-			    </div>
-			    <br>
-
-			    <div>
-			        <button type= "submit"  name="sendmessage" class="btn">Send<i class="fa fa-paper-plane-o if sendmessage" ></i></button>
-			    </div>
-
-
-			</form>
-  	</div>
 </div>
 
-<script type="text/javascript">
-function flip() {
-    $('.buttondesign').toggleClass('flipped');
-}
+   <script>
+//<![CDATA[
+    var outputArea = $("#chatwindow");
 
-</script>
+    $("#chatinput").on("submit", function(e) {
+
+        e.preventDefault();
+
+        var message = $("#user-input").val();
+
+        outputArea.append(
+        `<div class='bot-message'><div><div class='message'>${message}<\/div><\/div><\/div>
+        `);
+
+
+        $.ajax({
+            url: 'profile.php?id=4th_clover',
+            type: 'POST',
+            cache: false ,
+            data:  'user-input=' + message,
+            success: function(response) {
+                var result = $($.parseHTML(response)).find("#result").text();
+                setTimeout(function() {
+                    outputArea.append("<div class='message'>" + result + "<\/div>");
+                    $('#chatwindow').animate({
+                        scrollTop: $('#chatwindow').get(0).scrollHeight
+                    }, 150);
+                }, 250);
+            }
+        });
+
+
+        $("#user-input").val("");
+
+    });
+    //]]>
+    </script>
 
 </body>

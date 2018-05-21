@@ -92,7 +92,7 @@
 
   function isAbout(){
     $status = 1;
-    $answer = "LocalhosBot version 1.0";
+    $answer = "localhostBot version 1.0";
 
     return json_encode([
               'status' => $status,

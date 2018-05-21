@@ -1194,7 +1194,6 @@ $('.button').click(function(){
   $('.menu .items span').toggleClass('active');
    $('.menu .button').toggleClass('active');
 });
-
 $(document).ready(function() {
 			// Perform other work here ...
 			let stage = 0;
@@ -1271,7 +1270,6 @@ $(document).ready(function() {
 			}
 		
 		});
-
 		</script>
 </head>
 </html>

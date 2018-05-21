@@ -1,7 +1,9 @@
 
 <!DOCTYPE html>
+
 <?php
     try {
+        
         $sql = "SELECT * FROM secret_word";
         $secret_word_query = $conn->query($sql);
         $secret_word_query->setFetchMode(PDO::FETCH_ASSOC);
@@ -91,6 +93,7 @@
     return $anwerSam = $currentTime[$index];
   }
 ?>
+
 <html>
 <style>
 
@@ -112,11 +115,14 @@
 }
 
 .left {
-    width: 75%;
+    width: 5%;
 }
 
 .right {
     width: 25%;
+}
+.center {
+    width: 70%;
 }
 
 .row:after {
@@ -183,7 +189,7 @@ button:hover, a:hover {
  </head>
 <body>
   <div id="mypage" class="row">
-    <div class="column left">
+    <div class="column center">
       <div>
       <?php
       echo "<h1>" .$name. "</h1>";
@@ -192,16 +198,12 @@ button:hover, a:hover {
       <div class="title">Web and Mobile Developer</div>
       <div>Hotels.ng Internship</div>
       <div align="center"> <img width="200px" height="200px" src="https://res.cloudinary.com/danuluma/image/upload/v1525636698/hng.jpg"></div>
+
       <?php
       echo " Username :" .$username. "";
       ?>
-      <div>Slack: @Dan</div>
-      <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
-      
-      <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
-    </div>
 
-   <div class="column right" align="center" >
+        <div  align="center" >
 
       <form class="chat-box" action="" method="post" id="#form-ajax">   
         <div class="chat-msgs">
@@ -217,6 +219,16 @@ button:hover, a:hover {
       </form>
 
    </div>
+
+      <div>Slack: @Dan</div>
+      <div>Github: <a href="https://github.com/danuluma" target="_blank">danuluma</a></div>
+      
+      <div><a class="button" href="mailto:anericod@gmail.com" target="_blank"><button>Contact</button> </a></div>
+    </div>
+
+ 
+
+
 </div>
 
  <script src="vendor/jquery/jquery.min.js"></script>

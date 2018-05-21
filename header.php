@@ -11,7 +11,7 @@
     <title>HNG FUN</title>
 
     <!-- Bootstrap core CSS -->
-      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="vendor/bootstrap/3.3.4/css/bootstrap.css" rel="stylesheet">
 
 
       <!-- Custom fonts for this template -->
