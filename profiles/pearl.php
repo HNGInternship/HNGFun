@@ -84,12 +84,12 @@ function test_input($data) {
                     //saving to database ends here
                     
                 }else{
-                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }
             }else{
-                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question#answer#password";
+                    $reply = "Seems you don't follow instructions.<br> Training Format: train:question # answer # password";
                             $response = array('status'=>5, 'answer'=>$reply);
                             echo json_encode($response);
                 }

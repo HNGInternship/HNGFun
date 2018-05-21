@@ -6,13 +6,80 @@
   $result = $conn->query("Select * from secret_word LIMIT 1");
 
   $result = $result->fetch(PDO::FETCH_OBJ);
+  <!-- a new added code..added in -->
+  =======
+       
+        require '../../config.php';
+        $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
+        
+        if(!$conn){
+            die('Unable to connect');
+        }
+        $question = $_POST['message'];
+        $pos = strpos($question, 'train:');
 
+        if($pos === false){
+            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
+            $query = $conn->query($sql);
+            if($query){
+                echo json_encode([
+                    'results'=> $query->fetch_all()
+                ]);
+                return;
+            }
+        }else{
+            $trainer = substr($question,6 );
+            $data = explode('#', $trainer);
+            $data[0] = trim($data[0]);
+            $data[1] = trim($data[1]);
+            $data[2] = trim($data[2]);
+>>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+<!-- end here-->
   $secret_word = $result->secret_word;
 
 
 
   $result2 = $conn->query("Select * from interns_data where username = 'olubori'");
+<!-- another code starts here-->
+=======
+                $sql = "INSERT INTO chatbot (question, answer)
+                VALUES ('$data[0]', '$data[1]')";
 
+
+                $query = $conn->query($sql);
+                if($query){
+                    echo json_encode([
+                        'results'=> 'Trained Successfully'
+                    ]);
+                    return;
+                }else{
+                    echo json_encode([
+                        'results'=> 'Error training'
+                    ]);
+                    return;
+                }
+                
+            }else{
+                echo json_encode([
+                    'results'=> 'Wrong Password'
+                ]);
+                return;
+            }
+            
+        }
+        
+        echo json_encode([
+            'results'=>  'working'
+        ]);
+        
+    return ;
+    }else{
+        //echo 'HI';
+        //return;
+    }
+    
+>>>>>>> 306b07817e52d3028043974c9945b701d9d70a10
+<!-- end here -->
   $user = $result2->fetch(PDO::FETCH_OBJ);
 
 ?>

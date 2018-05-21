@@ -114,7 +114,7 @@
         }
         
         // find visitor location
-        if($que == "where am i"){
+        if(stristr($que, "where am i")){
 			$location = get_location($_SERVER['REMOTE_ADDR']);
             if(!is_null($location))echo "You are in ". $location;
             else echo "Sorry, I couldn't get that...";
@@ -123,6 +123,7 @@
 
 		// find location of ip
 		if(stristr($que, "where is")){
+            $que = strtolower($que);
 			$ip = trim(str_replace("where is", "", $que));			
 			$location = get_location($ip);
 			if(!is_null($location))echo $location;
@@ -181,9 +182,7 @@
             html{height: 95%}
             body { height: 100%; display: flex; flex-flow: column nowrap;   }
             #header, #footer{ height: 110px; flex:0 0 auto; padding-top: 60px;  display: flex; flex-flow: row nowrap; justify-content: center; }
-            #middle{ width: 400px; height: auto; margin-right: auto; margin-left: auto; display: flex;
-				flex-flow: row nowrap; justify-content: center;
-			}
+            #middle{ width: 100%;}
             #image{ width: 300px; height: 250px; flex:1 1 auto; }
 			.flex{display: flex; flex-flow: row nowrap; justify-content: space-between; width: 100%}
 			.label{width: 40%;}
