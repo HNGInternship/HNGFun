@@ -18,7 +18,7 @@
 
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            require '../../config.php';
+            require '../db.php';
             //die('Hi');
             $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
             
