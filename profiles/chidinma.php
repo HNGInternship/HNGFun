@@ -142,7 +142,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			float: right;
 			width: 400px;
 			height: 500px;
-			margin-top: 7rem;
+			margin-top: 11rem;
 
 		}
 
