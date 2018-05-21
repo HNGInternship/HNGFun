@@ -1,11 +1,82 @@
+<!-- z -->
 <?php
-require('db.php');
-$connect = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
-$result = mysqli_query($connect, "SELECT * FROM secret_word");
-$secret_word = mysqli_fetch_assoc($result)['secret_word'];
-$result = mysqli_query($connect, "SELECT * FROM interns_data WHERE username = '4th_clover'");
-if($result) $my_data = mysqli_fetch_assoc($result);
-else {echo "An error occored";}
+try {
+    $sql = 'SELECT * FROM secret_word';
+    $q   = $conn->query( $sql );
+    $q->setFetchMode( PDO::FETCH_ASSOC );
+    $data = $q->fetch();
+}
+catch ( PDOException $e ) {
+    throw $e;
+}
+$secret_word = $data[ 'secret_word' ];
+if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
+    $data  = $_POST[ 'user-input' ];
+    $temp  = explode( ':', $data );
+    $temp2 = preg_replace( '/\s+/', '', $temp[ 0 ] );
+    if ( $temp2 === 'train' ) {
+        train( $temp[ 1 ] );
+    } elseif ( $temp2 === 'aboutbot' ) {
+        aboutbot();
+    } else {
+        getAnswer( $temp[ 0 ] );
+    }
+}
+
+
+
+function aboutbot( ) {
+    echo "<div id='result'>yuno 1.2</div>";
+}
+function train( $input ) {
+    $input    = explode( '#', $input );
+    $question = trim( $input[ 0 ] );
+    $answer   = trim( $input[ 1 ] );
+    $password = trim( $input[ 2 ] );
+    if ( $password == 'password' ) {
+        $sql = 'SELECT * FROM chatbot WHERE question = "' . $question . '" and answer = "' . $answer . '" LIMIT 1';
+        $q   = $GLOBALS[ 'conn' ]->query( $sql );
+        $q->setFetchMode( PDO::FETCH_ASSOC );
+        $data = $q->fetch();
+        if ( empty( $data ) ) {
+            $training_data = array(
+                 ':question' => $question,
+                ':answer' => $answer 
+            );
+            $sql           = 'INSERT INTO chatbot ( question, answer)
+              VALUES (
+                  :question,
+                  :answer
+              );';
+            try {
+                $q = $GLOBALS[ 'conn' ]->prepare( $sql );
+                if ( $q->execute( $training_data ) == true ) {
+                    echo "<div id='result'>yuno has been trained</div>";
+                }
+            }
+            catch ( PDOException $e ) {
+                throw $e;
+            }
+        } else {
+            echo "<div id='result'>Teach me something new!</div>";
+        }
+    } else {
+        echo "<div id='result'>Invalid Password, Try Again!</div>";
+    }
+}
+function getAnswer( $input ) {
+    $question = $input;
+    $sql      = 'SELECT * FROM chatbot WHERE question = "' . $question . '"';
+    $q        = $GLOBALS[ 'conn' ]->query( $sql );
+    $q->setFetchMode( PDO::FETCH_ASSOC );
+    $data = $q->fetchAll();
+    if ( empty( $data ) ) {
+        echo "<div id='result'>Sorry, 'train: question # answer # password'</div>";
+    } else {
+        $rand_keys = array_rand( $data );
+        echo "<div id='result'>" . $data[ $rand_keys ][ 'answer' ] . "</div>";
+    }
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en-us" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us">
@@ -16,14 +87,10 @@ else {echo "An error occored";}
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src=
-    "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
-    type="text/javascript">
-</script>
+      "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"
+      type="text/javascript">
+    </script>
 <!-- RequireJS bootstrap file -->
-
-
-
-
 
     <style>
         body{
@@ -34,7 +101,7 @@ else {echo "An error occored";}
 
             .card{
               position: relative;
-              left:35%;
+              left:40%;
               width: 300px;
               height:1000px;
               background: #fff;
@@ -229,6 +296,7 @@ else {echo "An error occored";}
           .dinput
           {
             width: 80%;
+            padding: 5px;
 
           }
           .myinput{
@@ -239,6 +307,13 @@ else {echo "An error occored";}
 
            
           }
+           .mysend:hover{
+            border:1px solid rgba(186, 55, 181, 0.5);
+            background-color: rgba(186, 55, 181, 0.5);
+            color: white;
+
+           
+          }
           .myp
           {
             padding-left: 15px;
@@ -246,25 +321,51 @@ else {echo "An error occored";}
           .mysend
           {
             float: right;
+            border:1px solid rgba(186, 55, 181, 0.5);
+            padding: 5px;
+            background: white;
           }
           .bot-message {
           float: right;
-          font-size: 14px;
+          font-size: 10px;
           background-color: grey;
 
-          width: 100%;
+          width: 60%;
           display: inline-block;
-          border-radius: 3px;
+          border-radius: 50px;
           position: relative;
           margin: 15px 1px 1px 0px;
           }
           .message {
           float: left;
-          font-size: 14px;
+          font-size: 10px;
           background-color: #ffffff;
           padding: 10px;
           display: inline-block;
-          border-radius: 3px;
+          border-radius: 50px;
+          position: relative;
+          margin: 5px;    
+            
+                      
+            }
+            .bot-message2 {
+          float: left;
+          font-size: 10px;
+          background-color: grey;
+
+          width: 60%;
+          display: inline-block;
+          border-radius: 50px;
+          position: relative;
+          margin: 15px 1px 1px 0px;
+          }
+          .message2 {
+          float: left;
+          font-size: 10px;
+          background-color: #ffffff;
+          padding: 10px;
+          display: inline-block;
+          border-radius: 50px;
           position: relative;
           margin: 5px;    
             
@@ -274,7 +375,7 @@ else {echo "An error occored";}
   </style>
 
 
-<body>
+<body onload="welcome()">
   <div class="card ">
 
     <div class= "front">
@@ -319,7 +420,18 @@ else {echo "An error occored";}
 
     <div class = "smbox" id = "smbox">
       <p class = "myp">My Chatbot <span>-- #Train #Question</span></p>
-      <div class = "fwhite" id = "chatwindow"> 
+      <div class = "fwhite" id = "chatwindow">
+
+       <div></div>
+        <div class='bot-message2'>
+          <div>
+            <div class='message2'>
+              <p  style="margin: 0!important" >Hello i am Yuno</p>
+            </div>
+          </div>
+        </div>
+
+
         
       </div>
           <div class = "myinput" id= "myinput">
@@ -375,6 +487,9 @@ else {echo "An error occored";}
 
     });
     //]]>
+    // function welcome(){
+    //   document.getElementById('').innerHTML.style = >  
+    //    }
     </script>
 
 </body>
