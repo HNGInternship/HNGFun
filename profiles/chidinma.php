@@ -111,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			}
 
 		h3 {
-			font-size: 16px;
+			font-size: 15px;
 			font-weight: bold;
 			color: white;
 		}
