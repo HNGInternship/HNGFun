@@ -1,82 +1,93 @@
 
-
 <?php
+// require 'conn.php';
+
+// try{
+//    $sql = 'SELECT * FROM secret_word';
+//    $q = $conn->query($sql);
+//    $q->setFetchMode(PDO::FETCH_ASSOC);
+//    $data = $q->fetch();
+//    $secret_word= $data['secret_word'];
+// } catch (PDOException $e){
+//        throw $e;
+//    }
+
+
+// $result2 = $conn->query("Select * from interns_data where username = 'chidinma'");
+// $user = $result2->fetch(PDO::FETCH_OBJ);
+
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-        //die('Hi');
-          require('../db.php');
-       // $conn =  mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD,DB_DATABASE );
-
-       // $conn = new mysqli('localhost', 'root', 'root', 'hng_fun');    
-
-         
-
-         if(!$conn){
-          die('Unable to connect');
-        }
-        $question = $_POST['message'];
-        $pos = strpos($question, 'train:');
-
-
-        if($pos === false){
-            $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
-            $query = $conn->query($sql);
-            if($query){
+            require '../db.php';
+            //die('Hi');
+           // $conn = mysqli_connect( DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+            
+            if(!$conn){
                 echo json_encode([
-                    'results'=> $query->fetch_all()
+                'results'=> $query->fetch_all()
                 ]);
                 return;
             }
-        }else{
-            $trainer = substr($question,6 );
-            $data = explode('#', $trainer);
-            $data[0] = trim($data[0]);
-            $data[1] = trim($data[1]);
-            $data[2] = trim($data[2]);
-
-            if($data[2] == 'password'){
-
-                $sql = "INSERT INTO chatbot (question, answer)
-                VALUES ('$data[0]', '$data[1]')";
-
-
+            $question = $_POST['message'];
+            $pos = strpos($question, 'train:');
+    
+            if($pos === false){
+                $sql = "SELECT answer FROM chatbot WHERE question like '$question' ";
                 $query = $conn->query($sql);
                 if($query){
                     echo json_encode([
-                        'results'=> 'Trained Successfully'
+                        'results'=> $query->fetch_all()
                     ]);
                     return;
+                }
+            }else{
+                $trainer = substr($question,6 );
+                $data = explode('#', $trainer);
+                $data[0] = trim($data[0]);
+                $data[1] = trim($data[1]);
+                $data[2] = trim($data[2]);
+    
+                if($data[2] == 'password'){
+    
+                    $sql = "INSERT INTO chatbot (question, answer)
+                    VALUES ('$data[0]', '$data[1]')";
+    
+    
+                    $query = $conn->query($sql);
+                    if($query){
+                        echo json_encode([
+                            'results'=> 'Trained Successfully'
+                        ]);
+                        return;
+                    }else{
+                        echo json_encode([
+                            'results'=> 'Error training'
+                        ]);
+                        return;
+                    }
+                    
                 }else{
                     echo json_encode([
-                        'results'=> 'Error training'
+                        'results'=> 'Wrong Password'
                     ]);
                     return;
                 }
                 
-            }else{
-                echo json_encode([
-                    'results'=> 'Wrong Password'
-                ]);
-                return;
             }
             
+            echo json_encode([
+                'results'=>  'working'
+            ]);
+            
+        return ;
+        }else{
+            //echo 'HI';
+            //return;
         }
-        
-        echo json_encode([
-            'reply'=>  'working'
-        ]);
-        
-    return ;
-    }else{
-        //echo 'HI';
-        //return;
-    }
-    
-
 
 
 ?>
+
 
 <!DOCTYPE html>
 
@@ -262,8 +273,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 			
 		</div>
 
-
-    <script>
+  <script>
     function loadDoc() {
         //alert('Hello');
         var message = document.querySelector('#message');
@@ -305,6 +315,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         xhttp.send("message="+message.value);
     }
     </script>
+
 	</body>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
