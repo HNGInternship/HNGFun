@@ -1,11 +1,8 @@
 <?php
-function gettTime(){
-    date_default_timezone_set('Africa/Lagos');
-    return "The time is " . date("h:i:sa");
-}
-function getMyquote(){
+
+function getMypun(){
     $random = rand(0,11);
-    $quote = array("The past is always TENSE, the future PERFECT",
+    $pun = array("The past is always TENSE, the future PERFECT",
         "I will JOS go first because you play too much",
         "Why do virgins not like low men? Because they have HYMEN",
         "What if an atom says he's positive he lost an electron",
@@ -17,8 +14,9 @@ function getMyquote(){
         "If you jumped off the bridge in Paris, you will be in Seine",
         "A backward pet writes inverse",
         "The phone call interrupted my nap, I never did get the rest");
-    return $quote[$random];
-}function getmyJoke(){
+    return $pun[$random];
+}
+function getmyJoke(){
     $random = rand(0,6);
     $joke = array("Q. What is the biggest lie in the entire universe?
                A. I have read and agree to the Terms & Conditions.",
@@ -31,28 +29,28 @@ function getMyquote(){
         "PATIENT: Doctor, I need your help. I’m addicted to checking my Twitter!
     DOCTOR: I’m so sorry, I don’t follow.",
         "What’s the Gig Deal?
-        Have you heard of that new band “1023 Megabytes”? They’re pretty good, but they don’t have a gig just yet."
-    );
+        Have you heard of that new band “1023 Megabytes”? They’re pretty good, but they don’t have a gig just yet.");
     return $joke[$random];
 }
 session_start();
 if (!isset($_SESSION["all"])){
-    $_SESSION["all"] = [];
-}if(!defined('DB_USER')){
-    require_once "../../config.php";
-    $servername = DB_HOST;
-    $username = DB_USER;
-    $password = DB_PASSWORD;
+   $_SESSION["all"] = [];
+}
+if(!defined('DB_USER')){
+   require_once "../../config.php";
+   $servername = DB_HOST;
+   $username = DB_USER;
+   $password = DB_PASSWORD;
     $dbname = DB_DATABASE;
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    catch(PDOException $e)
-    {
-        echo "Connection failed: " . $e->getMessage();
-    }}
+   try {
+       $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        //set the PDO error mode to exception
+       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   }
+  catch(PDOException $e)
+     {
+      echo "Connection failed: " . $e->getMessage();
+      }} 
 global $conn;
 $solution = '';
 if (isset($_POST['restart'])){
@@ -116,11 +114,11 @@ function askQuestion($input)
             } else if (preg_match("/\b($time)\b/",$input)) {
                 return gettTime();
             } else if (preg_match('/\bhelp\b/',$input)) {
-                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Click on restart to clear our conversation and start again<br/>";
+                return "Enter train:yourquestion?#youranswer#password to add more questions to dummy me<br/>Enter 'joke','pun','Ask for my age'<br/>Click on restart to clear our conversation and start again<br/>";
             }else if($input=="you are mad"||$input == "you're mad"){
                 return "YOU ARE NOT ETHICAL";
-            }else if(preg_match("/\bquote\b/",$input)){
-                return getMyquote();
+            }else if(preg_match("/\bpun\b/",$input)){
+                return getMypun();
             }else if(preg_match("/\bjoke\b/",$input)){
                 return getmyJoke();
             }
@@ -151,43 +149,72 @@ function askQuestion($input)
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
-    <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
-    <!meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
+   <link id="css" rel="stylesheet" href="https://static.oracle.com/cdn/jet/v5.0.0/default/css/alta/oj-alta-min.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
         body{
-            background-color:#4169E1;
+		background-color:skyBlue;}
+		#center{
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 50%;
+		}
+		#time{
+			position:relative;
+			float: right;
+		}
+		
         }
         .sec1{
             margin-top: 300px;
             text-align: center;
             color: #fff;
             font-size: 5px;
-        }        .mycss
+        }        
+		.mycss
                  {
                      text-shadow:1px 3px 1px rgba(255,255,255,1);font-weight:bold;text-transform:uppercase;color:#000000;border: 5px ridge #FFFFFF;letter-spacing:5pt;word-spacing:2pt;font-size:20px;text-align:center;font-family:arial, helvetica, sans-serif;line-height:1;
                  }
+				 
+		#bot{
+			width:80%;
+			padding:30px;
+			text-align: center;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			font-size: 160%;
+			color: #fff;
+		}
     </style>
 </head>
 <body>
 
 
 <div>
-    <h1>Stage 1</h1>
-    <br>
-    <img src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_330,w_300/v1524842222/Snapchat-684128679.jpg">
+    <h1 style="font-size:500%; font-weight:bold;font-family:Gothic;text-align:center;color:white">HNG INTERNSHIP 2018</h1>
+	<h2 style="font-size:300%;text-align:center;color:white">Lexmill's Page<br>I am a python, Java and php developer</h2>
+	<br><br><br><br><hr>
+   <center><img style="border-radius:50%" class ="center" src="http://res.cloudinary.com/dtvv1oyyj/image/upload/c_fill,h_330,w_300/v1524842222/Snapchat-684128679.jpg"></center>
     <hr>
-    HNG Internship 2018<br>
-    <div class="oj-panel oj-panel-oj-panel-shadow-md"><?php
+    <br><br><br><br><br>
+	<div class = "bot">
+   <center> <div id="bot">
+	    <?php
         date_default_timezone_set('Africa/Lagos');
-        $currentDateTime = date('Y-m-d H:i:s');
-        echo $currentDateTime;
-        ?></h1></div><p class="oj-align-content-center">My name is : <?= "Leke!"?><br />My HNG username is : <?= "lexmill"?><br/><div class = "oj-flex-item oj-sm-10 oj-md-6 oj-lg-4">
-        </div>
-
-</div><form method="post">
+      $currentDate= date('d-m-Y'); 
+	  $currentTime = date('H:i:s');
+        echo 'Date: '.$currentDate.'<br>'.'Time: '.$currentTime; ?>
+		</div>
+	<p style="font-size:140%;text-align:center;color:white;text-decoration-style:dashed" id="bot"><i><font color="white">Meet my chatbot, Smart!!!<br><hr>To restart, click restart 'twice' as its our policy<br><hr>
+		Also, remember the scroll down as our answers can be rearranged to exercise you visually!</font></i></p><hr><br>
+	
+ <form method="post">
 <label>
     <input name="input" type="text" class="tb5"  placeholder="Chat with Smart!">
 </label><br><label>
+<br>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK">&nbsp&nbsp&nbsp<label>
        <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart Bot">
     </label>
@@ -201,7 +228,10 @@ function askQuestion($input)
     <?php foreach($_SESSION["all"] as list($asked,$soln )){ ?>
     <span style="color:greenyellow"><?=  "YOU : $soln <br/>";echo "</span>";echo "<span style=\"color:white\">";
         echo "BOT : $asked<br/>" ?><br/></span></p>
-<?php }?>
 
+</div>
+</div>
+<?php }?>
+	</center>
 </body>
 </html>
