@@ -165,8 +165,9 @@ if(!defined('DB_USER')){
           padding-top: 15px;
           width: 50%;
           height: 50vh;
+          visibility: hidden;
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-          transition: opacity 0.6s;
+          transition: visibility 3s;
         }
         .bot h3 {
           margin: 0 5px;
@@ -334,10 +335,12 @@ if(!defined('DB_USER')){
 
         function renderMessage(msg, className) {
           var messageNode = document.createElement('p');
+          //var time = Date.now("dd", "mm", "yyyy");
           messageNode.innerHTML = msg;
           messageNode.classList.add(className);
           chatArea.appendChild(messageNode);
           chatArea.scrollTop = 3000;
+          document.getElementById('message').value = null;
         }
 
         function checkMessage(msg) {
@@ -375,6 +378,7 @@ if(!defined('DB_USER')){
 
         function showBot() {
           document.getElementById('bot').style.display = 'block';
+          document.getElementById('bot').style.visibility = 'visible';
           document.getElementById('bot-button').style.display = 'none';
         }
 
