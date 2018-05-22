@@ -189,9 +189,9 @@ function askQuestion($input)
     <input name="input" type="text" class="tb5"  placeholder="Chat with Smart!">
 </label><br><label>
     <input name="button" type="submit"  class="btn btn-primary mb-2" id="button" value="ASK">&nbsp&nbsp&nbsp<label>
-        <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart">
+       <input name="restart" type="submit"  class="btn btn-primary mb-2"  id="button" value="Restart Bot">
     </label>
-</label>
+</label> 
 <br />
 
 
