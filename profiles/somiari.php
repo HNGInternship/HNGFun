@@ -44,16 +44,6 @@
 
 
 <?php
-		// require_once '../../config.php';
-		// require_once '../db.php';
-
-		// $result = $conn->query("Select * from secret_word LIMIT 1");
-		// $result = $result->fetch(PDO::FETCH_OBJ);
-		// $secret_word = $result->secret_word;
-
-		// $result2 = $conn->query("Select * from interns_data where username = 'somiari'");
-		// $user = $result2->fetch(PDO::FETCH_OBJ);
-
 	// Function to return Date
 	function respondDate(){
 		date_default_timezone_set("Africa/Lagos");
@@ -100,7 +90,7 @@
 				$execQuery = $conn->prepare($query);
 				if ($execQuery ->execute($chatbot) == true) {
 					// call a function that handles successful training response
-					echo repondTraining();
+					echo respondTraining();
 				};
 			} catch (PDOException $e) {
 				echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
@@ -110,13 +100,13 @@
 
 	// Returns random respond to training
 	// called if training is successful
-	function repondTraining(){
-		$repondTraining = array(  'Noted! Thank you for teaching me',
+	function respondTraining(){
+		$respondTraining = array(  'Noted! Thank you for teaching me',
 									'Acknowledged, thanks, really want to learn more',
 									'A million thanks, I\'m getting smarter',
 									'i\'m getting smarter, I really appreciate');
 		$index = mt_rand(0, 3);
-		return $anwerSam = $repondTraining[$index];
+		return $anwerSam = $respondTraining[$index];
 	} // respondTraining Ends Here
 
 
@@ -499,9 +489,9 @@
 			<form class="chat-box" id="ajax-contact" method="post" action="">
 				<span class="chat-box-header">Alan is not a bot</span>
 				<div class="chat-msgs">
-					<p class="alan">Hello! I'm Alan, and I am
+					<p class="alan">Hello! I am Alan, and I am
 						<del>not</del> a bot.</p>
-					<p class="alan">To teach me something, just type and send: train: question # answer # password</p>
+					<p class="alan">I'm a fast learner. To teach me something, just type and send: train: question # answer # password</p>
 				</div>
 				<div class="chat-type">
 					<textarea class="chat-msg" name="message" required></textarea>
@@ -511,9 +501,22 @@
 				</div>
 			</form>
 
+			<footer class=".footer">
+				<?php
+				date_default_timezone_set('Africa/Lagos');
+			?>
+				<span class="date">
+					<?php echo date("D. M d, Y"); ?>
+				</span>
+				<i class="icon fa fa-fw fa-clock-o"></i>
+				<span class="time">
+					<?php echo date("h:i a"); ?>
+				</span>
+			</footer>
+
 		</div>
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script> -->
+		<!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
 		<script>
 			const chatMsgs = document.querySelector(".chat-msgs");
 			const chatMsg = document.querySelector(".chat-msg");
@@ -572,6 +575,4 @@
 			}
 		</script>
 	</body>
-
 	</html>
-	<?php // } ?>
