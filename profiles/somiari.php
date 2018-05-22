@@ -1,170 +1,170 @@
 <?php
-	header("Access-Control-Allow-Origin: *");
-	if($_SERVER['REQUEST_METHOD'] === "GET"){
-		if(!defined('DB_USER')){
-			require "../../config.php";
-			try {
-			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
-			} catch (PDOException $pe) {
-			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
-			}
-		}
+// 	header("Access-Control-Allow-Origin: *");
+// 	if($_SERVER['REQUEST_METHOD'] === "GET"){
+// 		if(!defined('DB_USER')){
+// 			require "../../config.php";
+// 			try {
+// 			    $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
+// 			} catch (PDOException $pe) {
+// 			    die("Could not connect to the database " . DB_DATABASE . ": " . $pe->getMessage());
+// 			}
+// 		}
 
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
-		$stmt->execute();
+// 		$stmt = $conn->prepare("select secret_word from secret_word limit 1");
+// 		$stmt->execute();
 
-		$secret_word = null;
+// 		$secret_word = null;
 
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$secret_word = $row['secret_word'];
-		}
+// 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+// 		$rows = $stmt->fetchAll();
+// 		if(count($rows)>0){
+// 			$row = $rows[0];
+// 			$secret_word = $row['secret_word'];
+// 		}
 
-		$name = null;
-		$username = "somiari";
-		$image_filename = '';
+// 		$name = null;
+// 		$username = "somiari";
+// 		$image_filename = '';
 
-		$stmt = $conn->prepare("select * from interns_data where username = :username");
-		$stmt->bindParam(':username', $username);
-		$stmt->execute();
+// 		$stmt = $conn->prepare("select * from interns_data where username = :username");
+// 		$stmt->bindParam(':username', $username);
+// 		$stmt->execute();
 
-		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-		$rows = $stmt->fetchAll();
-		if(count($rows)>0){
-			$row = $rows[0];
-			$name = $row['name'];
-			$image_filename = $row['image_filename'];
-		}
-	}
+// 		$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+// 		$rows = $stmt->fetchAll();
+// 		if(count($rows)>0){
+// 			$row = $rows[0];
+// 			$name = $row['name'];
+// 			$image_filename = $row['image_filename'];
+// 		}
+// 	}
 ?>
 
 
 <?php
-	// Function to return Date
-	function respondDate(){
-		date_default_timezone_set("Africa/Lagos");
-		$time = date("Y/m/d");
-		$respondTime = array( 'Today\'s date is '.$time,
-								'it\'s '. $time,
-								'Today is '. $time,
-								$time);
-		$index = mt_rand(0, 3);
-		return $anwerSam = $respondTime[$index];
-	}// Date function ends here
+// 	// Function to return Date
+// 	function respondDate(){
+// 		date_default_timezone_set("Africa/Lagos");
+// 		$time = date("Y/m/d");
+// 		$respondTime = array( 'Today\'s date is '.$time,
+// 								'it\'s '. $time,
+// 								'Today is '. $time,
+// 								$time);
+// 		$index = mt_rand(0, 3);
+// 		return $anwerSam = $respondTime[$index];
+// 	}// Date function ends here
 
-	// Function to return Time
-	function respondTime(){
-		date_default_timezone_set("Africa/Lagos");
-		$time = date("h:i A");
-		$respondTime = array( 'The time is '.$time,
-								'it\'s '. $time,
-								$time);
-		$index = mt_rand(0, 2);
-		return $anwerSam = $respondTime[$index];
-	} // Time function ends here
+// 	// Function to return Time
+// 	function respondTime(){
+// 		date_default_timezone_set("Africa/Lagos");
+// 		$time = date("h:i A");
+// 		$respondTime = array( 'The time is '.$time,
+// 								'it\'s '. $time,
+// 								$time);
+// 		$index = mt_rand(0, 2);
+// 		return $anwerSam = $respondTime[$index];
+// 	} // Time function ends here
 
-	// function to train bot
-	// pass message as arguement
-	function trainAlan($newmessage){
-		require_once '../db.php';
-		$message = explode('#', $newmessage);
-		$question = explode(':', $message[0]);
-		$answer = $message[1];
-		$password = $message[2];
+// 	// function to train bot
+// 	// pass message as arguement
+// 	function trainAlan($newmessage){
+// 		require_once '../db.php';
+// 		$message = explode('#', $newmessage);
+// 		$question = explode(':', $message[0]);
+// 		$answer = $message[1];
+// 		$password = $message[2];
 
-		$question[1] = trim($question[1]); //triming off white spaces
-		$password = trim($password); //triming off white spaces
+// 		$question[1] = trim($question[1]); //triming off white spaces
+// 		$password = trim($password); //triming off white spaces
 
-		// check if password matches
-		if ($password != "password"){
-			echo "You are not authorized to train me.";
-		}else{
-			$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
-			$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
+// 		// check if password matches
+// 		if ($password != "password"){
+// 			echo "You are not authorized to train me.";
+// 		}else{
+// 			$chatbot= array(':id' => NULL, ':question' => $question[1], ':answer' => $answer);
+// 			$query = 'INSERT INTO chatbot ( id, question, answer) VALUES ( :id, :question, :answer)';
 
-			try {
-				$execQuery = $conn->prepare($query);
-				if ($execQuery ->execute($chatbot) == true) {
-					// call a function that handles successful training response
-					echo respondTraining();
-				};
-			} catch (PDOException $e) {
-				echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
-			} // End Catch
-		} // End Else
-	} // Train Function Ends here
+// 			try {
+// 				$execQuery = $conn->prepare($query);
+// 				if ($execQuery ->execute($chatbot) == true) {
+// 					// call a function that handles successful training response
+// 					echo respondTraining();
+// 				};
+// 			} catch (PDOException $e) {
+// 				echo "Oops! i did't get that, Something is wrong i guess, <br> please try again";
+// 			} // End Catch
+// 		} // End Else
+// 	} // Train Function Ends here
 
-	// Returns random respond to training
-	// called if training is successful
-	function respondTraining(){
-		$respondTraining = array(  'Noted! Thank you for teaching me',
-									'Acknowledged, thanks, really want to learn more',
-									'A million thanks, I\'m getting smarter',
-									'i\'m getting smarter, I really appreciate');
-		$index = mt_rand(0, 3);
-		return $anwerSam = $respondTraining[$index];
-	} // respondTraining Ends Here
+// 	// Returns random respond to training
+// 	// called if training is successful
+// 	function respondTraining(){
+// 		$respondTraining = array(  'Noted! Thank you for teaching me',
+// 									'Acknowledged, thanks, really want to learn more',
+// 									'A million thanks, I\'m getting smarter',
+// 									'i\'m getting smarter, I really appreciate');
+// 		$index = mt_rand(0, 3);
+// 		return $anwerSam = $respondTraining[$index];
+// 	} // respondTraining Ends Here
 
 
-	// Function to check if question is in database
-	// Returns 1 if question is not found in database
-	function checkDatabase($question){
-		try{
-			require_once '../db.php';
-			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
-			$stmt->execute();
+// 	// Function to check if question is in database
+// 	// Returns 1 if question is not found in database
+// 	function checkDatabase($question){
+// 		try{
+// 			require_once '../db.php';
+// 			$stmt = $conn->prepare('select answer FROM chatbot WHERE (question LIKE "%'.$question.'%") LIMIT 1');
+// 			$stmt->execute();
 
-			// checking if query retrieves data
-			if($stmt->rowCount() > 0){
-				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
-			}else{
-				return 1; // returns 1 is no data was retrieved
-			}
-		}catch (PDOException $e){
-			 echo "Error: " . $e->getMessage();
-		} // Catch Ends here
+// 			// checking if query retrieves data
+// 			if($stmt->rowCount() > 0){
+// 				while($row = $stmt->fetch(PDO::FETCH_ASSOC)){ echo $row["answer"];}
+// 			}else{
+// 				return 1; // returns 1 is no data was retrieved
+// 			}
+// 		}catch (PDOException $e){
+// 			 echo "Error: " . $e->getMessage();
+// 		} // Catch Ends here
 
-		$conn = null; // close database connection
-	}
+// 		$conn = null; // close database connection
+// 	}
 
-	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
-		// if (isset($_POST['message'])) {
-			if ($_SERVER["REQUEST_METHOD"] == "POST"){
+// 	//////////// CHATBOT STARTS HERE //////////////////////////////////////////////////////////////
+// 		// if (isset($_POST['message'])) {
+// 			if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-			// Retrieve form data from ajax
-			// Change message to all lowercase
-			// trim off white spaces
-			$message = trim(strtolower($_POST['message']));
+// 			// Retrieve form data from ajax
+// 			// Change message to all lowercase
+// 			// trim off white spaces
+// 			$message = trim(strtolower($_POST['message']));
 
-			//Analyse message to determine response
-			// if (strtok($message, ":") == "train"){
-				if (strpos($message, 'train') !== false) {
-					trainAlan($message); // Call function to handle training
-			}else if ($message != "" ){
-				// Check if question exist in database
-				// returns 1 if question does not exist in database
-				$tempVariable = checkDatabase($message);
+// 			//Analyse message to determine response
+// 			// if (strtok($message, ":") == "train"){
+// 				if (strpos($message, 'train') !== false) {
+// 					trainAlan($message); // Call function to handle training
+// 			}else if ($message != "" ){
+// 				// Check if question exist in database
+// 				// returns 1 if question does not exist in database
+// 				$tempVariable = checkDatabase($message);
 
-				if ($tempVariable == 1){
-					if ($message == "what is the time"){
-						echo respondTime();
-					}else if ($message == "today's date"){
-						echo respondDate();
-					}else{
-						echo "I didn't quite get that but I'm a fast learner.
-						To teach me something, just type and send:
-						train: question # answer # password";
-					} // end else
-				} // end if
-			}
-			die();
-		}
+// 				if ($tempVariable == 1){
+// 					if ($message == "what is the time"){
+// 						echo respondTime();
+// 					}else if ($message == "today's date"){
+// 						echo respondDate();
+// 					}else{
+// 						echo "I didn't quite get that but I'm a fast learner.
+// 						To teach me something, just type and send:
+// 						train: question # answer # password";
+// 					} // end else
+// 				} // end if
+// 			}
+// 			die();
+// 		}
 
-		// if ($_SERVER["REQUEST_METHOD"] == "GET"){
+// 		// if ($_SERVER["REQUEST_METHOD"] == "GET"){
 	?>
 
 	<!DOCTYPE html>
@@ -461,7 +461,7 @@
 			</figure>
 			<section class="title">
 				<h1 class="name">
-				<?php echo $name; ?>
+				Somiari Lucky Godwin
 				</h1>
 				<p class="labels">UI/UX and Web Developer.</p>
 			</section>
