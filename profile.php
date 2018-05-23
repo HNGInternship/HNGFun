@@ -1,11 +1,10 @@
 <!-- head here  -->
 <?php
    include_once("header.php");
-
+    require 'db.php';
    $profile_name = $_GET['id'];
 	$secret_word = "sample_secret_word";
 
-    require 'db.php';
 ?>
 <!-- Page Content -->
 </div>
@@ -17,7 +16,7 @@
 	
 	
 	// readfile('profiles/' . $profile_name. '.php');
-
+ $profile_name = 'balqees';
 	require('profiles/' . $profile_name. '.php');
 
 
