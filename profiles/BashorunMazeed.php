@@ -14,6 +14,7 @@
 	    $q = $conn->query($sql);
 	    $q->setFetchMode(PDO::FETCH_ASSOC);
 	    $data = $q->fetch();
+	    
 
 	    $secret_word = $data['secret_word'];
 		} catch (PDOException $e) {
@@ -550,7 +551,7 @@
    <div class="container">
    		<div id="page" class="row">
 	   		<div class="col-md-5 col-xs-12">
-	   			<img src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" class="img-responsive center-block">
+	   			<img src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg"  alt="Bashorun" class="img-responsive center-block">
 	   		</div>
 	   		
 	   		<div class="col-md-7 col-xs-12">
@@ -562,7 +563,7 @@
 				<center>
 		   			<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-comments"></i> ChatBot </h2>
 			        	<a href="#" class="open-btn" id="addClass"><i class="fa fa-comments" aria-hidden="true"></i> Click Here</a>
-	        	</center>s
+	        	</center>
 	   		</div>
 	   	</div>
    </div>
