@@ -14,6 +14,7 @@
 	    $q = $conn->query($sql);
 	    $q->setFetchMode(PDO::FETCH_ASSOC);
 	    $data = $q->fetch();
+	    
 
 	    $secret_word = $data['secret_word'];
 		} catch (PDOException $e) {
