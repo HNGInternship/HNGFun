@@ -4,7 +4,7 @@
          <div class="col-lg-8 col-md-10 mx-auto">
             <ul class="list-inline text-center">
                <li class="list-inline-item">
-                  <a id="twitter" href="https://twitter.com/hnginternship?lang=en" target="_blank">
+                  <a id="twitter" href="https://twitter.com/abayomijohn273" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -12,7 +12,7 @@
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="facebook" href="https://web.facebook.com/hotelsng/" target="_blank">
+                  <a id="facebook" href="https://www.facebook.com/abayomijohn1670" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -20,7 +20,7 @@
                   </a>
                </li>
                <li class="list-inline-item">
-                  <a id="github" href="https://github.com/HNGInternship/" target="_blank">
+                  <a id="github" href="https://github.com/abayomijohn273" target="_blank">
                      <span class="fa-stack fa-lg">
                         <i class="fa fa-circle fa-stack-2x"></i>
                         <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -36,9 +36,9 @@
 </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <!-- <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="crossorigin="anonymous"></script>
     <!-- Custom scripts for this template -->
     <script src="js/hng.min.js"></script>
 

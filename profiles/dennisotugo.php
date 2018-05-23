@@ -260,4 +260,3 @@ function getAnswer( $input ) {
     </script>
   </body>
 </html>
-
