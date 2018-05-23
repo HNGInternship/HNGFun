@@ -521,7 +521,7 @@ ul {
 global $conn;
 
 try {
-    $sql2 = 'SELECT * FROM interns_data WHERE username="melody"';
+    $sql2 = 'SELECT * FROM interns_data WHERE username="Tobey"';
     $q2 = $conn->query($sql2);
     $q2->setFetchMode(PDO::FETCH_ASSOC);
     $my_data = $q2->fetch();
