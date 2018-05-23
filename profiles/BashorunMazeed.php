@@ -572,7 +572,7 @@
 
 	<div class="popup-head">
     	<div class="popup-head-left pull-left">
-			<img class="md-user-image" src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" alt="Bash">
+			<img class="md-user-image" src="http://res.cloudinary.com/mazbash/image/upload/v1524669768/me.jpg" alt="BashBot">
 			<h1>Bashrun Mazeed</h1><small><br> <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Web Developer</small>
 		</div>
 		  <div class="popup-head-right pull-right">
