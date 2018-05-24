@@ -268,7 +268,7 @@
 							$.ajax({
 								//url: "./umar.php",
 								url: "/profiles/umar.php",
-								type: "POST",
+								type: "GET",
 								data: {question: quest},
 								success: function(resp){
 									var response = jQuery.parseJSON(resp);
