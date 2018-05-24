@@ -1,7 +1,7 @@
 <?php
 
 	if(!defined('DB_USER')){
-	  require "../config.php";		
+	  require "../../config.php";		
 	  try {
 	      $conn = new PDO("mysql:host=". DB_HOST. ";dbname=". DB_DATABASE , DB_USER, DB_PASSWORD);
 	  } catch (PDOException $pe) {
@@ -414,9 +414,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 					//after appending user question, send it to server for processing
 				$.ajax({
-						url: "/profiles/Rita12.php",
+						url: "/profiles/Rita12",
 						dataType : "json",
-						type: "POST",
+						type: "GET",
 						data: {question: question},
 						success: function(data) {
 							if(data.status == 1){
