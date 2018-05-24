@@ -16,19 +16,18 @@ if (!$conn) {
 }
 else{
 //for debugging conncection
-    
 }
   global $conn;
 
 //end of connection
-
+if(!defined('DB_USER')){
        
   try {
       $connn = new PDO("mysql:host=". DB_HOST. ";dbname=".DB_DATABASE , DB_USER, DB_PASSWORD);
   } catch (PDOException $pe) {
       die("Could not connect to the database " .DB_DATABASE . ": " . $pe->getMessage());
   }
-
+}
 
       $question = $_POST['chatMessage'];
       
@@ -41,7 +40,7 @@ $r = mysqli_query($conn, $q);
 
 if (mysqli_num_rows($r) > 0)
     {   
-        $sql = "select * from chatbot where question like :question";
+      $sql = "select * from chatbot where question like :question";
       $query = $connn->prepare($sql);
       $query->execute([':question' => $question]);
       $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -74,7 +73,6 @@ if (mysqli_num_rows($r) > 0)
 
 
 else{
-   
 
     $answer = "WOAH! I'll get there...just train me using the format; train : yourquestion # your answer # password";
     echo $answer;
@@ -122,7 +120,7 @@ function trainJobot($question, $conn){
 
     $pass = trim($pass);
 
-    if ($pass === "password")
+    if ($pass === "trainpwforhng")
     {
     $train_query = "INSERT INTO chatbot (question, answer)
                     VALUES ('$ques', '$ans')";
@@ -131,7 +129,7 @@ function trainJobot($question, $conn){
 
     }
     else{
-        echo "You Are Not Allowed To Train Me";
+        echo "You Are Not Allowed To Train Me".$pass;
     }
 }
 

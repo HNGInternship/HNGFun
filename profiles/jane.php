@@ -82,18 +82,18 @@
 			#imgbox{
 				display: block;
 				margin-top: 50px;
-				width: 150px;
+				/* width: 150px; */
 				height: 150px;
 				overflow: hidden;
-				margin-right: auto;
-				margin-left: auto;
+				padding-right: 0;
+				padding-left: 0;
 				text-align: center;
-				border-radius: 50%;
+				/* border-radius: 50%; */
 				padding-bottom: 20px;
 			}
 
 			#imgbox img{
-				image-orientation: from-image;
+				transform: rotate(-90deg);
 			}
 
 			@media (min-width:768px){
@@ -110,13 +110,13 @@
 				#imgbox{
 					display: block;
 					margin-top: 100px;
-					width: 150px;
+					/* width: 150px; */
 					height: 150px;
 					overflow: hidden;
-					margin-right: auto;
-					margin-left: auto;
+					padding-right: 0;
+					padding-left: 0;
 					text-align: center;
-					border-radius: 50%;
+					/* border-radius: 50%; */
 					padding-bottom: 20px;
 				}
 
@@ -388,7 +388,7 @@
 
 				<div>
 					<div class="col-xs-6 col-sm-4 col-md-7"></div>
-					<div id="bot" class="col-xs-6 col-sm-8 col-md-5">
+					<div id="bot" class="col-xs-12 col-sm-8 col-md-6">
 						<div class="row">
 							<div id="bot-header" class="col-xs-12">
 								<span>HNG CHAT BOT</span>
@@ -472,7 +472,7 @@
 
 					else{
 						$.ajax({
-							url: "./profiles/jane",
+							url: "/profiles/jane",
 							type: "POST",
 							data: {chat: a},
 							success: function(data){
